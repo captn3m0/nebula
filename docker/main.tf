@@ -23,6 +23,11 @@ resource "docker_image" "couchpotato" {
   pull_triggers = ["${data.docker_registry_image.couchpotato.sha256_digest}"]
 }
 
+resource "docker_image" "traefik" {
+  name          = "${data.docker_registry_image.traefik.name}"
+  pull_triggers = ["${data.docker_registry_image.traefik.sha256_digest}"]
+}
+
 resource "docker_volume" "mariadb_volume" {
   name = "mariadb_volume"
 }
@@ -203,4 +208,44 @@ resource "docker_container" "couchpotato" {
     "PGID=1003",
     "TZ=Asia/Kolkata",
   ]
+}
+
+resource "docker_container" "traefik" {
+  name  = "traefik"
+  image = "${docker_image.traefik.latest}"
+
+  ports {
+    internal  = 1111
+    external  = 1111
+    ip        = "192.168.1.111"
+  }
+
+  ports {
+    internal  = 80
+    external  = 8888
+    ip        = "192.168.1.111"
+  }
+
+  provisioner "file" {
+    source      = "./docker/conf/traefik.toml"
+    destination = "/mnt/xwing/config/traefik/traefik.toml"
+
+    connection {
+      type     = "ssh"
+      user     = "nemo"
+      password = ""
+      host     = "192.168.1.111"
+      timeout  = 5
+    }
+  }
+
+  volumes {
+    host_path         = "/mnt/xwing/config/traefik"
+    container_path    = "/etc/traefik"
+  }
+
+  volumes {
+    host_path         = "/var/run/docker.sock"
+    container_path    = "/var/run/docker.sock"
+  }
 }

@@ -17,3 +17,7 @@ data "docker_registry_image" "flexget" {
 data "docker_registry_image" "couchpotato" {
   name = "linuxserver/couchpotato:latest"
 }
+
+data "docker_registry_image" "traefik" {
+  name = "traefik:latest"
+}
