@@ -39,6 +39,12 @@ resource docker_container "transmission" {
   ports {
     internal = 9091
     external = 9091
+    ip       = "192.168.1.111"
+  }
+
+  ports {
+    internal = 9091
+    external = 9091
     ip       = "10.8.0.14"
   }
 
