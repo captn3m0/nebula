@@ -77,8 +77,9 @@ resource docker_container "transmission" {
   ]
 
   memory = 512
-
-  restart = "on-failure"
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
 }
 
 resource "docker_container" "mariadb" {
@@ -98,8 +99,9 @@ resource "docker_container" "mariadb" {
   }
 
   memory = 512
-
-  restart = "on-failure"
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
 
   env = [
     "MYSQL_ROOT_PASSWORD=${var.mysql_root_password}",
@@ -127,8 +129,9 @@ resource "docker_container" "emby" {
   }
 
   memory = 512
-
-  restart = "on-failure"
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
 
   # Running as lounge:tatooine
   env = [
@@ -165,9 +168,10 @@ resource "docker_container" "flexget" {
     ip       = "0.0.0.0"
   }
 
-  memory = 512
-
-  restart = "on-failure"
+  memory = 128
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
 
   # Running as lounge:tatooine
   env = [
@@ -204,9 +208,10 @@ resource "docker_container" "couchpotato" {
     ip       = "0.0.0.0"
   }
 
-  memory = 512
-
-  restart = "on-failure"
+  memory = 128
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
 
   # Running as lounge:tatooine
   env = [
@@ -232,26 +237,24 @@ resource "docker_container" "traefik" {
     ip        = "192.168.1.111"
   }
 
-  provisioner "file" {
-    source      = "./docker/conf/traefik.toml"
-    destination = "/mnt/xwing/config/traefik/traefik.toml"
-
-    connection {
-      type     = "ssh"
-      user     = "nemo"
-      password = ""
-      host     = "192.168.1.111"
-      timeout  = 5
-    }
-  }
-
-  volumes {
-    host_path         = "/mnt/xwing/config/traefik"
-    container_path    = "/etc/traefik"
+  upload {
+    content = <<EOF
+[web]
+address = ":1111"
+[docker]
+domain = "docker.in.bb8.fun"
+watch = true
+EOF
+    file = "/etc/traefik/traefik.toml"
   }
 
   volumes {
     host_path         = "/var/run/docker.sock"
     container_path    = "/var/run/docker.sock"
   }
+
+  memory = 256
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
 }
