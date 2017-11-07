@@ -27,6 +27,8 @@ resource "cloudflare_record" "internet-wildcard" {
   type   = "CNAME"
 }
 
+### 2 useless records
+
 resource "cloudflare_record" "act" {
   domain = "${var.domain}"
   name   = "act"
@@ -40,6 +42,10 @@ resource "cloudflare_record" "act-wildcard" {
   value  = "${var.act_ip}"
   type   = "A"
 }
+
+########################
+## Mailgun Mailing Lists
+########################
 
 resource "cloudflare_record" "mailgun-spf" {
   domain = "${var.domain}"

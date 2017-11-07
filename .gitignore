@@ -3,3 +3,4 @@ env.sh
 *.tfstate
 *.tfstate.backup
 *.out
+*.backup

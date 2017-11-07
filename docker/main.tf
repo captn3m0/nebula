@@ -36,16 +36,9 @@ resource docker_container "transmission" {
   name  = "transmission"
   image = "${docker_image.transmission.latest}"
 
-  ports {
-    internal = 9091
-    external = 9091
-    ip       = "192.168.1.111"
-  }
-
-  ports {
-    internal = 9091
-    external = 9091
-    ip       = "10.8.0.14"
+  labels {
+    "traefik.port" = 9091
+    "traefik.enable" = "true"
   }
 
   ports {
@@ -122,10 +115,9 @@ resource "docker_container" "emby" {
     container_path = "/media"
   }
 
-  ports {
-    internal = 8096
-    external = 8096
-    ip       = "0.0.0.0"
+  labels {
+    "traefik.port" = 8096
+    "traefik.enable" = "true"
   }
 
   memory = 512
@@ -162,10 +154,9 @@ resource "docker_container" "flexget" {
     container_path = "/tv"
   }
 
-  ports {
-    internal = 5050
-    external = 5050
-    ip       = "0.0.0.0"
+  labels {
+    "traefik.port" = 5050
+    "traefik.enable" = "true"
   }
 
   memory = 128
@@ -202,10 +193,9 @@ resource "docker_container" "couchpotato" {
     container_path = "/movies"
   }
 
-  ports {
-    internal = 5050
-    external = 5051
-    ip       = "0.0.0.0"
+  labels {
+    "traefik.port" = 5050
+    "traefik.enable" = "true"
   }
 
   memory = 128
@@ -242,8 +232,9 @@ resource "docker_container" "traefik" {
 [web]
 address = ":1111"
 [docker]
-domain = "docker.in.bb8.fun"
+domain = "in.bb8.fun,bb8.fun"
 watch = true
+exposedbydefault = false
 EOF
     file = "/etc/traefik/traefik.toml"
   }
