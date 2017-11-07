@@ -40,3 +40,33 @@ resource "cloudflare_record" "act-wildcard" {
   value  = "${var.act_ip}"
   type   = "A"
 }
+
+resource "cloudflare_record" "mailgun-spf" {
+  domain = "${var.domain}"
+  name   = "l"
+  value  = "v=spf1 include:mailgun.org ~all"
+  type   = "TXT"
+}
+
+resource "cloudflare_record" "mailgun-dkim" {
+  domain = "${var.domain}"
+  name   = "k1._domainkey.l"
+  value  = "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnbP+IQkuPkgmUhpqCKzIdDSZ0HazaMp+cdBH++LBed8oY8/jmV8BhxMp5JwyePzRTxneT8ASsRtcp7CQ3z4nMC7aFX0kH6Bnu2v+u2JWudxs8x0I02OrPbSaQ5QVQdbAaCUCEfCQ06LJsn8aqPNrRIOWEMnxln+ebFJ0wKGscFQIDAQAB"
+  type   = "TXT"
+}
+
+resource "cloudflare_record" "mailgun-mxa" {
+  domain = "${var.domain}"
+  name   = "l"
+  value  = "mxa.mailgun.org"
+  type   = "MX"
+  priority = 10
+}
+
+resource "cloudflare_record" "mailgun-mxb" {
+  domain = "${var.domain}"
+  name   = "l"
+  value  = "mxb.mailgun.org"
+  type   = "MX"
+  priority = 20
+}
