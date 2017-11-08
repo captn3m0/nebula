@@ -41,6 +41,39 @@ resource docker_container "transmission" {
   must_run = true
 }
 
+resource docker_container "gitea" {
+  name  = "gitea"
+  image = "${docker_image.gitea.latest}"
+
+  labels {
+    "traefik.port" = 3000
+    "traefik.enable" = "true"
+  }
+
+  ports {
+    internal = 22
+    external = 2222
+    ip       = "192.168.1.111"
+  }
+
+  ports {
+    internal = 22
+    external = 2222
+    ip       = "10.8.0.14"
+  }
+
+  volumes {
+    volume_name    = "${docker_volume.gitea_volume.name}"
+    container_path = "/data"
+    host_path      = "${docker_volume.gitea_volume.mountpoint}"
+  }
+
+  memory = 256
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
+}
+
 resource "docker_container" "mariadb" {
   name  = "mariadb"
   image = "${docker_image.mariadb.latest}"
@@ -86,7 +119,7 @@ resource "docker_container" "emby" {
     "traefik.enable" = "true"
   }
 
-  memory = 512
+  memory = 1024
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true

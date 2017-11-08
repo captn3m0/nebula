@@ -21,3 +21,7 @@ data "docker_registry_image" "couchpotato" {
 data "docker_registry_image" "traefik" {
   name = "traefik:latest"
 }
+
+data "docker_registry_image" "gitea" {
+  name = "gitea/gitea:latest"
+}
