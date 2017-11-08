@@ -1,5 +1,6 @@
 provider "docker" {
-  host = "tcp://nemo:${var.docker_pass}@docker.in.bb8.fun:80/"
+  host = "tcp://docker.in.bb8.fun:2376"
+  cert_path  = "./secrets"
 }
 
 provider "cloudflare" {

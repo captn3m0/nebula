@@ -4,3 +4,4 @@ env.sh
 *.tfstate.backup
 *.out
 *.backup
+secrets
