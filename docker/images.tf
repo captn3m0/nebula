@@ -32,3 +32,8 @@ resource "docker_image" "gitea" {
   name          = "${data.docker_registry_image.gitea.name}"
   pull_triggers = ["${data.docker_registry_image.gitea.sha256_digest}"]
 }
+
+resource "docker_image" "sickrage" {
+  name          = "${data.docker_registry_image.sickrage.name}"
+  pull_triggers = ["${data.docker_registry_image.sickrage.sha256_digest}"]
+}

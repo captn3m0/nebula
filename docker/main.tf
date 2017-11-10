@@ -35,7 +35,7 @@ resource docker_container "transmission" {
     "TZ=Asia/Kolkata",
   ]
 
-  memory = 512
+  memory = 256
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
@@ -119,7 +119,7 @@ resource "docker_container" "emby" {
     "traefik.enable" = "true"
   }
 
-  memory = 1024
+  memory = 2048
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
@@ -158,7 +158,7 @@ resource "docker_container" "flexget" {
     "traefik.enable" = "true"
   }
 
-  memory = 128
+  memory = 256
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
@@ -197,7 +197,7 @@ resource "docker_container" "couchpotato" {
     "traefik.enable" = "true"
   }
 
-  memory = 128
+  memory = 256
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
@@ -247,4 +247,36 @@ EOF
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
+}
+
+
+resource "docker_container" "sickrage" {
+  name  = "sickrage"
+  image = "${docker_image.sickrage.latest}"
+
+  volumes {
+    host_path      = "/mnt/xwing/config/sickrage"
+    container_path = "/config"
+  }
+
+  volumes {
+    host_path      = "/mnt/xwing/media/DL"
+    container_path = "/downloads"
+  }
+
+  volumes {
+    host_path      = "/mnt/xwing/media/TV"
+    container_path = "/tv"
+  }
+
+  labels {
+    "traefik.port" = 8081
+    "traefik.enable" = "true"
+  }
+
+  env = [
+    "PGID=1003",
+    "PUID=1000",
+    "TZ=Asia/Kolkata",
+  ]
 }

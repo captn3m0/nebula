@@ -25,3 +25,7 @@ data "docker_registry_image" "traefik" {
 data "docker_registry_image" "gitea" {
   name = "gitea/gitea:latest"
 }
+
+data "docker_registry_image" "sickrage" {
+  name = "linuxserver/sickrage:latest"
+}
