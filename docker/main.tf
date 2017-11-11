@@ -254,6 +254,10 @@ resource "docker_container" "sickrage" {
   name  = "sickrage"
   image = "${docker_image.sickrage.latest}"
 
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
+
   volumes {
     host_path      = "/mnt/xwing/config/sickrage"
     container_path = "/config"
