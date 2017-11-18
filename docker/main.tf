@@ -29,6 +29,11 @@ resource docker_container "transmission" {
     container_path = "/watch"
   }
 
+  upload {
+    content = "${file("${path.module}/conf/transmission.json")}"
+    file    = "/config/settings.json"
+  }
+
   env = [
     "PGID=1003",
     "PUID=1000",
@@ -227,15 +232,8 @@ resource "docker_container" "traefik" {
   }
 
   upload {
-    content = <<EOF
-[web]
-address = ":1111"
-[docker]
-domain = "in.bb8.fun,bb8.fun"
-watch = true
-exposedbydefault = false
-EOF
-    file = "/etc/traefik/traefik.toml"
+    content = "${file("${path.module}/conf/traefik.toml")}"
+    file    = "/etc/traefik/traefik.toml"
   }
 
   volumes {
