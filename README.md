@@ -8,7 +8,7 @@ Manages the local infrastructure of my home server.
 
 1. docker: to actually run the services
 2. cloudflare: to manage the DNS
-3. mysql: unused
+3. mysql: unused, but setup
 
 Self-learning project for terraform
 

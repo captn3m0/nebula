@@ -29,3 +29,7 @@ data "docker_registry_image" "gitea" {
 data "docker_registry_image" "sickrage" {
   name = "linuxserver/sickrage:latest"
 }
+
+data "docker_registry_image" "airsonic" {
+  name = "airsonic/airsonic:latest"
+}

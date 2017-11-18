@@ -37,3 +37,8 @@ resource "docker_image" "sickrage" {
   name          = "${data.docker_registry_image.sickrage.name}"
   pull_triggers = ["${data.docker_registry_image.sickrage.sha256_digest}"]
 }
+
+resource "docker_image" "airsonic" {
+  name          = "${data.docker_registry_image.airsonic.name}"
+  pull_triggers = ["${data.docker_registry_image.airsonic.sha256_digest}"]
+}

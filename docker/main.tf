@@ -250,6 +250,46 @@ EOF
 }
 
 
+resource "docker_container" "airsonic" {
+  name  = "airsonic"
+  image = "${docker_image.airsonic.latest}"
+
+  restart = "unless-stopped"
+  destroy_grace_seconds = 30
+  must_run = true
+  user = "1004"
+
+  volumes {
+    host_path      = "/mnt/xwing/config/airsonic/data"
+    container_path = "/airsonic/data"
+  }
+
+  volumes {
+    host_path      = "/mnt/xwing/media/Music"
+    container_path = "/airsonic/music"
+  }
+
+  volumes {
+    host_path      = "/mnt/xwing/config/airsonic/playlists"
+    container_path = "/airsonic/playlists"
+  }
+
+  volumes {
+    host_path      = "/mnt/xwing/config/airsonic/podcasts"
+    container_path = "/airsonic/podcasts"
+  }
+
+  labels {
+    "traefik.port" = 4040
+    "traefik.enable" = "true"
+  }
+
+  # ports {
+  #   internal = 4040
+  #   external = 4040
+  # }
+}
+
 resource "docker_container" "sickrage" {
   name  = "sickrage"
   image = "${docker_image.sickrage.latest}"
