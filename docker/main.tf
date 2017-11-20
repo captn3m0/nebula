@@ -231,6 +231,12 @@ resource "docker_container" "traefik" {
     ip        = "192.168.1.111"
   }
 
+  ports {
+    internal  = 80
+    external  = 8888
+    ip        = "10.8.0.14"
+  }
+
   upload {
     content = "${file("${path.module}/conf/traefik.toml")}"
     file    = "/etc/traefik/traefik.toml"
