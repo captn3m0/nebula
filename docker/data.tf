@@ -23,7 +23,7 @@ data "docker_registry_image" "traefik" {
 }
 
 data "docker_registry_image" "gitea" {
-  name = "gitea/gitea:latest"
+  name = "gitea/gitea:1.3.0-rc1"
 }
 
 data "docker_registry_image" "sickrage" {
@@ -32,4 +32,8 @@ data "docker_registry_image" "sickrage" {
 
 data "docker_registry_image" "airsonic" {
   name = "airsonic/airsonic:latest"
+}
+
+data "docker_registry_image" "wikijs" {
+  name = "requarks/wiki:latest"
 }
