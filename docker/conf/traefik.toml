@@ -2,8 +2,8 @@ defaultEntryPoints = ["http", "https"]
 [entryPoints]
 [entryPoints.http]
   address = ":80"
-[entryPoints.http.auth.basic]
-  users = ["tatooine:$2y$05$ZK3.EVeaBi.IQAzZbmchiuaI6mhdDktnoLsQ8iI0K2727OjLDMLFO"]
+  [entryPoints.http.redirect]
+    entryPoint = "https"
 [entryPoints.https]
   address = ":443"
   # This is required for ACME support
@@ -16,6 +16,9 @@ defaultEntryPoints = ["http", "https"]
 [backends.ebooks.servers.default]
   url = "http://192.168.1.111:2202"
 
+# This is currently not exposed
+# Since I can't apply a authentication
+# on this yet
 [backends.elibsrv]
 [backends.elibsrv.servers.default]
   url = "http://elibsrv.captnemo.in:90"
@@ -28,6 +31,7 @@ defaultEntryPoints = ["http", "https"]
 
 [frontends.ebooks]
   backend = "ebooks"
+  passHostHeader = true
 [frontends.ebooks.routes.domain]
   rule = "Host:ebooks.in.bb8.fun,ebooks.bb8.fun"
 
@@ -46,17 +50,32 @@ email = "acme@captnemo.in"
 storage = "/acme/acme.json"
 entryPoint = "https"
 dnsProvider = "cloudflare"
-onHostRule = true
-onDemand   = true
+onHostRule = false
+onDemand   = false
 
 # Waiting till december to get wildcard SSL on LE
-# [[acme.domains]]
-# main = "bb8.fun"
-# sans = ["*.bb8.fun"]
+[[acme.domains]]
+main = "in.bb8.fun"
+sans = ["emby.in.bb8.fun", "airsonic.in.bb8.fun", "muximux.in.bb8.fun", "home.in.bb8.fun"]
 
-# [docker]
-#   domain = "in.bb8.fun,bb8.fun"
-#   watch = true
-#   exposedbydefault = false
+[[acme.domains]]
+main = "bb8.fun"
+sans = [
+  "transmission.bb8.fun",
+  "emby.bb8.fun",
+  "flexget.bb8.fun",
+  "couchpotato.bb8.fun",
+  "traefik.bb8.fun",
+  "airsonic.bb8.fun",
+  "headphones.bb8.fun",
+  "wiki.bb8.fun",
+  "muximux.bb8.fun",
+  "home.bb8.fun",
+  "ebooks.bb8.fun",
+]
 
+[docker]
+  domain = "bb8.fun"
+  watch = true
+  exposedbydefault = false
 

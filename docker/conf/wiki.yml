@@ -23,7 +23,7 @@ host: http://wiki.in.bb8.fun:8888
 # ---------------------------------------------------------------------
 # To use process.env.PORT, comment the line below:
 
-port: 3000
+port: 9999
 
 # ---------------------------------------------------------------------
 # Data Directories
@@ -78,7 +78,7 @@ sessionSecret: 83941e2642ff1feafa410f35497c4ac6bc28d3226ca438225319ae1c9e670cdb
 # Database Connection String
 # ---------------------------------------------------------------------
 
-db: mongodb://mongo:27017/wiki
+db: mongodb://192.168.1.111:27017/wiki
 
 # ---------------------------------------------------------------------
 # Git Connection Info

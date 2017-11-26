@@ -3,6 +3,7 @@ resource docker_container "transmission" {
   image = "${docker_image.transmission.latest}"
 
   labels {
+    "traefik.frontend.auth.basic" = "${var.basic_auth}"
     "traefik.port" = 9091
     "traefik.enable" = "true"
   }
@@ -120,6 +121,9 @@ resource "docker_container" "emby" {
   }
 
   labels {
+    "traefik.frontend.rule" = "Host:emby.in.bb8.fun,emby.bb8.fun"
+    "traefik.frontend.passHostHeader" = "true"
+    "traefik.frontend.auth.basic" = "${var.basic_auth}"
     "traefik.port" = 8096
     "traefik.enable" = "true"
   }
@@ -159,6 +163,7 @@ resource "docker_container" "flexget" {
   }
 
   labels {
+    "traefik.frontend.auth.basic" = "${var.basic_auth}"
     "traefik.port" = 5050
     "traefik.enable" = "true"
   }
@@ -198,6 +203,7 @@ resource "docker_container" "couchpotato" {
   }
 
   labels {
+    "traefik.frontend.auth.basic" = "${var.basic_auth}"
     "traefik.port" = 5050
     "traefik.enable" = "true"
   }
@@ -295,6 +301,7 @@ resource "docker_container" "airsonic" {
   destroy_grace_seconds = 30
   must_run = true
   user = "1004"
+  memory = 512
 
   volumes {
     host_path      = "/mnt/xwing/config/airsonic/data"
@@ -317,6 +324,8 @@ resource "docker_container" "airsonic" {
   }
 
   labels {
+    "traefik.frontend.rule" = "Host:airsonic.in.bb8.fun,airsonic.bb8.fun"
+    "traefik.frontend.passHostHeader" = "false"
     "traefik.port" = 4040
     "traefik.enable" = "true"
   }
@@ -329,6 +338,7 @@ resource "docker_container" "sickrage" {
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
+  memory = 256
 
   volumes {
     host_path      = "/mnt/xwing/config/sickrage"
@@ -346,6 +356,8 @@ resource "docker_container" "sickrage" {
   }
 
   labels {
+    "traefik.frontend.passHostHeader" = "false"
+    "traefik.frontend.auth.basic" = "${var.basic_auth}"
     "traefik.port" = 8081
     "traefik.enable" = "true"
   }
@@ -364,6 +376,7 @@ resource "docker_container" "headphones" {
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
+  memory = 128
 
   volumes {
     host_path      = "/mnt/xwing/config/headphones"
@@ -381,6 +394,7 @@ resource "docker_container" "headphones" {
   }
 
   labels {
+    "traefik.frontend.auth.basic" = "${var.basic_auth}"
     "traefik.port" = 8181
     "traefik.enable" = "true"
   }
@@ -410,7 +424,12 @@ resource "docker_container" "wiki" {
 
   volumes {
     host_path       = "/mnt/xwing/data/wiki/data"
-    container_path = "/data"
+    container_path  = "/data"
+  }
+
+  volumes {
+    host_path       = "/mnt/xwing/logs/wiki"
+    container_path  = "/logs"
   }
 
   volumes {
@@ -419,15 +438,13 @@ resource "docker_container" "wiki" {
   }
 
   labels {
-    "traefik.port" = 3000
+    "traefik.port" = 9999
     "traefik.enable" = "true"
   }
 
   env = [
     "WIKI_ADMIN_EMAIL=me@captnemo.in",
   ]
-
-  links = ["mongo"]
 }
 
 resource "docker_container" "mongo" {
@@ -437,17 +454,26 @@ resource "docker_container" "mongo" {
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
+  memory = 256
 
   volumes {
     volume_name    = "${docker_volume.mongo_data_volume.name}"
     container_path = "/data/db"
     host_path      = "${docker_volume.mongo_data_volume.mountpoint}"
   }
+
+  ports {
+    internal = 27017
+    external = 27017
+    ip       = "192.168.1.111"
+  }
+
 }
 
 resource "docker_container" "muximux" {
   name  = "muximux"
   image = "${docker_image.muximux.latest}"
+  memory = 64
 
   restart = "unless-stopped"
   destroy_grace_seconds = 10
@@ -460,6 +486,9 @@ resource "docker_container" "muximux" {
   }
 
   labels {
+    "traefik.frontend.rule" = "Host:home.in.bb8.fun,home.bb8.fun"
+    "traefik.frontend.passHostHeader" = "false"
+    "traefik.frontend.auth.basic" = "${var.basic_auth}"
     "traefik.port" = 80
     "traefik.enable" = "true"
   }
