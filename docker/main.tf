@@ -287,11 +287,6 @@ resource "docker_container" "airsonic" {
     "traefik.port" = 4040
     "traefik.enable" = "true"
   }
-
-  # ports {
-  #   internal = 4040
-  #   external = 4040
-  # }
 }
 
 resource "docker_container" "sickrage" {
