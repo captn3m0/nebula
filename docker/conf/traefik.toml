@@ -47,6 +47,8 @@ storage = "/acme/acme.json"
 entryPoint = "https"
 dnsProvider = "cloudflare"
 onHostRule = true
+onDemand   = true
+
 # Waiting till december to get wildcard SSL on LE
 # [[acme.domains]]
 # main = "bb8.fun"
@@ -56,3 +58,5 @@ onHostRule = true
 #   domain = "in.bb8.fun,bb8.fun"
 #   watch = true
 #   exposedbydefault = false
+
+

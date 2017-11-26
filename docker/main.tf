@@ -233,6 +233,13 @@ resource "docker_container" "traefik" {
     ip        = "192.168.1.111"
   }
 
+  # Local Web Server
+  ports {
+    internal  = 80
+    external  = 80
+    ip        = "192.168.1.111"
+  }
+
   # Local Web Server (HTTPS)
   ports {
     internal  = 443
