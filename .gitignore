@@ -1,4 +1,5 @@
-env.sh
+*.tfvars
+.terraform.tfstate.lock.info
 .terraform
 *.tfstate
 *.tfstate.backup

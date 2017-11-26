@@ -24,4 +24,6 @@ module "docker" {
   web_username = "${var.web_username}"
   web_password = "${var.web_password}"
   mysql_root_password = "${var.mysql_root_password}"
+  cloudflare_key = "${var.cloudflare_key}"
+  cloudflare_email = "bb8@captnemo.in"
 }

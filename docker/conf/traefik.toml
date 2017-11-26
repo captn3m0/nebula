@@ -1,6 +1,58 @@
+defaultEntryPoints = ["http", "https"]
+[entryPoints]
+[entryPoints.http]
+  address = ":80"
+[entryPoints.http.auth.basic]
+  users = ["tatooine:$2y$05$ZK3.EVeaBi.IQAzZbmchiuaI6mhdDktnoLsQ8iI0K2727OjLDMLFO"]
+[entryPoints.https]
+  address = ":443"
+  # This is required for ACME support
+  [entryPoints.https.tls]
+
+[file]
+[backends]
+
+[backends.ebooks]
+[backends.ebooks.servers.default]
+  url = "http://192.168.1.111:2202"
+
+[backends.elibsrv]
+[backends.elibsrv.servers.default]
+  url = "http://elibsrv.captnemo.in:90"
+
+[backends.scan]
+[backends.scan.servers.default]
+  url = "http://scan.in.bb8.fun:90"
+
+[frontends]
+
+[frontends.ebooks]
+  backend = "ebooks"
+[frontends.ebooks.routes.domain]
+  rule = "Host:ebooks.in.bb8.fun,ebooks.bb8.fun"
+
+[frontends.scan]
+  backend = "scan"
+[frontends.scan.routes.domain]
+  rule = "Host:scan.bb8.fun"
+
 [web]
-address = ":1111"
-[docker]
-domain = "in.bb8.fun,bb8.fun"
-watch = true
-exposedbydefault = false
+  address = ":1111"
+  readOnly = true
+
+[acme]
+
+email = "acme@captnemo.in"
+storage = "/acme/acme.json"
+entryPoint = "https"
+dnsProvider = "cloudflare"
+onHostRule = true
+# Waiting till december to get wildcard SSL on LE
+# [[acme.domains]]
+# main = "bb8.fun"
+# sans = ["*.bb8.fun"]
+
+# [docker]
+#   domain = "in.bb8.fun,bb8.fun"
+#   watch = true
+#   exposedbydefault = false
