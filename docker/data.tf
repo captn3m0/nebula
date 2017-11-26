@@ -1,6 +1,14 @@
+# Database versions shouldn't be upgraded
+
 data "docker_registry_image" "mariadb" {
   name = "mariadb:10.3"
 }
+# This is a lighter image, than the official one
+data "docker_registry_image" "mongo" {
+  name = "mvertes/alpine-mongo:3.4.10-0"
+}
+
+# Leave all other apps at latesst
 
 data "docker_registry_image" "emby" {
   name = "emby/embyserver:latest"
@@ -22,6 +30,9 @@ data "docker_registry_image" "traefik" {
   name = "traefik:latest"
 }
 
+# The gitea latest is built against master
+# so can't use that, and 1.3 isn't released yet
+# https://github.com/go-gitea/gitea/releases
 data "docker_registry_image" "gitea" {
   name = "gitea/gitea:1.3.0-rc1"
 }
@@ -36,4 +47,12 @@ data "docker_registry_image" "airsonic" {
 
 data "docker_registry_image" "wikijs" {
   name = "requarks/wiki:latest"
+}
+
+data "docker_registry_image" "headphones" {
+  name = "linuxserver/headphones:latest"
+}
+
+data "docker_registry_image" "muximux" {
+  name = "linuxserver/muximux:latest"
 }

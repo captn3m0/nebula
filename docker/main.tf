@@ -328,3 +328,118 @@ resource "docker_container" "sickrage" {
     "TZ=Asia/Kolkata",
   ]
 }
+
+resource "docker_container" "headphones" {
+  name  = "headphones"
+  image = "${docker_image.headphones.latest}"
+
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
+
+  volumes {
+    host_path      = "/mnt/xwing/config/headphones"
+    container_path = "/config"
+  }
+
+  volumes {
+    host_path      = "/mnt/xwing/media/DL"
+    container_path = "/downloads"
+  }
+
+  volumes {
+    host_path      = "/mnt/xwing/media/Music"
+    container_path = "/music"
+  }
+
+  labels {
+    "traefik.port" = 8181
+    "traefik.enable" = "true"
+  }
+
+  # lounge:tatooine
+  env = [
+    "PUID=1004",
+    "PGID=1003",
+    "TZ=Asia/Kolkata",
+  ]
+}
+
+resource "docker_container" "wiki" {
+  name  = "wiki"
+  image = "${docker_image.wikijs.latest}"
+
+  # This is the wiki user account
+  user  = "1006"
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
+
+  upload {
+    content = "${file("${path.module}/conf/wiki.yml")}"
+    file    = "/var/wiki/config.yml"
+  }
+
+  volumes {
+    host_path       = "/mnt/xwing/data/wiki/data"
+    container_path = "/data"
+  }
+
+  volumes {
+    host_path       = "/mnt/xwing/data/wiki/repo"
+    container_path  = "/repo"
+  }
+
+  labels {
+    "traefik.port" = 3000
+    "traefik.enable" = "true"
+  }
+
+  env = [
+    "WIKI_ADMIN_EMAIL=me@captnemo.in",
+  ]
+
+  links = ["mongo"]
+}
+
+resource "docker_container" "mongo" {
+  name  = "mongo"
+  image = "${docker_image.mongo.latest}"
+
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
+
+  volumes {
+    volume_name    = "${docker_volume.mongo_data_volume.name}"
+    container_path = "/data/db"
+    host_path      = "${docker_volume.mongo_data_volume.mountpoint}"
+  }
+}
+
+resource "docker_container" "muximux" {
+  name  = "muximux"
+  image = "${docker_image.muximux.latest}"
+  
+  restart = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run = true
+
+
+  volumes {
+    host_path       = "/mnt/xwing/config/muximux"
+    container_path  = "/config"
+  }
+
+  labels {
+    "traefik.port" = 80
+    "traefik.enable" = "true"
+  }
+
+  # lounge:tatooine
+  env = [
+    "PUID=1004",
+    "PGID=1003",
+    "TZ=Asia/Kolkata",
+  ]
+}

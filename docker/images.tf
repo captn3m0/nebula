@@ -47,3 +47,18 @@ resource "docker_image" "wikijs" {
   name          = "${data.docker_registry_image.wikijs.name}"
   pull_triggers = ["${data.docker_registry_image.wikijs.sha256_digest}"]
 }
+
+resource "docker_image" "mongo" {
+  name          = "${data.docker_registry_image.mongo.name}"
+  pull_triggers = ["${data.docker_registry_image.mongo.sha256_digest}"]
+}
+
+resource "docker_image" "headphones" {
+  name          = "${data.docker_registry_image.headphones.name}"
+  pull_triggers = ["${data.docker_registry_image.headphones.sha256_digest}"]
+}
+
+resource "docker_image" "muximux" {
+  name          = "${data.docker_registry_image.muximux.name}"
+  pull_triggers = ["${data.docker_registry_image.muximux.sha256_digest}"]
+}

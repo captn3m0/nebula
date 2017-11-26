@@ -1,0 +1,141 @@
+#######################################################################
+# Wiki.js - CONFIGURATION                                             #
+#######################################################################
+# Full explanation + examples in the documentation:
+# https://docs.requarks.io/wiki/install
+# You can use an ENV variable by using $(ENV_VAR_NAME) as the value
+
+# ---------------------------------------------------------------------
+# Title of this site
+# ---------------------------------------------------------------------
+
+title: Nemo's Wiki
+
+# ---------------------------------------------------------------------
+# Full public path to the site, without the trailing slash
+# ---------------------------------------------------------------------
+# INCLUDE CLIENT PORT IF NOT 80/443!
+
+host: http://wiki.in.bb8.fun:8888
+
+# ---------------------------------------------------------------------
+# Port the main server should listen to (80 by default)
+# ---------------------------------------------------------------------
+# To use process.env.PORT, comment the line below:
+
+port: 3000
+
+# ---------------------------------------------------------------------
+# Data Directories
+# ---------------------------------------------------------------------
+
+paths:
+  repo: /repo
+  data: /data
+
+# ---------------------------------------------------------------------
+# Upload Limits
+# ---------------------------------------------------------------------
+# In megabytes (MB)
+
+uploads:
+  maxImageFileSize: 5
+  maxOtherFileSize: 100
+
+# ---------------------------------------------------------------------
+# Site Language
+# ---------------------------------------------------------------------
+# Possible values: en, de, es, fa, fr, ja, ko, nl, pt, ru, sr, tr or zh
+
+lang: en
+
+# Enable for right to left languages (e.g. arabic):
+langRtl: false
+
+# ---------------------------------------------------------------------
+# Site Authentication
+# ---------------------------------------------------------------------
+
+public: false
+
+auth:
+  defaultReadAccess: false
+  local:
+    enabled: true
+  google:
+    enabled: true
+    clientId: GOOGLE_CLIENT_ID
+    clientSecret: GOOGLE_CLIENT_SECRET
+
+# ---------------------------------------------------------------------
+# Secret key to use when encrypting sessions
+# ---------------------------------------------------------------------
+# Use a long and unique random string (256-bit keys are perfect!)
+
+sessionSecret: 83941e2642ff1feafa410f35497c4ac6bc28d3226ca438225319ae1c9e670cdb
+
+# ---------------------------------------------------------------------
+# Database Connection String
+# ---------------------------------------------------------------------
+
+db: mongodb://mongo:27017/wiki
+
+# ---------------------------------------------------------------------
+# Git Connection Info
+# ---------------------------------------------------------------------
+
+git:
+  url: https://github.com/Organization/Repo
+  branch: master
+  auth:
+
+    # Type: basic or ssh
+    type: ssh
+
+    # Only for Basic authentication:
+    username: marty
+    password: MartyMcFly88
+
+    # Only for SSH authentication:
+    privateKey: /etc/wiki/keys/git.pem
+
+    sslVerify: true
+
+  # Default email to use as commit author
+  serverEmail: marty@example.com
+
+  # Whether to use user email as author in commits
+  showUserEmail: true
+
+# ---------------------------------------------------------------------
+# Features
+# ---------------------------------------------------------------------
+# You can enable / disable specific features below
+
+features:
+  linebreaks: true
+  mathjax: false
+
+# ---------------------------------------------------------------------
+# External Logging
+# ---------------------------------------------------------------------
+
+externalLogging:
+  bugsnag: false
+  loggly: false
+  papertrail: false
+  rollbar: false
+  sentry: false
+
+# ---------------------------------------------------------------------
+# Color Theme
+# ---------------------------------------------------------------------
+
+theme:
+  primary: indigo
+  alt: blue-grey
+  viewSource: all # all | write | false
+  footer: blue-grey
+  code:
+    dark: true
+    colorize: true
