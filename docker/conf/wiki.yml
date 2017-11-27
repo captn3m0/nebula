@@ -16,7 +16,7 @@ title: Nemo's Wiki
 # ---------------------------------------------------------------------
 # INCLUDE CLIENT PORT IF NOT 80/443!
 
-host: http://wiki.in.bb8.fun:8888
+host: https://wiki.bb8.fun
 
 # ---------------------------------------------------------------------
 # Port the main server should listen to (80 by default)

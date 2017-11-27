@@ -301,7 +301,6 @@ resource "docker_container" "airsonic" {
   destroy_grace_seconds = 30
   must_run = true
   user = "1004"
-  memory = 512
 
   volumes {
     host_path      = "/mnt/xwing/config/airsonic/data"
@@ -338,7 +337,6 @@ resource "docker_container" "sickrage" {
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
-  memory = 256
 
   volumes {
     host_path      = "/mnt/xwing/config/sickrage"
@@ -411,20 +409,13 @@ resource "docker_container" "wiki" {
   name  = "wiki"
   image = "${docker_image.wikijs.latest}"
 
-  # This is the wiki user account
-  user  = "1006"
   restart = "unless-stopped"
-  destroy_grace_seconds = 10
+  destroy_grace_seconds = 30
   must_run = true
 
   upload {
     content = "${file("${path.module}/conf/wiki.yml")}"
     file    = "/var/wiki/config.yml"
-  }
-
-  volumes {
-    host_path       = "/mnt/xwing/data/wiki/data"
-    container_path  = "/data"
   }
 
   volumes {
@@ -435,6 +426,11 @@ resource "docker_container" "wiki" {
   volumes {
     host_path       = "/mnt/xwing/data/wiki/repo"
     container_path  = "/repo"
+  }
+
+  volumes {
+    host_path       = "/mnt/xwing/data/wiki/data"
+    container_path  = "/data"
   }
 
   labels {

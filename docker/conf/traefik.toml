@@ -32,6 +32,8 @@ defaultEntryPoints = ["http", "https"]
 [frontends.ebooks]
   backend = "ebooks"
   passHostHeader = true
+  [frontends.ebooks.headers.customrequestheaders]
+    X-Forwarded-Proto = "https"
 [frontends.ebooks.routes.domain]
   rule = "Host:ebooks.in.bb8.fun,ebooks.bb8.fun"
 
@@ -53,7 +55,7 @@ dnsProvider = "cloudflare"
 onHostRule = false
 onDemand   = false
 
-# Waiting till december to get wildcard SSL on LE
+# Waiting till Jan '18 to get wildcard SSL on LE
 [[acme.domains]]
 main = "in.bb8.fun"
 sans = ["emby.in.bb8.fun", "airsonic.in.bb8.fun", "muximux.in.bb8.fun", "home.in.bb8.fun"]
