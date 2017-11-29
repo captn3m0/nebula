@@ -496,8 +496,6 @@ resource "docker_container" "wiki" {
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
     "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
     # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
     "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
