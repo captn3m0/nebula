@@ -32,13 +32,37 @@ defaultEntryPoints = ["http", "https"]
 [frontends.ebooks]
   backend = "ebooks"
   passHostHeader = true
+  [frontends.ebooks.headers]
+    SSLRedirect = true
+    SSLTemporaryRedirect = true
+    STSSeconds = 2592000
+    CustomFrameOptionsValue = "ALLOW-FROM https://muximux.bb8.fun/"
+    ContentTypeNosniff = true
+    BrowserXssFilter = true
+    ReferrerPolicy = "no-referrer"
   [frontends.ebooks.headers.customrequestheaders]
     X-Forwarded-Proto = "https"
-[frontends.ebooks.routes.domain]
-  rule = "Host:ebooks.in.bb8.fun,ebooks.bb8.fun"
+  [frontends.ebooks.headers.customresponseheaders]
+    X-Powered-By = "Allomancy"
+    Server = "BlackBox"
+    X-Clacks-Overhead = "GNU Terry Pratchett"
+  [frontends.ebooks.routes.domain]
+    rule = "Host:ebooks.in.bb8.fun,ebooks.bb8.fun"
 
 [frontends.scan]
   backend = "scan"
+  [frontends.scan.headers]
+    SSLRedirect = true
+    SSLTemporaryRedirect = true
+    STSSeconds = 2592000
+    FrameDeny = true
+    ContentTypeNosniff = true
+    BrowserXssFilter = true
+    ReferrerPolicy = "no-referrer"
+  [frontends.scan.headers.customresponseheaders]
+    X-Powered-By = "Allomancy"
+    Server = "BlackBox"
+    X-Clacks-Overhead = "GNU Terry Pratchett"
 [frontends.scan.routes.domain]
   rule = "Host:scan.bb8.fun"
 

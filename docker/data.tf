@@ -27,7 +27,7 @@ data "docker_registry_image" "couchpotato" {
 }
 
 data "docker_registry_image" "traefik" {
-  name = "traefik:latest"
+  name = "traefik:cancoillotte-alpine"
 }
 
 # The gitea latest is built against master

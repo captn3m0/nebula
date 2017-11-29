@@ -17,3 +17,17 @@ Self-learning project for terraform
 1. Setup DigitalOcean
 2. Add DO infrastructure via ansible
 3. Add traefik for proper proxying
+
+# Security Headers note
+
+The following security headers are applied using traefik on all traefik frontend docker backends:
+
+- HSTS: 2592000 seconds (1 week)
+- Redirect HTTP->HTTPS
+- contentTypeNosniff: true
+- browserXSSFilter: true
+- XFO: Allow-From muximux
+- referrerPolicy: no-referrer
+- X-Powered-By: Allomancy
+- X-Server: BlackBox
+- X-Clacks-Overhead "GNU Terry Pratchett"
