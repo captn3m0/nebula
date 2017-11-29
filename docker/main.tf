@@ -7,13 +7,12 @@ resource docker_container "transmission" {
     "traefik.port" = 9091
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
   ports {
@@ -63,13 +62,12 @@ resource docker_container "gitea" {
     "traefik.port" = 3000
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
   ports {
@@ -143,13 +141,12 @@ resource "docker_container" "emby" {
     "traefik.port" = 8096
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
   memory = 2048
@@ -191,13 +188,12 @@ resource "docker_container" "flexget" {
     "traefik.port" = 5050
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
   memory = 256
@@ -239,13 +235,12 @@ resource "docker_container" "couchpotato" {
     "traefik.port" = 5050
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
   memory = 256
@@ -368,13 +363,11 @@ resource "docker_container" "airsonic" {
     "traefik.port" = 4040
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 }
 
@@ -407,13 +400,12 @@ resource "docker_container" "sickrage" {
     "traefik.port" = 8081
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
   env = [
@@ -452,13 +444,12 @@ resource "docker_container" "headphones" {
     "traefik.port" = 8181
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
   # lounge:tatooine
@@ -498,16 +489,17 @@ resource "docker_container" "wiki" {
   }
 
   labels {
+    "traefik.frontend.rule" = "Host:wiki.bb8.fun"
+    "traefik.frontend.passHostHeader" = "true"
     "traefik.port" = 9999
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
   env = [
@@ -560,13 +552,13 @@ resource "docker_container" "muximux" {
     "traefik.port" = 80
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "${var.hsts_max_age}"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
-    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    # "traefik.frontend.headers.CustomFrameOptionsValue" = "ALLOW-FROM https://muximux.bb8.fun/"
+    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
   # lounge:tatooine

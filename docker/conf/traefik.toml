@@ -9,6 +9,12 @@ defaultEntryPoints = ["http", "https"]
   # This is required for ACME support
   [entryPoints.https.tls]
 
+[docker]
+  endpoint = "unix:///var/run/docker.sock"
+  domain = "bb8.fun"
+  watch = true
+  exposedbydefault = false
+
 [file]
 [backends]
 
@@ -36,7 +42,6 @@ defaultEntryPoints = ["http", "https"]
     SSLRedirect = true
     SSLTemporaryRedirect = true
     STSSeconds = 2592000
-    CustomFrameOptionsValue = "ALLOW-FROM https://muximux.bb8.fun/"
     ContentTypeNosniff = true
     BrowserXssFilter = true
     ReferrerPolicy = "no-referrer"
@@ -100,8 +105,4 @@ sans = [
   "ebooks.bb8.fun",
 ]
 
-[docker]
-  domain = "bb8.fun"
-  watch = true
-  exposedbydefault = false
 
