@@ -31,3 +31,6 @@ The following security headers are applied using traefik on all traefik frontend
 - X-Powered-By: Allomancy
 - X-Server: BlackBox
 - X-Clacks-Overhead "GNU Terry Pratchett"
+
+
+Currently waiting on traefik 1.5.0-rc2 to fix security specific headers issue.

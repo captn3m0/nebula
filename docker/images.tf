@@ -62,3 +62,8 @@ resource "docker_image" "muximux" {
   name          = "${data.docker_registry_image.muximux.name}"
   pull_triggers = ["${data.docker_registry_image.muximux.sha256_digest}"]
 }
+
+resource "docker_image" "ubooquity" {
+  name          = "${data.docker_registry_image.ubooquity.name}"
+  pull_triggers = ["${data.docker_registry_image.ubooquity.sha256_digest}"]
+}
