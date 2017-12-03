@@ -164,53 +164,6 @@ resource "docker_container" "emby" {
   ]
 }
 
-resource "docker_container" "flexget" {
-  name  = "flexget"
-  image = "${docker_image.flexget.latest}"
-
-  volumes {
-    host_path      = "/mnt/xwing/config/flexget"
-    container_path = "/config"
-  }
-
-  volumes {
-    host_path      = "/mnt/xwing/media/DL"
-    container_path = "/downloads"
-  }
-
-  volumes {
-    host_path      = "/mnt/xwing/media/TV"
-    container_path = "/tv"
-  }
-
-  labels {
-    "traefik.frontend.auth.basic" = "${var.basic_auth}"
-    "traefik.port" = 5050
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
-    # "traefik.frontend.headers.referrerPolicy" = "no-referrer"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
-  }
-
-  memory = 256
-  restart = "unless-stopped"
-  destroy_grace_seconds = 10
-  must_run = true
-
-  # Running as lounge:tatooine
-  env = [
-    "PUID=1004",
-    "PGID=1003",
-    "WEB_PASSWD=${var.web_password}",
-    "TORRENT_PLUGIN=transmission",
-    "FLEXGET_LOG_LEVEL=info",
-  ]
-}
-
 resource "docker_container" "couchpotato" {
   name  = "couchpotato"
   image = "${docker_image.couchpotato.latest}"
@@ -336,6 +289,7 @@ resource "docker_container" "airsonic" {
   destroy_grace_seconds = 30
   must_run = true
   user = "1004"
+  memory = 800
 
   volumes {
     host_path      = "/mnt/xwing/config/airsonic/data"
@@ -378,6 +332,8 @@ resource "docker_container" "headerdebug" {
   destroy_grace_seconds = 30
   must_run = true
 
+  memory = 16
+
   labels {
     "traefik.frontend.rule" = "Host:debug.in.bb8.fun"
     "traefik.frontend.passHostHeader" = "true"
@@ -398,6 +354,8 @@ resource "docker_container" "sickrage" {
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
+
+  memory = 512
 
   volumes {
     host_path      = "/mnt/xwing/config/sickrage"
@@ -553,6 +511,7 @@ resource "docker_container" "wiki" {
   restart = "unless-stopped"
   destroy_grace_seconds = 30
   must_run = true
+  memory = 300
 
   upload {
     content = "${file("${path.module}/conf/wiki.yml")}"
