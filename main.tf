@@ -17,6 +17,7 @@ module "cloudflare" {
 
 module "mysql" {
   source = "mysql"
+  mysql_root_password = "${var.mysql_root_password}"
 }
 
 module "docker" {
