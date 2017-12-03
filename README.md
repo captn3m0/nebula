@@ -44,3 +44,13 @@ Issues I've faced/reported as a result of this project:
 4. Terraform doesn't parse mariadb version numbers. Report: https://github.com/terraform-providers/terraform-provider-mysql/issues/6. Got this fixed myself by filing a PR: https://github.com/hashicorp/go-version/pull/34
 5. elibsrv didn't support ebook-convert, only mobigen. PR is at https://github.com/captn3m0/elibsrv/pull/1. I've to get this merged upstream for the next release.
 6. ubooquity docker container doesn't let you set admin password: https://github.com/linuxserver/docker-ubooquity/issues/17
+
+
+# Plumbing
+
+Their is a lot of additional infrastructure that is _not-yet_ part of this repo. This includes:
+
+1. The Digital Ocean droplet running DNSCrypt and simpleproxy to proxy over a openvpn connection to this box.
+2. openbox, kodi configuration to run on boot along with the Steam Controller for the HTPC setup
+3. Docker main configuration with half-baked CA setup
+4. btrfs-backed subvolumes and snapshotting for most things in /mnt/xwing/ (in-progress)
