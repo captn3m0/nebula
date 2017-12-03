@@ -262,6 +262,7 @@ resource "docker_container" "traefik" {
   volumes {
     host_path         = "/var/run/docker.sock"
     container_path    = "/var/run/docker.sock"
+    read_only         = true
   }
 
   volumes {
@@ -450,7 +451,7 @@ resource "docker_container" "ubooquity" {
   restart = "unless-stopped"
   destroy_grace_seconds = 30
   must_run = true
-  memory = 256
+  memory = 800
 
   volumes {
     host_path      = "/mnt/xwing/config/ubooquity"

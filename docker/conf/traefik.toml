@@ -10,6 +10,7 @@ defaultEntryPoints = ["http", "https"]
   [entryPoints.https.tls]
 
 [docker]
+  # Make sure you mount this as readonly
   endpoint = "unix:///var/run/docker.sock"
   domain = "bb8.fun"
   watch = true
@@ -85,24 +86,32 @@ onHostRule = false
 onDemand   = false
 
 # Waiting till Jan '18 to get wildcard SSL on LE
-[[acme.domains]]
-main = "in.bb8.fun"
-sans = ["emby.in.bb8.fun", "airsonic.in.bb8.fun", "muximux.in.bb8.fun", "home.in.bb8.fun"]
 
 [[acme.domains]]
 main = "bb8.fun"
 sans = [
-  "transmission.bb8.fun",
-  "emby.bb8.fun",
-  "flexget.bb8.fun",
-  "couchpotato.bb8.fun",
-  "traefik.bb8.fun",
   "airsonic.bb8.fun",
-  "headphones.bb8.fun",
-  "wiki.bb8.fun",
-  "muximux.bb8.fun",
-  "home.bb8.fun",
+  "airsonic.in.bb8.fun",
+  "cadvisor.bb8.fun",
+  "couchpotato.bb8.fun",
   "ebooks.bb8.fun",
+  "ebooks.in.bb8.fun"
+  "emby.bb8.fun",
+  "emby.in.bb8.fun",
+  "debug.in.bb8.fun",
+  "flexget.bb8.fun",
+  "headphones.bb8.fun",
+  "home.bb8.fun",
+  "home.in.bb8.fun",
+  "library.bb8.fun",
+  "muximux.bb8.fun",
+  "muximux.in.bb8.fun",
+  "read.bb8.fun",
+  "read.in.bb8.fun",
+  "scan.bb8.fun",
+  "traefik.bb8.fun",
+  "transmission.bb8.fun",
+  "wiki.bb8.fun",
 ]
 
 
