@@ -65,7 +65,10 @@ data "docker_registry_image" "ubooquity" {
   name = "linuxserver/ubooquity:latest"
 }
 
-
 data "docker_registry_image" "headerdebug" {
   name = "brndnmtthws/nginx-echo-headers:latest"
+}
+
+data "docker_registry_image" "cadvisor" {
+  name = "google/cadvisor:latest"
 }

@@ -79,3 +79,8 @@ resource "docker_image" "headerdebug" {
   name          = "${data.docker_registry_image.headerdebug.name}"
   pull_triggers = ["${data.docker_registry_image.headerdebug.sha256_digest}"]
 }
+
+resource "docker_image" "cadvisor" {
+  name          = "${data.docker_registry_image.cadvisor.name}"
+  pull_triggers = ["${data.docker_registry_image.cadvisor.sha256_digest}"]
+}
