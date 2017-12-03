@@ -95,7 +95,7 @@ sans = [
   "cadvisor.bb8.fun",
   "couchpotato.bb8.fun",
   "ebooks.bb8.fun",
-  "ebooks.in.bb8.fun"
+  "ebooks.in.bb8.fun",
   "emby.bb8.fun",
   "emby.in.bb8.fun",
   "debug.in.bb8.fun",
@@ -111,7 +111,7 @@ sans = [
   "scan.bb8.fun",
   "traefik.bb8.fun",
   "transmission.bb8.fun",
-  "wiki.bb8.fun",
+  "wiki.bb8.fun"
 ]
 
 
