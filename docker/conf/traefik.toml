@@ -19,10 +19,6 @@ defaultEntryPoints = ["http", "https"]
 [file]
 [backends]
 
-[backends.ebooks]
-[backends.ebooks.servers.default]
-  url = "http://192.168.1.111:2202"
-
 # This is currently not exposed
 # Since I can't apply a authentication
 # on this yet
@@ -35,25 +31,6 @@ defaultEntryPoints = ["http", "https"]
   url = "http://scan.in.bb8.fun:90"
 
 [frontends]
-
-[frontends.ebooks]
-  backend = "ebooks"
-  passHostHeader = true
-  [frontends.ebooks.headers]
-    SSLRedirect = true
-    SSLTemporaryRedirect = true
-    STSSeconds = 2592000
-    ContentTypeNosniff = true
-    BrowserXssFilter = true
-    ReferrerPolicy = "no-referrer"
-  [frontends.ebooks.headers.customrequestheaders]
-    X-Forwarded-Proto = "https"
-  [frontends.ebooks.headers.customresponseheaders]
-    X-Powered-By = "Allomancy"
-    Server = "BlackBox"
-    X-Clacks-Overhead = "GNU Terry Pratchett"
-  [frontends.ebooks.routes.domain]
-    rule = "Host:ebooks.in.bb8.fun,ebooks.bb8.fun"
 
 [frontends.scan]
   backend = "scan"
