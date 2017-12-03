@@ -8,6 +8,10 @@ data "docker_registry_image" "mongo" {
   name = "mvertes/alpine-mongo:3.4.10-0"
 }
 
+data "docker_registry_image" "mongorocks" {
+  name = "jadsonlourenco/mongo-rocks:latest"
+}
+
 # Leave all other apps at latesst
 
 data "docker_registry_image" "emby" {
@@ -59,4 +63,9 @@ data "docker_registry_image" "muximux" {
 
 data "docker_registry_image" "ubooquity" {
   name = "linuxserver/ubooquity:latest"
+}
+
+
+data "docker_registry_image" "headerdebug" {
+  name = "brndnmtthws/nginx-echo-headers:latest"
 }

@@ -53,6 +53,12 @@ resource "docker_image" "mongo" {
   pull_triggers = ["${data.docker_registry_image.mongo.sha256_digest}"]
 }
 
+# Attempting to use mongorocks to work around reboot issue
+resource "docker_image" "mongorocks" {
+  name          = "${data.docker_registry_image.mongorocks.name}"
+  pull_triggers = ["${data.docker_registry_image.mongorocks.sha256_digest}"]
+}
+
 resource "docker_image" "headphones" {
   name          = "${data.docker_registry_image.headphones.name}"
   pull_triggers = ["${data.docker_registry_image.headphones.sha256_digest}"]
@@ -66,4 +72,10 @@ resource "docker_image" "muximux" {
 resource "docker_image" "ubooquity" {
   name          = "${data.docker_registry_image.ubooquity.name}"
   pull_triggers = ["${data.docker_registry_image.ubooquity.sha256_digest}"]
+}
+
+
+resource "docker_image" "headerdebug" {
+  name          = "${data.docker_registry_image.headerdebug.name}"
+  pull_triggers = ["${data.docker_registry_image.headerdebug.sha256_digest}"]
 }

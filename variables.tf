@@ -14,3 +14,7 @@ variable "web_password" {
 variable "mysql_root_password" {
   type = "string"
 }
+
+variable "wiki_session_secret" {
+  type = "string"
+}

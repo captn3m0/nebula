@@ -63,7 +63,7 @@ auth:
   local:
     enabled: true
   google:
-    enabled: true
+    enabled: false
     clientId: GOOGLE_CLIENT_ID
     clientSecret: GOOGLE_CLIENT_SECRET
 
@@ -72,40 +72,40 @@ auth:
 # ---------------------------------------------------------------------
 # Use a long and unique random string (256-bit keys are perfect!)
 
-sessionSecret: 83941e2642ff1feafa410f35497c4ac6bc28d3226ca438225319ae1c9e670cdb
+sessionSecret: $(SESSION_SECRET)
 
 # ---------------------------------------------------------------------
 # Database Connection String
 # ---------------------------------------------------------------------
 
-db: mongodb://192.168.1.111:27017/wiki
+db: mongodb://mongorocks:27017/wiki
 
 # ---------------------------------------------------------------------
 # Git Connection Info
 # ---------------------------------------------------------------------
 
-git:
-  url: https://github.com/Organization/Repo
-  branch: master
-  auth:
+# git:
+#   url: https://github.com/Organization/Repo
+#   branch: master
+#   auth:
 
-    # Type: basic or ssh
-    type: ssh
+#     # Type: basic or ssh
+#     type: ssh
 
-    # Only for Basic authentication:
-    username: marty
-    password: MartyMcFly88
+#     # Only for Basic authentication:
+#     username: marty
+#     password: MartyMcFly88
 
-    # Only for SSH authentication:
-    privateKey: /etc/wiki/keys/git.pem
+#     # Only for SSH authentication:
+#     privateKey: /etc/wiki/keys/git.pem
 
-    sslVerify: true
+#     sslVerify: true
 
-  # Default email to use as commit author
-  serverEmail: marty@example.com
+#   # Default email to use as commit author
+#   serverEmail: marty@example.com
 
-  # Whether to use user email as author in commits
-  showUserEmail: true
+#   # Whether to use user email as author in commits
+#   showUserEmail: true
 
 # ---------------------------------------------------------------------
 # Features

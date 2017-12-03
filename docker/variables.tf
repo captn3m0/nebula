@@ -41,3 +41,8 @@ variable "xpoweredby" {
 variable "refpolicy" {
   default = "no-referrer"
 }
+
+
+variable "wiki_session_secret" {
+  type = "string"
+}

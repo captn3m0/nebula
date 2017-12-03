@@ -9,3 +9,8 @@ resource "docker_volume" "gitea_volume" {
 resource "docker_volume" "mongo_data_volume" {
   name = "mongo_data_volume"
 }
+
+resource "docker_volume" "mongorocks_data_volume" {
+  name = "mongorocks_data_volume"
+}
+

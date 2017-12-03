@@ -359,15 +359,35 @@ resource "docker_container" "airsonic" {
 
   labels {
     "traefik.frontend.rule" = "Host:airsonic.in.bb8.fun,airsonic.bb8.fun"
-    "traefik.frontend.passHostHeader" = "false"
+    "traefik.frontend.passHostHeader" = "true"
     "traefik.port" = 4040
     "traefik.enable" = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
     "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
     "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+  }
+}
+
+
+resource "docker_container" "headerdebug" {
+  name  = "headerdebug"
+  image = "${docker_image.headerdebug.latest}"
+
+  restart = "unless-stopped"
+  destroy_grace_seconds = 30
+  must_run = true
+
+  labels {
+    "traefik.frontend.rule" = "Host:debug.in.bb8.fun"
+    "traefik.frontend.passHostHeader" = "true"
+    "traefik.port" = 8080
+    "traefik.enable" = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
+    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    # "traefik.frontend.headers.customrequestheaders" = "X-Forwarded-Proto:https"
   }
 }
 
@@ -409,8 +429,8 @@ resource "docker_container" "sickrage" {
   }
 
   env = [
+    "PUID=1004",
     "PGID=1003",
-    "PUID=1000",
     "TZ=Asia/Kolkata",
   ]
 }
@@ -437,6 +457,11 @@ resource "docker_container" "headphones" {
   volumes {
     host_path      = "/mnt/xwing/media/Music"
     container_path = "/music"
+  }
+
+  upload {
+    content = "${file("${path.module}/conf/headphones.ini")}"
+    file    = "/config/config.ini"
   }
 
   labels {
@@ -561,32 +586,34 @@ resource "docker_container" "wiki" {
     "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
   }
 
+  links = ["mongorocks"]
+
   env = [
     "WIKI_ADMIN_EMAIL=me@captnemo.in",
+    "SESSION_SECRET=${var.wiki_session_secret}"
   ]
 }
 
-resource "docker_container" "mongo" {
-  name  = "mongo"
-  image = "${docker_image.mongo.latest}"
+resource "docker_container" "mongorocks" {
+  name  = "mongorocks"
+  image = "${docker_image.mongorocks.latest}"
 
   restart = "unless-stopped"
-  destroy_grace_seconds = 10
+  destroy_grace_seconds = 30
   must_run = true
   memory = 256
 
   volumes {
-    volume_name    = "${docker_volume.mongo_data_volume.name}"
+    volume_name    = "${docker_volume.mongorocks_data_volume.name}"
     container_path = "/data/db"
-    host_path      = "${docker_volume.mongo_data_volume.mountpoint}"
+    host_path      = "${docker_volume.mongorocks_data_volume.mountpoint}"
   }
 
-  ports {
-    internal = 27017
-    external = 27017
-    ip       = "192.168.1.111"
-  }
-
+  env = [
+    "AUTH=no",
+    "DATABASE=wiki",
+    "OPLOG_SIZE=50",
+  ]
 }
 
 resource "docker_container" "muximux" {
