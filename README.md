@@ -10,7 +10,7 @@ Manages the local infrastructure of my home server.
 2. cloudflare: to manage the DNS
 3. mysql: unused, but setup
 
-Self-learning project for terraform
+Self-learning project for terraform/docker
 
 # Planned
 

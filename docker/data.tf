@@ -3,10 +3,6 @@
 data "docker_registry_image" "mariadb" {
   name = "mariadb:10.3"
 }
-# This is a lighter image, than the official one
-data "docker_registry_image" "mongo" {
-  name = "mvertes/alpine-mongo:3.4.10-0"
-}
 
 data "docker_registry_image" "mongorocks" {
   name = "jadsonlourenco/mongo-rocks:latest"
@@ -20,10 +16,6 @@ data "docker_registry_image" "emby" {
 
 data "docker_registry_image" "transmission" {
   name = "linuxserver/transmission:latest"
-}
-
-data "docker_registry_image" "flexget" {
-  name = "cpoppema/docker-flexget"
 }
 
 data "docker_registry_image" "couchpotato" {
