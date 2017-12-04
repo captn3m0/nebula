@@ -2,22 +2,40 @@
   "filesPaths": [
     {
       "pathString": "/files",
-      "userName": []
+      "userName": [
+        "reddit",
+        "tatooine"
+      ]
     }
   ],
   "comicsPaths": [
     {
       "pathString": "/comics",
-      "userName": []
+      "userName": [
+        "reddit",
+        "tatooine"
+      ]
     }
   ],
   "booksPaths": [
     {
       "pathString": "/books",
-      "userName": []
+      "userName": [
+        "reddit",
+        "tatooine"
+      ]
     }
   ],
-  "users": [],
+  "users": [
+    {
+      "name": "reddit",
+      "passwordHash": "396731fff7f1931aeba6e69d3443d5ef7971569e3b9d64a3a4deca655789917a"
+    },
+    {
+      "name": "tatooine",
+      "passwordHash": "ca0c540641a9e34c47cbd1866443ca181202aaa422fcc5ad4cbf75095aab7da0"
+    }
+  ],
   "isFilesProviderEnabled": true,
   "isComicsProviderEnabled": true,
   "isBooksProviderEnabled": true,
@@ -46,7 +64,7 @@
   "isOpdsProviderEnabled": true,
   "folderExclusionPattern": "",
   "bypassSingleRootFolder": false,
-  "enableFolderMetadataDisplay": false,
+  "enableFolderMetadataDisplay": true,
   "bookmarkUsingCookies": false,
   "displayTitleInsteadOfFileName": true,
   "keepUnreachableSharedFolders": false
