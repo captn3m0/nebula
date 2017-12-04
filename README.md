@@ -44,6 +44,7 @@ Issues I've faced/reported as a result of this project:
 4. Terraform doesn't parse mariadb version numbers. Report: https://github.com/terraform-providers/terraform-provider-mysql/issues/6. Got this fixed myself by filing a PR: https://github.com/hashicorp/go-version/pull/34
 5. elibsrv didn't support ebook-convert, only mobigen. PR is at https://github.com/captn3m0/elibsrv/pull/1. I've to get this merged upstream for the next release.
 6. ubooquity docker container doesn't let you set admin password: https://github.com/linuxserver/docker-ubooquity/issues/17
+7. Traefik customresponseheaders can't contain colons on the docker backend: https://github.com/containous/traefik/issues/2517
 
 
 # Plumbing
