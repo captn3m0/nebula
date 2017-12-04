@@ -61,6 +61,7 @@ entryPoint = "https"
 dnsProvider = "cloudflare"
 onHostRule = false
 onDemand   = false
+acmelogging = true
 
 # Waiting till Jan '18 to get wildcard SSL on LE
 
