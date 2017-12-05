@@ -59,7 +59,7 @@ email = "acme@captnemo.in"
 storage = "/acme/acme.json"
 entryPoint = "https"
 dnsProvider = "cloudflare"
-onHostRule = false
+onHostRule = true
 onDemand   = false
 acmelogging = true
 

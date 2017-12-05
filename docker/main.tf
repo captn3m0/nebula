@@ -203,6 +203,8 @@ resource "docker_container" "couchpotato" {
     "PGID=1003",
     "TZ=Asia/Kolkata",
   ]
+
+  links = ["transmission"]
 }
 
 resource "docker_container" "traefik" {
@@ -444,7 +446,6 @@ resource "docker_container" "ubooquity" {
   restart = "unless-stopped"
   destroy_grace_seconds = 30
   must_run = true
-  memory = 800
 
   volumes {
     host_path      = "/mnt/xwing/config/ubooquity"
