@@ -78,6 +78,7 @@ sans = [
   "emby.in.bb8.fun",
   "debug.in.bb8.fun",
   "flexget.bb8.fun",
+  # "gitea.bb8.fun",
   "headphones.bb8.fun",
   "home.bb8.fun",
   "home.in.bb8.fun",
@@ -91,5 +92,3 @@ sans = [
   "transmission.bb8.fun",
   "wiki.bb8.fun"
 ]
-
-

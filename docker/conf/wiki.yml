@@ -9,7 +9,7 @@
 # Title of this site
 # ---------------------------------------------------------------------
 
-title: Nemo's Wiki
+title: Scarif Wiki
 
 # ---------------------------------------------------------------------
 # Full public path to the site, without the trailing slash
@@ -56,7 +56,7 @@ langRtl: false
 # Site Authentication
 # ---------------------------------------------------------------------
 
-public: false
+public: true
 
 auth:
   defaultReadAccess: false
