@@ -608,7 +608,7 @@ resource "docker_container" "muximux" {
 resource "docker_container" "cadvisor" {
   name  = "cadvisor"
   image = "${docker_image.cadvisor.latest}"
-  memory = 256
+  memory = 512
 
   restart = "unless-stopped"
   destroy_grace_seconds = 10
