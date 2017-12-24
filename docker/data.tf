@@ -26,11 +26,9 @@ data "docker_registry_image" "traefik" {
   name = "traefik:cancoillotte-alpine"
 }
 
-# The gitea latest is built against master
-# so can't use that, and 1.3 isn't released yet
 # https://github.com/go-gitea/gitea/releases
 data "docker_registry_image" "gitea" {
-  name = "gitea/gitea:1.3.0-rc1"
+  name = "gitea/gitea:1.3.2"
 }
 
 data "docker_registry_image" "sickrage" {
