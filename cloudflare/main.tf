@@ -13,6 +13,13 @@ resource "cloudflare_record" "home" {
   type   = "A"
 }
 
+resource "cloudflare_record" "docker" {
+  domain = "${var.domain}"
+  name   = "docker.in"
+  value  = "10.8.0.14"
+  type   = "A"
+}
+
 resource "cloudflare_record" "internet" {
   domain = "${var.domain}"
   name   = "@"

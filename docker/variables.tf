@@ -31,11 +31,11 @@ variable "hsts_max_age" {
 }
 
 variable "xfo_allow" {
-  default = "ALLOW-FROM https://muximux.bb8.fun/"
+  default = "ALLOW-FROM https://home.bb8.fun/"
 }
 
 variable "xpoweredby" {
-  default = "X-Powered-By:Allomancy,X-Server:Blackbox"
+  default = "X-Powered-By:Allomancy||X-Server:Blackbox"
 }
 
 variable "refpolicy" {

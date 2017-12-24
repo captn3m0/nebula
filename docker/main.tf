@@ -11,7 +11,8 @@ resource docker_container "transmission" {
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
   ports {
@@ -65,7 +66,8 @@ resource docker_container "gitea" {
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
   ports {
@@ -90,32 +92,6 @@ resource docker_container "gitea" {
   restart = "unless-stopped"
   destroy_grace_seconds = 10
   must_run = true
-}
-
-resource "docker_container" "mariadb" {
-  name  = "mariadb"
-  image = "${docker_image.mariadb.latest}"
-
-  volumes {
-    volume_name    = "${docker_volume.mariadb_volume.name}"
-    container_path = "/var/lib/mysql"
-    host_path      = "${docker_volume.mariadb_volume.mountpoint}"
-  }
-
-  ports {
-    internal = 3306
-    external = 3306
-    ip       = "192.168.1.111"
-  }
-
-  memory = 512
-  restart = "unless-stopped"
-  destroy_grace_seconds = 10
-  must_run = true
-
-  env = [
-    "MYSQL_ROOT_PASSWORD=${var.mysql_root_password}",
-  ]
 }
 
 resource "docker_container" "emby" {
@@ -143,7 +119,8 @@ resource "docker_container" "emby" {
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
   memory = 2048
@@ -189,7 +166,8 @@ resource "docker_container" "couchpotato" {
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
   memory = 256
@@ -206,79 +184,6 @@ resource "docker_container" "couchpotato" {
 
   links = ["transmission"]
 }
-
-resource "docker_container" "traefik" {
-  name  = "traefik"
-  image = "${docker_image.traefik.latest}"
-
-  # Admin Backend
-  ports {
-    internal  = 1111
-    external  = 1111
-    ip        = "192.168.1.111"
-  }
-
-  # Local Web Server
-  ports {
-    internal  = 80
-    external  = 8888
-    ip        = "192.168.1.111"
-  }
-
-  # Local Web Server
-  ports {
-    internal  = 80
-    external  = 80
-    ip        = "192.168.1.111"
-  }
-
-  # Local Web Server (HTTPS)
-  ports {
-    internal  = 443
-    external  = 443
-    ip        = "192.168.1.111"
-  }
-
-  # Proxied via sydney.captnemo.in
-  ports {
-    internal  = 443
-    external  = 443
-    ip        = "10.8.0.14"
-  }
-
-  ports {
-    internal  = 80
-    external  = 80
-    ip        = "10.8.0.14"
-  }
-
-  upload {
-    content = "${file("${path.module}/conf/traefik.toml")}"
-    file    = "/etc/traefik/traefik.toml"
-  }
-
-  volumes {
-    host_path         = "/var/run/docker.sock"
-    container_path    = "/var/run/docker.sock"
-    read_only         = true
-  }
-
-  volumes {
-    host_path         = "/mnt/xwing/config/acme"
-    container_path    = "/acme"
-  }
-
-  memory = 256
-  restart = "unless-stopped"
-  destroy_grace_seconds = 10
-  must_run = true
-
-  env = [
-    "CLOUDFLARE_EMAIL=${var.cloudflare_email}",
-    "CLOUDFLARE_API_KEY=${var.cloudflare_key}"
-  ]
-}
-
 
 resource "docker_container" "airsonic" {
   name  = "airsonic"
@@ -318,7 +223,8 @@ resource "docker_container" "airsonic" {
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
     "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 }
 
@@ -341,7 +247,8 @@ resource "docker_container" "headerdebug" {
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
     "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 }
 
@@ -380,7 +287,8 @@ resource "docker_container" "sickrage" {
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
   env = [
@@ -428,7 +336,8 @@ resource "docker_container" "headphones" {
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
   # lounge:tatooine
@@ -482,7 +391,8 @@ resource "docker_container" "ubooquity" {
     "traefik.read.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.read.frontend.headers.contentTypeNosniff" = "true"
     "traefik.read.frontend.headers.browserXSSFilter" = "true"
-    "traefik.read.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.read.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
   upload {
@@ -535,7 +445,9 @@ resource "docker_container" "wiki" {
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
     "traefik.frontend.headers.STSSeconds" = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
+    "traefik.frontend.headers.referrerPolicy" = "${var.refpolicy}"
   }
 
   links = ["mongorocks"]
@@ -543,28 +455,6 @@ resource "docker_container" "wiki" {
   env = [
     "WIKI_ADMIN_EMAIL=me@captnemo.in",
     "SESSION_SECRET=${var.wiki_session_secret}"
-  ]
-}
-
-resource "docker_container" "mongorocks" {
-  name  = "mongorocks"
-  image = "${docker_image.mongorocks.latest}"
-
-  restart = "unless-stopped"
-  destroy_grace_seconds = 30
-  must_run = true
-  memory = 256
-
-  volumes {
-    volume_name    = "${docker_volume.mongorocks_data_volume.name}"
-    container_path = "/data/db"
-    host_path      = "${docker_volume.mongorocks_data_volume.mountpoint}"
-  }
-
-  env = [
-    "AUTH=no",
-    "DATABASE=wiki",
-    "OPLOG_SIZE=50",
   ]
 }
 
@@ -594,7 +484,8 @@ resource "docker_container" "muximux" {
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.frameDeny" = "true"
   }
 
   # lounge:tatooine
@@ -654,6 +545,7 @@ resource "docker_container" "cadvisor" {
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customresponseheaders" = "X-Powered-By:Allomancy,X-Server:Blackbox"
+    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
+    "traefik.frontend.headers.customresponseheaders" = "${var.xpoweredby}"
   }
 }
