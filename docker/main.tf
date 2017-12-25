@@ -61,11 +61,12 @@ resource docker_container "gitea" {
   labels {
     "traefik.port" = 3000
     "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
+    "traefik.frontend.rule" = "Host:git.captnemo.in"
     "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
     "traefik.frontend.headers.browserXSSFilter" = "true"
+    "traefik.frontend.headers.contentTypeNosniff" = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
+    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
     "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }

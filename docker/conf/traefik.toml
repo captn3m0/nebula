@@ -8,6 +8,9 @@ defaultEntryPoints = ["http", "https"]
   address = ":443"
   # This is required for ACME support
   [entryPoints.https.tls]
+  [[entryPoints.https.tls.certificates]]
+    certFile = "/etc/traefik/git.captnemo.in.crt"
+    keyFile  = "/etc/traefik/git.captnemo.in.key"
 
 [docker]
   # Make sure you mount this as readonly
@@ -78,7 +81,8 @@ sans = [
   "emby.in.bb8.fun",
   "debug.in.bb8.fun",
   "flexget.bb8.fun",
-  # "gitea.bb8.fun",
+  "git.bb8.fun",
+  "gitea.bb8.fun",
   "headphones.bb8.fun",
   "home.bb8.fun",
   "home.in.bb8.fun",
