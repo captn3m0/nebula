@@ -1,8 +1,11 @@
 # nebula
 
-Where stars are born.
+>Where stars are born.
 
-Manages the local infrastructure of my home server.
+Manages the local infrastructure of my home server. I'm also doing blog posts around the same:
+
+1. [Part 1, Hardware](https://captnemo.in/blog/2017/09/17/home-server-build/)
+2. [Part 2, Terraform/Docker](https://captnemo.in/blog/2017/11/09/home-server-update/)
 
 # modules
 
