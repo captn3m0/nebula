@@ -8,6 +8,8 @@ Manages the local infrastructure of my home server. I'm also doing blog posts ar
 2. [Part 2, Terraform/Docker](https://captnemo.in/blog/2017/11/09/home-server-update/)
 3. [Part 3, Learnings](https://4000.ports.captnemo.in/blog/2017/12/18/home-server-learnings/)
 
+The canonical URL for this repo is https://git.captnemo.in/nemo/nebula/. A mirror is maintained on GitHub.
+
 # modules
 
 1. docker: to actually run the services
@@ -26,15 +28,15 @@ Self-learning project for terraform/docker
 
 The following security headers are applied using traefik on all traefik frontend docker backends:
 
-- HSTS: 2592000 seconds (1 week)
+- HSTS
 - Redirect HTTP->HTTPS
 - contentTypeNosniff: true
 - browserXSSFilter: true
-- XFO: Allow-From muximux (TODO)
-- referrerPolicy: no-referrer (TODO)
+- XFO: Allow-From home.bb8.fun
+- referrerPolicy: no-referrer
 - X-Powered-By: Allomancy
 - X-Server: BlackBox
-- X-Clacks-Overhead "GNU Terry Pratchett" (TODO)
+- X-Clacks-Overhead "GNU Terry Pratchett" (On some domains)
 
 ~~Currently waiting on traefik 1.5.0-rc2 to fix security specific headers issue (marked as TODO above).~~ (Now resolved with new traefik release)
 
