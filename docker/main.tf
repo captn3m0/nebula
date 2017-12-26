@@ -204,7 +204,7 @@ resource "docker_container" "headerdebug" {
       map(
         "traefik.frontend.rule", "Host:debug.in.bb8.fun",
         "traefik.port", 8080,
-        "traefik.enable", "true",
+        "traefik.enable", "true"
       )
     )}"
   }
