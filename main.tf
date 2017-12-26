@@ -11,7 +11,6 @@ provider "cloudflare" {
 module "cloudflare" {
   source = "cloudflare"
   domain = "bb8.fun"
-  proxy  = "sydney.captnemo.in"
   ips    = "${var.ips}"
 }
 

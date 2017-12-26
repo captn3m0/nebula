@@ -2,12 +2,6 @@
  *   in.bb8.fun
  * *.in.bb8.fun
  */
-resource "cloudflare_record" "home-wildcard" {
-  domain = "${var.domain}"
-  name   = "*.in"
-  value  = "${var.ips["eth0"]}"
-  type   = "A"
-}
 
 resource "cloudflare_record" "home" {
   domain = "${var.domain}"
@@ -16,22 +10,31 @@ resource "cloudflare_record" "home" {
   type   = "A"
 }
 
+resource "cloudflare_record" "home-wildcard" {
+  domain = "${var.domain}"
+  name   = "*.in"
+  value  = "${cloudflare_record.home.hostname}"
+  type   = "CNAME"
+  ttl    = 3600
+}
+
 /**
- *    bb8.fun
- * *.bb8.fun
+ *    bb8.fun -> static IP address
+ * *.bb8.fun  -> bb8.fun
  */
 resource "cloudflare_record" "internet" {
   domain = "${var.domain}"
   name   = "@"
-  value  = "${var.proxy}"
-  type   = "CNAME"
+  value  = "${var.ips["static"]}"
+  type   = "A"
 }
 
 resource "cloudflare_record" "internet-wildcard" {
   domain = "${var.domain}"
-  name   = "*.bb8.fun"
-  value  = "${var.proxy}"
+  name   = "*.${var.domain}"
+  value  = "${cloudflare_record.internet.hostname}"
   type   = "CNAME"
+  ttl    = 3600
 }
 
 /**
@@ -47,9 +50,10 @@ resource "cloudflare_record" "vpn" {
 
 resource "cloudflare_record" "vpn_wildcard" {
   domain = "${var.domain}"
-  name   = "*.vpn.bb8.fun"
-  value  = "${var.ips["tun0"]}"
-  type   = "A"
+  name   = "*.vpn.${var.domain}"
+  value  = "${cloudflare_record.vpn.hostname}"
+  type   = "CNAME"
+  ttl    = 3600
 }
 
 ########################
