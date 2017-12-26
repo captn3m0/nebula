@@ -176,14 +176,14 @@ resource "docker_container" "airsonic" {
   }
 
   labels {
-    "traefik.frontend.rule"                            = "Host:airsonic.in.${var.domain},airsonic.${var.domain}"
-    "traefik.frontend.passHostHeader"                  = "true"
-    "traefik.port"                                     = 4040
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
+    "traefik.frontend.rule" = "Host:airsonic.in.bb8.fun,airsonic.bb8.fun"
+    "traefik.frontend.passHostHeader" = "false"
+    "traefik.port" = 4040
+    "traefik.enable" = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
+    "traefik.frontend.headers.STSSeconds" = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
+    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 }
@@ -199,15 +199,14 @@ resource "docker_container" "headerdebug" {
   memory = 16
 
   labels {
-    "traefik.frontend.rule"                            = "Host:debug.in.${var.domain}"
-    "traefik.frontend.passHostHeader"                  = "true"
-    "traefik.port"                                     = 8080
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
+    "${merge(
+      local.traefik_common_labels,
+      map(
+        "traefik.frontend.rule", "Host:debug.in.bb8.fun",
+        "traefik.port", 8080,
+        "traefik.enable", "true",
+      )
+    )}"
   }
 }
 
