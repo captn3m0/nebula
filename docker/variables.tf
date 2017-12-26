@@ -11,12 +11,12 @@ variable "mysql_root_password" {
 }
 
 variable "cloudflare_key" {
-  type = "string"
+  type        = "string"
   description = "cloudflare API Key"
 }
 
 variable "cloudflare_email" {
-  type = "string"
+  type        = "string"
   description = "cloudflare email address"
 }
 
@@ -44,4 +44,9 @@ variable "refpolicy" {
 
 variable "wiki_session_secret" {
   type = "string"
+}
+
+variable "ips" {
+  eth0 = "192.168.1.111"
+  tun0 = "10.8.0.14"
 }

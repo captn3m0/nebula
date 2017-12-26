@@ -3,15 +3,15 @@ resource docker_container "transmission" {
   image = "${docker_image.transmission.latest}"
 
   labels {
-    "traefik.frontend.auth.basic" = "${var.basic_auth}"
-    "traefik.port" = 9091
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
+    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
+    "traefik.port"                                     = 9091
+    "traefik.enable"                                   = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
+    "traefik.frontend.headers.STSSeconds"              = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
+    "traefik.frontend.headers.contentTypeNosniff"      = "true"
+    "traefik.frontend.headers.browserXSSFilter"        = "true"
+    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
@@ -48,10 +48,10 @@ resource docker_container "transmission" {
     "TZ=Asia/Kolkata",
   ]
 
-  memory = 256
-  restart = "unless-stopped"
+  memory                = 256
+  restart               = "unless-stopped"
   destroy_grace_seconds = 10
-  must_run = true
+  must_run              = true
 }
 
 resource docker_container "gitea" {
@@ -59,15 +59,15 @@ resource docker_container "gitea" {
   image = "${docker_image.gitea.latest}"
 
   labels {
-    "traefik.port" = 3000
-    "traefik.enable" = "true"
-    "traefik.frontend.rule" = "Host:git.captnemo.in"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
+    "traefik.port"                                     = 3000
+    "traefik.enable"                                   = "true"
+    "traefik.frontend.rule"                            = "Host:git.captnemo.in"
+    "traefik.frontend.headers.STSSeconds"              = "2592000"
+    "traefik.frontend.headers.browserXSSFilter"        = "true"
+    "traefik.frontend.headers.contentTypeNosniff"      = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
+    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
+    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
@@ -89,10 +89,10 @@ resource docker_container "gitea" {
     host_path      = "${docker_volume.gitea_volume.mountpoint}"
   }
 
-  memory = 256
-  restart = "unless-stopped"
+  memory                = 256
+  restart               = "unless-stopped"
   destroy_grace_seconds = 10
-  must_run = true
+  must_run              = true
 }
 
 resource "docker_container" "emby" {
@@ -110,24 +110,24 @@ resource "docker_container" "emby" {
   }
 
   labels {
-    "traefik.frontend.rule" = "Host:emby.in.bb8.fun,emby.bb8.fun"
-    "traefik.frontend.passHostHeader" = "true"
-    "traefik.frontend.auth.basic" = "${var.basic_auth}"
-    "traefik.port" = 8096
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
+    "traefik.frontend.rule"                            = "Host:emby.in.bb8.fun,emby.bb8.fun"
+    "traefik.frontend.passHostHeader"                  = "true"
+    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
+    "traefik.port"                                     = 8096
+    "traefik.enable"                                   = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
+    "traefik.frontend.headers.STSSeconds"              = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
+    "traefik.frontend.headers.contentTypeNosniff"      = "true"
+    "traefik.frontend.headers.browserXSSFilter"        = "true"
+    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
-  memory = 2048
-  restart = "unless-stopped"
+  memory                = 2048
+  restart               = "unless-stopped"
   destroy_grace_seconds = 10
-  must_run = true
+  must_run              = true
 
   # Running as lounge:tatooine
   env = [
@@ -159,22 +159,22 @@ resource "docker_container" "couchpotato" {
   }
 
   labels {
-    "traefik.frontend.auth.basic" = "${var.basic_auth}"
-    "traefik.port" = 5050
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
+    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
+    "traefik.port"                                     = 5050
+    "traefik.enable"                                   = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
+    "traefik.frontend.headers.STSSeconds"              = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
+    "traefik.frontend.headers.contentTypeNosniff"      = "true"
+    "traefik.frontend.headers.browserXSSFilter"        = "true"
+    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
-  memory = 256
-  restart = "unless-stopped"
+  memory                = 256
+  restart               = "unless-stopped"
   destroy_grace_seconds = 10
-  must_run = true
+  must_run              = true
 
   # Running as lounge:tatooine
   env = [
@@ -190,11 +190,11 @@ resource "docker_container" "airsonic" {
   name  = "airsonic"
   image = "${docker_image.airsonic.latest}"
 
-  restart = "unless-stopped"
+  restart               = "unless-stopped"
   destroy_grace_seconds = 30
-  must_run = true
-  user = "1004"
-  memory = 800
+  must_run              = true
+  user                  = "1004"
+  memory                = 800
 
   volumes {
     host_path      = "/mnt/xwing/config/airsonic/data"
@@ -217,38 +217,37 @@ resource "docker_container" "airsonic" {
   }
 
   labels {
-    "traefik.frontend.rule" = "Host:airsonic.in.bb8.fun,airsonic.bb8.fun"
-    "traefik.frontend.passHostHeader" = "true"
-    "traefik.port" = 4040
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
+    "traefik.frontend.rule"                            = "Host:airsonic.in.bb8.fun,airsonic.bb8.fun"
+    "traefik.frontend.passHostHeader"                  = "true"
+    "traefik.port"                                     = 4040
+    "traefik.enable"                                   = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
+    "traefik.frontend.headers.STSSeconds"              = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
+    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 }
-
 
 resource "docker_container" "headerdebug" {
   name  = "headerdebug"
   image = "${docker_image.headerdebug.latest}"
 
-  restart = "unless-stopped"
+  restart               = "unless-stopped"
   destroy_grace_seconds = 30
-  must_run = true
+  must_run              = true
 
   memory = 16
 
   labels {
-    "traefik.frontend.rule" = "Host:debug.in.bb8.fun"
-    "traefik.frontend.passHostHeader" = "true"
-    "traefik.port" = 8080
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
+    "traefik.frontend.rule"                            = "Host:debug.in.bb8.fun"
+    "traefik.frontend.passHostHeader"                  = "true"
+    "traefik.port"                                     = 8080
+    "traefik.enable"                                   = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
+    "traefik.frontend.headers.STSSeconds"              = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
+    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 }
@@ -257,9 +256,9 @@ resource "docker_container" "sickrage" {
   name  = "sickrage"
   image = "${docker_image.sickrage.latest}"
 
-  restart = "unless-stopped"
+  restart               = "unless-stopped"
   destroy_grace_seconds = 10
-  must_run = true
+  must_run              = true
 
   memory = 512
 
@@ -279,16 +278,16 @@ resource "docker_container" "sickrage" {
   }
 
   labels {
-    "traefik.frontend.passHostHeader" = "false"
-    "traefik.frontend.auth.basic" = "${var.basic_auth}"
-    "traefik.port" = 8081
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
+    "traefik.frontend.passHostHeader"                  = "false"
+    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
+    "traefik.port"                                     = 8081
+    "traefik.enable"                                   = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
+    "traefik.frontend.headers.STSSeconds"              = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
+    "traefik.frontend.headers.contentTypeNosniff"      = "true"
+    "traefik.frontend.headers.browserXSSFilter"        = "true"
+    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
@@ -303,10 +302,10 @@ resource "docker_container" "headphones" {
   name  = "headphones"
   image = "${docker_image.headphones.latest}"
 
-  restart = "unless-stopped"
+  restart               = "unless-stopped"
   destroy_grace_seconds = 10
-  must_run = true
-  memory = 128
+  must_run              = true
+  memory                = 128
 
   volumes {
     host_path      = "/mnt/xwing/config/headphones"
@@ -329,15 +328,15 @@ resource "docker_container" "headphones" {
   }
 
   labels {
-    "traefik.frontend.auth.basic" = "${var.basic_auth}"
-    "traefik.port" = 8181
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
+    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
+    "traefik.port"                                     = 8181
+    "traefik.enable"                                   = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
+    "traefik.frontend.headers.STSSeconds"              = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
+    "traefik.frontend.headers.contentTypeNosniff"      = "true"
+    "traefik.frontend.headers.browserXSSFilter"        = "true"
+    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
@@ -353,9 +352,9 @@ resource "docker_container" "ubooquity" {
   name  = "ubooquity"
   image = "${docker_image.ubooquity.latest}"
 
-  restart = "unless-stopped"
+  restart               = "unless-stopped"
   destroy_grace_seconds = 30
-  must_run = true
+  must_run              = true
 
   volumes {
     host_path      = "/mnt/xwing/config/ubooquity"
@@ -380,20 +379,20 @@ resource "docker_container" "ubooquity" {
   labels {
     "traefik.enable" = "true"
 
-    "traefik.admin.port" =  2203
-    "traefik.admin.frontend.rule" = "Host:library.bb8.fun"
+    "traefik.admin.port"                = 2203
+    "traefik.admin.frontend.rule"       = "Host:library.bb8.fun"
     "traefik.admin.frontend.auth.basic" = "${var.basic_auth}"
 
-    "traefik.read.port" = 2202
+    "traefik.read.port"          = 2202
     "traefik.read.frontend.rule" = "Host:read.bb8.fun"
 
-    "traefik.read.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.read.frontend.headers.STSSeconds" = "2592000"
-    "traefik.read.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.read.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.read.frontend.headers.browserXSSFilter" = "true"
+    "traefik.read.frontend.headers.SSLTemporaryRedirect"  = "true"
+    "traefik.read.frontend.headers.STSSeconds"            = "2592000"
+    "traefik.read.frontend.headers.STSIncludeSubdomains"  = "false"
+    "traefik.read.frontend.headers.contentTypeNosniff"    = "true"
+    "traefik.read.frontend.headers.browserXSSFilter"      = "true"
     "traefik.read.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
+    "traefik.frontend.headers.customFrameOptionsValue"    = "${var.xfo_allow}"
   }
 
   upload {
@@ -405,7 +404,7 @@ resource "docker_container" "ubooquity" {
   env = [
     "PUID=1004",
     "PGID=1003",
-    "MAXMEM=800"
+    "MAXMEM=800",
   ]
 }
 
@@ -413,10 +412,10 @@ resource "docker_container" "wiki" {
   name  = "wiki"
   image = "${docker_image.wikijs.latest}"
 
-  restart = "unless-stopped"
+  restart               = "unless-stopped"
   destroy_grace_seconds = 30
-  must_run = true
-  memory = 300
+  must_run              = true
+  memory                = 300
 
   upload {
     content = "${file("${path.module}/conf/wiki.yml")}"
@@ -424,28 +423,28 @@ resource "docker_container" "wiki" {
   }
 
   volumes {
-    host_path       = "/mnt/xwing/logs/wiki"
-    container_path  = "/logs"
+    host_path      = "/mnt/xwing/logs/wiki"
+    container_path = "/logs"
   }
 
   volumes {
-    host_path       = "/mnt/xwing/data/wiki/repo"
-    container_path  = "/repo"
+    host_path      = "/mnt/xwing/data/wiki/repo"
+    container_path = "/repo"
   }
 
   volumes {
-    host_path       = "/mnt/xwing/data/wiki/data"
-    container_path  = "/data"
+    host_path      = "/mnt/xwing/data/wiki/data"
+    container_path = "/data"
   }
 
   labels {
-    "traefik.frontend.rule" = "Host:wiki.bb8.fun"
-    "traefik.frontend.passHostHeader" = "true"
-    "traefik.port" = 9999
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
+    "traefik.frontend.rule"                          = "Host:wiki.bb8.fun"
+    "traefik.frontend.passHostHeader"                = "true"
+    "traefik.port"                                   = 9999
+    "traefik.enable"                                 = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"  = "true"
+    "traefik.frontend.headers.STSSeconds"            = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"  = "false"
     "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}||Referrer-Policy:${var.refpolicy}||X-Frame-Options:${var.xfo_allow}"
   }
 
@@ -453,38 +452,37 @@ resource "docker_container" "wiki" {
 
   env = [
     "WIKI_ADMIN_EMAIL=me@captnemo.in",
-    "SESSION_SECRET=${var.wiki_session_secret}"
+    "SESSION_SECRET=${var.wiki_session_secret}",
   ]
 }
 
 resource "docker_container" "muximux" {
-  name  = "muximux"
-  image = "${docker_image.muximux.latest}"
+  name   = "muximux"
+  image  = "${docker_image.muximux.latest}"
   memory = 64
 
-  restart = "unless-stopped"
+  restart               = "unless-stopped"
   destroy_grace_seconds = 10
-  must_run = true
-
+  must_run              = true
 
   volumes {
-    host_path       = "/mnt/xwing/config/muximux"
-    container_path  = "/config"
+    host_path      = "/mnt/xwing/config/muximux"
+    container_path = "/config"
   }
 
   labels {
-    "traefik.frontend.rule" = "Host:home.in.bb8.fun,home.bb8.fun"
-    "traefik.frontend.passHostHeader" = "false"
-    "traefik.frontend.auth.basic" = "${var.basic_auth}"
-    "traefik.port" = 80
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
+    "traefik.frontend.rule"                          = "Host:home.in.bb8.fun,home.bb8.fun"
+    "traefik.frontend.passHostHeader"                = "false"
+    "traefik.frontend.auth.basic"                    = "${var.basic_auth}"
+    "traefik.port"                                   = 80
+    "traefik.enable"                                 = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"  = "true"
+    "traefik.frontend.headers.STSSeconds"            = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"  = "false"
+    "traefik.frontend.headers.contentTypeNosniff"    = "true"
+    "traefik.frontend.headers.browserXSSFilter"      = "true"
     "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
-    "traefik.frontend.headers.frameDeny" = "true"
+    "traefik.frontend.headers.frameDeny"             = "true"
   }
 
   # lounge:tatooine
@@ -496,55 +494,54 @@ resource "docker_container" "muximux" {
 }
 
 resource "docker_container" "cadvisor" {
-  name  = "cadvisor"
-  image = "${docker_image.cadvisor.latest}"
+  name   = "cadvisor"
+  image  = "${docker_image.cadvisor.latest}"
   memory = 512
 
-  restart = "unless-stopped"
+  restart               = "unless-stopped"
   destroy_grace_seconds = 10
-  must_run = true
-
+  must_run              = true
 
   volumes {
-    host_path       = "/"
-    container_path  = "/rootfs"
-    read_only       = true
+    host_path      = "/"
+    container_path = "/rootfs"
+    read_only      = true
   }
 
   volumes {
-    host_path       = "/sys"
-    container_path  = "/sys"
-    read_only       = true
+    host_path      = "/sys"
+    container_path = "/sys"
+    read_only      = true
   }
 
   volumes {
-    host_path       = "/var/lib/docker"
-    container_path  = "/var/lib/docker"
-    read_only       = true
+    host_path      = "/var/lib/docker"
+    container_path = "/var/lib/docker"
+    read_only      = true
   }
 
   volumes {
-    host_path       = "/dev/disk"
-    container_path  = "/dev/disk"
-    read_only       = true
+    host_path      = "/dev/disk"
+    container_path = "/dev/disk"
+    read_only      = true
   }
 
   volumes {
-    host_path       = "/var/run"
-    container_path  = "/var/run"
+    host_path      = "/var/run"
+    container_path = "/var/run"
   }
 
   labels {
-    "traefik.frontend.rule" = "Host:cadvisor.bb8.fun"
-    "traefik.frontend.auth.basic" = "${var.basic_auth}"
-    "traefik.port" = 8080
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff" = "true"
-    "traefik.frontend.headers.browserXSSFilter" = "true"
+    "traefik.frontend.rule"                            = "Host:cadvisor.bb8.fun"
+    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
+    "traefik.port"                                     = 8080
+    "traefik.enable"                                   = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
+    "traefik.frontend.headers.STSSeconds"              = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
+    "traefik.frontend.headers.contentTypeNosniff"      = "true"
+    "traefik.frontend.headers.browserXSSFilter"        = "true"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
+    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
   }
 }

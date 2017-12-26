@@ -4,7 +4,6 @@
 #   username = "root"
 #   password = "${var.mysql_root_password}"
 # }
-
 # # Create a Database
 # resource "mysql_database" "kodi" {
 #   name = "kodi"
@@ -12,7 +11,6 @@
 #     prevent_destroy = true
 #   }
 # }
-
 # resource "mysql_user" "kodi" {
 #   user     = "kodi"
 #   host     = "127.0.0.1"

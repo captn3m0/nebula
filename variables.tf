@@ -1,5 +1,5 @@
 variable "cloudflare_key" {
-  type = "string"
+  type        = "string"
   description = "cloudflare API Key"
 }
 
