@@ -18,7 +18,7 @@ resource docker_container "transmission" {
   ports {
     internal = 51413
     external = 51413
-    ip       = "192.168.1.111"
+    ip       = "${var.ips["eth0"]}"
     protocol = "udp"
   }
 
@@ -74,13 +74,13 @@ resource docker_container "gitea" {
   ports {
     internal = 22
     external = 2222
-    ip       = "192.168.1.111"
+    ip       = "${var.ips["eth0"]}"
   }
 
   ports {
     internal = 22
     external = 2222
-    ip       = "10.8.0.14"
+    ip       = "${var.ips["tun0"]}"
   }
 
   volumes {
@@ -110,7 +110,7 @@ resource "docker_container" "emby" {
   }
 
   labels {
-    "traefik.frontend.rule"                            = "Host:emby.in.bb8.fun,emby.bb8.fun"
+    "traefik.frontend.rule"                            = "Host:emby.in.${var.domain},emby.${var.domain}"
     "traefik.frontend.passHostHeader"                  = "true"
     "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
     "traefik.port"                                     = 8096
@@ -217,7 +217,7 @@ resource "docker_container" "airsonic" {
   }
 
   labels {
-    "traefik.frontend.rule"                            = "Host:airsonic.in.bb8.fun,airsonic.bb8.fun"
+    "traefik.frontend.rule"                            = "Host:airsonic.in.${var.domain},airsonic.${var.domain}"
     "traefik.frontend.passHostHeader"                  = "true"
     "traefik.port"                                     = 4040
     "traefik.enable"                                   = "true"
@@ -240,7 +240,7 @@ resource "docker_container" "headerdebug" {
   memory = 16
 
   labels {
-    "traefik.frontend.rule"                            = "Host:debug.in.bb8.fun"
+    "traefik.frontend.rule"                            = "Host:debug.in.${var.domain}"
     "traefik.frontend.passHostHeader"                  = "true"
     "traefik.port"                                     = 8080
     "traefik.enable"                                   = "true"
@@ -380,11 +380,11 @@ resource "docker_container" "ubooquity" {
     "traefik.enable" = "true"
 
     "traefik.admin.port"                = 2203
-    "traefik.admin.frontend.rule"       = "Host:library.bb8.fun"
+    "traefik.admin.frontend.rule"       = "Host:library.${var.domain}"
     "traefik.admin.frontend.auth.basic" = "${var.basic_auth}"
 
     "traefik.read.port"          = 2202
-    "traefik.read.frontend.rule" = "Host:read.bb8.fun"
+    "traefik.read.frontend.rule" = "Host:read.${var.domain}"
 
     "traefik.read.frontend.headers.SSLTemporaryRedirect"  = "true"
     "traefik.read.frontend.headers.STSSeconds"            = "2592000"
@@ -438,7 +438,7 @@ resource "docker_container" "wiki" {
   }
 
   labels {
-    "traefik.frontend.rule"                          = "Host:wiki.bb8.fun"
+    "traefik.frontend.rule"                          = "Host:wiki.${var.domain}"
     "traefik.frontend.passHostHeader"                = "true"
     "traefik.port"                                   = 9999
     "traefik.enable"                                 = "true"
@@ -471,7 +471,7 @@ resource "docker_container" "muximux" {
   }
 
   labels {
-    "traefik.frontend.rule"                          = "Host:home.in.bb8.fun,home.bb8.fun"
+    "traefik.frontend.rule"                          = "Host:home.in.${var.domain},home.${var.domain}"
     "traefik.frontend.passHostHeader"                = "false"
     "traefik.frontend.auth.basic"                    = "${var.basic_auth}"
     "traefik.port"                                   = 80
@@ -532,7 +532,7 @@ resource "docker_container" "cadvisor" {
   }
 
   labels {
-    "traefik.frontend.rule"                            = "Host:cadvisor.bb8.fun"
+    "traefik.frontend.rule"                            = "Host:cadvisor.${var.domain}"
     "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
     "traefik.port"                                     = 8080
     "traefik.enable"                                   = "true"

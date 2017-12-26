@@ -6,41 +6,41 @@ resource "docker_container" "traefik" {
   ports {
     internal = 1111
     external = 1111
-    ip       = "192.168.1.111"
+    ip       = "${var.ips["eth0"]}"
   }
 
   # Local Web Server
   ports {
     internal = 80
     external = 8888
-    ip       = "192.168.1.111"
+    ip       = "${var.ips["eth0"]}"
   }
 
   # Local Web Server
   ports {
     internal = 80
     external = 80
-    ip       = "192.168.1.111"
+    ip       = "${var.ips["eth0"]}"
   }
 
   # Local Web Server (HTTPS)
   ports {
     internal = 443
     external = 443
-    ip       = "192.168.1.111"
+    ip       = "${var.ips["eth0"]}"
   }
 
   # Proxied via sydney.captnemo.in
   ports {
     internal = 443
     external = 443
-    ip       = "10.8.0.14"
+    ip       = "${var.ips["tun0"]}"
   }
 
   ports {
     internal = 80
     external = 80
-    ip       = "10.8.0.14"
+    ip       = "${var.ips["tun0"]}"
   }
 
   upload {

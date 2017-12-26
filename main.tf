@@ -1,5 +1,5 @@
 provider "docker" {
-  host      = "tcp://docker.in.bb8.fun:2376"
+  host      = "tcp://docker.vpn.bb8.fun:2376"
   cert_path = "./secrets"
 }
 
@@ -12,7 +12,7 @@ module "cloudflare" {
   source = "cloudflare"
   domain = "bb8.fun"
   proxy  = "sydney.captnemo.in"
-  act_ip = "10.242.36.126"
+  ips    = "${var.ips}"
 }
 
 module "mysql" {
@@ -28,4 +28,6 @@ module "docker" {
   cloudflare_key      = "${var.cloudflare_key}"
   cloudflare_email    = "bb8@captnemo.in"
   wiki_session_secret = "${var.wiki_session_secret}"
+  ips                 = "${var.ips}"
+  domain              = "bb8.fun"
 }

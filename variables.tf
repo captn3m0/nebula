@@ -18,3 +18,11 @@ variable "mysql_root_password" {
 variable "wiki_session_secret" {
   type = "string"
 }
+
+variable "ips" {
+  type = "map"
+  default = {
+    eth0 = "192.168.1.111"
+    tun0 = "10.8.0.14"
+  }
+}

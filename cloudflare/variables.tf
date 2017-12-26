@@ -6,6 +6,6 @@ variable "proxy" {
   type = "string"
 }
 
-variable "act_ip" {
-  type = "string"
+variable "ips" {
+  type = "map"
 }

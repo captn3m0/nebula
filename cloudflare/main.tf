@@ -1,32 +1,25 @@
+/**
+ *   in.bb8.fun
+ * *.in.bb8.fun
+ */
 resource "cloudflare_record" "home-wildcard" {
   domain = "${var.domain}"
   name   = "*.in"
-  value  = "192.168.1.111"
+  value  = "${var.ips["eth0"]}"
   type   = "A"
-  ttl    = 300
 }
 
 resource "cloudflare_record" "home" {
   domain = "${var.domain}"
   name   = "in"
-  value  = "192.168.1.111"
+  value  = "${var.ips["eth0"]}"
   type   = "A"
 }
 
-resource "cloudflare_record" "docker" {
-  domain = "${var.domain}"
-  name   = "docker.in"
-  value  = "10.8.0.14"
-  type   = "A"
-}
-
-resource "cloudflare_record" "debug" {
-  domain = "${var.domain}"
-  name   = "debug.in"
-  value  = "10.8.0.14"
-  type   = "A"
-}
-
+/**
+ *    bb8.fun
+ * *.bb8.fun
+ */
 resource "cloudflare_record" "internet" {
   domain = "${var.domain}"
   name   = "@"
@@ -39,6 +32,24 @@ resource "cloudflare_record" "internet-wildcard" {
   name   = "*.bb8.fun"
   value  = "${var.proxy}"
   type   = "CNAME"
+}
+
+/**
+ *   vpn.bb8.fun
+ * *.vpn.bb8.fun
+ */
+resource "cloudflare_record" "vpn" {
+  domain = "${var.domain}"
+  name   = "vpn"
+  value  = "${var.ips["tun0"]}"
+  type   = "A"
+}
+
+resource "cloudflare_record" "vpn_wildcard" {
+  domain = "${var.domain}"
+  name   = "*.vpn.bb8.fun"
+  value  = "${var.ips["tun0"]}"
+  type   = "A"
 }
 
 ########################
@@ -60,17 +71,17 @@ resource "cloudflare_record" "mailgun-dkim" {
 }
 
 resource "cloudflare_record" "mailgun-mxa" {
-  domain = "${var.domain}"
-  name   = "l"
-  value  = "mxa.mailgun.org"
-  type   = "MX"
+  domain   = "${var.domain}"
+  name     = "l"
+  value    = "mxa.mailgun.org"
+  type     = "MX"
   priority = 10
 }
 
 resource "cloudflare_record" "mailgun-mxb" {
-  domain = "${var.domain}"
-  name   = "l"
-  value  = "mxb.mailgun.org"
-  type   = "MX"
+  domain   = "${var.domain}"
+  name     = "l"
+  value    = "mxb.mailgun.org"
+  type     = "MX"
   priority = 20
 }

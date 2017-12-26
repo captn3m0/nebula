@@ -46,7 +46,10 @@ variable "wiki_session_secret" {
   type = "string"
 }
 
+variable "domain" {
+  type = "string"
+}
+
 variable "ips" {
-  eth0 = "192.168.1.111"
-  tun0 = "10.8.0.14"
+  type = "map"
 }

@@ -33,7 +33,7 @@ resource "docker_container" "mariadb" {
   ports {
     internal = 3306
     external = 3306
-    ip       = "192.168.1.111"
+    ip       = "${var.ips["eth0"]}"
   }
 
   memory                = 512
