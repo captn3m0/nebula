@@ -37,7 +37,6 @@ resource "docker_container" "mariadb" {
     ip       = "${var.ips["eth0"]}"
   }
 
-
   // This is a not-so-great idea
   // TODO: Figure out a better way to make terraform SSH and then connect to localhost
   ports {

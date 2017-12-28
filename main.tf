@@ -5,8 +5,11 @@ module "cloudflare" {
 }
 
 module "mysql" {
-  source              = "mysql"
-  mysql_root_password = "${var.mysql_root_password}"
+  source                = "mysql"
+  mysql_root_password   = "${var.mysql_root_password}"
+  mysql_lychee_password = "${var.mysql_lychee_password}"
+  mysql_kodi_password   = "${var.mysql_kodi_password}"
+  lychee_ip             = "${module.docker.lychee-ip}"
 }
 
 module "docker" {
