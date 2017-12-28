@@ -28,7 +28,7 @@ resource "docker_container" "lychee" {
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
     "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.rule"                            = "Host:airsonic.in.${var.domain},airsonic.${var.domain}"
+    "traefik.frontend.rule"                            = "Host:lychee.${var.domain},lychee.in.${var.domain}"
   }
 
   env = [
