@@ -21,9 +21,10 @@ variable "wiki_session_secret" {
 
 variable "ips" {
   type = "map"
+
   default = {
-    eth0 = "192.168.1.111"
-    tun0 = "10.8.0.14"
+    eth0   = "192.168.1.111"
+    tun0   = "10.8.0.14"
     static = "139.59.48.222"
   }
 }
