@@ -62,3 +62,7 @@ data "docker_registry_image" "headerdebug" {
 data "docker_registry_image" "cadvisor" {
   name = "google/cadvisor:latest"
 }
+
+data "docker_registry_image" "lychee" {
+  name = "linuxserver/lychee:latest"
+}
