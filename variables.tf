@@ -15,6 +15,10 @@ variable "mysql_root_password" {
   type = "string"
 }
 
+variable "mysql_lychee_password" {}
+
+variable "mysql_kodi_password" {}
+
 variable "wiki_session_secret" {
   type = "string"
 }

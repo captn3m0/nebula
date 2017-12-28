@@ -1,25 +1,23 @@
 # # This is pending on https://github.com/hashicorp/go-version/pull/34
-# provider "mysql" {
-#   endpoint = "docker.in.captnemo.in:3306"
-#   username = "root"
-#   password = "${var.mysql_root_password}"
-# }
-# # Create a Database
-# resource "mysql_database" "kodi" {
-#   name = "kodi"
-#   lifecycle {
-#     prevent_destroy = true
-#   }
-# }
-# resource "mysql_user" "kodi" {
-#   user     = "kodi"
-#   host     = "127.0.0.1"
-#   plaintext_password = "testing"
-# }
-# resource "mysql_grant" "kodi" {
-#   user       = "${mysql_user.kodi.user}"
-#   host       = "${mysql_user.kodi.host}"
-#   database   = "kodi"
-#   privileges = ["SUPER"]
-# }
 
+# Create a Database
+resource "mysql_database" "lychee" {
+  name = "lychee"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "mysql_user" "lychee" {
+  user               = "lychee"
+  host               = "${var.lychee_ip}"
+  plaintext_password = "${var.mysql_lychee_password}"
+}
+
+resource "mysql_grant" "lychee" {
+  user       = "${mysql_user.lychee.user}"
+  host       = "${mysql_user.lychee.host}"
+  database   = "${mysql_database.lychee.name}"
+  privileges = ["ALL"]
+}

@@ -1,13 +1,3 @@
-provider "docker" {
-  host      = "tcp://docker.vpn.bb8.fun:2376"
-  cert_path = "./secrets"
-}
-
-provider "cloudflare" {
-  email = "bb8@captnemo.in"
-  token = "${var.cloudflare_key}"
-}
-
 module "cloudflare" {
   source = "cloudflare"
   domain = "bb8.fun"
@@ -15,8 +5,11 @@ module "cloudflare" {
 }
 
 module "mysql" {
-  source              = "mysql"
-  mysql_root_password = "${var.mysql_root_password}"
+  source                = "mysql"
+  mysql_root_password   = "${var.mysql_root_password}"
+  mysql_lychee_password = "${var.mysql_lychee_password}"
+  mysql_kodi_password   = "${var.mysql_kodi_password}"
+  lychee_ip             = "${module.docker.lychee-ip}"
 }
 
 module "docker" {

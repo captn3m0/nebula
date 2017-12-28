@@ -75,3 +75,8 @@ resource "docker_image" "cadvisor" {
   name          = "${data.docker_registry_image.cadvisor.name}"
   pull_triggers = ["${data.docker_registry_image.cadvisor.sha256_digest}"]
 }
+
+resource "docker_image" "lychee" {
+  name          = "${data.docker_registry_image.lychee.name}"
+  pull_triggers = ["${data.docker_registry_image.lychee.sha256_digest}"]
+}
