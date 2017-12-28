@@ -30,10 +30,20 @@ resource "docker_container" "mariadb" {
     host_path      = "${docker_volume.mariadb_volume.mountpoint}"
   }
 
+  // This is so that other host-only services can share this
   ports {
     internal = 3306
     external = 3306
     ip       = "${var.ips["eth0"]}"
+  }
+
+
+  // This is a not-so-great idea
+  // TODO: Figure out a better way to make terraform SSH and then connect to localhost
+  ports {
+    internal = 3306
+    external = 3306
+    ip       = "${var.ips["tun0"]}"
   }
 
   memory                = 512

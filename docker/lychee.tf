@@ -28,10 +28,13 @@ resource "docker_container" "lychee" {
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
     "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
+    "traefik.frontend.rule"                            = "Host:airsonic.in.${var.domain},airsonic.${var.domain}"
   }
 
   env = [
     "PUID=986",
     "PGID=984",
   ]
+
+  links = ["mariadb"]
 }
