@@ -32,3 +32,7 @@ variable "ips" {
     static = "139.59.48.222"
   }
 }
+
+variable "gf-security-admin-password" {
+  type = "string"
+}

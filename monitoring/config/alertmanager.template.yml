@@ -1,0 +1,10 @@
+route:
+  receiver: "slack"
+
+receivers:
+  - name: "slack"
+    slack_configs:
+      - send_resolved: true
+        username: "ALERT_SLACK_USERNAME"
+        channel: "ALERT_SLACK_CHANNEL"
+api_url: "ALERT_SLACK_INCOMING_WEBHOOK_URL"
