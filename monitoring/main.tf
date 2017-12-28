@@ -31,7 +31,7 @@ resource docker_container "prometheus" {
   name  = "prometheus"
   image = "${docker_image.prometheus.latest}"
 
-  command = ["-config.file=/etc/prometheus/prometheus.yml"]
+  command = ["--config.file=/etc/prometheus/prometheus.yml"]
 
   volumes {
     host_path      = "/mnt/xwing/data/prometheus"
@@ -54,8 +54,6 @@ resource docker_container "nodeexporter" {
   name  = "nodeexporter"
   image = "${docker_image.nodeexporter.latest}"
 
-  command = ["-config.file=/etc/prometheus/prometheus.yml"]
-
   volumes {
     host_path      = "/proc"
     container_path = "/host/proc"
@@ -73,9 +71,9 @@ resource docker_container "nodeexporter" {
   }
 
   command = [
-    "-collector.procfs=/host/proc",
-    "-collector.sysfs=/host/sys",
-    "-collector.filesystem.ignored-mount-points=\"^/(sys|proc|dev|host|etc)($$|/)\""
+    "--collector.procfs=/host/proc",
+    "--collector.sysfs=/host/sys",
+    "--collector.filesystem.ignored-mount-points=\"^/(sys|proc|dev|host|etc)($$|/)\""
   ]
 
   restart               = "unless-stopped"
