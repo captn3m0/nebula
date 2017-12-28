@@ -26,9 +26,8 @@ resource "docker_container" "lychee" {
     "traefik.frontend.headers.browserXSSFilter"        = "true"
     "traefik.frontend.headers.STSSeconds"              = "2592000"
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
     "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.rule"                            = "Host:lychee.${var.domain},lychee.in.${var.domain}"
+    "traefik.frontend.rule"                            = "Host:pics.${var.domain},pics.in.${var.domain}"
   }
 
   env = [
