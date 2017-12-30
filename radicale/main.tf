@@ -19,6 +19,8 @@ resource docker_container "radicale" {
     "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
     "traefik.frontend.headers.contentTypeNosniff"      = "true"
     "traefik.frontend.headers.browserXSSFilter"        = "true"
+    "traefik.frontend.passHostHeader"                  = "true"
+    "traefik.frontend.rule"                            = "Host:${var.domain}"
   }
 
   volumes {
@@ -29,7 +31,6 @@ resource docker_container "radicale" {
   volumes {
     host_path      = "/mnt/xwing/config/radicale"
     container_path = "/config"
-    read_only      = true
   }
 
   upload {
@@ -37,11 +38,11 @@ resource docker_container "radicale" {
     file    = "/config/config"
   }
 
-  env = [
-    "PGID=1003",
-    "PUID=1000",
-    "TZ=Asia/Kolkata",
-  ]
+  # env = [
+  #   "PGID=1003",
+  #   "PUID=1000",
+  #   "TZ=Asia/Kolkata",
+  # ]
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

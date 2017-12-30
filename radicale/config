@@ -61,10 +61,10 @@ dns_lookup = False
 [encoding]
 
 # Encoding for responding requests
-#request = utf-8
+request = utf-8
 
 # Encoding for storing local collections
-#stock = utf-8
+stock = utf-8
 
 
 [auth]
@@ -83,7 +83,7 @@ dns_lookup = False
 #htpasswd_encryption = bcrypt
 
 # Incorrect authentication delay (seconds)
-#delay = 1
+delay = 1
 
 
 [rights]
@@ -93,7 +93,7 @@ dns_lookup = False
 #type = owner_only
 
 # File for rights management from_file
-#file = /etc/radicale/rights
+# file = /etc/radicale/rights
 
 
 [storage]

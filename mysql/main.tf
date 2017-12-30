@@ -3,15 +3,11 @@
 # Create a Database
 resource "mysql_database" "lychee" {
   name = "lychee"
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "mysql_user" "lychee" {
   user               = "lychee"
-  host               = "${var.lychee_ip}"
+  host               = "%"
   plaintext_password = "${var.mysql_lychee_password}"
 }
 
