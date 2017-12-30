@@ -25,6 +25,6 @@ module "docker" {
 }
 
 module "radicale" {
-  source ="radicale"
+  source = "radicale"
   domain = "radicale.bb8.fun"
 }

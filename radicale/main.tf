@@ -12,15 +12,15 @@ resource docker_container "radicale" {
   image = "${docker_image.radicale.latest}"
 
   labels {
-    "traefik.port"                                     = 5232
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.passHostHeader"                  = "true"
-    "traefik.frontend.rule"                            = "Host:${var.domain}"
+    "traefik.port"                                  = 5232
+    "traefik.enable"                                = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
+    "traefik.frontend.headers.STSSeconds"           = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
+    "traefik.frontend.headers.contentTypeNosniff"   = "true"
+    "traefik.frontend.headers.browserXSSFilter"     = "true"
+    "traefik.frontend.passHostHeader"               = "true"
+    "traefik.frontend.rule"                         = "Host:${var.domain}"
   }
 
   volumes {
@@ -38,11 +38,15 @@ resource docker_container "radicale" {
     file    = "/config/config"
   }
 
-  # env = [
-  #   "PGID=1003",
-  #   "PUID=1000",
-  #   "TZ=Asia/Kolkata",
-  # ]
+  upload {
+    content = "${file("${path.module}/logging.conf")}"
+    file    = "/config/logging"
+  }
+
+  upload {
+    content = "${file("${path.module}/users")}"
+    file    = "/config/users"
+  }
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
