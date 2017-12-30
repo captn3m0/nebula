@@ -16,6 +16,11 @@ resource "docker_container" "lychee" {
     container_path = "/pictures"
   }
 
+  upload {
+    content = "${file("${path.module}/conf/lychee.php.ini")}"
+    file    = "/config/lychee/user.ini"
+  }
+
   labels {
     "traefik.port"                                     = 80
     "traefik.frontend.passHostHeader"                  = "false"
