@@ -23,3 +23,7 @@ module "docker" {
   ips                 = "${var.ips}"
   domain              = "bb8.fun"
 }
+
+module "radicale" {
+  source ="radicale"
+}
