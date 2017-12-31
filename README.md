@@ -6,7 +6,8 @@ Manages the local infrastructure of my home server. I'm also doing blog posts ar
 
 1. [Part 1, Hardware](https://captnemo.in/blog/2017/09/17/home-server-build/)
 2. [Part 2, Terraform/Docker](https://captnemo.in/blog/2017/11/09/home-server-update/)
-3. [Part 3, Learnings](https://4000.ports.captnemo.in/blog/2017/12/18/home-server-learnings/)
+3. [Part 3, Learnings](https://captnemo.in/blog/2017/12/18/home-server-learnings/)
+4. [Part 4, Migrating from Google (and more)](https://captnemo.in/blog/2017/12/31/migrating-from-google/)
 
 The canonical URL for this repo is https://git.captnemo.in/nemo/nebula/. A mirror is maintained on GitHub.
 
