@@ -45,6 +45,7 @@ resource "docker_image" "wikijs" {
 
 # Attempting to use mongorocks to work around reboot issue
 # Hoping that this will not face reboot-recovery issues
+# Wrote about this: https://captnemo.in/blog/2017/12/18/home-server-learnings/
 resource "docker_image" "mongorocks" {
   name          = "${data.docker_registry_image.mongorocks.name}"
   pull_triggers = ["${data.docker_registry_image.mongorocks.sha256_digest}"]
@@ -66,6 +67,7 @@ resource "docker_image" "ubooquity" {
 }
 
 # Helps debug traefik reverse proxy headers
+# Highly recommended!
 resource "docker_image" "headerdebug" {
   name          = "${data.docker_registry_image.headerdebug.name}"
   pull_triggers = ["${data.docker_registry_image.headerdebug.sha256_digest}"]
