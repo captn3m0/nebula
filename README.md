@@ -13,19 +13,53 @@ The canonical URL for this repo is https://git.captnemo.in/nemo/nebula/. A mirro
 
 # modules
 
-1. docker: to actually run the services
-2. cloudflare: to manage the DNS
-3. mysql: unused, but setup
+1. docker: to actually run the services.
+2. cloudflare: to manage the DNS.
+3. mysql: to create mysql users and databases.
 
-Self-learning project for terraform/docker
+Self-learning project for terraform/docker.
 
 # Planned
 
 1. Setup DigitalOcean
 2. Add DO infrastructure via ansible
 3. ~Add traefik for proper proxying~
+4. Maybe add docker swarm (or k8s?) across both the servers. Might setup the k8s API on the Raspberry Pi.
 
-# Security Headers note
+# Service List
+
+Currently running the following (all links are to the `store.docker.com` links for the docker images that I'm using:
+
+## Databases
+
+- [MariaDB](https://store.docker.com/images/mariadb) for a simple database backend
+- [MongoRocks](https://store.docker.com/community/images/jadsonlourenco/mongo-rocks) as a mongoDB server. Uses RocksDB as the backend
+
+## Media
+
+- [Emby](https://store.docker.com/community/images/emby/embyserver) Media Server
+- [CouchPotato](https://store.docker.com/community/images/linuxserver/couchpotato), auto-download movies
+- [SickRage](https://store.docker.com/community/images/linuxserver/sickrage), auto-download TV shows
+- [Transmission](https://store.docker.com/community/images/linuxserver/transmission), to download torrents
+- [AirSonic](https://store.docker.com/community/images/airsonic/airsonic), for a music server
+- [Ubooquity](https://store.docker.com/community/images/linuxserver/ubooquity), EBooks server with OPDS support
+- [Lychee](https://store.docker.com/community/images/linuxserver/lychee), as a simple image-sharing/hosting service
+
+## Plumbing
+
+- [Traefik](https://store.docker.com/images/traefik) as a reverse-proxy server, and TLS termination
+- [CAdvisor](https://store.docker.com/community/images/google/cadvisor), for basic monitoring
+
+## Misc
+
+- [Wiki.JS](https://store.docker.com/community/images/requarks/wiki) as a simple home-wiki
+- [Muximux](https://store.docker.com/community/images/linuxserver/muximux) as a landing page for the entire setup
+- [Radicale](https://store.docker.com/community/images/tomsquest/docker-radicale), for a CalDav/Carddav server
+- [Gitea](https://store.docker.com/community/images/gitea/gitea), git server
+
+6 out of the above images are from the excellent [LinuxServer.io](https://www.linuxserver.io), and they're doing great work :+1:
+
+## Security Headers Note
 
 The following security headers are applied using traefik on all traefik frontend docker backends:
 
@@ -62,3 +96,8 @@ Their is a lot of additional infrastructure that is _not-yet_ part of this repo.
 2. openbox, kodi configuration to run on boot along with the Steam Controller for the HTPC setup
 3. Docker main configuration with half-baked CA setup
 4. btrfs-backed subvolumes and snapshotting for most things in /mnt/xwing/ (in-progress)
+5. User-creation on the main server. (I'm using a common user for media applications and specific users for other applications)
+
+# License
+
+All code in this repository is shared under the [MIT License](https://nemo.mit-license.org/).
