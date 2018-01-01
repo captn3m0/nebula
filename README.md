@@ -1,5 +1,7 @@
 # nebula
 
+![Nebula header image](https://cdn.spacetelescope.org/archives/images/thumb700x/heic0707a.jpg)
+
 >Where stars are born.
 
 Manages the local infrastructure of my home server. I'm also doing blog posts around the same:
