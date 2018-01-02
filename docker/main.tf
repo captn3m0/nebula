@@ -2,18 +2,11 @@ resource docker_container "transmission" {
   name  = "transmission"
   image = "${docker_image.transmission.latest}"
 
-  labels {
-    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
-    "traefik.port"                                     = 9091
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-  }
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+      "traefik.port", 9091,
+    ))}"
 
   ports {
     internal = 51413
@@ -68,20 +61,14 @@ resource "docker_container" "emby" {
     container_path = "/media"
   }
 
-  labels {
-    "traefik.frontend.rule"                            = "Host:emby.in.${var.domain},emby.${var.domain}"
-    "traefik.frontend.passHostHeader"                  = "true"
-    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
-    "traefik.port"                                     = 8096
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-  }
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+      "traefik.frontend.rule", "Host:emby.in.${var.domain},emby.${var.domain}",
+      "traefik.frontend.passHostHeader", "true",
+      "traefik.frontend.auth.basic", "${var.basic_auth}",
+      "traefik.port", 8096,
+    ))}"
 
   memory                = 2048
   restart               = "unless-stopped"
@@ -117,18 +104,12 @@ resource "docker_container" "couchpotato" {
     container_path = "/movies"
   }
 
-  labels {
-    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
-    "traefik.port"                                     = 5050
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-  }
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+      "traefik.frontend.auth.basic", "${var.basic_auth}",
+      "traefik.port", 5050,
+    ))}"
 
   memory                = 256
   restart               = "unless-stopped"
@@ -175,17 +156,13 @@ resource "docker_container" "airsonic" {
     container_path = "/airsonic/podcasts"
   }
 
-  labels {
-    "traefik.frontend.rule" = "Host:airsonic.in.bb8.fun,airsonic.bb8.fun"
-    "traefik.frontend.passHostHeader" = "false"
-    "traefik.port" = 4040
-    "traefik.enable" = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds" = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-  }
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+      "traefik.frontend.rule", "Host:airsonic.in.${var.domain},airsonic.${var.domain}",
+      "traefik.frontend.passHostHeader", "true",
+      "traefik.port", 4040,
+    ))}"
 }
 
 resource "docker_container" "headerdebug" {
@@ -198,16 +175,13 @@ resource "docker_container" "headerdebug" {
 
   memory = 16
 
-  labels {
-    "${merge(
-      local.traefik_common_labels,
-      map(
-        "traefik.frontend.rule", "Host:debug.in.bb8.fun",
-        "traefik.port", 8080,
-        "traefik.enable", "true"
-      )
-    )}"
-  }
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+      "traefik.frontend.rule", "Host:debug.in.${var.domain},debug.${var.domain}",
+      "traefik.port", 8080,
+      "traefik.enable", "true",
+    ))}"
 }
 
 resource "docker_container" "sickrage" {
@@ -235,19 +209,13 @@ resource "docker_container" "sickrage" {
     container_path = "/tv"
   }
 
-  labels {
-    "traefik.frontend.passHostHeader"                  = "false"
-    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
-    "traefik.port"                                     = 8081
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-  }
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+      "traefik.frontend.passHostHeader", "false",
+      "traefik.frontend.auth.basic", "${var.basic_auth}",
+      "traefik.port", 8081,
+    ))}"
 
   env = [
     "PUID=1004",
@@ -285,18 +253,12 @@ resource "docker_container" "headphones" {
     file    = "/config/config.ini"
   }
 
-  labels {
-    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
-    "traefik.port"                                     = 8181
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-  }
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+      "traefik.frontend.auth.basic", "${var.basic_auth}",
+      "traefik.port", 8181,
+    ))}"
 
   # lounge:tatooine
   env = [
@@ -395,19 +357,17 @@ resource "docker_container" "wiki" {
     container_path = "/data"
   }
 
-  labels {
-    "traefik.frontend.rule"                          = "Host:wiki.${var.domain}"
-    "traefik.frontend.passHostHeader"                = "true"
-    "traefik.port"                                   = 9999
-    "traefik.enable"                                 = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"  = "true"
-    "traefik.frontend.headers.STSSeconds"            = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"  = "false"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}||Referrer-Policy:${var.refpolicy}||X-Frame-Options:${var.xfo_allow}"
-  }
+  // The last header is a workaround for double header traefik bug
 
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+      "traefik.frontend.rule", "Host:wiki.${var.domain}",
+      "traefik.frontend.passHostHeader", "true",
+      "traefik.port", 9999,
+      "traefik.frontend.headers.customResponseHeaders", "${var.xpoweredby}||Referrer-Policy:${var.refpolicy}||X-Frame-Options:${var.xfo_allow}",
+    ))}"
   links = ["mongorocks"]
-
   env = [
     "WIKI_ADMIN_EMAIL=me@captnemo.in",
     "SESSION_SECRET=${var.wiki_session_secret}",
@@ -428,20 +388,15 @@ resource "docker_container" "muximux" {
     container_path = "/config"
   }
 
-  labels {
-    "traefik.frontend.rule"                          = "Host:home.in.${var.domain},home.${var.domain}"
-    "traefik.frontend.passHostHeader"                = "false"
-    "traefik.frontend.auth.basic"                    = "${var.basic_auth}"
-    "traefik.port"                                   = 80
-    "traefik.enable"                                 = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"  = "true"
-    "traefik.frontend.headers.STSSeconds"            = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"  = "false"
-    "traefik.frontend.headers.contentTypeNosniff"    = "true"
-    "traefik.frontend.headers.browserXSSFilter"      = "true"
-    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
-    "traefik.frontend.headers.frameDeny"             = "true"
-  }
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+      "traefik.port", 80,
+      "traefik.frontend.headers.frameDeny", "true",
+      "traefik.frontend.passHostHeader", "false",
+      "traefik.frontend.auth.basic", "${var.basic_auth}",
+      "traefik.frontend.rule", "Host:home.in.${var.domain},home.${var.domain}",
+    ))}"
 
   # lounge:tatooine
   env = [
@@ -489,17 +444,12 @@ resource "docker_container" "cadvisor" {
     container_path = "/var/run"
   }
 
-  labels {
-    "traefik.frontend.rule"                            = "Host:cadvisor.${var.domain}"
-    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
-    "traefik.port"                                     = 8080
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-  }
+  labels = "${merge(
+    local.traefik_common_labels,
+    map(
+
+      "traefik.frontend.passHostHeader", "true",
+      "traefik.frontend.auth.basic", "${var.basic_auth}",
+      "traefik.port", 8080,
+    ))}"
 }

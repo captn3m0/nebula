@@ -10,9 +10,9 @@ resource "docker_container" "traefik" {
   }
 
   ports {
-    internal  = 1111
-    external  = 1111
-    ip        = "${var.ips["tun0"]}"
+    internal = 1111
+    external = 1111
+    ip       = "${var.ips["tun0"]}"
   }
 
   # Local Web Server
