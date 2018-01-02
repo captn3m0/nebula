@@ -358,6 +358,7 @@ resource "docker_container" "wiki" {
   }
 
   // The last header is a workaround for double header traefik bug
+  // This might be actually breaking iframe till the 1.5 Final release.
 
   labels = "${merge(
     local.traefik_common_labels,
