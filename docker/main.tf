@@ -5,6 +5,7 @@ resource docker_container "transmission" {
   labels = "${merge(
     local.traefik_common_labels,
     map(
+      "traefik.frontend.auth.basic", "${var.basic_auth}",
       "traefik.port", 9091,
     ))}"
 
