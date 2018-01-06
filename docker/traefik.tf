@@ -9,7 +9,6 @@ resource "docker_container" "traefik" {
     ip       = "${var.ips["eth0"]}"
   }
 
-  # Admin Backend
   ports {
     internal = 1111
     external = 1111
