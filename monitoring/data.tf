@@ -13,4 +13,3 @@ data "docker_registry_image" "prometheus" {
 data "docker_registry_image" "nodeexporter" {
   name = "prom/node-exporter"
 }
-

@@ -24,13 +24,13 @@ module "docker" {
   domain              = "bb8.fun"
 }
 
-
 module "radicale" {
   source = "radicale"
   domain = "radicale.bb8.fun"
 }
 
 module "monitoring" {
-  source              = "monitoring"
+  source                     = "monitoring"
   gf-security-admin-password = "${var.gf-security-admin-password}"
+  domain                     = "bb8.fun"
 }

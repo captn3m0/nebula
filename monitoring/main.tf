@@ -4,13 +4,14 @@ resource docker_container "grafana" {
 
   labels {
     # "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
-    "traefik.port"                                     = 3000
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
+    "traefik.port"                                  = 3000
+    "traefik.enable"                                = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
+    "traefik.frontend.headers.STSSeconds"           = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
+    "traefik.frontend.headers.contentTypeNosniff"   = "true"
+    "traefik.frontend.headers.browserXSSFilter"     = "true"
+
     # "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
     # "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
@@ -22,6 +23,11 @@ resource docker_container "grafana" {
 
   links = ["prometheus"]
 
+  env = [
+    "GF_SECURITY_ADMIN_PASSWORD=${var.gf-security-admin-password}",
+    "GF_SERVER_ROOT_URL=https://grafana.${var.domain}",
+  ]
+
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
@@ -30,6 +36,9 @@ resource docker_container "grafana" {
 resource docker_container "prometheus" {
   name  = "prometheus"
   image = "${docker_image.prometheus.latest}"
+
+  # prometheus:prometheus
+  user = "985:983"
 
   command = ["--config.file=/etc/prometheus/prometheus.yml"]
 
@@ -43,7 +52,7 @@ resource docker_container "prometheus" {
     file    = "/etc/prometheus/prometheus.yml"
   }
 
-  links = ["nodeexporter"]
+  links = ["nodeexporter", "cadvisor"]
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
@@ -73,11 +82,10 @@ resource docker_container "nodeexporter" {
   command = [
     "--path.procfs=/host/proc",
     "--path.sysfs=/host/sys",
-    "--collector.filesystem.ignored-mount-points=\"^/(sys|proc|dev|host|etc)($$|/)\""
+    "--collector.filesystem.ignored-mount-points=\"^/(sys|proc|dev|host|etc)($$|/)\"",
   ]
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
 }
-
