@@ -2,10 +2,6 @@ variable "gf-security-admin-password" {
   type = "string"
 }
 
-# variable "email" {
-#   type = "string"
-# }
-
 variable "domain" {
   type = "string"
 }
