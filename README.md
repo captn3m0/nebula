@@ -89,6 +89,7 @@ Issues I've faced/reported as a result of this project:
 6. `ubooquity` docker container doesn't let you set admin password: https://github.com/linuxserver/docker-ubooquity/issues/17. (Couldn't reproduce, closed) :white_check_mark:
 7. Traefik customresponseheaders can't contain colons on the docker backend: https://github.com/containous/traefik/issues/2517. Fixed with https://github.com/containous/traefik/pull/2509 :white_check_mark:
 8. Traefik Security headers don't overwrite upstream headers: https://github.com/containous/traefik/issues/2618
+9. Transmission exporter broke with different data types while unmarshalling JSON in go. I filed a PR https://github.com/metalmatze/transmission-exporter/pull/2
 
 # Plumbing
 
