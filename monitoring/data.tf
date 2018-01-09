@@ -15,5 +15,5 @@ data "docker_registry_image" "nodeexporter" {
 }
 
 data "docker_registry_image" "transmission-exporter" {
-  name = "captn3m0/transmission-exporter"
+  name = "metalmatze/transmission-exporter"
 }
