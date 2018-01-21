@@ -36,7 +36,7 @@ data "docker_registry_image" "sickrage" {
 }
 
 data "docker_registry_image" "airsonic" {
-  name = "airsonic/airsonic:latest"
+  name = "linuxserver/airsonic:latest"
 }
 
 data "docker_registry_image" "wikijs" {
