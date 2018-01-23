@@ -17,6 +17,8 @@ variable "mysql_root_password" {
 
 variable "mysql_lychee_password" {}
 
+variable "mysql_airsonic_password" {}
+
 variable "mysql_kodi_password" {}
 
 variable "wiki_session_secret" {

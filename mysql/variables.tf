@@ -6,6 +6,10 @@ variable "mysql_lychee_password" {
   type = "string"
 }
 
+variable "mysql_airsonic_password" {
+  type = "string"
+}
+
 variable "mysql_kodi_password" {
   type = "string"
 }

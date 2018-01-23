@@ -7,7 +7,7 @@ resource docker_container "transmission-exporter" {
   links = ["transmission"]
 
   env = [
-    "TRANSMISSION_ADDR=http://transmission:9091"
+    "TRANSMISSION_ADDR=http://transmission:9091",
   ]
 
   restart               = "unless-stopped"

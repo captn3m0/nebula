@@ -157,9 +157,9 @@ resource "docker_container" "airsonic" {
   }
 
   labels {
-    "traefik.enable" = "true"
-    "traefik.port"   = "4040"
-    "traefik.frontend.rule" = "Host:airsonic.in.${var.domain},airsonic.${var.domain}"
+    "traefik.enable"                  = "true"
+    "traefik.port"                    = "4040"
+    "traefik.frontend.rule"           = "Host:airsonic.in.${var.domain},airsonic.${var.domain}"
     "traefik.frontend.passHostHeader" = "true"
   }
 
