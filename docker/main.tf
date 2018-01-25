@@ -42,7 +42,7 @@ resource docker_container "transmission" {
     "TZ=Asia/Kolkata",
   ]
 
-  memory                = 256
+  memory                = 1024
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
