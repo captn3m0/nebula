@@ -1,0 +1,11 @@
+/* TEAM */
+  Captain: Nemo (Abhay Rana)
+  Contact: git [at] captnemo.in
+  Twitter: @captn3m0
+
+/* SITE */
+  Last update: Jan 2018
+  Language: English
+  IDE: Sublime Text, Vim
+  Runs-On: Docker
+  Details: https://git.captnemo.in/nemo/nebula/

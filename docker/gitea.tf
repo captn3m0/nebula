@@ -33,6 +33,28 @@ resource docker_container "gitea" {
     host_path      = "${docker_volume.gitea_volume.mountpoint}"
   }
 
+  upload {
+    content = "${file("${path.module}/conf/gitea/public/img/gitea-lg.png")}"
+    file    = "/data/gitea/public/img/gitea-lg.png"
+  }
+
+  upload {
+    content = "${file("${path.module}/conf/gitea/public/img/gitea-sm.png")}"
+    file    = "/data/gitea/public/img/gitea-sm.png"
+  }
+
+  upload {
+    content = "${file("${path.module}/conf/gitea/public/img/gitea-sm.png")}"
+    file    = "/data/gitea/public/img/favicon.png"
+  }
+
+  upload {
+    content = "${file("${path.module}/conf/humans.txt")}"
+    file    = "/data/gitea/public/humans.txt"
+  }
+
+  # TODO: Add svg
+
   memory                = 256
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

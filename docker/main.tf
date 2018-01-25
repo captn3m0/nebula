@@ -364,6 +364,11 @@ resource "docker_container" "wiki" {
     container_path = "/data"
   }
 
+  upload {
+    content = "${file("${path.module}/conf/humans.txt")}"
+    file    = "/var/wiki/assets/humans.txt"
+  }
+
   // The last header is a workaround for double header traefik bug
   // This might be actually breaking iframe till the 1.5 Final release.
 
