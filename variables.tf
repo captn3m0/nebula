@@ -38,3 +38,6 @@ variable "ips" {
 variable "gf-security-admin-password" {
   type = "string"
 }
+
+variable "gitea-secret-key" {}
+variable "gitea-internal-token" {}

@@ -53,10 +53,24 @@ resource docker_container "gitea" {
     file    = "/data/gitea/public/humans.txt"
   }
 
+  upload {
+    content = "${data.template_file.gitea-config-file.rendered}"
+    file    = "/data/gitea/conf/app.ini"
+  }
+
   # TODO: Add svg
 
   memory                = 256
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
+}
+
+data "template_file" "gitea-config-file" {
+  template = "${file("${path.module}/conf/gitea/conf.ini.tpl")}"
+
+  vars {
+    secret_key     = "${var.gitea-secret-key}"
+    internal_token = "${var.gitea-internal-token}"
+  }
 }
