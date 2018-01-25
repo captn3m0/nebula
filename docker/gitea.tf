@@ -33,6 +33,9 @@ resource docker_container "gitea" {
     host_path      = "${docker_volume.gitea_volume.mountpoint}"
   }
 
+  # Logos
+  # TODO: Add svg
+
   upload {
     content = "${file("${path.module}/conf/gitea/public/img/gitea-lg.png")}"
     file    = "/data/gitea/public/img/gitea-lg.png"
@@ -53,12 +56,18 @@ resource docker_container "gitea" {
     file    = "/data/gitea/public/humans.txt"
   }
 
+  # Extra Links in header
+  # TODO: Doesn't work
+  upload {
+    content = "${file("${path.module}/conf/gitea/extra_links.tmpl")}"
+    file    = "/data/gitea/templates/custom/extra_links.tmpl"
+  }
+
+  # This is the main configuration file
   upload {
     content = "${data.template_file.gitea-config-file.rendered}"
     file    = "/data/gitea/conf/app.ini"
   }
-
-  # TODO: Add svg
 
   memory                = 256
   restart               = "unless-stopped"
