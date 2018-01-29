@@ -1,18 +1,18 @@
-data "docker_registry_image" "sonarr" {
-  name = "linuxserver/sonarr:latest"
+data "docker_registry_image" "radarr" {
+  name = "linuxserver/radarr:latest"
 }
 
-resource "docker_image" "sonarr" {
-  name          = "${data.docker_registry_image.sonarr.name}"
-  pull_triggers = ["${data.docker_registry_image.sonarr.sha256_digest}"]
+resource "docker_image" "radarr" {
+  name          = "${data.docker_registry_image.radarr.name}"
+  pull_triggers = ["${data.docker_registry_image.radarr.sha256_digest}"]
 }
 
-resource docker_container "sonarr" {
-  name  = "sonarr"
-  image = "${docker_image.sonarr.latest}"
+resource docker_container "radarr" {
+  name  = "radarr"
+  image = "${docker_image.radarr.latest}"
 
   labels {
-    "traefik.port"                                  = 8989
+    "traefik.port"                                  = 7878
     "traefik.enable"                                = "true"
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
     "traefik.frontend.headers.STSSeconds"           = "2592000"
@@ -20,7 +20,9 @@ resource docker_container "sonarr" {
     "traefik.frontend.headers.contentTypeNosniff"   = "true"
     "traefik.frontend.headers.browserXSSFilter"     = "true"
     "traefik.frontend.passHostHeader"               = "true"
-    "traefik.frontend.rule"                         = "Host:luke.${var.domain}"
+
+    # TODO: wildcard certs needed!
+    "traefik.frontend.rule" = "Host:git.${var.domain}"
   }
 
   memory                = 512
@@ -29,7 +31,7 @@ resource docker_container "sonarr" {
   must_run              = true
 
   volumes {
-    host_path      = "/mnt/xwing/config/sonarr"
+    host_path      = "/mnt/xwing/config/radarr"
     container_path = "/config"
   }
 
@@ -39,8 +41,8 @@ resource docker_container "sonarr" {
   }
 
   volumes {
-    host_path      = "/mnt/xwing/media/TV"
-    container_path = "/tv"
+    host_path      = "/mnt/xwing/media/Movies"
+    container_path = "/movies"
   }
 
   env = [

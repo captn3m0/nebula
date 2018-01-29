@@ -1,6 +1,3 @@
-# # This is pending on https://github.com/hashicorp/go-version/pull/34
-
-# Create a Database
 resource "mysql_database" "lychee" {
   name = "lychee"
 }
@@ -18,7 +15,6 @@ resource "mysql_grant" "lychee" {
   privileges = ["ALL"]
 }
 
-# Create a Database
 resource "mysql_database" "airsonic" {
   name = "airsonic"
 }

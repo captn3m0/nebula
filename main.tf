@@ -32,6 +32,12 @@ module "radicale" {
   domain = "radicale.bb8.fun"
 }
 
+module "tt-rss" {
+  source = "tt-rss"
+  domain = "rss.captnemo.in"
+  mysql_password = "${var.mysql-ttrss-password}"
+}
+
 module "media" {
   source = "media"
   domain = "bb8.fun"

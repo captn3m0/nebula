@@ -57,6 +57,16 @@ resource "docker_container" "traefik" {
     file    = "/etc/traefik/git.captnemo.in.key"
   }
 
+  upload {
+    content = "${file("/home/nemo/projects/personal/certs/rss.captnemo.in/fullchain.pem")}"
+    file    = "/etc/traefik/rss.captnemo.in.crt"
+  }
+
+  upload {
+    content = "${file("/home/nemo/projects/personal/certs/rss.captnemo.in/privkey.pem")}"
+    file    = "/etc/traefik/rss.captnemo.in.key"
+  }
+
   volumes {
     host_path      = "/var/run/docker.sock"
     container_path = "/var/run/docker.sock"

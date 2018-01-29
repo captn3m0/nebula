@@ -11,6 +11,9 @@ defaultEntryPoints = ["http", "https"]
   [[entryPoints.https.tls.certificates]]
     certFile = "/etc/traefik/git.captnemo.in.crt"
     keyFile  = "/etc/traefik/git.captnemo.in.key"
+  [[entryPoints.https.tls.certificates]]
+    certFile = "/etc/traefik/rss.captnemo.in.crt"
+    keyFile  = "/etc/traefik/rss.captnemo.in.key"
 
 [docker]
   # Make sure you mount this as readonly
