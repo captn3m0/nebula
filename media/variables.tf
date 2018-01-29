@@ -1,0 +1,3 @@
+variable "domain" {
+  type = "string"
+}
