@@ -19,7 +19,7 @@ TEMP_PATH = /data/gitea/uploads
 ; More info: https://developers.google.com/web/updates/2014/11/Support-for-theme-color-in-Chrome-39-for-Android
 THEME_COLOR_META_TAG = `#192a56`
 ; Max size of files to be displayed (defaults is 8MiB)
-MAX_DISPLAY_FILE_SIZE = 8388608
+MAX_DISPLAY_FILE_SIZE = 1000000
 ; Whether show the user email in the Explore Users page
 SHOW_USER_EMAIL = false
 
@@ -139,50 +139,33 @@ DISABLE_GIT_HOOKS = true
 SECRET_KEY     = ${secret_key}
 INTERNAL_TOKEN = ${internal_token}
 
-; [service]
-; ; Time limit to confirm account/email registration
-; ACTIVE_CODE_LIVE_MINUTES = 180
-; ; Time limit to confirm forgot password reset process
-; RESET_PASSWD_CODE_LIVE_MINUTES = 180
-; ; User need to confirm e-mail for registration
-; REGISTER_EMAIL_CONFIRM = false
-; ; Does not allow register and admin create account only
-; DISABLE_REGISTRATION = false
-; ; User must sign in to view anything.
-; REQUIRE_SIGNIN_VIEW = false
-; ; Mail notification
-; ENABLE_NOTIFY_MAIL = false
+[service]
 ; ; More detail: https://github.com/gogits/gogs/issues/165
 ; ENABLE_REVERSE_PROXY_AUTHENTICATION = false
 ; ENABLE_REVERSE_PROXY_AUTO_REGISTRATION = false
+
+; ; Time limit to confirm account/email registration
+ACTIVE_CODE_LIVE_MINUTES = 15
+; ; Time limit to confirm forgot password reset process
+RESET_PASSWD_CODE_LIVE_MINUTES = 30
+REGISTER_EMAIL_CONFIRM            = true
+ENABLE_NOTIFY_MAIL                = true
+DISABLE_REGISTRATION              = false
 ; ; Enable captcha validation for registration
-; ENABLE_CAPTCHA = true
+ENABLE_CAPTCHA                    = true
+; ; User must sign in to view anything.
+REQUIRE_SIGNIN_VIEW               = false
 ; ; Default value for KeepEmailPrivate
 ; ; New user will get the value of this setting copied into their profile
-; DEFAULT_KEEP_EMAIL_PRIVATE = false
+DEFAULT_KEEP_EMAIL_PRIVATE        = false
 ; ; Default value for AllowCreateOrganization
 ; ; New user will have rights set to create organizations depending on this setting
-; DEFAULT_ALLOW_CREATE_ORGANIZATION = true
-; ; Default value for EnableTimetracking
-; ; Repositories will use timetracking by default depending on this setting
-; DEFAULT_ENABLE_TIMETRACKING = true
-; ; Default value for AllowOnlyContributorsToTrackTime
-; ; Only users with write permissions could track time if this is true
-; DEFAULT_ALLOW_ONLY_CONTRIBUTORS_TO_TRACK_TIME = true
+DEFAULT_ALLOW_CREATE_ORGANIZATION = true
+DEFAULT_ENABLE_TIMETRACKING       = false
+DEFAULT_ALLOW_ONLY_CONTRIBUTORS_TO_TRACK_TIME = true
 ; ; Default value for the domain part of the user's email address in the git log
 ; ; if he has set KeepEmailPrivate true. The user's email replaced with a
 ; ; concatenation of the user name in lower case, "@" and NO_REPLY_ADDRESS.
-; NO_REPLY_ADDRESS = noreply.example.org
-
-[service]
-REGISTER_EMAIL_CONFIRM            = false
-ENABLE_NOTIFY_MAIL                = false
-DISABLE_REGISTRATION              = false
-ENABLE_CAPTCHA                    = false
-REQUIRE_SIGNIN_VIEW               = false
-DEFAULT_KEEP_EMAIL_PRIVATE        = false
-DEFAULT_ALLOW_CREATE_ORGANIZATION = true
-DEFAULT_ENABLE_TIMETRACKING       = true
 NO_REPLY_ADDRESS                  = noreply.example.org
 ENABLE_REVERSE_PROXY_AUTHENTICATION = false
 ENABLE_REVERSE_PROXY_AUTO_REGISTRATION = false
@@ -198,7 +181,7 @@ ENABLE_REVERSE_PROXY_AUTO_REGISTRATION = false
 ; PAGING_NUM = 10
 
 [mailer]
-ENABLED = false
+ENABLED = true
 ; ; Buffer length of channel, keep it as it is if you don't know what it is.
 ; SEND_BUFFER_LEN = 100
 ; ; Name displayed in mail title
@@ -207,7 +190,7 @@ ENABLED = false
 ; ; Gmail: smtp.gmail.com:587
 ; ; QQ: smtp.qq.com:465
 ; ; Note, if the port ends with "465", SMTPS will be used. Using STARTTLS on port 587 is recommended per RFC 6409. If the server supports STARTTLS it will always be used.
-; HOST =
+HOST = smtp.migadu.com:587
 ; ; Disable HELO operation when hostname are different.
 ; DISABLE_HELO =
 ; ; Custom hostname for HELO operation, default is from system.
@@ -219,12 +202,12 @@ ENABLED = false
 ; CERT_FILE = custom/mailer/cert.pem
 ; KEY_FILE = custom/mailer/key.pem
 ; ; Mail from address, RFC 5322. This can be just an email address, or the `"Name" <email@example.com>` format
-; FROM =
+FROM = git@captnemo.in
 ; ; Mailer user name and password
-; USER =
-; PASSWD =
+USER = git@captnemo.in
+PASSWD = ${smtp_password}
 ; ; Send mails as plain text
-; SEND_AS_PLAIN_TEXT = false
+SEND_AS_PLAIN_TEXT = true
 ; ; Enable sendmail (override SMTP)
 ; USE_SENDMAIL = false
 ; ; Specify an alternative sendmail binary
@@ -245,7 +228,7 @@ ENABLED = false
 ; ; Setting it to 0 disables caching
 ; ITEM_TTL = 16h
 
-; [session]
+[session]
 ; ; Either "memory", "file", or "redis", default is "memory"
 ; PROVIDER = memory
 ; ; Provider config options
@@ -255,15 +238,15 @@ ENABLED = false
 ; ; mysql: go-sql-driver/mysql dsn config string, e.g. `root:password@/session_table`
 ; PROVIDER_CONFIG = data/sessions
 ; ; Session cookie name
-; COOKIE_NAME = i_like_gitea
+COOKIE_NAME = i_like_gitea
 ; ; If you use session in https only, default is false
-; COOKIE_SECURE = false
+COOKIE_SECURE = true
 ; ; Enable set cookie, default is true
-; ENABLE_SET_COOKIE = true
+ENABLE_SET_COOKIE = true
 ; ; Session GC time interval in seconds, default is 86400 (1 day)
 ; GC_INTERVAL_TIME = 86400
 ; ; Session life time in seconds, default is 86400 (1 day)
-; SESSION_LIFE_TIME = 86400
+SESSION_LIFE_TIME = 2592000
 
 ; [picture]
 ; AVATAR_UPLOAD_PATH = data/avatars
@@ -283,7 +266,7 @@ ENABLED = false
 ; ; Path for attachments. Defaults to `data/attachments`
 ; PATH = data/attachments
 ; ; One or more allowed types, e.g. image/jpeg|image/png
-; ALLOWED_TYPES = image/jpeg|image/png|application/zip|application/gzip
+ALLOWED_TYPES = image/jpeg|image/png|application/zip|application/gzip|application/pdf|text/csv
 ; ; Max size of each file. Defaults to 32MB
 ; MAX_SIZE = 4
 ; ; Max number of files per upload. Defaults to 10
@@ -303,7 +286,7 @@ ENABLED = false
 ; ; Buffer length of channel, keep it as it is if you don't know what it is.
 ; BUFFER_LEN = 10000
 ; ; Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
-; LEVEL = Trace
+LEVEL = Info
 
 ; ; For "console" mode only
 ; [log.console]
@@ -356,15 +339,15 @@ ENABLED = false
 ; ; Based on xorm, e.g.: root:root@localhost/gitea?charset=utf8
 ; CONN =
 
-; [cron]
-; ; Enable running cron tasks periodically.
-; ENABLED = true
+[cron]
+; Enable running cron tasks periodically.
+ENABLED = true
 ; ; Run cron tasks when Gitea starts.
-; RUN_AT_START = false
+RUN_AT_START = false
 
 ; ; Update mirrors
-; [cron.update_mirrors]
-; SCHEDULE = @every 10m
+[cron.update_mirrors]
+SCHEDULE = @every 3h
 
 ; ; Repository health check
 ; [cron.repo_health_check]
@@ -466,7 +449,7 @@ MAX_RESPONSE_ITEMS = 100
 [other]
 SHOW_FOOTER_BRANDING = false
 ; Show version information about Gitea and Go in the footer
-SHOW_FOOTER_VERSION = false
+SHOW_FOOTER_VERSION = true
 ; Show time of template execution in the footer
 SHOW_FOOTER_TEMPLATE_LOAD_TIME = false
 

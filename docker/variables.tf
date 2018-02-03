@@ -56,3 +56,4 @@ variable "ips" {
 
 variable "gitea-secret-key" {}
 variable "gitea-internal-token" {}
+variable "gitea-smtp-password" {}

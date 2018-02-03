@@ -28,6 +28,7 @@ defaultEntryPoints = ["http", "https"]
 # This is currently not exposed
 # Since I can't apply a authentication
 # on this yet
+
 [backends.elibsrv]
 [backends.elibsrv.servers.default]
   url = "http://elibsrv.captnemo.in:90"
@@ -65,7 +66,7 @@ email = "acme@captnemo.in"
 storage = "/acme/acme.json"
 entryPoint = "https"
 dnsProvider = "cloudflare"
-onHostRule = true
+onHostRule = false
 onDemand   = false
 acmelogging = true
 
@@ -104,6 +105,5 @@ sans = [
   "tatooine.bb8.fun",
   "traefik.bb8.fun",
   "transmission.bb8.fun",
-  # "transmission.in.bb8.fun",
   "wiki.bb8.fun"
 ]

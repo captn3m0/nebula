@@ -25,6 +25,7 @@ module "docker" {
   domain               = "bb8.fun"
   gitea-secret-key     = "${var.gitea-secret-key}"
   gitea-internal-token = "${var.gitea-internal-token}"
+  gitea-smtp-password  = "${var.gitea-smtp-password}"
 }
 
 module "radicale" {

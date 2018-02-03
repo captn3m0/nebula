@@ -28,7 +28,7 @@ data "docker_registry_image" "traefik" {
 
 # https://github.com/go-gitea/gitea/releases
 data "docker_registry_image" "gitea" {
-  name = "gitea/gitea:1.3.2"
+  name = "gitea/gitea:1.4"
 }
 
 data "docker_registry_image" "sickrage" {

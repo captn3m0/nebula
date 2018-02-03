@@ -12,7 +12,6 @@ resource docker_container "gitea" {
     "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
     "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
     "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
   }
 
   ports {
@@ -52,17 +51,19 @@ resource docker_container "gitea" {
     content = "${file("${path.module}/conf/humans.txt")}"
     file    = "/data/gitea/public/humans.txt"
   }
+
   # Extra Links in header
-  # TODO: Doesn't work
   upload {
     content = "${file("${path.module}/conf/gitea/extra_links.tmpl")}"
     file    = "/data/gitea/templates/custom/extra_links.tmpl"
   }
+
   # This is the main configuration file
   upload {
     content = "${data.template_file.gitea-config-file.rendered}"
     file    = "/data/gitea/conf/app.ini"
   }
+
   memory                = 256
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
@@ -75,5 +76,6 @@ data "template_file" "gitea-config-file" {
   vars {
     secret_key     = "${var.gitea-secret-key}"
     internal_token = "${var.gitea-internal-token}"
+    smtp_password  = "${var.gitea-smtp-password}"
   }
 }
