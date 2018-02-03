@@ -49,3 +49,7 @@ module "monitoring" {
   gf-security-admin-password = "${var.gf-security-admin-password}"
   domain                     = "bb8.fun"
 }
+
+module "digitalocean" {
+  source = "digitalocean"
+}

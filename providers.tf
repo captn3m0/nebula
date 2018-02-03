@@ -13,3 +13,7 @@ provider "mysql" {
   username = "root"
   password = "${var.mysql_root_password}"
 }
+
+provider digitalocean {
+  token = "${var.digitalocean-token}"
+}

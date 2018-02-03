@@ -44,3 +44,4 @@ variable "gf-security-admin-password" {
 variable "gitea-secret-key" {}
 variable "gitea-internal-token" {}
 variable "gitea-smtp-password" {}
+variable "digitalocean-token" {}
