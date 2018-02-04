@@ -36,5 +36,5 @@ resource docker_container "ombi" {
     "TZ=Asia/Kolkata",
   ]
 
-  links = ["emby"]
+  links = ["${var.links-emby}"]
 }

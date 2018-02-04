@@ -24,7 +24,6 @@ filesystem_folder = /data/collections
 # http://docs.python.org/library/logging.config.html
 # config = /config/logging
 
-
 [headers]
 
 # Additional HTTP headers

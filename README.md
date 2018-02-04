@@ -41,7 +41,6 @@ Currently running the following (all links are to the `store.docker.com` links f
 
 - [Emby](https://store.docker.com/community/images/emby/embyserver) Media Server
 - [CouchPotato](https://store.docker.com/community/images/linuxserver/couchpotato), auto-download movies
-- [SickRage](https://store.docker.com/community/images/linuxserver/sickrage), auto-download TV shows
 - [Transmission](https://store.docker.com/community/images/linuxserver/transmission), to download torrents
 - [AirSonic](https://store.docker.com/community/images/airsonic/airsonic), for a music server
 - [Ubooquity](https://store.docker.com/community/images/linuxserver/ubooquity), EBooks server with OPDS support

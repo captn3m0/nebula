@@ -4,7 +4,7 @@ resource docker_container "transmission-exporter" {
   name  = "transmission-exporter"
   image = "${docker_image.transmission-exporter.latest}"
 
-  links = ["transmission"]
+  links = ["${var.transmission}"]
 
   env = [
     "TRANSMISSION_ADDR=http://transmission:9091",

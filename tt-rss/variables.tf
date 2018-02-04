@@ -3,3 +3,4 @@ variable "domain" {
 }
 
 variable "mysql_password" {}
+variable "links-db" {}

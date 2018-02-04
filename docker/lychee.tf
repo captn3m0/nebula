@@ -40,5 +40,5 @@ resource "docker_container" "lychee" {
     "PGID=984",
   ]
 
-  links = ["mariadb"]
+  links = ["${docker_container.mariadb.name}"]
 }

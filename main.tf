@@ -34,20 +34,24 @@ module "radicale" {
 }
 
 module "tt-rss" {
-  source = "tt-rss"
-  domain = "rss.captnemo.in"
+  source         = "tt-rss"
+  domain         = "rss.captnemo.in"
   mysql_password = "${var.mysql-ttrss-password}"
+  links-db       = "${module.docker.names-mariadb}"
 }
 
 module "media" {
-  source = "media"
-  domain = "bb8.fun"
+  source             = "media"
+  domain             = "bb8.fun"
+  links-emby         = "${module.docker.names-emby}"
+  links-transmission = "${module.docker.names-transmission}"
 }
 
 module "monitoring" {
   source                     = "monitoring"
   gf-security-admin-password = "${var.gf-security-admin-password}"
   domain                     = "bb8.fun"
+  transmission               = "${module.docker.names-transmission}"
 }
 
 module "digitalocean" {

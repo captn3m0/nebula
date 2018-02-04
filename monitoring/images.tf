@@ -17,3 +17,8 @@ resource "docker_image" "transmission-exporter" {
   name          = "${data.docker_registry_image.transmission-exporter.name}"
   pull_triggers = ["${data.docker_registry_image.transmission-exporter.sha256_digest}"]
 }
+
+resource "docker_image" "cadvisor" {
+  name          = "${data.docker_registry_image.cadvisor.name}"
+  pull_triggers = ["${data.docker_registry_image.cadvisor.sha256_digest}"]
+}

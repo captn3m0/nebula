@@ -31,10 +31,6 @@ data "docker_registry_image" "gitea" {
   name = "gitea/gitea:1.4"
 }
 
-data "docker_registry_image" "sickrage" {
-  name = "linuxserver/sickrage:latest"
-}
-
 data "docker_registry_image" "airsonic" {
   name = "linuxserver/airsonic:latest"
 }
@@ -57,10 +53,6 @@ data "docker_registry_image" "ubooquity" {
 
 data "docker_registry_image" "headerdebug" {
   name = "brndnmtthws/nginx-echo-headers:latest"
-}
-
-data "docker_registry_image" "cadvisor" {
-  name = "google/cadvisor:latest"
 }
 
 data "docker_registry_image" "lychee" {

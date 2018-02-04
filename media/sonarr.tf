@@ -49,5 +49,5 @@ resource docker_container "sonarr" {
     "TZ=Asia/Kolkata",
   ]
 
-  links = ["emby", "transmission"]
+  links = ["${var.links-emby}", "${var.links-transmission}"]
 }

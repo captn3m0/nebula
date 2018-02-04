@@ -17,3 +17,7 @@ data "docker_registry_image" "nodeexporter" {
 data "docker_registry_image" "transmission-exporter" {
   name = "metalmatze/transmission-exporter"
 }
+
+data "docker_registry_image" "cadvisor" {
+  name = "google/cadvisor:latest"
+}

@@ -3,15 +3,15 @@ resource docker_container "gitea" {
   image = "${docker_image.gitea.latest}"
 
   labels {
-    "traefik.port"                                     = 3000
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.rule"                            = "Host:git.captnemo.in"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
+    "traefik.port"                                   = 3000
+    "traefik.enable"                                 = "true"
+    "traefik.frontend.rule"                          = "Host:git.captnemo.in"
+    "traefik.frontend.headers.STSSeconds"            = "2592000"
+    "traefik.frontend.headers.browserXSSFilter"      = "true"
+    "traefik.frontend.headers.contentTypeNosniff"    = "true"
+    "traefik.frontend.headers.SSLTemporaryRedirect"  = "true"
+    "traefik.frontend.headers.STSIncludeSubdomains"  = "false"
+    "traefik.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
   }
 
   ports {
@@ -51,19 +51,16 @@ resource docker_container "gitea" {
     content = "${file("${path.module}/conf/humans.txt")}"
     file    = "/data/gitea/public/humans.txt"
   }
-
   # Extra Links in header
   upload {
     content = "${file("${path.module}/conf/gitea/extra_links.tmpl")}"
     file    = "/data/gitea/templates/custom/extra_links.tmpl"
   }
-
   # This is the main configuration file
   upload {
     content = "${data.template_file.gitea-config-file.rendered}"
     file    = "/data/gitea/conf/app.ini"
   }
-
   memory                = 256
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

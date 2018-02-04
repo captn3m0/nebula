@@ -21,7 +21,7 @@ resource docker_container "grafana" {
     container_path = "/var/lib/grafana"
   }
 
-  links = ["prometheus"]
+  links = ["${docker_container.prometheus.name}"]
 
   env = [
     "GF_SECURITY_ADMIN_PASSWORD=${var.gf-security-admin-password}",
@@ -52,7 +52,7 @@ resource docker_container "prometheus" {
     file    = "/etc/prometheus/prometheus.yml"
   }
 
-  links = ["nodeexporter", "cadvisor"]
+  links = ["${docker_container.nodeexporter.name}", "${docker_container.cadvisor.name}"]
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

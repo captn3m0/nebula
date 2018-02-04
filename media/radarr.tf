@@ -51,5 +51,5 @@ resource docker_container "radarr" {
     "TZ=Asia/Kolkata",
   ]
 
-  links = ["emby", "transmission"]
+  links = ["${var.links-emby}", "${var.links-transmission}"]
 }

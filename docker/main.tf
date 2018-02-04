@@ -124,7 +124,7 @@ resource "docker_container" "couchpotato" {
     "TZ=Asia/Kolkata",
   ]
 
-  links = ["transmission"]
+  links = ["{docker_container.transmission.name}"]
 }
 
 # resource "docker_container" "airsonic" {
@@ -189,50 +189,6 @@ resource "docker_container" "headerdebug" {
       "traefik.port", 8080,
       "traefik.enable", "true",
     ))}"
-}
-
-resource "docker_container" "sickrage" {
-  name  = "sickrage"
-  image = "${docker_image.sickrage.latest}"
-
-  restart               = "unless-stopped"
-  destroy_grace_seconds = 10
-  must_run              = true
-
-  memory = 512
-
-  volumes {
-    host_path      = "/mnt/xwing/config/sickrage"
-    container_path = "/config"
-  }
-
-  volumes {
-    host_path      = "/mnt/xwing/media/DL"
-    container_path = "/downloads"
-  }
-
-  volumes {
-    host_path      = "/mnt/xwing/media/TV"
-    container_path = "/tv"
-  }
-
-  labels = "${merge(
-    local.traefik_common_labels,
-    map(
-      "traefik.frontend.passHostHeader", "false",
-      "traefik.frontend.auth.basic", "${var.basic_auth}",
-      "traefik.port", 8081,
-    ))}"
-
-  env = [
-    "PUID=1004",
-    "PGID=1003",
-    "TZ=Asia/Kolkata",
-  ]
-
-  links = [
-    "transmission",
-  ]
 }
 
 resource "docker_container" "headphones" {
@@ -384,7 +340,7 @@ resource "docker_container" "wiki" {
       "traefik.port", 9999,
       "traefik.frontend.headers.customResponseHeaders", "${var.xpoweredby}||Referrer-Policy:${var.refpolicy}||X-Frame-Options:${var.xfo_allow}",
     ))}"
-  links = ["mongorocks"]
+  links = ["${docker_container.mongorocks.name}"]
   env = [
     "WIKI_ADMIN_EMAIL=me@captnemo.in",
     "SESSION_SECRET=${var.wiki_session_secret}",
@@ -421,52 +377,4 @@ resource "docker_container" "muximux" {
     "PGID=1003",
     "TZ=Asia/Kolkata",
   ]
-}
-
-resource "docker_container" "cadvisor" {
-  name   = "cadvisor"
-  image  = "${docker_image.cadvisor.latest}"
-  memory = 512
-
-  restart               = "unless-stopped"
-  destroy_grace_seconds = 10
-  must_run              = true
-
-  volumes {
-    host_path      = "/"
-    container_path = "/rootfs"
-    read_only      = true
-  }
-
-  volumes {
-    host_path      = "/sys"
-    container_path = "/sys"
-    read_only      = true
-  }
-
-  volumes {
-    host_path      = "/var/lib/docker"
-    container_path = "/var/lib/docker"
-    read_only      = true
-  }
-
-  volumes {
-    host_path      = "/dev/disk"
-    container_path = "/dev/disk"
-    read_only      = true
-  }
-
-  volumes {
-    host_path      = "/var/run"
-    container_path = "/var/run"
-  }
-
-  labels = "${merge(
-    local.traefik_common_labels,
-    map(
-
-      "traefik.frontend.passHostHeader", "true",
-      "traefik.frontend.auth.basic", "${var.basic_auth}",
-      "traefik.port", 8080,
-    ))}"
 }
