@@ -67,7 +67,6 @@ resource "docker_container" "emby" {
     map(
       "traefik.frontend.rule", "Host:emby.in.${var.domain},emby.${var.domain}",
       "traefik.frontend.passHostHeader", "true",
-      "traefik.frontend.auth.basic", "${var.basic_auth}",
       "traefik.port", 8096,
     ))}"
 
