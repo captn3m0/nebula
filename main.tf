@@ -29,8 +29,9 @@ module "docker" {
 }
 
 module "radicale" {
-  source = "radicale"
-  domain = "radicale.bb8.fun"
+  source         = "radicale"
+  domain         = "radicale.bb8.fun"
+  traefik-labels = "${var.traefik-common-labels}"
 }
 
 module "tt-rss" {

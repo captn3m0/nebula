@@ -11,17 +11,11 @@ resource docker_container "radicale" {
   name  = "radicale"
   image = "${docker_image.radicale.latest}"
 
-  labels {
-    "traefik.port"                                  = 5232
-    "traefik.enable"                                = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds"           = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff"   = "true"
-    "traefik.frontend.headers.browserXSSFilter"     = "true"
-    "traefik.frontend.passHostHeader"               = "true"
-    "traefik.frontend.rule"                         = "Host:${var.domain}"
-  }
+  labels = "${merge(
+    var.traefik-labels, map(
+      "traefik.port", 5232,
+      "traefik.frontend.rule","Host:${var.domain}"
+  ))}"
 
   volumes {
     host_path      = "/mnt/xwing/data/radicale"

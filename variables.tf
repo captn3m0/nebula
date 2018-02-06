@@ -45,3 +45,24 @@ variable "gitea-secret-key" {}
 variable "gitea-internal-token" {}
 variable "gitea-smtp-password" {}
 variable "digitalocean-token" {}
+
+variable "traefik-common-labels" {
+  type = "map"
+
+  default = {
+    "traefik.enable" = "true"
+
+    // HSTS
+    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
+    "traefik.frontend.headers.STSSeconds"           = "2592000"
+    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
+
+    // X-Powered-By, Server headers
+    "traefik.frontend.headers.customResponseHeaders" = "X-Powered-By:Allomancy||X-Server:Blackbox"
+
+    // X-Frame-Options
+    "traefik.frontend.headers.customFrameOptionsValue" = "ALLOW-FROM https://home.bb8.fun/"
+    "traefik.frontend.headers.contentTypeNosniff"      = "true"
+    "traefik.frontend.headers.browserXSSFilter"        = "true"
+  }
+}
