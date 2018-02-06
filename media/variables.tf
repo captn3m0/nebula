@@ -4,3 +4,7 @@ variable "domain" {
 
 variable "links-emby" {}
 variable "links-transmission" {}
+
+variable "traefik-labels" {
+  type = "map"
+}

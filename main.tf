@@ -47,6 +47,7 @@ module "media" {
   domain             = "bb8.fun"
   links-emby         = "${module.docker.names-emby}"
   links-transmission = "${module.docker.names-transmission}"
+  traefik-labels = "${var.traefik-common-labels}"
 }
 
 module "monitoring" {

@@ -11,19 +11,12 @@ resource docker_container "radarr" {
   name  = "radarr"
   image = "${docker_image.radarr.latest}"
 
-  labels {
-    "traefik.port"                                  = 7878
-    "traefik.enable"                                = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds"           = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff"   = "true"
-    "traefik.frontend.headers.browserXSSFilter"     = "true"
-    "traefik.frontend.passHostHeader"               = "true"
-
-    # TODO: wildcard certs needed!
-    "traefik.frontend.rule" = "Host:git.${var.domain}"
-  }
+  # TODO: wildcard certs needed!
+  labels = "${merge(
+    var.traefik-labels, map(
+      "traefik.port", 7878,
+      "traefik.frontend.rule","Host:git.${var.domain}"
+  ))}"
 
   memory                = 512
   restart               = "unless-stopped"

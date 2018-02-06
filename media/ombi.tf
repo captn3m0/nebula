@@ -11,17 +11,11 @@ resource docker_container "ombi" {
   name  = "ombi"
   image = "${docker_image.ombi.latest}"
 
-  labels {
-    "traefik.port"                                  = 3579
-    "traefik.enable"                                = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds"           = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff"   = "true"
-    "traefik.frontend.headers.browserXSSFilter"     = "true"
-    "traefik.frontend.passHostHeader"               = "true"
-    "traefik.frontend.rule"                         = "Host:rey.${var.domain}"
-  }
+  labels = "${merge(
+    var.traefik-labels, map(
+      "traefik.port", 3579,
+      "traefik.frontend.rule","Host:rey.${var.domain}"
+  ))}"
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

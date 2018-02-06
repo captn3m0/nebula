@@ -11,17 +11,11 @@ resource docker_container "sonarr" {
   name  = "sonarr"
   image = "${docker_image.sonarr.latest}"
 
-  labels {
-    "traefik.port"                                  = 8989
-    "traefik.enable"                                = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds"           = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff"   = "true"
-    "traefik.frontend.headers.browserXSSFilter"     = "true"
-    "traefik.frontend.passHostHeader"               = "true"
-    "traefik.frontend.rule"                         = "Host:luke.${var.domain}"
-  }
+  labels = "${merge(
+    var.traefik-labels, map(
+      "traefik.port", 8989,
+      "traefik.frontend.rule","Host:luke.${var.domain}"
+  ))}"
 
   memory                = 512
   restart               = "unless-stopped"
