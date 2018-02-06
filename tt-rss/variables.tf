@@ -4,3 +4,7 @@ variable "domain" {
 
 variable "mysql_password" {}
 variable "links-db" {}
+
+variable "traefik-labels" {
+  type = "map"
+}

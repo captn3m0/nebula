@@ -39,6 +39,7 @@ module "tt-rss" {
   domain         = "rss.captnemo.in"
   mysql_password = "${var.mysql-ttrss-password}"
   links-db       = "${module.docker.names-mariadb}"
+  traefik-labels = "${var.traefik-common-labels}"
 }
 
 module "media" {
