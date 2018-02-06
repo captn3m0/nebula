@@ -2,19 +2,11 @@ resource docker_container "grafana" {
   name  = "grafana"
   image = "${docker_image.grafana.latest}"
 
-  labels {
-    # "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
-    "traefik.port"                                  = 3000
-    "traefik.enable"                                = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
-    "traefik.frontend.headers.STSSeconds"           = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-    "traefik.frontend.headers.contentTypeNosniff"   = "true"
-    "traefik.frontend.headers.browserXSSFilter"     = "true"
-
-    # "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    # "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-  }
+  labels = "${merge(
+    var.traefik-labels, map(
+      "traefik.port", 3000,
+      "traefik.frontend.rule","Host:grafana.${var.domain}"
+  ))}"
 
   volumes {
     host_path      = "/mnt/xwing/data/grafana"

@@ -62,6 +62,7 @@ module "monitoring" {
   gf-security-admin-password = "${var.gf-security-admin-password}"
   domain                     = "bb8.fun"
   transmission               = "${module.docker.names-transmission}"
+  traefik-labels     = "${var.traefik-common-labels}"
 }
 
 module "digitalocean" {

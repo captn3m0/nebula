@@ -8,8 +8,6 @@ data "docker_registry_image" "mongorocks" {
   name = "jadsonlourenco/mongo-rocks:latest"
 }
 
-# Leave all other apps at latesst
-
 data "docker_registry_image" "emby" {
   name = "emby/embyserver:latest"
 }

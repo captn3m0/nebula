@@ -21,19 +21,11 @@ resource "docker_container" "lychee" {
     file    = "/config/lychee/user.ini"
   }
 
-  labels {
-    "traefik.port"                                     = 80
-    "traefik.frontend.passHostHeader"                  = "false"
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
-    "traefik.frontend.headers.customResponseHeaders"   = "${var.xpoweredby}"
-    "traefik.frontend.rule"                            = "Host:pics.${var.domain},pics.in.${var.domain}"
-  }
+  labels = "${merge(
+    locals.traefik_common_labels, map(
+      "traefik.port", 80,
+      "traefik.frontend.rule","Host:pics.${var.domain},pics.in.${var.domain}"
+  ))}"
 
   env = [
     "PUID=986",

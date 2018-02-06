@@ -36,17 +36,10 @@ resource "docker_container" "cadvisor" {
     container_path = "/var/run"
   }
 
-  labels {
-    "traefik.frontend.auth.basic"                      = "${var.basic_auth}"
-    "traefik.port"                                     = 8080
-    "traefik.enable"                                   = "true"
-    "traefik.frontend.headers.SSLTemporaryRedirect"    = "true"
-    "traefik.frontend.headers.STSSeconds"              = "2592000"
-    "traefik.frontend.headers.STSIncludeSubdomains"    = "false"
-    "traefik.frontend.headers.contentTypeNosniff"      = "true"
-    "traefik.frontend.headers.browserXSSFilter"        = "true"
-    "traefik.frontend.passHostHeader"                  = "true"
-    "traefik.frontend.headers.customFrameOptionsValue" = "ALLOW-FROM https://home.bb8.fun/"
-    "traefik.frontend.headers.customResponseHeaders"   = "X-Powered-By:Allomancy||X-Server:Blackbox"
-  }
+  labels = "${merge(
+    var.traefik-labels, map(
+      "traefik.port", 8080,
+      "traefik.frontend.rule","Host:cadvisor.${var.domain}",
+      "traefik.frontend.auth.basic", "${var.basic_auth}"
+  ))}"
 }

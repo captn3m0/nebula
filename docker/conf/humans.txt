@@ -4,7 +4,7 @@
   Twitter: @captn3m0
 
 /* SITE */
-  Last update: Jan 2018
+  Last update: Feb 2018
   Language: English
   IDE: Sublime Text, Vim
   Runs-On: Docker
