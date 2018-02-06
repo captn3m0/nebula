@@ -26,11 +26,6 @@ data "docker_registry_image" "traefik" {
   name = "traefik:cancoillotte-alpine"
 }
 
-# https://github.com/go-gitea/gitea/releases
-data "docker_registry_image" "gitea" {
-  name = "gitea/gitea:1.4"
-}
-
 data "docker_registry_image" "airsonic" {
   name = "linuxserver/airsonic:latest"
 }

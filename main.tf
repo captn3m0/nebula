@@ -23,9 +23,16 @@ module "docker" {
   wiki_session_secret  = "${var.wiki_session_secret}"
   ips                  = "${var.ips}"
   domain               = "bb8.fun"
-  gitea-secret-key     = "${var.gitea-secret-key}"
-  gitea-internal-token = "${var.gitea-internal-token}"
-  gitea-smtp-password  = "${var.gitea-smtp-password}"
+}
+
+module "gitea" {
+  source         = "gitea"
+  domain         = "git.captnemo.in"
+  traefik-labels = "${var.traefik-common-labels}"
+  ips            = "${var.ips}"
+  secret-key     = "${var.gitea-secret-key}"
+  internal-token = "${var.gitea-internal-token}"
+  smtp-password  = "${var.gitea-smtp-password}"
 }
 
 module "radicale" {
@@ -47,7 +54,7 @@ module "media" {
   domain             = "bb8.fun"
   links-emby         = "${module.docker.names-emby}"
   links-transmission = "${module.docker.names-transmission}"
-  traefik-labels = "${var.traefik-common-labels}"
+  traefik-labels     = "${var.traefik-common-labels}"
 }
 
 module "monitoring" {
