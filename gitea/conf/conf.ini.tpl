@@ -260,11 +260,11 @@ SESSION_LIFE_TIME = 2592000
 ; ; This value will be forced to be false in offline mode or Gravatar is disabled.
 ; ENABLE_FEDERATED_AVATAR = false
 
-; [attachment]
+[attachment]
 ; ; Whether attachments are enabled. Defaults to `true`
-; ENABLE = true
+ENABLE = true
 ; ; Path for attachments. Defaults to `data/attachments`
-; PATH = data/attachments
+PATH = data/attachments
 ; ; One or more allowed types, e.g. image/jpeg|image/png
 ALLOWED_TYPES = image/jpeg|image/png|application/zip|application/gzip|application/pdf|text/csv
 ; ; Max size of each file. Defaults to 32MB
@@ -465,4 +465,4 @@ SHOW_FOOTER_TEMPLATE_LOAD_TIME = false
 
 [openid]
 ENABLE_OPENID_SIGNIN = true
-ENABLE_OPENID_SIGNUP = false
+ENABLE_OPENID_SIGNUP = true

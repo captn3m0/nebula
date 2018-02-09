@@ -10,6 +10,10 @@ variable "transmission" {
   type = "string"
 }
 
+variable "links-traefik" {
+  type = "string"
+}
+
 variable "alert-slack-username" {
   default = "Prometheus"
 }
@@ -27,5 +31,9 @@ variable "basic_auth" {
 }
 
 variable "traefik-labels" {
+  type = "map"
+}
+
+variable "ips" {
   type = "map"
 }

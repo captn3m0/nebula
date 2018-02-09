@@ -60,6 +60,9 @@ defaultEntryPoints = ["http", "https"]
   address = ":1111"
   readOnly = true
 
+# To enable Traefik to export internal metrics to Prometheus
+[web.metrics.prometheus]
+
 [acme]
 
 email = "acme@captnemo.in"

@@ -63,6 +63,8 @@ module "monitoring" {
   domain                     = "bb8.fun"
   transmission               = "${module.docker.names-transmission}"
   traefik-labels             = "${var.traefik-common-labels}"
+  ips                        = "${var.ips}"
+  links-traefik              = "${module.docker.names-traefik}"
 }
 
 module "digitalocean" {

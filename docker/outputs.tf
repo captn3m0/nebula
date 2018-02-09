@@ -13,3 +13,7 @@ output "names-emby" {
 output "names-mariadb" {
   value = "${docker_container.mariadb.name}"
 }
+
+output "names-traefik" {
+  value = "${docker_container.traefik.name}"
+}

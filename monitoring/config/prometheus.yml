@@ -23,5 +23,10 @@ scrape_configs:
     static_configs:
       - targets: ['transmission-exporter:19091']
 
+  - job_name: 'traefik'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['traefik:1111']
+
 rule_files:
 - "alert.rules"
