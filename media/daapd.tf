@@ -7,7 +7,7 @@ resource "docker_image" "daapd" {
   pull_triggers = ["${data.docker_registry_image.daapd.sha256_digest}"]
 }
 
-resource docker_container "daapd" {
+resource "docker_container" "daapd" {
   name  = "daapd"
   image = "${docker_image.daapd.latest}"
 

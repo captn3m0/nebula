@@ -15,7 +15,7 @@ resource docker_container "radarr" {
   labels = "${merge(
     var.traefik-labels, map(
       "traefik.port", 7878,
-      "traefik.frontend.rule","Host:git.${var.domain}"
+      "traefik.frontend.rule","Host:radarr.${var.domain}"
   ))}"
 
   memory                = 512

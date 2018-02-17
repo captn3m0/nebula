@@ -13,11 +13,6 @@ resource "docker_image" "transmission" {
   pull_triggers = ["${data.docker_registry_image.transmission.sha256_digest}"]
 }
 
-resource "docker_image" "couchpotato" {
-  name          = "${data.docker_registry_image.couchpotato.name}"
-  pull_triggers = ["${data.docker_registry_image.couchpotato.sha256_digest}"]
-}
-
 resource "docker_image" "traefik" {
   name          = "${data.docker_registry_image.traefik.name}"
   pull_triggers = ["${data.docker_registry_image.traefik.sha256_digest}"]

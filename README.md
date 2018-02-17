@@ -15,15 +15,20 @@ The canonical URL for this repo is https://git.captnemo.in/nemo/nebula/. A mirro
 
 # modules
 
-1. docker: to actually run the services.
+1. docker: to actually run the services. Catch-all for miscellaneous containers
 2. cloudflare: to manage the DNS.
 3. mysql: to create mysql users and databases.
+4. media: Media related containers (Jackett, Ombi, Radarr, Sonarr, Daapd)
+5. Monitoring: Monitoring related resources (Cadvisor, Grafana, NodeExporter, Prometheus, Transmission-Exporter)
+6. Gitea: Just git.captnemo.in
+7. tt-rss: Tiny-Tiny RSS Web reader
+8. Radicale: CardDav/CalDav webserver
 
 Self-learning project for terraform/docker.
 
 # Planned
 
-1. Setup DigitalOcean
+1. ~Setup DigitalOcean~
 2. Add DO infrastructure via ansible
 3. ~Add traefik for proper proxying~
 4. Maybe add docker swarm (or k8s?) across both the servers. Might setup the k8s API on the Raspberry Pi.
@@ -40,7 +45,9 @@ Currently running the following (all links are to the `store.docker.com` links f
 ## Media
 
 - [Emby](https://store.docker.com/community/images/emby/embyserver) Media Server
-- [CouchPotato](https://store.docker.com/community/images/linuxserver/couchpotato), auto-download movies
+- ~[CouchPotato](https://store.docker.com/community/images/linuxserver/couchpotato), auto-download movies~
+- [Radarr](https://store.docker.com/community/images/linuxserver/radarr), auto-download movies
+- [Sonarr](https://store.docker.com/community/images/linuxserver/sonarr), auto-download TV Shows
 - [Transmission](https://store.docker.com/community/images/linuxserver/transmission), to download torrents
 - [AirSonic](https://store.docker.com/community/images/airsonic/airsonic), for a music server
 - [Ubooquity](https://store.docker.com/community/images/linuxserver/ubooquity), EBooks server with OPDS support
@@ -58,7 +65,7 @@ Currently running the following (all links are to the `store.docker.com` links f
 - [Radicale](https://store.docker.com/community/images/tomsquest/docker-radicale), for a CalDav/Carddav server
 - [Gitea](https://store.docker.com/community/images/gitea/gitea), git server
 
-6 out of the above images are from the excellent [LinuxServer.io](https://www.linuxserver.io), and they're doing great work :+1:
+Lots of the above images are from the excellent [LinuxServer.io](https://www.linuxserver.io), and they're doing great work :+1:
 
 ## Security Headers Note
 

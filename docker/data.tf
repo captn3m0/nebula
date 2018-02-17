@@ -16,10 +16,6 @@ data "docker_registry_image" "transmission" {
   name = "linuxserver/transmission:latest"
 }
 
-data "docker_registry_image" "couchpotato" {
-  name = "linuxserver/couchpotato:latest"
-}
-
 data "docker_registry_image" "traefik" {
   name = "traefik:cancoillotte-alpine"
 }

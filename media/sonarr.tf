@@ -14,7 +14,7 @@ resource docker_container "sonarr" {
   labels = "${merge(
     var.traefik-labels, map(
       "traefik.port", 8989,
-      "traefik.frontend.rule","Host:luke.${var.domain}"
+      "traefik.frontend.rule","Host:sonarr.${var.domain}"
   ))}"
 
   memory                = 512

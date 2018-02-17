@@ -14,7 +14,7 @@ resource docker_container "ombi" {
   labels = "${merge(
     var.traefik-labels, map(
       "traefik.port", 3579,
-      "traefik.frontend.rule","Host:rey.${var.domain}"
+      "traefik.frontend.rule","Host:ombi.${var.domain}"
   ))}"
 
   restart               = "unless-stopped"
