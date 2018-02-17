@@ -40,7 +40,7 @@
     "ratio-limit": 0.2,
     "ratio-limit-enabled": true,
     "rename-partial-files": true,
-    "rpc-host-whitelist": "transmission.bb8.fun",
+    "rpc-host-whitelist": "transmission.bb8.fun,transmission",
     "rpc-host-whitelist-enabled": true,
     "rpc-authentication-required": false,
     "rpc-bind-address": "0.0.0.0",

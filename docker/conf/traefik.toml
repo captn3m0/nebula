@@ -68,11 +68,18 @@ defaultEntryPoints = ["http", "https"]
 email = "acme@captnemo.in"
 storage = "/acme/acme.json"
 entryPoint = "https"
-dnsProvider = "cloudflare"
 onHostRule = false
 onDemand   = false
 acmelogging = true
 
+[acme.httpChallenge]
+  entryPoint = "http"
+
+# Keep DNS challenge disabled
+# for now
+# [acme.dnsChallenge]
+#   provider = "cloudflare"
+#   delayBeforeCheck = 5
 # Get wildcard once possible
 
 [[acme.domains]]
