@@ -18,11 +18,6 @@ resource "docker_image" "traefik" {
   pull_triggers = ["${data.docker_registry_image.traefik.sha256_digest}"]
 }
 
-resource "docker_image" "airsonic" {
-  name          = "${data.docker_registry_image.airsonic.name}"
-  pull_triggers = ["${data.docker_registry_image.airsonic.sha256_digest}"]
-}
-
 resource "docker_image" "wikijs" {
   name          = "${data.docker_registry_image.wikijs.name}"
   pull_triggers = ["${data.docker_registry_image.wikijs.sha256_digest}"]

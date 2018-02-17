@@ -50,11 +50,14 @@ module "tt-rss" {
 }
 
 module "media" {
-  source             = "media"
-  domain             = "bb8.fun"
-  links-emby         = "${module.docker.names-emby}"
-  links-transmission = "${module.docker.names-transmission}"
-  traefik-labels     = "${var.traefik-common-labels}"
+  source                 = "media"
+  domain                 = "bb8.fun"
+  links-emby             = "${module.docker.names-emby}"
+  links-transmission     = "${module.docker.names-transmission}"
+  links-mariadb          = "${module.docker.names-mariadb}"
+  traefik-labels         = "${var.traefik-common-labels}"
+  airsonic-smtp-password = "${var.airsonic-smtp-password}"
+  airsonic-db-password   = "${var.mysql_airsonic_password}"
 }
 
 module "monitoring" {

@@ -20,10 +20,6 @@ data "docker_registry_image" "traefik" {
   name = "traefik:cancoillotte-alpine"
 }
 
-data "docker_registry_image" "airsonic" {
-  name = "linuxserver/airsonic:latest"
-}
-
 data "docker_registry_image" "wikijs" {
   name = "requarks/wiki:latest"
 }

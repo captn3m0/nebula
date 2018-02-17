@@ -27,7 +27,7 @@ resource docker_container "prometheus" {
     "${docker_container.nodeexporter.name}",
     "${docker_container.cadvisor.name}",
     "${docker_container.transmission-exporter.name}",
-    "${var.links-traefik}"
+    "${var.links-traefik}",
   ]
 
   restart               = "unless-stopped"

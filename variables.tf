@@ -45,6 +45,7 @@ variable "gitea-secret-key" {}
 variable "gitea-internal-token" {}
 variable "gitea-smtp-password" {}
 variable "digitalocean-token" {}
+variable "airsonic-smtp-password" {}
 
 variable "traefik-common-labels" {
   type = "map"
