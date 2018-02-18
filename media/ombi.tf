@@ -1,5 +1,5 @@
 data "docker_registry_image" "ombi" {
-  name = "linuxserver/ombi:latest"
+  name = "lsiodev/ombi-preview"
 }
 
 resource "docker_image" "ombi" {
@@ -30,5 +30,9 @@ resource docker_container "ombi" {
     "TZ=Asia/Kolkata",
   ]
 
-  links = ["${var.links-emby}"]
+  links = [
+    "${var.links-emby}",
+    "${docker_container.sonarr.name}",
+    "${docker_container.radarr.name}"
+  ]
 }
