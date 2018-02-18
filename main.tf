@@ -49,6 +49,13 @@ module "tt-rss" {
   traefik-labels = "${var.traefik-common-labels}"
 }
 
+module "resilio" {
+  source         = "resilio"
+  domain         = "sync.bb8.fun"
+  traefik-labels = "${var.traefik-common-labels}"
+  ips            = "${var.ips}"
+}
+
 module "heimdall" {
   source         = "heimdall"
   domain         = "bb8.fun"

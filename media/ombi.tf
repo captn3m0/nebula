@@ -33,6 +33,6 @@ resource docker_container "ombi" {
   links = [
     "${var.links-emby}",
     "${docker_container.sonarr.name}",
-    "${docker_container.radarr.name}"
+    "${docker_container.radarr.name}",
   ]
 }
