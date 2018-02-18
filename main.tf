@@ -49,6 +49,13 @@ module "tt-rss" {
   traefik-labels = "${var.traefik-common-labels}"
 }
 
+module "heimdall" {
+  source         = "heimdall"
+  domain         = "bb8.fun"
+  traefik-labels = "${var.traefik-common-labels}"
+  auth-header    = "${module.docker.auth-header}"
+}
+
 module "media" {
   source                 = "media"
   domain                 = "bb8.fun"

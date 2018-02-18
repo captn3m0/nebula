@@ -1,4 +1,7 @@
 defaultEntryPoints = ["http", "https"]
+
+InsecureSkipVerify = true
+
 [entryPoints]
 [entryPoints.http]
   address = ":80"

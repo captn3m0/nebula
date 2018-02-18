@@ -17,3 +17,7 @@ output "names-mariadb" {
 output "names-traefik" {
   value = "${docker_container.traefik.name}"
 }
+
+output "auth-header" {
+  value = "${var.basic_auth}"
+}
