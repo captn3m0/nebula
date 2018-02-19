@@ -5,9 +5,19 @@ resource "docker_container" "airsonic" {
   destroy_grace_seconds = 30
   must_run              = true
 
+  # Unfortunately, the --device flag is not yet supported
+  # in docker/terraform:
+  # https://github.com/terraform-providers/terraform-provider-docker/issues/30
+
   upload {
     content = "${data.template_file.airsonic-properties-file.rendered}"
     file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/airsonic.properties"
+  }
+
+  # This lets the Jukebox use ALSA
+  upload {
+    content = "${file("${path.module}/conf/airsonic.sound.properties")}"
+    file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/sound.properties"
   }
 
   volumes {
