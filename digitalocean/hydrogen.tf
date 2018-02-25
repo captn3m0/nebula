@@ -14,5 +14,5 @@ resource "digitalocean_droplet" "hydrogen" {
     "monitoring"
   ]
 
-  user_data = "${ignition_config.hydrogen.rendered}"
+  # user_data = "${ignition_config.hydrogen.rendered}"
 }

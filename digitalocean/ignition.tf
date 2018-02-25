@@ -20,7 +20,7 @@ data "ignition_systemd_unit" "docker-tcp" {
   content = "${ file("${ path.module }/docker-tcp.socket") }"
 }
 
-data "ignition_config" "swarm" {
+data "ignition_config" "hydrogen" {
   systemd = [
     "${ data.ignition_systemd_unit.docker-tcp.id }"
   ]
