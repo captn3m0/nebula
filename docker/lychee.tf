@@ -25,7 +25,7 @@ resource "docker_container" "lychee" {
     local.traefik_common_labels,
     map(
       "traefik.port", 80,
-      "traefik.frontend.rule", "Host:pics.${var.domain},pics.in.${var.domain}",
+      "traefik.frontend.rule", "Host:pics.${var.domain}",
   ))}"
 
   env = [

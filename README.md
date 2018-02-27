@@ -61,7 +61,6 @@ Currently running the following (all links are to the `store.docker.com` links f
 ## Misc
 
 - [Wiki.JS](https://store.docker.com/community/images/requarks/wiki) as a simple home-wiki
-- [Muximux](https://store.docker.com/community/images/linuxserver/muximux) as a landing page for the entire setup
 - [Radicale](https://store.docker.com/community/images/tomsquest/docker-radicale), for a CalDav/Carddav server
 - [Gitea](https://store.docker.com/community/images/gitea/gitea), git server
 

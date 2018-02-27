@@ -28,10 +28,6 @@ data "docker_registry_image" "headphones" {
   name = "linuxserver/headphones:latest"
 }
 
-data "docker_registry_image" "muximux" {
-  name = "linuxserver/muximux:latest"
-}
-
 data "docker_registry_image" "ubooquity" {
   name = "linuxserver/ubooquity:latest"
 }
