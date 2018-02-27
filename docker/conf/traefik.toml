@@ -17,6 +17,10 @@ InsecureSkipVerify = true
   [[entryPoints.https.tls.certificates]]
     certFile = "/etc/traefik/rss.captnemo.in.crt"
     keyFile  = "/etc/traefik/rss.captnemo.in.key"
+  # This contains 2 domains: {emby|airsonic}.bb8.fun
+  [[entryPoints.https.tls.certificates]]
+    certFile = "/etc/traefik/emby.in.bb8.fun.crt"
+    keyFile  = "/etc/traefik/emby.in.bb8.fun.key"
 
 [docker]
   # Make sure you mount this as readonly
@@ -92,10 +96,8 @@ sans = [
   "airsonic.bb8.fun",
   "apps.bb8.fun",
   "cadvisor.bb8.fun",
-  "debug.in.bb8.fun",
   "dns.bb8.fun",
   "emby.bb8.fun",
-  "emby.in.bb8.fun",
   "falcon.bb8.fun",
   "ghost.bb8.fun",
   "grafana.bb8.fun",
@@ -108,7 +110,6 @@ sans = [
   "monitoring.bb8.fun",
   "ombi.bb8.fun",
   "pics.bb8.fun",
-  "pics.in.bb8.fun",
   "radarr.bb8.fun",
   "read.bb8.fun",
   "rey.bb8.fun",
