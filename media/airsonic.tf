@@ -45,6 +45,7 @@ resource "docker_container" "airsonic" {
     "PUID=1004",
     "PGID=1003",
     "TZ=Asia/Kolkata",
+    "JAVA_OPTS=-Xmx512m -Xms512m",
   ]
   links = ["${var.links-mariadb}"]
 }

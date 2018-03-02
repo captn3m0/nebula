@@ -111,7 +111,8 @@ sans = [
   "library.bb8.fun",
   "luke.bb8.fun",
   "monitoring.bb8.fun",
-  "ombi.bb8.fun",
+  # "lidarr.bb8.fun", (TBA)
+  "ombi.bb8.fun", # Unused
   "pics.bb8.fun",
   "radarr.bb8.fun",
   "read.bb8.fun",
