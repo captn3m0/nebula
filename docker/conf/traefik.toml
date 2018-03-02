@@ -1,6 +1,9 @@
 defaultEntryPoints = ["http", "https"]
 
+# Have to enable this because of heimdall
 InsecureSkipVerify = true
+
+sendAnonymousUsage = true
 
 [entryPoints]
 [entryPoints.http]

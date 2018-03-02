@@ -13,47 +13,39 @@ resource "docker_container" "airsonic" {
     content = "${data.template_file.airsonic-properties-file.rendered}"
     file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/airsonic.properties"
   }
-
   # This lets the Jukebox use ALSA
   upload {
     content = "${file("${path.module}/conf/airsonic.sound.properties")}"
     file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/sound.properties"
   }
-
   volumes {
     host_path      = "/mnt/xwing/config/airsonic/data"
     container_path = "/config"
   }
-
   volumes {
     host_path      = "/mnt/xwing/media/Music"
     container_path = "/music"
   }
-
   volumes {
     host_path      = "/mnt/xwing/config/airsonic/playlists"
     container_path = "/playlists"
   }
-
   volumes {
     host_path      = "/mnt/xwing/config/airsonic/podcasts"
     container_path = "/podcasts"
   }
-
   labels {
     "traefik.enable"                  = "true"
     "traefik.port"                    = "4040"
     "traefik.frontend.rule"           = "Host:airsonic.in.${var.domain},airsonic.${var.domain}"
     "traefik.frontend.passHostHeader" = "true"
   }
-
   # lounge:tatooine
   env = [
     "PUID=1004",
     "PGID=1003",
     "TZ=Asia/Kolkata",
   ]
-
   links = ["${var.links-mariadb}"]
 }
 
