@@ -101,9 +101,9 @@ sans = [
   "cadvisor.bb8.fun",
   "dns.bb8.fun",
   "emby.bb8.fun",
-  "falcon.bb8.fun",
+  "falcon.bb8.fun", # Temporarily used for lidarr
   "ghost.bb8.fun",
-  "grafana.bb8.fun",
+  "grafana.bb8.fun", # Unused
   "headphones.bb8.fun",
   "home.bb8.fun",
   "info.bb8.fun",

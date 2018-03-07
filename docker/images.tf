@@ -31,11 +31,6 @@ resource "docker_image" "mongorocks" {
   pull_triggers = ["${data.docker_registry_image.mongorocks.sha256_digest}"]
 }
 
-resource "docker_image" "headphones" {
-  name          = "${data.docker_registry_image.headphones.name}"
-  pull_triggers = ["${data.docker_registry_image.headphones.sha256_digest}"]
-}
-
 resource "docker_image" "ubooquity" {
   name          = "${data.docker_registry_image.ubooquity.name}"
   pull_triggers = ["${data.docker_registry_image.ubooquity.sha256_digest}"]

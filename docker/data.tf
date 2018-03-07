@@ -24,10 +24,6 @@ data "docker_registry_image" "wikijs" {
   name = "requarks/wiki:latest"
 }
 
-data "docker_registry_image" "headphones" {
-  name = "linuxserver/headphones:latest"
-}
-
 data "docker_registry_image" "ubooquity" {
   name = "linuxserver/ubooquity:latest"
 }
