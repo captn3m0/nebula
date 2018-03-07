@@ -26,7 +26,6 @@ resource docker_container "prometheus" {
   links = [
     "${docker_container.nodeexporter.name}",
     "${docker_container.cadvisor.name}",
-    "${docker_container.transmission-exporter.name}",
     "${var.links-traefik}",
   ]
 
