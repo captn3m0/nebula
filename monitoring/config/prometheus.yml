@@ -18,10 +18,16 @@ scrape_configs:
     static_configs:
       - targets: ['cadvisor:8080']
 
-  - job_name: 'transmission'
+  - job_name: 'speedtest'
+    scrape_interval: 1h
+    scrape_timeout: 2m
+    static_configs:
+      - targets: ['speedtest:9696']
+
+  - job_name: 'docker'
     scrape_interval: 5s
     static_configs:
-      - targets: ['transmission-exporter:19091']
+      - targets: ['192.168.1.111:1337']
 
   - job_name: 'traefik'
     scrape_interval: 5s
