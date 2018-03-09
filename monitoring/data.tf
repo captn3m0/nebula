@@ -1,13 +1,13 @@
 data "docker_registry_image" "grafana" {
-  name = "grafana/grafana"
+  name = "grafana/grafana:5.0.1"
 }
 
 data "docker_registry_image" "prometheus" {
-  name = "prom/prometheus"
+  name = "prom/prometheus:latest"
 }
 
 data "docker_registry_image" "nodeexporter" {
-  name = "prom/node-exporter"
+  name = "prom/node-exporter:latest"
 }
 
 data "docker_registry_image" "cadvisor" {

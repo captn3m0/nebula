@@ -18,6 +18,8 @@ resource docker_container "grafana" {
   env = [
     "GF_SECURITY_ADMIN_PASSWORD=${var.gf-security-admin-password}",
     "GF_SERVER_ROOT_URL=https://grafana.${var.domain}",
+    "GF_AUTH_ANONYMOUS_ENABLED=true",
+    "GF_AUTH_ANONYMOUS_ORG_NAME=Tatooine",
   ]
 
   restart               = "unless-stopped"
