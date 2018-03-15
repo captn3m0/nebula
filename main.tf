@@ -25,6 +25,11 @@ module "docker" {
   domain              = "bb8.fun"
 }
 
+module "timemachine" {
+  source = "timemachine"
+  ips    = "${var.ips}"
+}
+
 module "gitea" {
   source         = "gitea"
   domain         = "git.captnemo.in"

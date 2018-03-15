@@ -1,5 +1,5 @@
 data "docker_registry_image" "grafana" {
-  name = "grafana/grafana:5.0.1"
+  name = "grafana/grafana:latest"
 }
 
 data "docker_registry_image" "prometheus" {

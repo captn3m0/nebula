@@ -16,8 +16,10 @@ resource docker_container "grafana" {
   links = ["${docker_container.prometheus.name}"]
 
   env = [
-    "GF_SECURITY_ADMIN_PASSWORD=${var.gf-security-admin-password}",
+    # Keep this disabled unless bringing up a new grafana instance
+    # "GF_SECURITY_ADMIN_PASSWORD=${var.gf-security-admin-password}",
     "GF_SERVER_ROOT_URL=https://grafana.${var.domain}",
+
     "GF_AUTH_ANONYMOUS_ENABLED=true",
     "GF_AUTH_ANONYMOUS_ORG_NAME=Tatooine",
   ]
