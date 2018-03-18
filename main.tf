@@ -92,3 +92,7 @@ module "monitoring" {
 module "digitalocean" {
   source = "digitalocean"
 }
+
+module "docker-file-test" {
+  source = "docker-file-test"
+}
