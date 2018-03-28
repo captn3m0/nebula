@@ -17,7 +17,7 @@ data "docker_registry_image" "transmission" {
 }
 
 data "docker_registry_image" "traefik" {
-  name = "traefik:cancoillotte-alpine"
+  name = "traefik:1.6"
 }
 
 data "docker_registry_image" "wikijs" {

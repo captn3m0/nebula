@@ -85,13 +85,13 @@ acmelogging = true
 [acme.httpChallenge]
   entryPoint = "http"
 
-# Keep DNS challenge disabled
-# for now
-# [acme.dnsChallenge]
-#   provider = "cloudflare"
-#   delayBeforeCheck = 5
-# Get wildcard once possible
+[acme.dnsChallenge]
+  provider = "cloudflare"
+  delayBeforeCheck = 30
 
+# This is a legacy certificate
+# From when traefik did not support
+# wildcard certs
 [[acme.domains]]
 main = "bb8.fun"
 sans = [
@@ -126,3 +126,9 @@ sans = [
   "wifi.bb8.fun",
   "wiki.bb8.fun"
 ]
+# Primary 2 wildcard certs
+[[acme.domains]]
+  main = "*.bb8.fun"
+# Internal services are also protected!
+[[acme.domains]]
+  main = "*.in.bb8.fun"

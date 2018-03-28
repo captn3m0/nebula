@@ -37,6 +37,14 @@ resource "cloudflare_record" "internet-wildcard" {
   ttl    = 3600
 }
 
+resource "cloudflare_record" "acme-no-cname-1" {
+  domain = "${var.domain}"
+  name   = "_acme-challenge.${var.domain}"
+  type   = "A"
+  value  = "127.0.0.1"
+  ttl    = "300"
+}
+
 /**
  *   vpn.bb8.fun
  * *.vpn.bb8.fun
