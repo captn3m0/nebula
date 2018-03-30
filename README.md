@@ -45,56 +45,50 @@ Currently running the following (all links are to the `store.docker.com` links f
 ## Media
 
 - [Emby](https://store.docker.com/community/images/emby/embyserver) Media Server
-- ~[CouchPotato](https://store.docker.com/community/images/linuxserver/couchpotato), auto-download movies~
 - [Radarr](https://store.docker.com/community/images/linuxserver/radarr), auto-download movies
 - [Sonarr](https://store.docker.com/community/images/linuxserver/sonarr), auto-download TV Shows
 - [Transmission](https://store.docker.com/community/images/linuxserver/transmission), to download torrents
+- [Heimdall](https://store.docker.com/community/images/linuxserver/heimdall), for a single link to other services
 - [AirSonic](https://store.docker.com/community/images/airsonic/airsonic), for a music server
 - [Ubooquity](https://store.docker.com/community/images/linuxserver/ubooquity), EBooks server with OPDS support
 - [Lychee](https://store.docker.com/community/images/linuxserver/lychee), as a simple image-sharing/hosting service
 
-## Plumbing
+## Plumbing & Monitoring
 
-- [Traefik](https://store.docker.com/images/traefik) as a reverse-proxy server, and TLS termination
-- [CAdvisor](https://store.docker.com/community/images/google/cadvisor), for basic monitoring
+- [Traefik](https://store.docker.com/images/traefik) as a reverse-proxy server, and TLS termination.
+- [CAdvisor](https://store.docker.com/community/images/google/cadvisor), for basic monitoring. Reports metrics to prometheus
+- [Grafana](https://store.docker.com/community/images/grafana/grafana), for graphing. Public at <https://grafana.bb8.fun>
+- [Prometheus](https://store.docker.com/community/images/prom/prometheus), for metrics.
+- [Nodeexporter](https://store.docker.com/community/images/prom/node-exporter), for host-metrics.
 
 ## Misc
 
-- [Wiki.JS](https://store.docker.com/community/images/requarks/wiki) as a simple home-wiki
+- [Wiki.JS](https://store.docker.com/community/images/requarks/wiki) as a simple home-wiki. Public at <https://wiki.bb8.fun>
 - [Radicale](https://store.docker.com/community/images/tomsquest/docker-radicale), for a CalDav/Carddav server
-- [Gitea](https://store.docker.com/community/images/gitea/gitea), git server
+- [Gitea](https://store.docker.com/community/images/gitea/gitea), git server. Public at <https://git.captnemo.in>
+- [Timemachine](https://store.docker.com/community/images/odarriba/timemachine) to take backups of a few macbooks.
+- [Resilio Sync](https://store.docker.com/community/images/linuxserver/resilio-sync) as a dropbox alternative
+- [tt-rss](https://store.docker.com/community/images/linuxserver/tt-rss), as a simple web-rss-client
 
-Lots of the above images are from the excellent [LinuxServer.io](https://www.linuxserver.io), and they're doing great work :+1:
-
-## Security Headers Note
-
-The following security headers are applied using traefik on all traefik frontend docker backends:
-
-- HSTS
-- Redirect HTTP->HTTPS
-- contentTypeNosniff: true
-- browserXSSFilter: true
-- XFO: Allow-From home.bb8.fun
-- referrerPolicy: no-referrer
-- X-Powered-By: Allomancy
-- X-Server: BlackBox
-- X-Clacks-Overhead "GNU Terry Pratchett" (On some domains)
-
-~~Currently waiting on traefik 1.5.0-rc2 to fix security specific headers issue (marked as TODO above).~~ (Now resolved with new traefik release)
+## Docker Notes
+- Lots of the above images are from the excellent [LinuxServer.io](https://www.linuxserver.io), and they're doing great work :+1:
+- Most images are running the latest beta (if available) or stable versions.
+- Traefik is running with wildcard certificates.
 
 ## Upstream
 
 Issues I've faced/reported as a result of this project:
 
-1. Airsonic HTTPS proxying is broken. Reported: https://github.com/airsonic/airsonic/issues/641. Turned out to be a known issue: https://github.com/airsonic/airsonic/issues/594.
-2. Traefik docker backend security headers were broken with dashes. Reported at https://github.com/containous/traefik/issues/2493, and fixed by https://github.com/containous/traefik/pull/2496 :white_check_mark:
+1. Airsonic HTTPS proxying is broken. Reported: https://github.com/airsonic/airsonic/issues/641. Turned out to be a known issue: https://github.com/airsonic/airsonic/issues/594. Now fixed.
+2. Traefik docker backend security headers were broken with dashes. I [reported it here](https://github.com/containous/traefik/issues/2493), and fixed by https://github.com/containous/traefik/pull/2496 :white_check_mark:
 3. Headphones dies repeatedly with no error logs. Yet-to-report. (Already reported, fails due to classical artists)
-4. Terraform doesn't parse mariadb version numbers. Report: https://github.com/terraform-providers/terraform-provider-mysql/issues/6. Got this fixed myself by filing a PR: https://github.com/hashicorp/go-version/pull/34. Another PR pending in the [provider](https://github.com/terraform-providers/terraform-provider-mysql/pull/27) to bump the go-version dependency. :white_check_mark:
-5. `elibsrv` didn't support ebook-convert, only mobigen. PR is at https://github.com/captn3m0/elibsrv/pull/1. I've to get this merged upstream for the next release.
+4. Terraform doesn't parse mariadb version numbers. Report: https://github.com/terraform-providers/terraform-provider-mysql/issues/6. Filed a [PR to fix](https://github.com/hashicorp/go-version/pull/34) and [to bump the go-version dependency](https://github.com/terraform-providers/terraform-provider-mysql/pull/27) :white_check_mark:
+5. `elibsrv` didn't support ebook-convert, only mobigen. PR is at https://github.com/captn3m0/elibsrv/pull/1. Merged to `elibsrv` trunk, will be part of next release.
 6. `ubooquity` docker container doesn't let you set admin password: https://github.com/linuxserver/docker-ubooquity/issues/17. (Couldn't reproduce, closed) :white_check_mark:
 7. Traefik customresponseheaders can't contain colons on the docker backend: https://github.com/containous/traefik/issues/2517. Fixed with https://github.com/containous/traefik/pull/2509 :white_check_mark:
 8. Traefik Security headers don't overwrite upstream headers: https://github.com/containous/traefik/issues/2618
-9. Transmission exporter broke with different data types while unmarshalling JSON in go. I filed a PR https://github.com/metalmatze/transmission-exporter/pull/2
+9. Transmission exporter broke with different data types while unmarshalling JSON in go. I filed a PR https://github.com/metalmatze/transmission-exporter/pull/2.
+10. Radarr official docker container was [running a very old `mediainfo`](https://github.com/Radarr/Radarr/issues/2668#issuecomment-376310514). [Filed a fix to upgrade `mediainfo` on the official radarr image](https://github.com/linuxserver/docker-baseimage-mono/pull/3)
 
 # Plumbing
 
