@@ -34,6 +34,7 @@ resource docker_container "timemachine" {
   }
 
   entrypoint = [
+    "/bin/sh",
     "/entrypoint-custom.sh",
   ]
 

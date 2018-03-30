@@ -67,3 +67,6 @@ variable "traefik-common-labels" {
     "traefik.frontend.headers.browserXSSFilter"        = "true"
   }
 }
+
+variable "timemachine-password-2" {}
+variable "timemachine-password-1" {}

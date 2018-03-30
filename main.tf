@@ -29,9 +29,9 @@ module "timemachine" {
   source     = "timemachine"
   ips        = "${var.ips}"
   username-1 = "vikalp"
-  password-1 = "vikalp"
+  password-1 = "${var.timemachine-password-1}"
   username-2 = "rishav"
-  password-2 = "vikalp"
+  password-2 = "${var.timemachine-password-2}"
 }
 
 module "gitea" {
