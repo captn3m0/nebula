@@ -26,8 +26,12 @@ module "docker" {
 }
 
 module "timemachine" {
-  source = "timemachine"
-  ips    = "${var.ips}"
+  source     = "timemachine"
+  ips        = "${var.ips}"
+  username-1 = "vikalp"
+  password-1 = "vikalp"
+  username-2 = "rishav"
+  password-2 = "vikalp"
 }
 
 module "gitea" {

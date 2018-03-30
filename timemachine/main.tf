@@ -28,7 +28,28 @@ resource docker_container "timemachine" {
     ip       = "${var.ips["eth0"]}"
   }
 
+  upload {
+    content = "${data.template_file.timemachine-entrypoint.rendered}"
+    file    = "/entrypoint-custom.sh"
+  }
+
+  entrypoint = [
+    "/entrypoint-custom.sh",
+  ]
+
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
+}
+
+data "template_file" "timemachine-entrypoint" {
+  template = "${file("${path.module}/entrypoint.sh.tpl")}"
+
+  vars {
+    username-1 = "${var.username-1}"
+    password-1 = "${var.password-1}"
+
+    username-2 = "${var.username-2}"
+    password-2 = "${var.password-2}"
+  }
 }
