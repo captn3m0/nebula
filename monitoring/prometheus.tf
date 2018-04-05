@@ -11,6 +11,12 @@ resource docker_container "prometheus" {
     ip       = "${var.ips["eth0"]}"
   }
 
+  ports {
+    internal = 9090
+    external = 9090
+    ip       = "${var.ips["tun0"]}"
+  }
+
   command = ["--config.file=/etc/prometheus/prometheus.yml"]
 
   volumes {
