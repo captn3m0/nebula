@@ -1,4 +1,4 @@
-resource docker_container "gitea" {
+resource "docker_container" "gitea" {
   name  = "gitea"
   image = "${docker_image.gitea.latest}"
 
@@ -59,6 +59,9 @@ resource docker_container "gitea" {
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
+  links = [
+    "gitea-redis",
+  ]
 }
 
 resource "docker_image" "gitea" {

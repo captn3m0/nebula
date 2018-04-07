@@ -44,6 +44,7 @@ variable "gf-security-admin-password" {
 variable "gitea-secret-key" {}
 variable "gitea-internal-token" {}
 variable "gitea-smtp-password" {}
+variable "gitea-lfs-jwt-secret" {}
 variable "digitalocean-token" {}
 variable "airsonic-smtp-password" {}
 
@@ -62,7 +63,7 @@ variable "traefik-common-labels" {
     "traefik.frontend.headers.customResponseHeaders" = "X-Powered-By:Allomancy||X-Server:Blackbox"
 
     // X-Frame-Options
-    "traefik.frontend.headers.customFrameOptionsValue" = "ALLOW-FROM https://home.bb8.fun/"
+    "traefik.frontend.headers.customFrameOptionsValue" = "ALLOW-FROM https://bb8.fun/"
     "traefik.frontend.headers.contentTypeNosniff"      = "true"
     "traefik.frontend.headers.browserXSSFilter"        = "true"
   }

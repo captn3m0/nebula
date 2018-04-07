@@ -42,6 +42,7 @@ module "gitea" {
   secret-key     = "${var.gitea-secret-key}"
   internal-token = "${var.gitea-internal-token}"
   smtp-password  = "${var.gitea-smtp-password}"
+  lfs-jwt-secret = "${var.gitea-lfs-jwt-secret}"
 }
 
 module "radicale" {
