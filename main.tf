@@ -43,6 +43,7 @@ module "gitea" {
   internal-token = "${var.gitea-internal-token}"
   smtp-password  = "${var.gitea-smtp-password}"
   lfs-jwt-secret = "${var.gitea-lfs-jwt-secret}"
+  mysql-password = "${var.gitea-mysql-password}"
 }
 
 module "radicale" {

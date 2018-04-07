@@ -22,6 +22,7 @@ variable "mysql_airsonic_password" {}
 variable "mysql_kodi_password" {}
 
 variable "mysql-ttrss-password" {}
+variable "gitea-mysql-password" {}
 
 variable "wiki_session_secret" {
   type = "string"

@@ -15,5 +15,6 @@ data "template_file" "gitea-config-file" {
     internal_token = "${var.internal-token}"
     smtp_password  = "${var.smtp-password}"
     lfs-jwt-secret = "${var.lfs-jwt-secret}"
+    mysql-password = "${var.mysql-password}"
   }
 }

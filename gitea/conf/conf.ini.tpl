@@ -83,27 +83,19 @@ SSH_SERVER_MACS = hmac-sha2-512-etm@openssh.com, hmac-sha2-256-etm@openssh.com, 
 
 ; TODO
 ; ; Either "mysql", "postgres", "mssql" or "sqlite3", it's your choice
-; DB_TYPE = mysql
-; HOST = 127.0.0.1:3306
+DB_TYPE = sqlite3
+; HOST = mariadb:3306
 ; NAME = gitea
-; USER = root
-; PASSWD =
+; USER = gitea
+; PASSWD = "${mysql-password}"
 ; ; For "postgres" only, either "disable", "require" or "verify-full"
 ; SSL_MODE = disable
 ; ; For "sqlite3" and "tidb", use absolute path when you start as service
-; PATH = data/gitea.db
+PATH = data/gitea.db
 ; ; For "sqlite3" only. Query timeout
 ; SQLITE_TIMEOUT = 500
 ; ; For iterate buffer, default is 50
 ; ITERATE_BUFFER_SIZE = 50
-
-PATH     = /data/gitea/gitea.db
-DB_TYPE  = sqlite3
-HOST     = localhost:3306
-NAME     = gitea
-USER     = root
-PASSWD   =
-SSL_MODE = disable
 
 [session]
 PROVIDER_CONFIG = /data/gitea/sessions

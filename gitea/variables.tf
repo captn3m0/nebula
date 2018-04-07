@@ -12,3 +12,4 @@ variable "secret-key" {}
 variable "internal-token" {}
 variable "smtp-password" {}
 variable "lfs-jwt-secret" {}
+variable "mysql-password" {}

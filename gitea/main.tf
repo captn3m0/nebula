@@ -61,6 +61,7 @@ resource "docker_container" "gitea" {
   must_run              = true
   links = [
     "gitea-redis",
+    "mariadb",
   ]
 }
 
