@@ -29,12 +29,15 @@ resource "docker_container" "ubooquity" {
   labels {
     "traefik.enable" = "true"
 
-    "traefik.admin.port"                = 2203
-    "traefik.admin.frontend.rule"       = "Host:library.${var.domain}"
+    "traefik.admin.port"          = 2203
+    "traefik.admin.frontend.rule" = "Host:library.${var.domain}"
+
+    # I do not trust the Ubooquity authentication
+    # it does some shady JS encryption
     "traefik.admin.frontend.auth.basic" = "${var.basic_auth}"
 
     "traefik.read.port"          = 2202
-    "traefik.read.frontend.rule" = "Host:read.${var.domain}"
+    "traefik.read.frontend.rule" = "Host:read.${var.domain},comics.${var.domain},books.${var.domain}"
 
     "traefik.read.frontend.headers.SSLTemporaryRedirect"  = "true"
     "traefik.read.frontend.headers.STSSeconds"            = "2592000"
