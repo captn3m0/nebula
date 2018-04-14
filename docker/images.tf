@@ -23,12 +23,9 @@ resource "docker_image" "wikijs" {
   pull_triggers = ["${data.docker_registry_image.wikijs.sha256_digest}"]
 }
 
-# Attempting to use mongorocks to work around reboot issue
-# Hoping that this will not face reboot-recovery issues
-# Wrote about this: https://captnemo.in/blog/2017/12/18/home-server-learnings/
-resource "docker_image" "mongorocks" {
-  name          = "${data.docker_registry_image.mongorocks.name}"
-  pull_triggers = ["${data.docker_registry_image.mongorocks.sha256_digest}"]
+resource "docker_image" "percona-mongodb-server" {
+  name          = "${data.docker_registry_image.percona-mongodb-server.name}"
+  pull_triggers = ["${data.docker_registry_image.percona-mongodb-server.sha256_digest}"]
 }
 
 resource "docker_image" "ubooquity" {

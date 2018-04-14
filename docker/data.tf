@@ -4,10 +4,11 @@ data "docker_registry_image" "mariadb" {
   name = "mariadb:10.3"
 }
 
-data "docker_registry_image" "mongorocks" {
-  name = "jadsonlourenco/mongo-rocks:latest"
+data "docker_registry_image" "percona-mongodb-server" {
+  name = "percona/percona-server-mongodb:3.4"
 }
 
+# YOLO everything else
 data "docker_registry_image" "emby" {
   name = "emby/embyserver:latest"
 }
@@ -17,6 +18,7 @@ data "docker_registry_image" "transmission" {
 }
 
 data "docker_registry_image" "traefik" {
+  # Critical and I like upgrading it
   name = "traefik:1.6"
 }
 

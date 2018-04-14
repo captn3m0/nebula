@@ -1,6 +1,6 @@
 resource "docker_container" "mongorocks" {
   name  = "mongorocks"
-  image = "${docker_image.mongorocks.latest}"
+  image = "${docker_image.percona-mongodb-server.latest}"
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 30
@@ -13,10 +13,11 @@ resource "docker_container" "mongorocks" {
     host_path      = "${docker_volume.mongorocks_data_volume.mountpoint}"
   }
 
-  env = [
-    "AUTH=no",
-    "DATABASE=wiki",
-    "OPLOG_SIZE=50",
+  command = [
+    "--storageEngine=rocksdb",
+    "--httpinterface",
+    "--rest",
+    "--master",
   ]
 }
 
