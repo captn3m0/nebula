@@ -15,5 +15,5 @@ data "docker_registry_image" "cadvisor" {
 }
 
 data "docker_registry_image" "speedtest" {
-  name = "stefanwalther/speedtest-exporter:latest"
+  name = "captn3m0/speedtest-exporter:alpine"
 }

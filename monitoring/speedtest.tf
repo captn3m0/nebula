@@ -1,6 +1,7 @@
 # Transmission Exporter for speedtest results
 # https://hub.docker.com/r/stefanwalther/speedtest-exporter/
-resource docker_container "speedtest" {
+# Built against Alpine: https://github.com/stefanwalther/speedtest-exporter/pull/7
+resource "docker_container" "speedtest" {
   name  = "speedtest"
   image = "${docker_image.speedtest.latest}"
 
