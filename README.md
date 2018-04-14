@@ -89,6 +89,7 @@ Issues I've faced/reported as a result of this project:
 8. Traefik Security headers don't overwrite upstream headers: https://github.com/containous/traefik/issues/2618
 9. Transmission exporter broke with different data types while unmarshalling JSON in go. I filed a PR https://github.com/metalmatze/transmission-exporter/pull/2.
 10. Radarr official docker container was [running a very old `mediainfo`](https://github.com/Radarr/Radarr/issues/2668#issuecomment-376310514). [Filed a fix to upgrade `mediainfo` on the official radarr image](https://github.com/linuxserver/docker-baseimage-mono/pull/3)
+11. Patched the [speedtest-exporter](https://github.com/stefanwalther/speedtest-exporter/pull/7) to use Alpine and upgraded Node.JS for a smaller updated build.
 
 # Plumbing
 
