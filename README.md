@@ -18,7 +18,7 @@ The canonical URL for this repo is https://git.captnemo.in/nemo/nebula/. A mirro
 1. docker: to actually run the services. Catch-all for miscellaneous containers
 2. cloudflare: to manage the DNS.
 3. mysql: to create mysql users and databases.
-4. media: Media related containers (Jackett, Lidarr, Radarr, Sonarr, Daapd)
+4. media: Media related containers (Jackett, Lidarr, Radarr, Sonarr)
 5. Monitoring: Monitoring related resources (Cadvisor, Grafana, NodeExporter, Prometheus, Transmission-Exporter)
 6. Gitea: Just git.captnemo.in
 7. tt-rss: Tiny-Tiny RSS Web reader
@@ -46,7 +46,6 @@ Currently running the following (all links are to the `store.docker.com` links f
 | google/cadvisor                | latest  | 62.2 | monitoring      |
 | odarriba/timemachine           | latest  | 77.2 | backup          |
 | gitea/gitea                    | 1.4     | 77.4 | gitea           |
-| linuxserver/daapd              | latest  | 85.5 | media           |
 | linuxserver/heimdall           | latest  | 101  | general         |
 | linuxserver/tt-rss             | latest  | 108  | tt-rss          |
 | prom/prometheus                | latest  | 113  | monitoring      |
