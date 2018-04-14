@@ -37,38 +37,34 @@ Self-learning project for terraform/docker.
 
 Currently running the following (all links are to the `store.docker.com` links for the docker images that I'm using:
 
-## Databases
-
-- [MariaDB](https://store.docker.com/images/mariadb) for a simple database backend
-- [MongoRocks](https://store.docker.com/community/images/jadsonlourenco/mongo-rocks) as a mongoDB server. Uses RocksDB as the backend
-
-## Media
-
-- [Emby](https://store.docker.com/community/images/emby/embyserver) Media Server
-- [Radarr](https://store.docker.com/community/images/linuxserver/radarr), auto-download movies
-- [Sonarr](https://store.docker.com/community/images/linuxserver/sonarr), auto-download TV Shows
-- [Transmission](https://store.docker.com/community/images/linuxserver/transmission), to download torrents
-- [Heimdall](https://store.docker.com/community/images/linuxserver/heimdall), for a single link to other services
-- [AirSonic](https://store.docker.com/community/images/airsonic/airsonic), for a music server
-- [Ubooquity](https://store.docker.com/community/images/linuxserver/ubooquity), EBooks server with OPDS support
-- [Lychee](https://store.docker.com/community/images/linuxserver/lychee), as a simple image-sharing/hosting service
-
-## Plumbing & Monitoring
-
-- [Traefik](https://store.docker.com/images/traefik) as a reverse-proxy server, and TLS termination.
-- [CAdvisor](https://store.docker.com/community/images/google/cadvisor), for basic monitoring. Reports metrics to prometheus
-- [Grafana](https://store.docker.com/community/images/grafana/grafana), for graphing. Public at <https://grafana.bb8.fun>
-- [Prometheus](https://store.docker.com/community/images/prom/prometheus), for metrics.
-- [Nodeexporter](https://store.docker.com/community/images/prom/node-exporter), for host-metrics.
-
-## Misc
-
-- [Wiki.JS](https://store.docker.com/community/images/requarks/wiki) as a simple home-wiki. Public at <https://wiki.bb8.fun>
-- [Radicale](https://store.docker.com/community/images/tomsquest/docker-radicale), for a CalDav/Carddav server
-- [Gitea](https://store.docker.com/community/images/gitea/gitea), git server. Public at <https://git.captnemo.in>
-- [Timemachine](https://store.docker.com/community/images/odarriba/timemachine) to take backups of a few macbooks.
-- [Resilio Sync](https://store.docker.com/community/images/linuxserver/resilio-sync) as a dropbox alternative
-- [tt-rss](https://store.docker.com/community/images/linuxserver/tt-rss), as a simple web-rss-client
+| image                          | tag     | size | category/module |
+|--------------------------------|---------|------|-----------------|
+| prom/node-exporter             | v0.15.2 | 22.8 | monitoring      |
+| redis                          | alpine  | 27.8 | gitea           |
+| linuxserver/transmission       | latest  | 43.9 | media           |
+| traefik                        | 1.6     | 51.8 | docker          |
+| google/cadvisor                | latest  | 62.2 | monitoring      |
+| odarriba/timemachine           | latest  | 77.2 | backup          |
+| gitea/gitea                    | 1.4     | 77.4 | gitea           |
+| linuxserver/daapd              | latest  | 85.5 | media           |
+| linuxserver/heimdall           | latest  | 101  | general         |
+| linuxserver/tt-rss             | latest  | 108  | tt-rss          |
+| prom/prometheus                | latest  | 113  | monitoring      |
+| linuxserver/ubooquity          | latest  | 114  | docker          |
+| captn3m0/speedtest-exporter    | alpine  | 115  | monitoring      |
+| tomsquest/docker-radicale      | latest  | 130  | radicale        |
+| linuxserver/lychee             | latest  | 154  | lychee          |
+| linuxserver/resilio-sync       | latest  | 167  | resilio         |
+| emby/embyserver                | latest  | 202  | media           |
+| linuxserver/airsonic           | latest  | 239  | media           |
+| grafana/grafana                | latest  | 301  | monitoring      |
+| requarks/wiki                  | latest  | 317  | wiki            |
+| percona/percona-server-mongodb | latest  | 321  | wiki            |
+| mariadb                        | 10.3    | 402  | db              |
+| linuxserver/jackett            | latest  | 556  | media           |
+| linuxserver/sonarr             | latest  | 562  | media           |
+| linuxserver/radarr             | latest  | 566  | media           |
+| linuxserver/lidarr             | latest  | 574  | media           |
 
 ## Docker Notes
 - Lots of the above images are from the excellent [LinuxServer.io](https://www.linuxserver.io), and they're doing great work :+1:
