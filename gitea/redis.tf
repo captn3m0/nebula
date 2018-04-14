@@ -6,6 +6,11 @@ resource "docker_container" "redis" {
     host_path      = "/mnt/xwing/cache/gitea"
     container_path = "/data"
   }
+
+  memory                = 64
+  restart               = "unless-stopped"
+  destroy_grace_seconds = 10
+  must_run              = true
 }
 
 resource "docker_image" "redis" {
