@@ -98,3 +98,9 @@ module "monitoring" {
 module "digitalocean" {
   source = "digitalocean"
 }
+
+module "abstruse" {
+  source         = "abstruse"
+  domain         = "ci.bb8.fun"
+  traefik-labels = "${var.traefik-common-labels}"
+}
