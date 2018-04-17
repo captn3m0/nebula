@@ -1,5 +1,5 @@
 data "docker_registry_image" "abstruse" {
-  name = "bleenco/abstruse"
+  name = "bleenco/abstruse:latest"
 }
 
 resource "docker_image" "abstruse" {
