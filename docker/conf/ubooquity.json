@@ -19,7 +19,8 @@
         "tatooine",
         "sankalp",
         "riccu",
-        "pratyush"
+        "pratyush",
+        "arvind"
       ]
     }
   ],
@@ -31,7 +32,8 @@
         "tatooine",
         "sankalp",
         "riccu",
-        "pratyush"
+        "pratyush",
+        "arvind"
       ]
     }
   ],
@@ -55,6 +57,10 @@
     {
       "name": "pratyush",
       "passwordHash": "e63af1a184949abfd3666ef2c60c462191619fdcefadf9021a5d24f236d302fe"
+    },
+    {
+      "name": "arvind",
+      "passwordHash": "126f31712138ea8e5f77c0e2565be848ec87a4057dfe1c4070a6c9d1f3de8ded"
     }
   ],
   "isFilesProviderEnabled": true,
