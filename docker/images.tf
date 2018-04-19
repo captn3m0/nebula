@@ -13,7 +13,7 @@ resource "docker_image" "transmission" {
   pull_triggers = ["${data.docker_registry_image.transmission.sha256_digest}"]
 }
 
-resource "docker_image" "traefik" {
+resource "docker_image" "traefik16" {
   name          = "${data.docker_registry_image.traefik.name}"
   pull_triggers = ["${data.docker_registry_image.traefik.sha256_digest}"]
 }

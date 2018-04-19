@@ -2,8 +2,11 @@ defaultEntryPoints = ["http", "https"]
 
 # Have to enable this because of heimdall
 InsecureSkipVerify = true
-
 sendAnonymousUsage = true
+checkNewVersion = false
+
+[traefikLog]
+[accessLog]
 
 [entryPoints]
 [entryPoints.http]
@@ -30,7 +33,7 @@ sendAnonymousUsage = true
   endpoint = "unix:///var/run/docker.sock"
   domain = "bb8.fun"
   watch = true
-  exposedbydefault = false
+  exposedbydefault = true
 
 [file]
 [backends]
@@ -74,7 +77,6 @@ sendAnonymousUsage = true
 [web.metrics.prometheus]
 
 [acme]
-
 email = "acme@captnemo.in"
 storage = "/acme/acme.json"
 entryPoint = "https"
@@ -89,43 +91,6 @@ acmelogging = true
   provider = "cloudflare"
   delayBeforeCheck = 30
 
-# This is a legacy certificate
-# From when traefik did not support
-# wildcard certs
-[[acme.domains]]
-main = "bb8.fun"
-sans = [
-  "ads.bb8.fun",
-  "airsonic.bb8.fun",
-  "apps.bb8.fun",
-  "cadvisor.bb8.fun",
-  "dns.bb8.fun",
-  "emby.bb8.fun",
-  "falcon.bb8.fun", # Temporarily used for lidarr
-  "ghost.bb8.fun",
-  "grafana.bb8.fun", # Unused
-  "headphones.bb8.fun",
-  "home.bb8.fun",
-  "info.bb8.fun",
-  "jackett.bb8.fun",
-  "library.bb8.fun",
-  "luke.bb8.fun",
-  "monitoring.bb8.fun",
-  # "lidarr.bb8.fun", (TBA)
-  "ombi.bb8.fun", # Unused
-  "pics.bb8.fun",
-  "radarr.bb8.fun",
-  "read.bb8.fun",
-  "rey.bb8.fun",
-  "scan.bb8.fun",
-  "sonarr.bb8.fun",
-  "tatooine.bb8.fun",
-  "tie.bb8.fun",
-  "traefik.bb8.fun",
-  "transmission.bb8.fun",
-  "wifi.bb8.fun",
-  "wiki.bb8.fun"
-]
 # Primary 2 wildcard certs
 [[acme.domains]]
   main = "*.bb8.fun"

@@ -11,7 +11,7 @@ data "docker_registry_image" "percona-mongodb-server" {
 data "docker_registry_image" "traefik" {
   # Critical and I like upgrading it
   # for updating config for new features
-  name = "traefik:1.6"
+  name = "traefik:1.6.0-rc5-alpine"
 }
 
 # YOLO everything else
