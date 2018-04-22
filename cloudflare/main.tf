@@ -97,3 +97,11 @@ resource "cloudflare_record" "mailgun-mxb" {
   type     = "MX"
   priority = 20
 }
+
+resource "cloudflare_record" "k8s-talk" {
+  domain = "${var.domain}"
+  name   = "k8s"
+  value  = "lightsaber.captnemo.in"
+  type   = "CNAME"
+  ttl    = 3600
+}
