@@ -14,7 +14,7 @@ resource docker_container "lidarr" {
   labels = "${merge(
     var.traefik-labels, map(
       "traefik.port", 8686,
-      "traefik.frontend.rule","Host:falcon.${var.domain}"
+      "traefik.frontend.rule","Host:lidarr.${var.domain}"
   ))}"
 
   memory                = 512
