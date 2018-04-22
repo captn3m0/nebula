@@ -7,7 +7,7 @@ resource "docker_image" "timemachine" {
   pull_triggers = ["${data.docker_registry_image.timemachine.sha256_digest}"]
 }
 
-resource docker_container "timemachine" {
+resource "docker_container" "timemachine" {
   name  = "timemachine"
   image = "${docker_image.timemachine.latest}"
 

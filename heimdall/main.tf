@@ -7,7 +7,7 @@ resource "docker_image" "heimdall" {
   pull_triggers = ["${data.docker_registry_image.heimdall.sha256_digest}"]
 }
 
-resource docker_container "heimdall" {
+resource "docker_container" "heimdall" {
   name  = "heimdall"
   image = "${docker_image.heimdall.latest}"
 

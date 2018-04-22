@@ -1,4 +1,4 @@
-resource docker_container "grafana" {
+resource "docker_container" "grafana" {
   name  = "grafana"
   image = "${docker_image.grafana.latest}"
 

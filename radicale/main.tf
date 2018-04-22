@@ -7,7 +7,7 @@ resource "docker_image" "radicale" {
   pull_triggers = ["${data.docker_registry_image.radicale.sha256_digest}"]
 }
 
-resource docker_container "radicale" {
+resource "docker_container" "radicale" {
   name  = "radicale"
   image = "${docker_image.radicale.latest}"
 

@@ -7,7 +7,7 @@ resource "docker_image" "kib" {
   pull_triggers = ["${data.docker_registry_image.kib.sha256_digest}"]
 }
 
-resource docker_container "kib" {
+resource "docker_container" "kib" {
   name  = "kib"
   image = "${docker_image.kib.latest}"
 

@@ -7,7 +7,7 @@ resource "docker_image" "sonarr" {
   pull_triggers = ["${data.docker_registry_image.sonarr.sha256_digest}"]
 }
 
-resource docker_container "sonarr" {
+resource "docker_container" "sonarr" {
   name  = "sonarr"
   image = "${docker_image.sonarr.latest}"
 

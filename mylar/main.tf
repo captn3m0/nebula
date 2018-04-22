@@ -7,7 +7,7 @@ resource "docker_image" "mylar" {
   pull_triggers = ["${data.docker_registry_image.mylar.sha256_digest}"]
 }
 
-resource docker_container "mylar" {
+resource "docker_container" "mylar" {
   name  = "mylar"
   image = "${docker_image.mylar.latest}"
 

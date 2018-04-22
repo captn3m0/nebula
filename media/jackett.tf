@@ -7,7 +7,7 @@ resource "docker_image" "jackett" {
   pull_triggers = ["${data.docker_registry_image.jackett.sha256_digest}"]
 }
 
-resource docker_container "jackett" {
+resource "docker_container" "jackett" {
   name  = "jackett"
   image = "${docker_image.jackett.latest}"
 

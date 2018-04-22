@@ -7,7 +7,7 @@ resource "docker_image" "radarr" {
   pull_triggers = ["${data.docker_registry_image.radarr.sha256_digest}"]
 }
 
-resource docker_container "radarr" {
+resource "docker_container" "radarr" {
   name  = "radarr"
   image = "${docker_image.radarr.latest}"
 

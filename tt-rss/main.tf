@@ -7,7 +7,7 @@ resource "docker_image" "tt-rss" {
   pull_triggers = ["${data.docker_registry_image.tt-rss.sha256_digest}"]
 }
 
-resource docker_container "tt-rss" {
+resource "docker_container" "tt-rss" {
   name  = "tt-rss"
   image = "${docker_image.tt-rss.latest}"
 

@@ -1,4 +1,4 @@
-resource docker_container "prometheus" {
+resource "docker_container" "prometheus" {
   name  = "prometheus"
   image = "${docker_image.prometheus.latest}"
 

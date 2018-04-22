@@ -7,7 +7,7 @@ resource "docker_image" "lidarr" {
   pull_triggers = ["${data.docker_registry_image.lidarr.sha256_digest}"]
 }
 
-resource docker_container "lidarr" {
+resource "docker_container" "lidarr" {
   name  = "lidarr"
   image = "${docker_image.lidarr.latest}"
 

@@ -1,4 +1,4 @@
-resource docker_container "transmission" {
+resource "docker_container" "transmission" {
   name  = "transmission"
   image = "${docker_image.transmission.latest}"
 

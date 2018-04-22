@@ -1,4 +1,4 @@
-resource docker_container "nodeexporter" {
+resource "docker_container" "nodeexporter" {
   name  = "nodeexporter"
   image = "${docker_image.nodeexporter.latest}"
 
