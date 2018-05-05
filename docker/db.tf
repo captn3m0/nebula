@@ -54,4 +54,8 @@ resource "docker_container" "mariadb" {
   env = [
     "MYSQL_ROOT_PASSWORD=${var.mysql_root_password}",
   ]
+
+  command = [
+    "--version=10.3-MariaDB",
+  ]
 }
