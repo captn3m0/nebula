@@ -10,8 +10,9 @@ Manages the local infrastructure of my home server. I'm also doing blog posts ar
 2. [Part 2, Terraform/Docker](https://captnemo.in/blog/2017/11/09/home-server-update/)
 3. [Part 3, Learnings](https://captnemo.in/blog/2017/12/18/home-server-learnings/)
 4. [Part 4, Migrating from Google (and more)](https://captnemo.in/blog/2017/12/31/migrating-from-google/)
+5. [Part 5, Networking](https://captnemo.in/blog/2018/04/22/home-server-networking/)
 
-The canonical URL for this repo is https://git.captnemo.in/nemo/nebula/. A mirror is maintained on GitHub.
+The canonical URL for this repo is https://git.captnemo.in/nemo/nebula/. A mirror is maintained on GitHub at <https://github.com/captn3m0/nebula>
 
 # modules
 
@@ -81,10 +82,12 @@ Issues I've faced/reported as a result of this project:
 5. `elibsrv` didn't support ebook-convert, only mobigen. PR is at https://github.com/captn3m0/elibsrv/pull/1. Merged to `elibsrv` trunk, will be part of next release.
 6. `ubooquity` docker container doesn't let you set admin password: https://github.com/linuxserver/docker-ubooquity/issues/17. (Couldn't reproduce, closed) :white_check_mark:
 7. Traefik customresponseheaders can't contain colons on the docker backend: https://github.com/containous/traefik/issues/2517. Fixed with https://github.com/containous/traefik/pull/2509 :white_check_mark:
-8. Traefik Security headers don't overwrite upstream headers: https://github.com/containous/traefik/issues/2618
-9. Transmission exporter broke with different data types while unmarshalling JSON in go. I filed a PR https://github.com/metalmatze/transmission-exporter/pull/2.
-10. Radarr official docker container was [running a very old `mediainfo`](https://github.com/Radarr/Radarr/issues/2668#issuecomment-376310514). [Filed a fix to upgrade `mediainfo` on the official radarr image](https://github.com/linuxserver/docker-baseimage-mono/pull/3)
+8. Traefik Security headers don't overwrite upstream headers: https://github.com/containous/traefik/issues/2618 :white_check_mark:
+9. Transmission exporter broke with different data types while unmarshalling JSON in go. I filed a PR https://github.com/metalmatze/transmission-exporter/pull/2 :white_check_mark:
+10. Radarr official docker container was [running a very old `mediainfo`](https://github.com/Radarr/Radarr/issues/2668#issuecomment-376310514). [Filed a fix to upgrade `mediainfo` on the official radarr image](https://github.com/linuxserver/docker-baseimage-mono/pull/3) :white_check_mark:
 11. Patched the [speedtest-exporter](https://github.com/stefanwalther/speedtest-exporter/pull/7) to use Alpine and upgraded Node.JS for a smaller updated build.
+12. Faced (4) above again because mariadb decided to add `:` in the version response. [Workaround was to force set `--version=10.3-mariadb`](https://git.captnemo.in/nemo/nebula/commit/5f47a08bb55eea2c708c41668657ac1efa84c72a)
+13. Reported [2 critical security issues in Abstruse CI](https://github.com/bleenco/abstruse/issues/363). :white_check_mark:
 
 # Plumbing
 
