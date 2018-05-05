@@ -33,7 +33,7 @@ checkNewVersion = false
   endpoint = "unix:///var/run/docker.sock"
   domain = "bb8.fun"
   watch = true
-  exposedbydefault = true
+  exposedbydefault = false
 
 [file]
 [backends]

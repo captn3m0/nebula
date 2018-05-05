@@ -1,7 +1,7 @@
 # Database versions shouldn't be upgraded
 
 data "docker_registry_image" "mariadb" {
-  name = "mariadb:10.3"
+  name = "mariadb:${var.mariadb-version}"
 }
 
 data "docker_registry_image" "percona-mongodb-server" {

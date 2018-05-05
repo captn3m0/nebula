@@ -56,6 +56,6 @@ resource "docker_container" "mariadb" {
   ]
 
   command = [
-    "--version=10.3-MariaDB",
+    "--version=${var.mariadb-version}-MariaDB",
   ]
 }

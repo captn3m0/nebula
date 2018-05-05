@@ -53,3 +53,8 @@ variable "domain" {
 variable "ips" {
   type = "map"
 }
+
+variable "mariadb-version" {
+  description = "mariadb version to use for fetching the docker image"
+  default     = "10.3"
+}
