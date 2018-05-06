@@ -8,6 +8,8 @@
         "sankalp",
         "riccu",
         "pratyush",
+        "arvind",
+        "shreyas",
         "harman"
       ]
     }
@@ -21,6 +23,7 @@
         "sankalp",
         "riccu",
         "pratyush",
+        "shreyas",
         "arvind",
         "harman"
       ]
@@ -36,6 +39,7 @@
         "riccu",
         "pratyush",
         "arvind",
+        "shreyas",
         "harman"
       ]
     }
@@ -68,6 +72,10 @@
     {
       "name": "harman",
       "passwordHash": "f9bd71d0a8cee05a724efae4f5636123f18d8c9c531c470892f8681375726bd2"
+    },
+    {
+      "name": "shreyas",
+      "passwordHash": "ee4501f0aa63453f4360e974c3220c2c7a4c58d2125d989b80ef855e1471535d"
     }
   ],
   "isFilesProviderEnabled": true,
