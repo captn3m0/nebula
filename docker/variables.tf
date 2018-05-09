@@ -56,5 +56,5 @@ variable "ips" {
 
 variable "mariadb-version" {
   description = "mariadb version to use for fetching the docker image"
-  default     = "10.3"
+  default     = "10.1.32"
 }
