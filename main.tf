@@ -73,12 +73,6 @@ module "resilio" {
   ips            = "${var.ips}"
 }
 
-module "mylar" {
-  source         = "mylar"
-  domain         = "mylar.bb8.fun"
-  traefik-labels = "${var.traefik-common-labels}"
-}
-
 module "heimdall" {
   source         = "heimdall"
   domain         = "bb8.fun"
