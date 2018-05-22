@@ -73,3 +73,8 @@ variable "timemachine-password-1" {}
 variable "opml-github-client-id" {}
 variable "opml-github-client-secret" {}
 variable "miniflux-db-password" {}
+
+variable "monica-db-password" {}
+variable "monica-app-key" {}
+variable "monica-hash-salt" {}
+variable "monica-smtp-password" {}

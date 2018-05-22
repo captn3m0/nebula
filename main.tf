@@ -86,6 +86,16 @@ module "rss-bridge" {
   traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
+module "monicahq" {
+  source         = "monicahq"
+  domain         = "monica.bb8.fun"
+  db-password    = "${var.monica-db-password}"
+  app-key        = "${var.monica-app-key}"
+  hash-salt      = "${var.monica-hash-salt}"
+  smtp-password  = "${var.monica-smtp-password}"
+  traefik-labels = "${var.traefik-common-labels}"
+}
+
 module "requestbin" {
   source             = "requestbin"
   domain             = "requestbin.bb8.fun"
