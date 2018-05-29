@@ -21,7 +21,7 @@ module "docker" {
   cloudflare_email    = "bb8@captnemo.in"
   wiki_session_secret = "${var.wiki_session_secret}"
   links-mariadb       = "${module.db.names-mariadb}"
-  links-mongorocks    = "${module.db.names-mongorocks}"
+  networks-mongorocks = "${module.db.networks-mongorocks}"
   ips                 = "${var.ips}"
   domain              = "bb8.fun"
 }
@@ -95,7 +95,7 @@ module "media" {
   links-emby             = "${module.media.names-emby}"
   links-transmission     = "${module.media.names-transmission}"
   links-mariadb          = "${module.db.names-mariadb}"
-  links-mongorocks       = "${module.db.names-mongorocks}"
+  links-mongorocks       = "${module.db.networks-mongorocks}"
   traefik-labels         = "${var.traefik-common-labels}"
   airsonic-smtp-password = "${var.airsonic-smtp-password}"
   airsonic-db-password   = "${var.mysql_airsonic_password}"

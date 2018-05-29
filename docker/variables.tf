@@ -52,4 +52,4 @@ variable "ips" {
 
 variable "links-mariadb" {}
 
-variable "links-mongorocks" {}
+variable "networks-mongorocks" {}

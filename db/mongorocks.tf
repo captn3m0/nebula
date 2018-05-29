@@ -19,6 +19,8 @@ resource "docker_container" "mongorocks" {
     "--rest",
     "--master",
   ]
+
+  networks = ["${docker_network.mongorocks.id}"]
 }
 
 resource "docker_image" "percona-mongodb-server" {

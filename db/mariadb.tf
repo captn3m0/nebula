@@ -35,6 +35,8 @@ resource "docker_container" "mariadb" {
   command = [
     "--version=${var.mariadb-version}-MariaDB",
   ]
+
+  networks = ["${docker_network.mariadb.id}"]
 }
 
 resource "docker_image" "mariadb" {
