@@ -2,10 +2,7 @@ variable "domain" {
   type = "string"
 }
 
-variable "links-emby" {}
-variable "links-transmission" {}
 variable "links-mariadb" {}
-variable "links-mongorocks" {}
 variable "airsonic-smtp-password" {}
 variable "airsonic-db-password" {}
 

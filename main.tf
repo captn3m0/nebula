@@ -88,14 +88,9 @@ module "heimdall" {
 }
 
 module "media" {
-  source = "media"
-  domain = "bb8.fun"
-
-  // TODO: remove self links
-  links-emby             = "${module.media.names-emby}"
-  links-transmission     = "${module.media.names-transmission}"
+  source                 = "media"
+  domain                 = "bb8.fun"
   links-mariadb          = "${module.db.names-mariadb}"
-  links-mongorocks       = "${module.db.networks-mongorocks}"
   traefik-labels         = "${var.traefik-common-labels}"
   airsonic-smtp-password = "${var.airsonic-smtp-password}"
   airsonic-db-password   = "${var.mysql_airsonic_password}"
