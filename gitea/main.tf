@@ -60,9 +60,9 @@ resource "docker_container" "gitea" {
   destroy_grace_seconds = 10
   must_run              = true
   links = [
-    "gitea-redis",
     "mariadb",
   ]
+  networks = ["${docker_network.gitea.id}"]
 }
 
 resource "docker_image" "gitea" {

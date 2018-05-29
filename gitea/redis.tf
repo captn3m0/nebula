@@ -11,6 +11,8 @@ resource "docker_container" "redis" {
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
+
+  networks = ["${docker_network.gitea.id}"]
 }
 
 resource "docker_image" "redis" {
