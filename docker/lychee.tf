@@ -33,5 +33,5 @@ resource "docker_container" "lychee" {
     "PGID=984",
   ]
 
-  links = ["${docker_container.mariadb.name}"]
+  links = ["${var.links-mariadb}"]
 }

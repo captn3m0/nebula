@@ -6,10 +6,6 @@ variable "web_password" {
   type = "string"
 }
 
-variable "mysql_root_password" {
-  type = "string"
-}
-
 variable "cloudflare_key" {
   type        = "string"
   description = "cloudflare API Key"
@@ -54,7 +50,6 @@ variable "ips" {
   type = "map"
 }
 
-variable "mariadb-version" {
-  description = "mariadb version to use for fetching the docker image"
-  default     = "10.2.14"
-}
+variable "links-mariadb" {}
+
+variable "links-mongorocks" {}

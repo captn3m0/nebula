@@ -43,5 +43,5 @@ resource "docker_container" "sonarr" {
     "TZ=Asia/Kolkata",
   ]
 
-  links = ["${var.links-emby}", "${var.links-transmission}"]
+  networks = ["${docker_network.media.id}"]
 }

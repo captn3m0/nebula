@@ -1,26 +1,3 @@
-resource "docker_container" "mongorocks" {
-  name  = "mongorocks"
-  image = "${docker_image.percona-mongodb-server.latest}"
-
-  restart               = "unless-stopped"
-  destroy_grace_seconds = 30
-  must_run              = true
-  memory                = 256
-
-  volumes {
-    volume_name    = "${docker_volume.mongorocks_data_volume.name}"
-    container_path = "/data/db"
-    host_path      = "${docker_volume.mongorocks_data_volume.mountpoint}"
-  }
-
-  command = [
-    "--storageEngine=rocksdb",
-    "--httpinterface",
-    "--rest",
-    "--master",
-  ]
-}
-
 resource "docker_container" "mariadb" {
   name  = "mariadb"
   image = "${docker_image.mariadb.latest}"
@@ -58,4 +35,13 @@ resource "docker_container" "mariadb" {
   command = [
     "--version=${var.mariadb-version}-MariaDB",
   ]
+}
+
+resource "docker_image" "mariadb" {
+  name          = "${data.docker_registry_image.mariadb.name}"
+  pull_triggers = ["${data.docker_registry_image.mariadb.sha256_digest}"]
+}
+
+data "docker_registry_image" "mariadb" {
+  name = "mariadb:${var.mariadb-version}"
 }

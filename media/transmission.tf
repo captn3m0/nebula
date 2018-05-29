@@ -3,7 +3,7 @@ resource "docker_container" "transmission" {
   image = "${docker_image.transmission.latest}"
 
   labels = "${merge(
-    local.traefik_common_labels,
+    var.traefik-labels,
     map(
       "traefik.frontend.auth.basic", "${var.basic_auth}",
       "traefik.port", 9091,
@@ -42,8 +42,19 @@ resource "docker_container" "transmission" {
     "TZ=Asia/Kolkata",
   ]
 
+  networks = ["${docker_network.media.id}"]
+
   memory                = 1024
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
+}
+
+resource "docker_image" "transmission" {
+  name          = "${data.docker_registry_image.transmission.name}"
+  pull_triggers = ["${data.docker_registry_image.transmission.sha256_digest}"]
+}
+
+data "docker_registry_image" "transmission" {
+  name = "linuxserver/transmission:latest"
 }

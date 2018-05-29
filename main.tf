@@ -17,12 +17,19 @@ module "docker" {
   source              = "docker"
   web_username        = "${var.web_username}"
   web_password        = "${var.web_password}"
-  mysql_root_password = "${var.mysql_root_password}"
   cloudflare_key      = "${var.cloudflare_key}"
   cloudflare_email    = "bb8@captnemo.in"
   wiki_session_secret = "${var.wiki_session_secret}"
+  links-mariadb       = "${module.db.names-mariadb}"
+  links-mongorocks    = "${module.db.names-mongorocks}"
   ips                 = "${var.ips}"
   domain              = "bb8.fun"
+}
+
+module "db" {
+  source              = "db"
+  mysql_root_password = "${var.mysql_root_password}"
+  ips                 = "${var.ips}"
 }
 
 module "timemachine" {
@@ -56,7 +63,7 @@ module "tt-rss" {
   source         = "tt-rss"
   domain         = "rss.captnemo.in"
   mysql_password = "${var.mysql-ttrss-password}"
-  links-db       = "${module.docker.names-mariadb}"
+  links-db       = "${module.db.names-mariadb}"
   traefik-labels = "${var.traefik-common-labels}"
 }
 
@@ -81,21 +88,25 @@ module "heimdall" {
 }
 
 module "media" {
-  source                 = "media"
-  domain                 = "bb8.fun"
-  links-emby             = "${module.docker.names-emby}"
-  links-transmission     = "${module.docker.names-transmission}"
-  links-mariadb          = "${module.docker.names-mariadb}"
+  source = "media"
+  domain = "bb8.fun"
+
+  // TODO: remove self links
+  links-emby             = "${module.media.names-emby}"
+  links-transmission     = "${module.media.names-transmission}"
+  links-mariadb          = "${module.db.names-mariadb}"
+  links-mongorocks       = "${module.db.names-mongorocks}"
   traefik-labels         = "${var.traefik-common-labels}"
   airsonic-smtp-password = "${var.airsonic-smtp-password}"
   airsonic-db-password   = "${var.mysql_airsonic_password}"
+  ips                    = "${var.ips}"
 }
 
 module "monitoring" {
   source                     = "monitoring"
   gf-security-admin-password = "${var.gf-security-admin-password}"
   domain                     = "bb8.fun"
-  transmission               = "${module.docker.names-transmission}"
+  transmission               = "${module.media.names-transmission}"
   traefik-labels             = "${var.traefik-common-labels}"
   ips                        = "${var.ips}"
   links-traefik              = "${module.docker.names-traefik}"

@@ -1,26 +1,7 @@
-# Database versions shouldn't be upgraded
-
-data "docker_registry_image" "mariadb" {
-  name = "mariadb:${var.mariadb-version}"
-}
-
-data "docker_registry_image" "percona-mongodb-server" {
-  name = "percona/percona-server-mongodb:3.4"
-}
-
 data "docker_registry_image" "traefik" {
   # Critical and I like upgrading it
   # for updating config for new features
   name = "traefik:1.6-alpine"
-}
-
-# YOLO everything else
-data "docker_registry_image" "emby" {
-  name = "emby/embyserver:latest"
-}
-
-data "docker_registry_image" "transmission" {
-  name = "linuxserver/transmission:latest"
 }
 
 data "docker_registry_image" "wikijs" {

@@ -13,7 +13,7 @@ resource "docker_container" "emby" {
   }
 
   labels = "${merge(
-    local.traefik_common_labels,
+    var.traefik-labels,
     map(
       "traefik.frontend.rule", "Host:emby.in.${var.domain},emby.${var.domain}",
       "traefik.frontend.passHostHeader", "true",
@@ -33,4 +33,13 @@ resource "docker_container" "emby" {
     "APP_CONFIG=/mnt/xwing/config",
     "TZ=Asia/Kolkata",
   ]
+}
+
+resource "docker_image" "emby" {
+  name          = "${data.docker_registry_image.emby.name}"
+  pull_triggers = ["${data.docker_registry_image.emby.sha256_digest}"]
+}
+
+data "docker_registry_image" "emby" {
+  name = "emby/embyserver:latest"
 }

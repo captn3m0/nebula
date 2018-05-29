@@ -43,7 +43,7 @@ resource "docker_container" "wiki" {
       "traefik.port", 9999,
       "traefik.frontend.headers.customResponseHeaders", "${var.xpoweredby}||Referrer-Policy:${var.refpolicy}||X-Frame-Options:${var.xfo_allow}",
     ))}"
-  links = ["${docker_container.mongorocks.name}"]
+  links = ["${var.links-mongorocks}"]
   env = [
     "WIKI_ADMIN_EMAIL=me@captnemo.in",
     "SESSION_SECRET=${var.wiki_session_secret}",
