@@ -72,3 +72,6 @@ variable "traefik-common-labels" {
 
 variable "timemachine-password-2" {}
 variable "timemachine-password-1" {}
+
+variable "opml-github-client-id" {}
+variable "opml-github-client-secret" {}

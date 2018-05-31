@@ -53,6 +53,14 @@ module "gitea" {
   mysql-password = "${var.gitea-mysql-password}"
 }
 
+module "opml" {
+  source         = "opml"
+  domain         = "opml.bb8.fun"
+  client-id      = "${var.opml-github-client-id}"
+  client-secret  = "${var.opml-github-client-secret}"
+  traefik-labels = "${var.traefik-common-labels}"
+}
+
 module "radicale" {
   source         = "radicale"
   domain         = "radicale.bb8.fun"
