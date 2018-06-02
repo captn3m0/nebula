@@ -119,6 +119,12 @@ module "digitalocean" {
   source = "digitalocean"
 }
 
+// Used to force access to ISP related resources
+module "tinyproxy" {
+  source = "tinyproxy"
+  ips    = "${var.ips}"
+}
+
 module "abstruse" {
   source         = "abstruse"
   domain         = "ci.bb8.fun"
