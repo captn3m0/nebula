@@ -13,13 +13,6 @@ resource "docker_image" "ubooquity" {
   pull_triggers = ["${data.docker_registry_image.ubooquity.sha256_digest}"]
 }
 
-# Helps debug traefik reverse proxy headers
-# Highly recommended!
-# resource "docker_image" "headerdebug" {
-#   name          = "${data.docker_registry_image.headerdebug.name}"
-#   pull_triggers = ["${data.docker_registry_image.headerdebug.sha256_digest}"]
-# }
-
 resource "docker_image" "lychee" {
   name          = "${data.docker_registry_image.lychee.name}"
   pull_triggers = ["${data.docker_registry_image.lychee.sha256_digest}"]
