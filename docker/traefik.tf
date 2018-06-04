@@ -97,7 +97,14 @@ resource "docker_container" "traefik" {
   // https://github.com/terraform-providers/terraform-provider-docker/issues/10
   //
   // The extra IDs are till https://github.com/containous/traefik/issues/3429 is resolved
-  networks = ["${docker_network.traefik.id}", "31efc1966139", "f0d3bbcf75dd", "aad198ad4ba8"]
+  // gitea, media, opml, monitoring
+  networks = [
+    "${docker_network.traefik.id}",
+    "31efc1966139",
+    "f0d3bbcf75dd",
+    "aad198ad4ba8",
+    "021125972c4b",
+  ]
 
   env = [
     "CLOUDFLARE_EMAIL=${var.cloudflare_email}",
