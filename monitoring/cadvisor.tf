@@ -30,7 +30,7 @@ resource "docker_container" "cadvisor" {
     container_path = "/var/run"
   }
 
-  networks = ["${var.traefik-network-id}"]
+  networks = ["${var.traefik-network-id}", "${docker_network.monitoring.id}"]
 
   labels = "${merge(
     var.traefik-labels, map(

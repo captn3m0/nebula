@@ -29,13 +29,8 @@ resource "docker_container" "prometheus" {
     file    = "/etc/prometheus/prometheus.yml"
   }
 
-  // TODO: Use network instead
-  links = [
-    "${docker_container.nodeexporter.name}",
-    "${docker_container.cadvisor.name}",
-    "${docker_container.speedtest.name}",
-    "${docker_container.act-exporter.name}",
-    "${var.links-traefik}",
+  networks = [
+    "${docker_network.monitoring.id}",
   ]
 
   restart               = "unless-stopped"

@@ -24,6 +24,8 @@ resource "docker_container" "nodeexporter" {
     "--collector.filesystem.ignored-mount-points=\"^/(sys|proc|dev|host|etc)($$|/)\"",
   ]
 
+  networks = ["${docker_network.monitoring.id}"]
+
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
