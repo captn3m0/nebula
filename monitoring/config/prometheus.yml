@@ -19,7 +19,7 @@ scrape_configs:
       - targets: ['cadvisor:8080']
 
   - job_name: 'speedtest'
-    scrape_interval: 1h
+    scrape_interval: 15m
     scrape_timeout: 2m
     static_configs:
       - targets: ['speedtest:9696']
@@ -32,10 +32,10 @@ scrape_configs:
   - job_name: 'traefik'
     scrape_interval: 5s
     static_configs:
-      - targets: ['traefik:1111']
+      - targets: ['192.168.1.111:1111']
 
   - job_name: 'act'
-    scrape_interval: 5m
+    scrape_interval: 15m
     scrape_timeout: 1m
     static_configs:
       - targets: ['act-exporter:3000']
