@@ -14,6 +14,12 @@ resource "docker_container" "cadvisor" {
   }
 
   volumes {
+    host_path      = "/"
+    container_path = "/rootfs"
+    read_only      = true
+  }
+
+  volumes {
     host_path      = "/var/lib/docker"
     container_path = "/var/lib/docker"
     read_only      = true
