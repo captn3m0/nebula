@@ -50,6 +50,6 @@ variable "ips" {
   type = "map"
 }
 
-variable "links-mariadb" {}
+# variable "links-mariadb" {}
 
 variable "networks-mongorocks" {}

@@ -26,11 +26,11 @@ resource "docker_container" "jackett" {
     container_path = "/config"
   }
 
+  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
+
   env = [
     "PUID=1004",
     "PGID=1003",
     "TZ=Asia/Kolkata",
   ]
-
-  # links = ["${var.links-emby}"]
 }

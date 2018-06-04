@@ -5,3 +5,5 @@ variable "traefik-labels" {
 variable "domain" {}
 variable "client-id" {}
 variable "client-secret" {}
+
+variable "traefik-network-id" {}

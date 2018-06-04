@@ -17,6 +17,8 @@ resource "docker_container" "abstruse" {
       "traefik.frontend.rule","Host:${var.domain}"
   ))}"
 
+  networks = ["${var.traefik-network-id}"]
+
   volumes {
     host_path      = "/var/run/docker.sock"
     container_path = "/var/run/docker.sock"

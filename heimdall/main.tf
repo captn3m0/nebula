@@ -19,6 +19,8 @@ resource "docker_container" "heimdall" {
       "traefik.frontend.auth.basic", "${var.auth-header}",
   ))}"
 
+  networks = ["${var.traefik-network-id}"]
+
   volumes {
     host_path      = "/mnt/xwing/config/heimdall"
     container_path = "/config"

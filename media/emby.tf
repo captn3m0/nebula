@@ -20,6 +20,8 @@ resource "docker_container" "emby" {
       "traefik.port", 8096,
     ))}"
 
+  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
+
   memory                = 2048
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

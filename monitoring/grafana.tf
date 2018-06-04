@@ -13,7 +13,8 @@ resource "docker_container" "grafana" {
     container_path = "/var/lib/grafana"
   }
 
-  links = ["${docker_container.prometheus.name}"]
+  links    = ["${docker_container.prometheus.name}"]
+  networks = ["${var.traefik-network-id}"]
 
   env = [
     # Keep this disabled unless bringing up a new grafana instance

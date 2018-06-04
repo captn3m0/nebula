@@ -42,6 +42,8 @@ resource "docker_container" "radicale" {
     file    = "/config/users"
   }
 
+  networks = ["${var.traefik-network-id}"]
+
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true

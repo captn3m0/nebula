@@ -36,6 +36,8 @@ resource "docker_container" "cadvisor" {
     container_path = "/var/run"
   }
 
+  networks = ["${var.traefik-network-id}"]
+
   labels = "${merge(
     var.traefik-labels, map(
       "traefik.port", 8080,

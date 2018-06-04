@@ -42,6 +42,8 @@ resource "docker_container" "resilio-sync" {
     container_path = "/downloads"
   }
 
+  networks = ["${var.traefik-network-id}"]
+
   labels = "${merge(
     var.traefik-labels,
     map(

@@ -19,7 +19,7 @@ resource "docker_container" "opml" {
   destroy_grace_seconds = 10
   must_run              = true
 
-  networks = ["${docker_network.opml.id}"]
+  networks = ["${docker_network.opml.id}", "${var.traefik-network-id}"]
 }
 
 resource "docker_image" "opml" {

@@ -7,3 +7,5 @@ variable "ips" {
 }
 
 variable "domain" {}
+
+variable "traefik-network-id" {}

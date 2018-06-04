@@ -9,3 +9,5 @@ variable "auth-header" {
 variable "traefik-labels" {
   type = "map"
 }
+
+variable "traefik-network-id" {}

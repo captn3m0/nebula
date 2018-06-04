@@ -17,6 +17,8 @@ resource "docker_container" "requestbin" {
       "traefik.frontend.rule","Host:${var.domain}"
   ))}"
 
+  networks = ["${var.traefik-network-id}"]
+
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true

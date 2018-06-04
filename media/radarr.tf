@@ -44,5 +44,5 @@ resource "docker_container" "radarr" {
     "TZ=Asia/Kolkata",
   ]
 
-  networks = ["${docker_network.media.id}"]
+  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
 }

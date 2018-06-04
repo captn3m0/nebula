@@ -2,8 +2,9 @@ variable "domain" {
   type = "string"
 }
 
-variable "links-mariadb" {}
+# variable "links-mariadb" {}
 variable "airsonic-smtp-password" {}
+
 variable "airsonic-db-password" {}
 
 variable "traefik-labels" {
@@ -18,3 +19,5 @@ variable "basic_auth" {
 variable "ips" {
   type = "map"
 }
+
+variable "traefik-network-id" {}

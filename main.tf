@@ -20,7 +20,8 @@ module "docker" {
   cloudflare_key      = "${var.cloudflare_key}"
   cloudflare_email    = "bb8@captnemo.in"
   wiki_session_secret = "${var.wiki_session_secret}"
-  links-mariadb       = "${module.db.names-mariadb}"
+
+  # links-mariadb       = "${module.db.names-mariadb}"
   networks-mongorocks = "${module.db.networks-mongorocks}"
   ips                 = "${var.ips}"
   domain              = "bb8.fun"
@@ -51,58 +52,68 @@ module "gitea" {
   smtp-password  = "${var.gitea-smtp-password}"
   lfs-jwt-secret = "${var.gitea-lfs-jwt-secret}"
   mysql-password = "${var.gitea-mysql-password}"
+
+  traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
 module "opml" {
-  source         = "opml"
-  domain         = "opml.bb8.fun"
-  client-id      = "${var.opml-github-client-id}"
-  client-secret  = "${var.opml-github-client-secret}"
-  traefik-labels = "${var.traefik-common-labels}"
+  source             = "opml"
+  domain             = "opml.bb8.fun"
+  client-id          = "${var.opml-github-client-id}"
+  client-secret      = "${var.opml-github-client-secret}"
+  traefik-labels     = "${var.traefik-common-labels}"
+  traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
 module "radicale" {
-  source         = "radicale"
-  domain         = "radicale.bb8.fun"
-  traefik-labels = "${var.traefik-common-labels}"
+  source             = "radicale"
+  domain             = "radicale.bb8.fun"
+  traefik-labels     = "${var.traefik-common-labels}"
+  traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
 module "tt-rss" {
-  source         = "tt-rss"
-  domain         = "rss.captnemo.in"
-  mysql_password = "${var.mysql-ttrss-password}"
-  links-db       = "${module.db.names-mariadb}"
-  traefik-labels = "${var.traefik-common-labels}"
+  source             = "tt-rss"
+  domain             = "rss.captnemo.in"
+  mysql_password     = "${var.mysql-ttrss-password}"
+  links-db           = "${module.db.names-mariadb}"
+  traefik-labels     = "${var.traefik-common-labels}"
+  traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
 module "requestbin" {
-  source         = "requestbin"
-  domain         = "requestbin.bb8.fun"
-  traefik-labels = "${var.traefik-common-labels}"
+  source             = "requestbin"
+  domain             = "requestbin.bb8.fun"
+  traefik-labels     = "${var.traefik-common-labels}"
+  traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
 module "resilio" {
-  source         = "resilio"
-  domain         = "sync.bb8.fun"
-  traefik-labels = "${var.traefik-common-labels}"
-  ips            = "${var.ips}"
+  source             = "resilio"
+  domain             = "sync.bb8.fun"
+  traefik-labels     = "${var.traefik-common-labels}"
+  ips                = "${var.ips}"
+  traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
 module "heimdall" {
-  source         = "heimdall"
-  domain         = "bb8.fun"
-  traefik-labels = "${var.traefik-common-labels}"
-  auth-header    = "${module.docker.auth-header}"
+  source             = "heimdall"
+  domain             = "bb8.fun"
+  traefik-labels     = "${var.traefik-common-labels}"
+  auth-header        = "${module.docker.auth-header}"
+  traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
 module "media" {
-  source                 = "media"
-  domain                 = "bb8.fun"
-  links-mariadb          = "${module.db.names-mariadb}"
+  source = "media"
+  domain = "bb8.fun"
+
+  # links-mariadb          = "${module.db.names-mariadb}"
   traefik-labels         = "${var.traefik-common-labels}"
   airsonic-smtp-password = "${var.airsonic-smtp-password}"
   airsonic-db-password   = "${var.mysql_airsonic_password}"
   ips                    = "${var.ips}"
+  traefik-network-id     = "${module.docker.traefik-network-id}"
 }
 
 module "monitoring" {
@@ -113,6 +124,7 @@ module "monitoring" {
   traefik-labels             = "${var.traefik-common-labels}"
   ips                        = "${var.ips}"
   links-traefik              = "${module.docker.names-traefik}"
+  traefik-network-id         = "${module.docker.traefik-network-id}"
 }
 
 module "digitalocean" {
@@ -120,13 +132,14 @@ module "digitalocean" {
 }
 
 // Used to force access to ISP related resources
-module "tinyproxy" {
-  source = "tinyproxy"
-  ips    = "${var.ips}"
-}
+# module "tinyproxy" {
+#   source = "tinyproxy"
+#   ips    = "${var.ips}"
+# }
 
 module "abstruse" {
-  source         = "abstruse"
-  domain         = "ci.bb8.fun"
-  traefik-labels = "${var.traefik-common-labels}"
+  source             = "abstruse"
+  domain             = "ci.bb8.fun"
+  traefik-labels     = "${var.traefik-common-labels}"
+  traefik-network-id = "${module.docker.traefik-network-id}"
 }

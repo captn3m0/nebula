@@ -47,7 +47,8 @@ resource "docker_container" "airsonic" {
     "TZ=Asia/Kolkata",
     "JAVA_OPTS=-Xmx512m",
   ]
-  links = ["${var.links-mariadb}"]
+
+  # links = ["${var.links-mariadb}"]
 }
 
 resource "docker_image" "airsonic" {

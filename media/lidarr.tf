@@ -43,5 +43,5 @@ resource "docker_container" "lidarr" {
     "TZ=Asia/Kolkata",
   ]
 
-  networks = ["${docker_network.media.id}"]
+  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
 }

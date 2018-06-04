@@ -87,7 +87,7 @@ DB_TYPE = sqlite3
 HOST = mariadb:3306
 NAME = gitea
 USER = gitea
-; PASSWD = "${mysql-password}"
+; PASSWD = "mysql-password"
 ; ; For "postgres" only, either "disable", "require" or "verify-full"
 ; SSL_MODE = disable
 ; ; For "sqlite3" and "tidb", use absolute path when you start as service

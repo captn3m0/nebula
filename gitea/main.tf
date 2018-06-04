@@ -59,10 +59,7 @@ resource "docker_container" "gitea" {
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
-  links = [
-    "mariadb",
-  ]
-  networks = ["${docker_network.gitea.id}"]
+  networks              = ["${docker_network.gitea.id}", "${var.traefik-network-id}"]
 }
 
 resource "docker_image" "gitea" {

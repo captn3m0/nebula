@@ -37,3 +37,5 @@ variable "traefik-labels" {
 variable "ips" {
   type = "map"
 }
+
+variable "traefik-network-id" {}

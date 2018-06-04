@@ -13,3 +13,5 @@ variable "internal-token" {}
 variable "smtp-password" {}
 variable "lfs-jwt-secret" {}
 variable "mysql-password" {}
+
+variable "traefik-network-id" {}
