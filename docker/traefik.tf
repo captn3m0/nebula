@@ -95,7 +95,9 @@ resource "docker_container" "traefik" {
 
   // `bridge` is auto-connected for now
   // https://github.com/terraform-providers/terraform-provider-docker/issues/10
-  networks = ["${docker_network.traefik.id}"]
+  //
+  // The extra IDs are till https://github.com/containous/traefik/issues/3429 is resolved
+  networks = ["${docker_network.traefik.id}", "31efc1966139", "f0d3bbcf75dd", "aad198ad4ba8"]
 
   env = [
     "CLOUDFLARE_EMAIL=${var.cloudflare_email}",

@@ -34,5 +34,10 @@ scrape_configs:
     static_configs:
       - targets: ['traefik:1111']
 
+  - job_name: 'act'
+    scrape_interval: 5m
+    static_configs:
+      - targets: ['act-exporter:3000']
+
 rule_files:
 - "alert.rules"

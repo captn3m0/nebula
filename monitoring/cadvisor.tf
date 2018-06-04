@@ -8,12 +8,6 @@ resource "docker_container" "cadvisor" {
   must_run              = true
 
   volumes {
-    host_path      = "/"
-    container_path = "/rootfs"
-    read_only      = true
-  }
-
-  volumes {
     host_path      = "/sys"
     container_path = "/sys"
     read_only      = true

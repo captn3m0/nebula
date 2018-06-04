@@ -22,3 +22,8 @@ resource "docker_image" "speedtest" {
   name          = "${data.docker_registry_image.speedtest.name}"
   pull_triggers = ["${data.docker_registry_image.speedtest.sha256_digest}"]
 }
+
+resource "docker_image" "act-exporter" {
+  name          = "${data.docker_registry_image.act-exporter.name}"
+  pull_triggers = ["${data.docker_registry_image.act-exporter.sha256_digest}"]
+}
