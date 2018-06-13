@@ -33,9 +33,3 @@ SmtpPort=465
 SmtpUser=airsonic@captnemo.in
 SmtpFrom=airsonic@captnemo.in
 SmtpPassword=${smtp-password}
-
-DatabaseConfigType=embed
-DatabaseConfigEmbedDriver=org.hsqldb.jdbcDriver
-DatabaseConfigEmbedUrl=jdbc:mysql://mariadb:3306/airsonic
-DatabaseConfigEmbedUsername=airsonic
-DatabaseConfigEmbedPassword=${db-password}

@@ -19,7 +19,7 @@ resource "docker_container" "airsonic" {
     file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/sound.properties"
   }
   volumes {
-    host_path      = "/mnt/xwing/config/airsonic/data"
+    host_path      = "/mnt/xwing/config/airsonic2"
     container_path = "/config"
   }
   volumes {
@@ -45,10 +45,8 @@ resource "docker_container" "airsonic" {
     "PUID=1004",
     "PGID=1003",
     "TZ=Asia/Kolkata",
-    "JAVA_OPTS=-Xmx512m",
+    "JAVA_OPTS=-Xmx512m -Dserver.use-forward-headers=true -Dserver.context-path=/",
   ]
-
-  # links = ["${var.links-mariadb}"]
 }
 
 resource "docker_image" "airsonic" {
@@ -65,6 +63,7 @@ data "template_file" "airsonic-properties-file" {
 
   vars {
     smtp-password = "${var.airsonic-smtp-password}"
-    db-password   = "${var.airsonic-db-password}"
+
+    # db-password   = "${var.airsonic-db-password}"
   }
 }
