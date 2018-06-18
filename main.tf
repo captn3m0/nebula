@@ -81,6 +81,13 @@ module "tt-rss" {
   traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
+module "rss-bridge" {
+  source             = "rss-bridge"
+  domain             = "rss-bridge.bb8.fun"
+  traefik-labels     = "${var.traefik-common-labels}"
+  traefik-network-id = "${module.docker.traefik-network-id}"
+}
+
 module "requestbin" {
   source             = "requestbin"
   domain             = "requestbin.bb8.fun"
