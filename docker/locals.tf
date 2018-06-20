@@ -14,5 +14,7 @@ locals {
     "traefik.frontend.headers.customFrameOptionsValue" = "${var.xfo_allow}"
     "traefik.frontend.headers.contentTypeNosniff"      = "true"
     "traefik.frontend.headers.browserXSSFilter"        = "true"
+
+    "traefik.docker.network" = "traefik"
   }
 }

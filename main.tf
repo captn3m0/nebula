@@ -20,8 +20,6 @@ module "docker" {
   cloudflare_key      = "${var.cloudflare_key}"
   cloudflare_email    = "bb8@captnemo.in"
   wiki_session_secret = "${var.wiki_session_secret}"
-
-  # links-mariadb       = "${module.db.names-mariadb}"
   networks-mongorocks = "${module.db.networks-mongorocks}"
   ips                 = "${var.ips}"
   domain              = "bb8.fun"

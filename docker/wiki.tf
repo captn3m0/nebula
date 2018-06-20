@@ -45,6 +45,7 @@ resource "docker_container" "wiki" {
     ))}"
   networks = [
     "${var.networks-mongorocks}",
+    "${docker_network.traefik.id}",
   ]
   env = [
     "WIKI_ADMIN_EMAIL=me@captnemo.in",

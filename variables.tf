@@ -67,6 +67,9 @@ variable "traefik-common-labels" {
     "traefik.frontend.headers.customFrameOptionsValue" = "ALLOW-FROM https://bb8.fun/"
     "traefik.frontend.headers.contentTypeNosniff"      = "true"
     "traefik.frontend.headers.browserXSSFilter"        = "true"
+
+    // Use the Traefik network
+    "traefik.docker.network" = "traefik"
   }
 }
 
