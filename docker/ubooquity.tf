@@ -46,6 +46,7 @@ resource "docker_container" "ubooquity" {
     "traefik.read.frontend.headers.browserXSSFilter"      = "true"
     "traefik.read.frontend.headers.customResponseHeaders" = "${var.xpoweredby}"
     "traefik.frontend.headers.customFrameOptionsValue"    = "${var.xfo_allow}"
+    "traefik.docker.network"                              = "traefik"
   }
 
   upload {
