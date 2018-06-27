@@ -1,1 +1,15 @@
+AmazonBridge
+BandcampBridge
 ContainerLinuxReleasesBridge
+DiscogsBridge
+FDroidBridge
+FacebookBridge
+GithubIssueBridge
+GithubSearchBridge
+GoComicsBridge
+GoogleSearchBridge
+InstagramBridge
+ReadComicsBridge
+SoundcloudBridge
+SteamBridge
+StripeAPIChangeLogBridge
