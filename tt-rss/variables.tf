@@ -3,7 +3,7 @@ variable "domain" {
 }
 
 variable "mysql_password" {}
-variable "links-db" {}
+variable "postgres-network-id" {}
 
 variable "traefik-labels" {
   type = "map"

@@ -14,6 +14,14 @@ provider "mysql" {
   password = "${var.mysql_root_password}"
 }
 
+provider "postgresql" {
+  host     = "postgres.in.bb8.fun"
+  port     = 5432
+  username = "postgres"
+  password = "${var.postgres-root-password}"
+  sslmode  = "disable"
+}
+
 provider "digitalocean" {
   token = "${var.digitalocean-token}"
 }

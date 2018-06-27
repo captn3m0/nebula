@@ -26,9 +26,10 @@ module "docker" {
 }
 
 module "db" {
-  source              = "db"
-  mysql_root_password = "${var.mysql_root_password}"
-  ips                 = "${var.ips}"
+  source                 = "db"
+  mysql_root_password    = "${var.mysql_root_password}"
+  postgres-root-password = "${var.postgres-root-password}"
+  ips                    = "${var.ips}"
 }
 
 module "timemachine" {
@@ -71,12 +72,12 @@ module "radicale" {
 }
 
 module "tt-rss" {
-  source             = "tt-rss"
-  domain             = "rss.captnemo.in"
-  mysql_password     = "${var.mysql-ttrss-password}"
-  links-db           = "${module.db.names-mariadb}"
-  traefik-labels     = "${var.traefik-common-labels}"
-  traefik-network-id = "${module.docker.traefik-network-id}"
+  source              = "tt-rss"
+  domain              = "rss.captnemo.in"
+  mysql_password      = "${var.mysql-ttrss-password}"
+  traefik-labels      = "${var.traefik-common-labels}"
+  traefik-network-id  = "${module.docker.traefik-network-id}"
+  postgres-network-id = "${module.db.postgres-network-id}"
 }
 
 module "rss-bridge" {

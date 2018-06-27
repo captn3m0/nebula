@@ -22,9 +22,7 @@ resource "docker_container" "tt-rss" {
     container_path = "/config"
   }
 
-  networks = ["${var.traefik-network-id}"]
-
-  links = ["mariadb"]
+  networks = ["${var.traefik-network-id}", "${var.postgres-network-id}"]
 
   env = [
     "TZ=Asia/Kolkata",
