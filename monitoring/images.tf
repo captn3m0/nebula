@@ -26,4 +26,5 @@ resource "docker_image" "speedtest" {
 resource "docker_image" "act-exporter" {
   name          = "${data.docker_registry_image.act-exporter.name}"
   pull_triggers = ["${data.docker_registry_image.act-exporter.sha256_digest}"]
+  keep_locally  = true
 }

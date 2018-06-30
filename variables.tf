@@ -82,3 +82,4 @@ variable "timemachine-password-1" {}
 
 variable "opml-github-client-id" {}
 variable "opml-github-client-secret" {}
+variable "miniflux-db-password" {}

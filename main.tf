@@ -80,6 +80,15 @@ module "tt-rss" {
   postgres-network-id = "${module.db.postgres-network-id}"
 }
 
+module "miniflux" {
+  source              = "miniflux"
+  domain              = "miniflux.bb8.fun"
+  db-password         = "${var.miniflux-db-password}"
+  traefik-labels      = "${var.traefik-common-labels}"
+  traefik-network-id  = "${module.docker.traefik-network-id}"
+  postgres-network-id = "${module.db.postgres-network-id}"
+}
+
 module "rss-bridge" {
   source             = "rss-bridge"
   domain             = "rss-bridge.bb8.fun"

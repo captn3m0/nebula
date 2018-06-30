@@ -22,6 +22,11 @@ resource "docker_container" "tt-rss" {
     container_path = "/config"
   }
 
+  upload {
+    content = "${file("${path.module}/fastcgi.conf")}"
+    file    = "/etc/nginx/fastcgi.conf"
+  }
+
   networks = ["${var.traefik-network-id}", "${var.postgres-network-id}"]
 
   env = [
