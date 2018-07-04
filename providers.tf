@@ -15,7 +15,7 @@ provider "mysql" {
 }
 
 provider "postgresql" {
-  host     = "postgres.in.bb8.fun"
+  host     = "postgres.vpn.bb8.fun"
   port     = 5432
   username = "postgres"
   password = "${var.postgres-root-password}"

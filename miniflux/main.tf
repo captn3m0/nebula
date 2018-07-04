@@ -1,5 +1,5 @@
 data "docker_registry_image" "miniflux" {
-  name = "miniflux/miniflux:2.0.8"
+  name = "miniflux/miniflux:2.0.9"
 }
 
 resource "docker_image" "miniflux" {
