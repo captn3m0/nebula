@@ -7,13 +7,13 @@ resource "docker_container" "prometheus" {
 
   ports {
     internal = 9090
-    external = 9090
+    external = 8811
     ip       = "${var.ips["eth0"]}"
   }
 
   ports {
     internal = 9090
-    external = 9090
+    external = 8811
     ip       = "${var.ips["tun0"]}"
   }
 
