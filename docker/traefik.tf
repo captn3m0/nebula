@@ -1,6 +1,6 @@
 resource "docker_container" "traefik" {
   name  = "traefik"
-  image = "${docker_image.traefik16.latest}"
+  image = "${docker_image.traefik17.latest}"
 
   # Admin Backend
   ports {

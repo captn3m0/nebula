@@ -4,15 +4,6 @@ module "cloudflare" {
   ips    = "${var.ips}"
 }
 
-# module "mysql" {
-#   source                  = "mysql"
-#   mysql_root_password     = "${var.mysql_root_password}"
-#   mysql_lychee_password   = "${var.mysql_lychee_password}"
-#   mysql_airsonic_password = "${var.mysql_airsonic_password}"
-#   mysql_kodi_password     = "${var.mysql_kodi_password}"
-#   lychee_ip               = "${module.docker.lychee-ip}"
-# }
-
 module "docker" {
   source              = "docker"
   web_username        = "${var.web_username}"
@@ -27,7 +18,6 @@ module "docker" {
 
 module "db" {
   source                 = "db"
-  mysql_root_password    = "${var.mysql_root_password}"
   postgres-root-password = "${var.postgres-root-password}"
   ips                    = "${var.ips}"
 }
@@ -120,13 +110,10 @@ module "heimdall" {
 }
 
 module "media" {
-  source = "media"
-  domain = "bb8.fun"
-
-  # links-mariadb          = "${module.db.names-mariadb}"
+  source                 = "media"
+  domain                 = "bb8.fun"
   traefik-labels         = "${var.traefik-common-labels}"
   airsonic-smtp-password = "${var.airsonic-smtp-password}"
-  airsonic-db-password   = "${var.mysql_airsonic_password}"
   ips                    = "${var.ips}"
   traefik-network-id     = "${module.docker.traefik-network-id}"
 }

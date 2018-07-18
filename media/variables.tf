@@ -2,10 +2,7 @@ variable "domain" {
   type = "string"
 }
 
-# variable "links-mariadb" {}
 variable "airsonic-smtp-password" {}
-
-variable "airsonic-db-password" {}
 
 variable "traefik-labels" {
   type = "map"

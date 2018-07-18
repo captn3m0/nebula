@@ -11,19 +11,9 @@ variable "web_password" {
   type = "string"
 }
 
-variable "mysql_root_password" {
-  type = "string"
-}
-
 variable "postgres-root-password" {
   type = "string"
 }
-
-variable "mysql_lychee_password" {}
-
-variable "mysql_airsonic_password" {}
-
-variable "mysql_kodi_password" {}
 
 variable "mysql-ttrss-password" {}
 variable "gitea-mysql-password" {}

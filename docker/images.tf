@@ -1,4 +1,4 @@
-resource "docker_image" "traefik16" {
+resource "docker_image" "traefik17" {
   name          = "${data.docker_registry_image.traefik.name}"
   pull_triggers = ["${data.docker_registry_image.traefik.sha256_digest}"]
 }
