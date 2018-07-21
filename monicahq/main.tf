@@ -17,7 +17,7 @@ resource "docker_container" "monica" {
       "traefik.frontend.rule","Host:${var.domain}"
   ))}"
 
-  links = ["mariadb"]
+  networks = ["${var.traefik-network-id}", "${var.postgres-network-id}"]
 
   env = [
     "APP_ENV=production",
@@ -26,11 +26,11 @@ resource "docker_container" "monica" {
     "HASH_SALT=${var.hash-salt}",
     "HASH_LENGTH=18",
     "APP_URL=https://${var.domain}",
-    "DB_CONNECTION=mysql",
-    "DB_HOST=mariadb",
-    "DB_PORT=3306",
-    "DB_DATABASE=${mysql_database.monica.name}",
-    "DB_USERNAME=${mysql_user.monica.user}",
+    "DB_CONNECTION=pgsql",
+    "DB_HOST=postgres",
+    "DB_DATABASE=monica",
+    "DB_PORT=5432",
+    "DB_USERNAME=monica",
     "DB_PASSWORD=${var.db-password}",
     "DB_PREFIX=",
     "MAIL_DRIVER=smtp",
@@ -47,7 +47,7 @@ resource "docker_container" "monica" {
 
     # Ability to disable signups on your instance.
     # Can be true or false. Default to false.
-    "APP_DISABLE_SIGNUP=true",
+    "APP_DISABLE_SIGNUP=false",
 
     "LOG_CHANNEL=single",
     "SENTRY_SUPPORT=false",
@@ -63,6 +63,7 @@ resource "docker_container" "monica" {
     "DEFAULT_FILESYSTEM=public",
     "2FA_ENABLED=true",
     "ALLOW_STATISTICS_THROUGH_PUBLIC_API_ACCESS=false",
+    "APP_TRUSTED_PROXIES=*",
   ]
 
   restart               = "unless-stopped"

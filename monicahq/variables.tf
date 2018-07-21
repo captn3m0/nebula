@@ -10,3 +10,6 @@ variable "smtp-password" {}
 variable "traefik-labels" {
   type = "map"
 }
+
+variable "traefik-network-id" {}
+variable "postgres-network-id" {}
