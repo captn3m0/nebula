@@ -15,7 +15,6 @@ variable "postgres-root-password" {
   type = "string"
 }
 
-variable "mysql-ttrss-password" {}
 variable "gitea-mysql-password" {}
 
 variable "wiki_session_secret" {

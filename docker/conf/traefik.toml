@@ -23,10 +23,6 @@ checkNewVersion = false
   [[entryPoints.https.tls.certificates]]
     certFile = "/etc/traefik/rss.captnemo.in.crt"
     keyFile  = "/etc/traefik/rss.captnemo.in.key"
-  # This contains 2 domains: {emby|airsonic}.bb8.fun
-  [[entryPoints.https.tls.certificates]]
-    certFile = "/etc/traefik/emby.in.bb8.fun.crt"
-    keyFile  = "/etc/traefik/emby.in.bb8.fun.key"
 
 [docker]
   # Make sure you mount this as readonly

@@ -61,18 +61,10 @@ module "radicale" {
   traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
-module "tt-rss" {
-  source              = "tt-rss"
-  domain              = "rss.captnemo.in"
-  mysql_password      = "${var.mysql-ttrss-password}"
-  traefik-labels      = "${var.traefik-common-labels}"
-  traefik-network-id  = "${module.docker.traefik-network-id}"
-  postgres-network-id = "${module.db.postgres-network-id}"
-}
-
 module "miniflux" {
   source              = "miniflux"
-  domain              = "miniflux.bb8.fun"
+  domain              = "rss.captnemo.in"
+  release             = "2.0.10"
   db-password         = "${var.miniflux-db-password}"
   traefik-labels      = "${var.traefik-common-labels}"
   traefik-network-id  = "${module.docker.traefik-network-id}"

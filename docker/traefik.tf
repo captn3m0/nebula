@@ -67,16 +67,6 @@ resource "docker_container" "traefik" {
     file    = "/etc/traefik/rss.captnemo.in.key"
   }
 
-  upload {
-    content = "${file("/home/nemo/projects/personal/certs/emby.in.bb8.fun/privkey.pem")}"
-    file    = "/etc/traefik/emby.in.bb8.fun.key"
-  }
-
-  upload {
-    content = "${file("/home/nemo/projects/personal/certs/emby.in.bb8.fun/fullchain.pem")}"
-    file    = "/etc/traefik/emby.in.bb8.fun.crt"
-  }
-
   volumes {
     host_path      = "/var/run/docker.sock"
     container_path = "/var/run/docker.sock"

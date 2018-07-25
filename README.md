@@ -22,7 +22,7 @@ The canonical URL for this repo is https://git.captnemo.in/nemo/nebula/. A mirro
 4.  media: Media related containers (Jackett, Lidarr, Radarr, Sonarr)
 5.  Monitoring: Monitoring related resources (Cadvisor, Grafana, NodeExporter, Prometheus, Transmission-Exporter)
 6.  Gitea: Just git.captnemo.in
-7.  tt-rss: Tiny-Tiny RSS Web reader
+7.  miniflux: RSS Web reader
 8.  Radicale: CardDav/CalDav webserver
 
 Self-learning project for terraform/docker.
@@ -59,7 +59,6 @@ Currently running the following (all links are to the `store.docker.com` links f
 | linuxserver/resilio-sync         | latest     | sync                                                 |
 | linuxserver/sonarr               | latest     | media                                                |
 | linuxserver/transmission         | latest     | media                                                |
-| linuxserver/tt-rss               | latest     | tools                                                |
 | linuxserver/ubooquity            | latest     | media                                                |
 | miniflux/miniflux                | 2.0.9      | tools                                                |
 | monicahq/monicahq                | latest     | services                                             |
