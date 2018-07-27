@@ -13,7 +13,7 @@ data "docker_registry_image" "ubooquity" {
 }
 
 data "docker_registry_image" "headerdebug" {
-  name = "brndnmtthws/nginx-echo-headers:latest"
+  name = "jmalloc/echo-server:latest"
 }
 
 data "docker_registry_image" "lychee" {
