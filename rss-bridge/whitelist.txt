@@ -13,3 +13,4 @@ ReadComicsBridge
 SoundcloudBridge
 SteamBridge
 StripeAPIChangeLogBridge
+AmazonPriceTrackerBridge

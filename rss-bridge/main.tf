@@ -1,5 +1,5 @@
 data "docker_registry_image" "rss-bridge" {
-  name = "captn3m0/rss-bridge:latest"
+  name = "rssbridge/rss-bridge:latest"
 }
 
 resource "docker_image" "rss-bridge" {
