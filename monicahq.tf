@@ -1,43 +1,35 @@
-data "docker_registry_image" "monica" {
-  name = "monicahq/monicahq:latest"
-}
-
-resource "docker_image" "monica" {
-  name          = "${data.docker_registry_image.monica.name}"
-  pull_triggers = ["${data.docker_registry_image.monica.sha256_digest}"]
-}
-
-resource "docker_container" "monica" {
-  name  = "monica"
-  image = "${docker_image.monica.latest}"
+module "monicahq-container" {
+  name   = "monica"
+  source = "modules/container"
+  image  = "monicahq/monicahq:latest"
 
   labels = "${merge(
-    var.traefik-labels, map(
+    var.traefik-common-labels, map(
       "traefik.port", 80,
-      "traefik.frontend.rule","Host:${var.domain}"
+      "traefik.frontend.rule","Host:monica.${var.root-domain}"
   ))}"
 
-  networks = ["${var.traefik-network-id}", "${var.postgres-network-id}"]
+  networks = "${list(module.docker.traefik-network-id,module.db.postgres-network-id)}"
 
   env = [
     "APP_ENV=production",
     "APP_DEBUG=false",
-    "APP_KEY=${var.app-key}",
-    "HASH_SALT=${var.hash-salt}",
+    "APP_KEY=${var.monica-app-key}",
+    "HASH_SALT=${var.monica-hash-salt}",
     "HASH_LENGTH=18",
-    "APP_URL=https://${var.domain}",
+    "APP_URL=https://monica.${var.root-domain}",
     "DB_CONNECTION=pgsql",
     "DB_HOST=postgres",
     "DB_DATABASE=monica",
     "DB_PORT=5432",
     "DB_USERNAME=monica",
-    "DB_PASSWORD=${var.db-password}",
+    "DB_PASSWORD=${var.monica-db-password}",
     "DB_PREFIX=",
     "MAIL_DRIVER=smtp",
     "MAIL_HOST=smtp.mailgun.org",
     "MAIL_PORT=587",
     "MAIL_USERNAME=monica@captnemo.in",
-    "MAIL_PASSWORD=${var.smtp-password}",
+    "MAIL_PASSWORD=${var.monica-smtp-password}",
     "MAIL_ENCRYPTION=tls",
     "MAIL_FROM_ADDRESS=monica@captnemo.in",
     "MAIL_FROM_NAME=Nemo",
@@ -65,8 +57,10 @@ resource "docker_container" "monica" {
     "ALLOW_STATISTICS_THROUGH_PUBLIC_API_ACCESS=false",
     "APP_TRUSTED_PROXIES=*",
   ]
+}
 
-  restart               = "unless-stopped"
-  destroy_grace_seconds = 10
-  must_run              = true
+module "monicahq-db" {
+  source   = "modules/postgres"
+  name     = "monica"
+  password = "${var.monica-db-password}"
 }

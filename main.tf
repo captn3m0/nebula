@@ -68,18 +68,6 @@ module "rss-bridge" {
   traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
-module "monicahq" {
-  source              = "monicahq"
-  domain              = "monica.bb8.fun"
-  db-password         = "${var.monica-db-password}"
-  app-key             = "${var.monica-app-key}"
-  hash-salt           = "${var.monica-hash-salt}"
-  smtp-password       = "${var.monica-smtp-password}"
-  traefik-labels      = "${var.traefik-common-labels}"
-  traefik-network-id  = "${module.docker.traefik-network-id}"
-  postgres-network-id = "${module.db.postgres-network-id}"
-}
-
 module "resilio" {
   source             = "resilio"
   domain             = "sync.bb8.fun"
