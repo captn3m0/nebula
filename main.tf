@@ -90,13 +90,6 @@ module "monicahq" {
   postgres-network-id = "${module.db.postgres-network-id}"
 }
 
-module "requestbin" {
-  source             = "requestbin"
-  domain             = "requestbin.bb8.fun"
-  traefik-labels     = "${var.traefik-common-labels}"
-  traefik-network-id = "${module.docker.traefik-network-id}"
-}
-
 module "resilio" {
   source             = "resilio"
   domain             = "sync.bb8.fun"

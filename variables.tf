@@ -77,3 +77,8 @@ variable "monica-db-password" {}
 variable "monica-app-key" {}
 variable "monica-hash-salt" {}
 variable "monica-smtp-password" {}
+
+variable "root-domain" {
+  description = "root domain for most applications"
+  default     = "bb8.fun"
+}
