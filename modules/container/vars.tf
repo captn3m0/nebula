@@ -59,3 +59,29 @@ variable "labels" {
   description = "labels"
   default     = {}
 }
+
+variable "xpoweredby" {
+  default = "X-Powered-By:Allomancy||X-Server:Blackbox"
+}
+
+variable "expose-web" {
+  description = "Whether to expose the application on the web"
+  default     = "false"
+}
+
+variable "web-port" {
+  description = "Port to expose using traefik"
+  default     = "80"
+  type        = "string"
+}
+
+variable "web-domain" {
+  description = "Domain to use while exposing the application"
+  default     = ""
+  type        = "string"
+}
+
+variable "web-basicauth" {
+  description = "Whether to add basic auth check on the application"
+  default     = "false"
+}

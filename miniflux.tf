@@ -3,11 +3,9 @@ module "miniflux-container" {
   source = "modules/container"
   image  = "miniflux/miniflux:2.0.10"
 
-  labels = "${merge(
-    var.traefik-common-labels, map(
-      "traefik.port", 8080,
-      "traefik.frontend.rule","Host:rss.captnemo.in"
-  ))}"
+  expose-web = true
+  web-port   = 8080
+  web-domain = "rss.captnemo.in"
 
   networks = "${list(module.docker.traefik-network-id,module.db.postgres-network-id)}"
 

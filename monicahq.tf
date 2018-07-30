@@ -3,11 +3,9 @@ module "monicahq-container" {
   source = "modules/container"
   image  = "monicahq/monicahq:latest"
 
-  labels = "${merge(
-    var.traefik-common-labels, map(
-      "traefik.port", 80,
-      "traefik.frontend.rule","Host:monica.${var.root-domain}"
-  ))}"
+  // Default is port 80
+  expose-web = true
+  web-domain = "monica.${var.root-domain}"
 
   networks = "${list(module.docker.traefik-network-id,module.db.postgres-network-id)}"
 

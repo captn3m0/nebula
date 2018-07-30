@@ -3,11 +3,9 @@ module "requestbin" {
   source = "./modules/container"
   image  = "jankysolutions/requestbin:latest"
 
-  labels = "${merge(
-    var.traefik-common-labels, map(
-      "traefik.port", 8000,
-      "traefik.frontend.rule","Host:requestbin.${var.root-domain}"
-  ))}"
+  // Default is port 80
+  expose-web = true
+  web-domain = "requestbin.${var.root-domain}"
 
   networks = "${list(module.docker.traefik-network-id)}"
 
