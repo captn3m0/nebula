@@ -64,24 +64,26 @@ variable "xpoweredby" {
   default = "X-Powered-By:Allomancy||X-Server:Blackbox"
 }
 
-variable "expose-web" {
-  description = "Whether to expose the application on the web"
-  default     = "false"
+variable "web" {
+  description = "Web Configuration"
+
+  default = {
+    expose    = "false"
+    port      = "80"
+    host      = ""
+    protocol  = "http"
+    basicauth = "false"
+  }
 }
 
-variable "web-port" {
-  description = "Port to expose using traefik"
-  default     = "80"
-  type        = "string"
+variable "auth-header" {
+  default = "tatooine:$2y$05$iPbatint3Gulbs6kUtyALO9Yq5sBJ..aiF82bcIziH4ytz9nFoPr6,reddit:$2y$05$ghKxSydYCpAT8r2VVMDmWO/BBecghGfLsRJUkr3ii7XxPyxBqp8Oy"
 }
 
-variable "web-domain" {
-  description = "Domain to use while exposing the application"
-  default     = ""
-  type        = "string"
-}
+variable "resource" {
+  description = "Resource usage for the container"
 
-variable "web-basicauth" {
-  description = "Whether to add basic auth check on the application"
-  default     = "false"
+  default = {
+    memory = ""
+  }
 }

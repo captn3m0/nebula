@@ -17,12 +17,18 @@ resource "docker_container" "container" {
   entrypoint = "${var.entrypoint}"
   user       = "${var.user}"
   networks   = ["${var.networks}"]
+  memory     = "${lookup(var.resource, "memory")}"
 
-  labels = "${merge(var.labels, var.expose-web ?
+  // Only add traefik labels if web.expose=true
+  // Only add basicauth config if web.basicauth=true
+  labels = "${merge(var.labels, lookup(var.web, "expose", "false") ?
     merge(local.traefik-common-labels, map(
-      "traefik.port", var.web-port,
-      "traefik.frontend.rule", "Host:${var.web-domain}",
-    )) : map())}"
+      "traefik.port", lookup(var.web, "port", "80"),
+      "traefik.frontend.rule", "Host:${lookup(var.web, "host", "")}",
+      "traefik.protocol", lookup(var.web, "protocol", "http"),
+    )) : map(), lookup(var.web, "basicauth", "false") ? map(
+      "traefik.frontend.auth.basic", var.auth-header
+    ) : map())}"
 
   destroy_grace_seconds = "${var.destroy_grace_seconds}"
   must_run              = "${var.must_run}"

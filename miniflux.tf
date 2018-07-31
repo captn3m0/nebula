@@ -3,9 +3,11 @@ module "miniflux-container" {
   source = "modules/container"
   image  = "miniflux/miniflux:2.0.10"
 
-  expose-web = true
-  web-port   = 8080
-  web-domain = "rss.captnemo.in"
+  web {
+    expose = true
+    port   = 8080
+    host   = "rss.captnemo.in"
+  }
 
   networks = "${list(module.docker.traefik-network-id,module.db.postgres-network-id)}"
 

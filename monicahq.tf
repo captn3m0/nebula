@@ -3,9 +3,10 @@ module "monicahq-container" {
   source = "modules/container"
   image  = "monicahq/monicahq:latest"
 
-  // Default is port 80
-  expose-web = true
-  web-domain = "monica.${var.root-domain}"
+  web {
+    expose = true
+    host   = "monica.${var.root-domain}"
+  }
 
   networks = "${list(module.docker.traefik-network-id,module.db.postgres-network-id)}"
 

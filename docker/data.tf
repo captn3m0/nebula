@@ -12,10 +12,6 @@ data "docker_registry_image" "ubooquity" {
   name = "linuxserver/ubooquity:latest"
 }
 
-data "docker_registry_image" "headerdebug" {
-  name = "jmalloc/echo-server:latest"
-}
-
 data "docker_registry_image" "lychee" {
   name = "linuxserver/lychee:latest"
 }
