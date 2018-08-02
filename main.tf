@@ -76,14 +76,6 @@ module "resilio" {
   traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
-module "heimdall" {
-  source             = "heimdall"
-  domain             = "home.bb8.fun"
-  traefik-labels     = "${var.traefik-common-labels}"
-  auth-header        = "${module.docker.auth-header}"
-  traefik-network-id = "${module.docker.traefik-network-id}"
-}
-
 module "media" {
   source                 = "media"
   domain                 = "bb8.fun"

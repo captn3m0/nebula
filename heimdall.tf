@@ -3,7 +3,6 @@ module "heimdall" {
   source = "modules/container"
   image  = "linuxserver/heimdall:latest"
 
-  // Default is port 80
   web {
     expose    = true
     port      = 443

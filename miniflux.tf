@@ -15,9 +15,6 @@ module "miniflux-container" {
     "DATABASE_URL=postgres://miniflux:${var.miniflux-db-password}@postgres/miniflux?sslmode=disable",
     "RUN_MIGRATIONS=1",
   ]
-
-  destroy_grace_seconds = 10
-  must_run              = true
 }
 
 module "miniflux-db" {

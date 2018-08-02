@@ -9,7 +9,5 @@ module "requestbin" {
     host   = "requestbin.${var.root-domain}"
   }
 
-  networks              = "${list(module.docker.traefik-network-id)}"
-  destroy_grace_seconds = 10
-  must_run              = true
+  networks = "${list(module.docker.traefik-network-id)}"
 }

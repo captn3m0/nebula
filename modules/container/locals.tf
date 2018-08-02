@@ -1,5 +1,15 @@
 locals {
-  traefik-common-labels {
+  default_labels {
+    "managed.by" = "nebula"
+  }
+
+  web {
+    "traefik.port"          = "${lookup(var.web, "port", "80")}"
+    "traefik.frontend.rule" = "Host:${lookup(var.web, "host")}"
+    "traefik.protocol"      = "${lookup(var.web, "protocol", "http")}"
+  }
+
+  traefik_common_labels {
     "traefik.enable" = "true"
 
     // HSTS
@@ -13,5 +23,9 @@ locals {
     "traefik.frontend.headers.browserXSSFilter"      = "true"
 
     "traefik.docker.network" = "traefik"
+  }
+
+  traefik_auth_labels {
+    "traefik.frontend.auth.basic" = "${var.auth_header}"
   }
 }
