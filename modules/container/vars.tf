@@ -68,8 +68,8 @@ variable "web" {
   description = "Web Configuration"
 
   default = {
-    expose    = "false"
-    basicauth = "false"
+    expose = "false"
+    auth   = "false"
   }
 }
 
@@ -80,7 +80,5 @@ variable "auth_header" {
 variable "resource" {
   description = "Resource usage for the container"
 
-  default = {
-    memory = ""
-  }
+  default = {}
 }

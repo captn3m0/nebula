@@ -9,6 +9,10 @@ locals {
     "traefik.protocol"      = "${lookup(var.web, "protocol", "http")}"
   }
 
+  resource {
+    "memory" = "${lookup(var.resource, "memory", 64)}"
+  }
+
   traefik_common_labels {
     "traefik.enable" = "true"
 

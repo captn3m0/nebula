@@ -18,8 +18,7 @@ resource "docker_container" "container" {
   user       = "${var.user}"
   networks   = ["${var.networks}"]
 
-  # memory     = "${lookup(var.resource, "memory", "64")}"
-
+  memory = "${local.resource["memory"]}"
 
   # Look at this monstrosity
   # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618
@@ -28,71 +27,75 @@ resource "docker_container" "container" {
   labels = "${merge(local.default_labels,
     zipmap(
       concat(
-        keys(local.traefik_common_labels),
-        split(",",
+        keys(local.default_labels),
+        split("~",
           lookup(var.web, "expose", "false") == "false" ?
             "" :
-            join(",", keys(local.traefik_common_labels))
+            join("~", keys(local.traefik_common_labels))
         )
-      ),concat(
-        values(local.traefik_common_labels),
-        split(",",
+      ),
+      concat(
+        values(local.default_labels),
+        split("~",
           lookup(var.web, "expose", "false") == "false" ?
             "" :
-            join(",", values(local.traefik_common_labels))
+            join("~", values(local.traefik_common_labels))
+        )
+      )
+    ),
+    zipmap(
+      concat(
+        keys(local.default_labels),
+        split("~",
+          lookup(var.web, "expose", "false") == "false" ?
+            "" :
+            join("~", keys(local.web))
+        )
+      ),
+      concat(
+        values(local.default_labels),
+        split("~",
+          lookup(var.web, "expose", "false") == "false" ?
+            "" :
+            join("~", values(local.web))
         )
       )
     ),
 
-    zipmap(
-      concat(
-        keys(local.web),
-        split(",",
-          lookup(var.web, "expose", "false") == "false" ?
-            "" :
-            join(",", keys(local.web))
-        )
-      ),concat(
-        values(local.web),
-        split(",",
-          lookup(var.web, "expose", "false") == "false" ?
-            "" :
-            join(",", values(local.web))
-        )
-      )
-    ),
 
     zipmap(
       concat(
-        keys(local.traefik_common_labels),
-        split(",",
+        keys(local.default_labels),
+        split("~",
           lookup(var.web, "expose", "false") == "false" ?
             "" :
-            join(",", keys(local.traefik_common_labels))
+            join("~", keys(local.traefik_common_labels))
         )
-      ),concat(
-        values(local.traefik_common_labels),
-        split(",",
+      ),
+      concat(
+        values(local.default_labels),
+        split("~",
           lookup(var.web, "expose", "false") == "false" ?
             "" :
-            join(",", values(local.traefik_common_labels))
+            join("~", values(local.traefik_common_labels))
         )
       )
     ),
     zipmap(
       concat(
-        keys(local.traefik_auth_labels),
-        split(",",
+        keys(local.default_labels),
+        split("~",
           lookup(var.web, "auth", "false") == "false" ?
             "" :
-            join(",", keys(local.traefik_auth_labels))
+            join("~", keys(local.traefik_auth_labels))
         )
-      ),concat(
-        values(local.traefik_auth_labels),
-        split(",",
+      ),
+      concat(
+        values(local.default_labels),
+        split("~",
           lookup(var.web, "auth", "false") == "false" ?
             "" :
-            join(",", values(local.traefik_auth_labels))
+            join("~", values(local.traefik_auth_labels))
         )
       )
     )

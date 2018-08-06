@@ -6,6 +6,7 @@ module "requestbin" {
   // Default is port 80
   web {
     expose = true
+    port   = "8000"
     host   = "requestbin.${var.root-domain}"
   }
 

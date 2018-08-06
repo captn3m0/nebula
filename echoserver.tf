@@ -1,11 +1,11 @@
 module "echo-server" {
-  source = "../modules/container"
+  source = "modules/container"
   name   = "echo-server"
   image  = "jmalloc/echo-server:latest"
 
   web {
-    expose = true
+    expose = "true"
     port   = 8080
-    domain = "debug.${var.domain},debug.in.${var.domain}"
+    host   = "debug.${var.root-domain},debug.in.${var.root-domain}"
   }
 }
