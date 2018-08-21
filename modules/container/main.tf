@@ -20,6 +20,8 @@ resource "docker_container" "container" {
 
   memory = "${local.resource["memory"]}"
 
+  volumes = ["${var.volumes}"]
+
   # Look at this monstrosity
   # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618
   # for why this is needed

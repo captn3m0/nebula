@@ -82,3 +82,8 @@ variable "resource" {
 
   default = {}
 }
+
+variable "volumes" {
+  description = "volumes"
+  default     = {}
+}
