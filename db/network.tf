@@ -1,7 +1,7 @@
 resource "docker_network" "mongorocks" {
   name     = "mongorocks"
   driver   = "bridge"
-  internal = true
+  internal = false
 
   ipam_config {
     subnet  = "172.20.0.0/29"
