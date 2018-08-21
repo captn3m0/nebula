@@ -56,7 +56,6 @@ module "opml" {
 module "radicale" {
   source             = "radicale"
   domain             = "radicale.bb8.fun"
-  traefik-labels     = "${var.traefik-common-labels}"
   traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
