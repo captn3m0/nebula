@@ -11,10 +11,10 @@ module "jackett" {
 
   networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
 
-  volumes {
+  volumes = [{
     host_path      = "/mnt/xwing/config/jackett"
     container_path = "/config"
-  }
+  }]
 
   env = [
     "PUID=1004",

@@ -85,5 +85,6 @@ variable "resource" {
 
 variable "volumes" {
   description = "volumes"
-  default     = {}
+  type        = "list"
+  default     = []
 }
