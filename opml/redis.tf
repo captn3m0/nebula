@@ -1,22 +1,16 @@
-resource "docker_container" "redis" {
-  name  = "opml-redis"
-  image = "${docker_image.redis.latest}"
+module "redis" {
+  name     = "opml-redis"
+  source   = "../modules/container"
+  image    = "redis:alpine"
+  networks = ["${docker_network.opml.id}"]
 
-  volumes {
-    host_path      = "/mnt/xwing/cache/opml-redis"
-    container_path = "/data"
+  # ThisSucks
+  web {
+    expose = "false"
+    host   = ""
   }
 
-  memory                = 256
-  restart               = "unless-stopped"
-  destroy_grace_seconds = 10
-  must_run              = true
-
-  networks = ["${docker_network.opml.id}"]
-}
-
-resource "docker_image" "redis" {
-  name          = "${data.docker_registry_image.redis.name}"
-  pull_triggers = ["${data.docker_registry_image.redis.sha256_digest}"]
-  keep_locally  = true
+  resource {
+    memory = 256
+  }
 }

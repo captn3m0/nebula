@@ -50,7 +50,6 @@ module "opml" {
   domain             = "opml.bb8.fun"
   client-id          = "${var.opml-github-client-id}"
   client-secret      = "${var.opml-github-client-secret}"
-  traefik-labels     = "${var.traefik-common-labels}"
   traefik-network-id = "${module.docker.traefik-network-id}"
 }
 

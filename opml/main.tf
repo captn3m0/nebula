@@ -1,12 +1,13 @@
-resource "docker_container" "opml" {
-  name  = "opml"
-  image = "${docker_image.opml.latest}"
+module "opml" {
+  name     = "opml"
+  source   = "../modules/container"
+  image    = "captn3m0/opml-gen:latest"
+  networks = ["${docker_network.opml.id}", "${var.traefik-network-id}"]
 
-  labels = "${merge(
-    var.traefik-labels, map(
-      "traefik.port", 80,
-      "traefik.frontend.rule","Host:${var.domain}"
-  ))}"
+  web {
+    expose = true
+    host   = "opml.${var.domain}"
+  }
 
   env = [
     "GITHUB_CLIENT_ID=${var.client-id}",
@@ -14,15 +15,7 @@ resource "docker_container" "opml" {
     "REDIS_URL=redis://opml-redis:6379/1",
   ]
 
-  memory                = 256
-  restart               = "unless-stopped"
-  destroy_grace_seconds = 10
-  must_run              = true
-
-  networks = ["${docker_network.opml.id}", "${var.traefik-network-id}"]
-}
-
-resource "docker_image" "opml" {
-  name          = "${data.docker_registry_image.opml.name}"
-  pull_triggers = ["${data.docker_registry_image.opml.sha256_digest}"]
+  resource {
+    memory = 256
+  }
 }
