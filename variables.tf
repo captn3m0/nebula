@@ -82,3 +82,6 @@ variable "root-domain" {
   description = "root domain for most applications"
   default     = "bb8.fun"
 }
+
+variable "znc_pass" {}
+variable "znc_user" {}
