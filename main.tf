@@ -54,9 +54,8 @@ module "opml" {
 }
 
 module "radicale" {
-  source             = "radicale"
-  domain             = "radicale.bb8.fun"
-  traefik-network-id = "${module.docker.traefik-network-id}"
+  source = "radicale"
+  domain = "radicale.bb8.fun"
 }
 
 module "resilio" {

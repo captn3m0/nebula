@@ -7,6 +7,10 @@ resource "docker_image" "image" {
   pull_triggers = ["${data.docker_registry_image.image.sha256_digest}"]
 }
 
+data "docker_network" "traefik" {
+  name = "traefik"
+}
+
 resource "docker_container" "container" {
   name       = "${var.name}"
   image      = "${docker_image.image.latest}"
@@ -16,7 +20,14 @@ resource "docker_container" "container" {
   command    = "${var.command}"
   entrypoint = "${var.entrypoint}"
   user       = "${var.user}"
-  networks   = ["${var.networks}"]
+
+  // Only attach the traefik network if
+  // service is exposed to the web
+  networks = ["${concat(var.networks, split(",",
+    lookup(var.web, "expose", "false") == "false" ?
+    "" :
+    "${data.docker_network.traefik.id}"
+  ))}"]
 
   memory = "${local.resource["memory"]}"
 

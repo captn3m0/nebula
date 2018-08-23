@@ -34,6 +34,4 @@ module "container" {
       file    = "/config/users"
     },
   ]
-
-  networks = ["${var.traefik-network-id}"]
 }
