@@ -16,6 +16,10 @@ module "jackett" {
     container_path = "/config"
   }]
 
+  resource {
+    memory = "256"
+  }
+
   env = [
     "PUID=1004",
     "PGID=1003",

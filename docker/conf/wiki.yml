@@ -84,10 +84,10 @@ db: mongodb://mongorocks:27017/wiki
 # Git Connection Info (force disabled)
 # ---------------------------------------------------------------------
 
-git: false
-# git:
-# url: https://git.captnemo.in/nemo/wiki
-# branch: master
+# git: false
+git:
+  url: https://git.captnemo.in/nemo/wiki
+  branch: master
 #   auth:
 
 #     # Type: basic or ssh
