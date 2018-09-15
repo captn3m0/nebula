@@ -11,7 +11,3 @@ data "docker_registry_image" "wikijs" {
 data "docker_registry_image" "ubooquity" {
   name = "linuxserver/ubooquity:latest"
 }
-
-data "docker_registry_image" "lychee" {
-  name = "linuxserver/lychee:latest"
-}
