@@ -1,61 +1,56 @@
-resource "docker_container" "airsonic" {
-  name                  = "airsonic"
-  image                 = "${docker_image.airsonic.latest}"
-  restart               = "unless-stopped"
-  destroy_grace_seconds = 30
-  must_run              = true
+module "airsonic" {
+  source = "../modules/container"
+  image  = "linuxserver/airsonic:latest"
+  name   = "airsonic"
 
-  # Unfortunately, the --device flag is not yet supported
-  # in docker/terraform:
-  # https://github.com/terraform-providers/terraform-provider-docker/issues/30
+  resource {
+    memory = "256"
+  }
 
-  upload {
-    content = "${data.template_file.airsonic-properties-file.rendered}"
-    file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/airsonic.properties"
+  web {
+    port   = 4040
+    host   = "airsonic.bb8.fun"
+    expose = true
   }
-  # This lets the Jukebox use ALSA
-  upload {
-    content = "${file("${path.module}/conf/airsonic.sound.properties")}"
-    file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/sound.properties"
-  }
-  volumes {
-    host_path      = "/mnt/xwing/config/airsonic2"
-    container_path = "/config"
-  }
-  volumes {
-    host_path      = "/mnt/xwing/media/Music"
-    container_path = "/music"
-  }
-  volumes {
-    host_path      = "/mnt/xwing/config/airsonic/playlists"
-    container_path = "/playlists"
-  }
-  volumes {
-    host_path      = "/mnt/xwing/config/airsonic/podcasts"
-    container_path = "/podcasts"
-  }
-  labels {
-    "traefik.enable"                  = "true"
-    "traefik.port"                    = "4040"
-    "traefik.frontend.rule"           = "Host:airsonic.in.${var.domain},airsonic.${var.domain}"
-    "traefik.frontend.passHostHeader" = "true"
-  }
-  # lounge:tatooine
+
+  user = "lounge:audio"
+
   env = [
     "PUID=1004",
     "PGID=1003",
     "TZ=Asia/Kolkata",
     "JAVA_OPTS=-Xmx512m -Dserver.use-forward-headers=true -Dserver.context-path=/",
   ]
-}
 
-resource "docker_image" "airsonic" {
-  name          = "${data.docker_registry_image.airsonic.name}"
-  pull_triggers = ["${data.docker_registry_image.airsonic.sha256_digest}"]
-}
+  uploads = [
+    {
+      file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/airsonic.properties"
+      content = "${data.template_file.airsonic-properties-file.rendered}"
+    },
+    {
+      file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/sound.properties"
+      content = "${file("${path.module}/conf/airsonic.sound.properties")}"
+    },
+  ]
 
-data "docker_registry_image" "airsonic" {
-  name = "linuxserver/airsonic:latest"
+  volumes = [
+    {
+      host_path      = "/mnt/xwing/config/airsonic2"
+      container_path = "/config"
+    },
+    {
+      host_path      = "/mnt/xwing/media/Music"
+      container_path = "/music"
+    },
+    {
+      host_path      = "/mnt/xwing/config/airsonic/playlists"
+      container_path = "/playlists"
+    },
+    {
+      host_path      = "/mnt/xwing/config/airsonic/podcasts"
+      container_path = "/podcasts"
+    },
+  ]
 }
 
 data "template_file" "airsonic-properties-file" {

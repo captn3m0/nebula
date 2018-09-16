@@ -91,6 +91,5 @@ variable "volumes" {
 
 variable "uploads" {
   description = "uploads"
-  type        = "list"
   default     = []
 }

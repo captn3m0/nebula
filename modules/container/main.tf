@@ -32,7 +32,8 @@ resource "docker_container" "container" {
   memory = "${local.resource["memory"]}"
 
   volumes = "${var.volumes}"
-  upload  = "${var.uploads}"
+
+  upload = "${var.uploads}"
 
   # Look at this monstrosity
   # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618
