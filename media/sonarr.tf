@@ -1,41 +1,32 @@
-data "docker_registry_image" "sonarr" {
-  name = "linuxserver/sonarr:latest"
-}
+module "sonarr-container" {
+  name   = "sonarr"
+  source = "../modules/container"
+  image  = "linuxserver/sonarr:latest"
 
-resource "docker_image" "sonarr" {
-  name          = "${data.docker_registry_image.sonarr.name}"
-  pull_triggers = ["${data.docker_registry_image.sonarr.sha256_digest}"]
-}
-
-resource "docker_container" "sonarr" {
-  name  = "sonarr"
-  image = "${docker_image.sonarr.latest}"
-
-  labels = "${merge(
-    var.traefik-labels, map(
-      "traefik.port", 8989,
-      "traefik.frontend.rule","Host:sonarr.${var.domain}"
-  ))}"
-
-  memory                = 512
-  restart               = "unless-stopped"
-  destroy_grace_seconds = 10
-  must_run              = true
-
-  volumes {
-    host_path      = "/mnt/xwing/config/sonarr"
-    container_path = "/config"
+  web {
+    expose = true
+    port   = 8989
+    host   = "sonarr.${var.domain}"
   }
 
-  volumes {
-    host_path      = "/mnt/xwing/media/DL"
-    container_path = "/downloads"
+  resource {
+    memory = 512
   }
 
-  volumes {
-    host_path      = "/mnt/xwing/media/TV"
-    container_path = "/tv"
-  }
+  volumes = [
+    {
+      host_path      = "/mnt/xwing/config/sonarr"
+      container_path = "/config"
+    },
+    {
+      host_path      = "/mnt/xwing/media/DL"
+      container_path = "/downloads"
+    },
+    {
+      host_path      = "/mnt/xwing/media/TV"
+      container_path = "/tv"
+    },
+  ]
 
   env = [
     "PUID=1004",
@@ -43,5 +34,5 @@ resource "docker_container" "sonarr" {
     "TZ=Asia/Kolkata",
   ]
 
-  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
+  networks = "${list(docker_network.media.id)}"
 }
