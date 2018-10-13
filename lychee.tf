@@ -13,10 +13,9 @@ module "lychee" {
     },
   ]
 
-  uploads = [{
-    content = "${file("${path.module}/docker/conf/lychee.php.ini")}"
-    file    = "/config/lychee/user.ini"
-  }]
+  files = "/config/lychee/user.ini"
+
+  contents = ["${file("${path.module}/docker/conf/lychee.php.ini")}"]
 
   web {
     expose = true

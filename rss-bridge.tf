@@ -9,9 +9,10 @@ module "rss-bridge" {
   }
 
   networks = "${list(module.docker.traefik-network-id)}"
+  files    = ["/app/public/whitelist.txt"]
 
-  uploads = [{
-    content = <<EOF
+  contents = [
+    <<EOF
 AmazonBridge
 BandcampBridge
 ContainerLinuxReleasesBridge
@@ -29,7 +30,6 @@ SteamBridge
 StripeAPIChangeLogBridge
 AmazonPriceTrackerBridge
 EOF
-
-    file = "/app/public/whitelist.txt"
-  }]
+    ,
+  ]
 }

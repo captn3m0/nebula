@@ -23,17 +23,11 @@ resource "docker_container" "container" {
 
   // Only attach the traefik network if
   // service is exposed to the web
-  networks = ["${concat(var.networks, split(",",
-    lookup(var.web, "expose", "false") == "false" ?
-    "" :
-    "${data.docker_network.traefik.id}"
-  ))}"]
+  networks = ["${concat(var.networks,split(",",lookup(var.web, "expose", "false") == "false" ? "" :"${data.docker_network.traefik.id}"))}"]
 
   memory = "${local.resource["memory"]}"
 
-  volumes = "${var.volumes}"
-
-  upload = "${var.uploads}"
+  volumes = ["${var.volumes}"]
 
   # Look at this monstrosity
   # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618

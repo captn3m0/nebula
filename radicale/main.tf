@@ -1,7 +1,12 @@
+module "image" {
+  source = "../modules/image"
+  image  = "tomsquest/docker-radicale:latest"
+}
+
 module "container" {
   name   = "radicale"
   source = "../modules/container"
-  image  = "tomsquest/docker-radicale:latest"
+  image  = "${module.image.image}"
 
   web {
     expose = true
@@ -20,18 +25,18 @@ module "container" {
     },
   ]
 
-  uploads = [
-    {
-      content = "${file("${path.module}/config")}"
-      file    = "/config/config"
-    },
-    {
-      content = "${file("${path.module}/logging.conf")}"
-      file    = "/config/logging"
-    },
-    {
-      content = "${file("${path.module}/users")}"
-      file    = "/config/users"
-    },
-  ]
+  # uploads = [
+  #   {
+  #     content = "${file("${path.module}/config")}"
+  #     file    = "/config/config"
+  #   },
+  #   {
+  #     content = "${file("${path.module}/logging.conf")}"
+  #     file    = "/config/logging"
+  #   },
+  #   {
+  #     content = "${file("${path.module}/users")}"
+  #     file    = "/config/users"
+  #   },
+  # ]
 }

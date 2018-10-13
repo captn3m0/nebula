@@ -22,15 +22,14 @@ module "airsonic" {
     "JAVA_OPTS=-Xmx512m -Dserver.use-forward-headers=true -Dserver.context-path=/",
   ]
 
-  uploads = [
-    {
-      file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/airsonic.properties"
-      content = "${data.template_file.airsonic-properties-file.rendered}"
-    },
-    {
-      file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/sound.properties"
-      content = "${file("${path.module}/conf/airsonic.sound.properties")}"
-    },
+  files = [
+    "/usr/lib/jvm/java-1.8-openjdk/jre/lib/airsonic.properties",
+    "/usr/lib/jvm/java-1.8-openjdk/jre/lib/sound.properties",
+  ]
+
+  contents = [
+    "${data.template_file.airsonic-properties-file.rendered}",
+    "${file("${path.module}/conf/airsonic.sound.properties")}",
   ]
 
   volumes = [

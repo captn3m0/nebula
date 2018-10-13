@@ -88,8 +88,3 @@ variable "volumes" {
   type        = "list"
   default     = []
 }
-
-variable "uploads" {
-  description = "uploads"
-  default     = []
-}
