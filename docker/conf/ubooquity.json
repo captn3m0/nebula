@@ -16,7 +16,9 @@
         "tatooine",
         "vignesh",
         "harman",
-        "pranav"
+        "pranav",
+        "swapnil",
+        "noopur"
       ]
     }
   ],
@@ -37,7 +39,9 @@
         "tatooine",
         "vignesh",
         "harman",
-        "pranav"
+        "pranav",
+        "swapnil",
+        "noopur"
       ]
     }
   ],
@@ -58,7 +62,9 @@
         "tatooine",
         "vignesh",
         "harman",
-        "pranav"
+        "pranav",
+        "swapnil",
+        "noopur"
       ]
     }
   ],
@@ -127,6 +133,16 @@
       "name": "gappan",
       "passwordHash":
         "681825c273d75dce4151f6c61358038e099fec2c3540369267f1fa28d607ce1d"
+    },
+    {
+      "name": "swapnil",
+      "passwordHash":
+        "f916f120f09ec561ff1d76e19e2749d1a6078e92051f1f5fcca884489fd43745"
+    },
+    {
+      "name": "noopur",
+      "passwordHash":
+        "f49e49db9893a187773fb08e8671ff2f9cd83b8d43b657fbf0abe67b3dfc0e9d"
     },
     {
       "name": "pranav",
