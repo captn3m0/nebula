@@ -12,3 +12,8 @@ resource "docker_image" "ubooquity" {
   name          = "${data.docker_registry_image.ubooquity.name}"
   pull_triggers = ["${data.docker_registry_image.ubooquity.sha256_digest}"]
 }
+
+resource "docker_image" "lychee" {
+  name          = "${data.docker_registry_image.lychee.name}"
+  pull_triggers = ["${data.docker_registry_image.lychee.sha256_digest}"]
+}
