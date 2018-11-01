@@ -9,27 +9,28 @@ module "rss-bridge" {
   }
 
   networks = "${list(module.docker.traefik-network-id)}"
-  files    = ["/app/public/whitelist.txt"]
 
-  contents = [
-    <<EOF
-AmazonBridge
-BandcampBridge
-ContainerLinuxReleasesBridge
-DiscogsBridge
-FDroidBridge
-FacebookBridge
-GithubIssueBridge
-GithubSearchBridge
-GoComicsBridge
-GoogleSearchBridge
-InstagramBridge
-ReadComicsBridge
-SoundcloudBridge
-SteamBridge
-StripeAPIChangeLogBridge
-AmazonPriceTrackerBridge
-EOF
-    ,
-  ]
+  #   files    = ["/app/public/whitelist.txt"]
+
+  #   contents = [
+  #     <<EOF
+  # AmazonBridge
+  # BandcampBridge
+  # ContainerLinuxReleasesBridge
+  # DiscogsBridge
+  # FDroidBridge
+  # FacebookBridge
+  # GithubIssueBridge
+  # GithubSearchBridge
+  # GoComicsBridge
+  # GoogleSearchBridge
+  # InstagramBridge
+  # ReadComicsBridge
+  # SoundcloudBridge
+  # SteamBridge
+  # StripeAPIChangeLogBridge
+  # AmazonPriceTrackerBridge
+  # EOF
+  #     ,
+  #   ]
 }
