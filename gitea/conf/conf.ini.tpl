@@ -96,6 +96,8 @@ PATH = /data/gitea/gitea.db
 SQLITE_TIMEOUT = 500
 ; ; For iterate buffer, default is 50
 ; ITERATE_BUFFER_SIZE = 50
+; Show the database generated SQL
+LOG_SQL = false
 
 [session]
 PROVIDER_CONFIG = /data/gitea/sessions
@@ -199,7 +201,15 @@ ALLOWED_TYPES = image/jpeg|image/png|application/zip|application/gzip|applicatio
 ; ; Max number of files per upload. Defaults to 10
 ; MAX_FILES = 5
 
-LEVEL = Info
+[log]
+ROOT_PATH =
+; Either "console", "file", "conn", "smtp" or "database", default is "console"
+; Use comma to separate multiple modes, e.g. "console, file"
+MODE = console
+; Buffer length of the channel, keep it as it is if you don't know what it is.
+BUFFER_LEN = 10000
+; Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
+LEVEL = Critical
 
 [cron]
 ; Enable running cron tasks periodically.
@@ -225,3 +235,10 @@ SHOW_FOOTER_TEMPLATE_LOAD_TIME = false
 [openid]
 ENABLE_OPENID_SIGNIN = true
 ENABLE_OPENID_SIGNUP = true
+
+[metrics]
+; Enables metrics endpoint. True or false; default is false.
+ENABLED = false
+; If you want to add authorization, specify a token here
+; TODO
+TOKEN =
