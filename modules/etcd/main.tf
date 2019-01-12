@@ -8,29 +8,12 @@ module "container" {
     host   = ""
   }
 
-  networks = []
+  networks = ["${docker_network.etcd.id}"]
 
   volumes = [
     {
-      host_path      = "/usr/share/ca-certificates/"
-      container_path = "/etc/ssl/certs"
-    },
-    {
       host_path      = "${var.data_dir}"
       container_path = "/etcd-data"
-    },
-  ]
-
-  ports = [
-    {
-      internal = 2379
-      external = 2379
-      ip       = "${var.host_ip}"
-    },
-    {
-      internal = 2380
-      external = 2380
-      ip       = "${var.host_ip}"
     },
   ]
 
@@ -42,7 +25,14 @@ module "container" {
     "--initial-advertise-peer-urls=http://${var.host_ip}:2380",
     "--initial-cluster=${var.node_name}=http://${var.host_ip}:2380",
   ]
+}
 
-  # "--listen-client-urls=http://0.0.0.0:2379",
-  # "--listen-peer-urls=http://0.0.0.0:2380",
+resource "docker_network" "etcd" {
+  name   = "etcd"
+  driver = "bridge"
+
+  ipam_config {
+    subnet  = "10.10.10.0/25"
+    gateway = "10.10.10.1"
+  }
 }

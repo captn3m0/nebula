@@ -5,15 +5,17 @@ resource "docker_container" "render" {
 
   volumes {
     container_path = "/home/.bootkube"
-    volume_name    = "${var.asset_dir_volume_name}"
+    volume_name    = "/etc/kube-assets"
   }
 
   command = [
     "bootkube",
     "render",
+    "--etcd-servers=http://${host_ip}:2379",
     "--asset-dir=/home/.bootkube",
-    "--api-servers=https://kubernetes.default:${var.host_port},https://${var.k8s_host},https://${var.host_ip}:${var.host_port}",
+    "--api-servers=https://kubernetes.default:${var.host_port},https://${var.k8s_host}:${var.host_port},https://${var.host_ip}:${var.host_port}",
     "--pod-cidr=${var.pod_cidr}",
+    "--network-provider=${var.network_provider}",
   ]
 
   network_mode    = "host"
@@ -28,13 +30,13 @@ resource "docker_container" "start" {
 
   volumes {
     container_path = "/home/.bootkube"
-    volume_name    = "${var.asset_dir_volume_name}"
+    volume_name    = "/etc/kube-assets"
     read_only      = true
   }
 
   volumes {
-    container_path = "/etc/kubernetes/manifests"
-    host_path      = "/etc/kubernetes/manifests"
+    container_path = "/etc/kubernetes"
+    host_path      = "/etc/kubernetes"
   }
 
   # "There is no war within the container. Here we are safe. Here we are free."
@@ -43,7 +45,6 @@ resource "docker_container" "start" {
     "bootkube",
     "start",
     "--asset-dir=/home/.bootkube",
-    "--pod-manifest-path=/etc/kubernetes/manifests",
   ]
 
   network_mode    = "host"

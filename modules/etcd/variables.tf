@@ -9,7 +9,19 @@ variable "data_dir" {
   type        = "string"
 }
 
+variable "bootkube_asset_dir" {
+  description = "bootkube render is run against this directory"
+  type        = "string"
+  default     = "/etc/kube-assets"
+}
+
 variable "node_name" {
   description = "name of the etcd node"
   default     = "master"
+}
+
+variable "depends_on" {
+  default = []
+
+  type = "list"
 }

@@ -1,15 +1,15 @@
 // Based on https://github.com/v1k0d3n/dockerfiles/tree/master/bootkube
 
-variable "asset_dir_volume_name" {
-  default = "k8s-assets"
-}
-
 variable "k8s_host" {
   description = "kubenetes hostname"
 }
 
 variable "host_port" {
   default = "8443"
+}
+
+variable "network_provider" {
+  default = "flannel"
 }
 
 variable "host_ip" {}

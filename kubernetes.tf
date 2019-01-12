@@ -3,15 +3,23 @@ module "etcd" {
   host_ip  = "${var.ips["dovpn"]}"
   data_dir = "/mnt/xwing/etcd"
 
+  bootkube_asset_dir = "/etc/kube-assets"
+
+  providers = {
+    docker = "docker.sydney"
+  }
+
+  depends_on = "${module.bootkube-start.image}"
+}
+
+module "kubelet-master" {
+  source     = "modules/kubelet"
+  depends_on = "${module.bootkube-start.image}"
+
   providers = {
     docker = "docker.sydney"
   }
 }
-
-# module "kubelet" {
-#   source = "modules/kubelet"
-#   listen_ip =  "${var.ips["dovpn"]}"
-# }
 
 module "bootkube-render" {
   source   = "modules/bootkube"
