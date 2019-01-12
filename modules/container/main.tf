@@ -3,7 +3,7 @@ data "docker_registry_image" "image" {
 }
 
 resource "docker_image" "image" {
-  name          = "${data.docker_registry_image.image.name}"
+  name          = "${var.image}"
   pull_triggers = ["${data.docker_registry_image.image.sha256_digest}"]
 }
 
@@ -31,6 +31,7 @@ resource "docker_container" "container" {
   memory_swap = "${local.resource["memory_swap"]}"
 
   volumes = ["${var.volumes}"]
+  devices = ["${var.devices}"]
 
   # Look at this monstrosity
   # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618

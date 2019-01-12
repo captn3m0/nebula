@@ -64,6 +64,25 @@ resource "cloudflare_record" "vpn_wildcard" {
   ttl    = 3600
 }
 
+/**
+ *   vpn.bb8.fun
+ * *.vpn.bb8.fun
+ */
+resource "cloudflare_record" "dovpn" {
+  domain = "${var.domain}"
+  name   = "dovpn"
+  value  = "${var.ips["dovpn"]}"
+  type   = "A"
+}
+
+resource "cloudflare_record" "dovpn_wildcard" {
+  domain = "${var.domain}"
+  name   = "*.dovpn.${var.domain}"
+  value  = "${cloudflare_record.dovpn.hostname}"
+  type   = "CNAME"
+  ttl    = 3600
+}
+
 ########################
 ## Mailgun Mailing Lists
 ########################
