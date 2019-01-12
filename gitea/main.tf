@@ -38,8 +38,9 @@ resource "docker_container" "gitea" {
     file    = "/data/gitea/public/img/gitea-sm.png"
   }
   upload {
-    content = "${file("${path.module}/conf/public/img/gitea-sm.png")}"
-    file    = "/data/gitea/public/img/favicon.png"
+    content    = "${file("${path.module}/conf/public/img/gitea-sm.png")}"
+    file       = "/data/gitea/public/img/favicon.png"
+    executable = false
   }
   upload {
     content = "${file("${path.module}/../docker/conf/humans.txt")}"
@@ -60,6 +61,16 @@ resource "docker_container" "gitea" {
   destroy_grace_seconds = 10
   must_run              = true
   networks              = ["${docker_network.gitea.id}", "${var.traefik-network-id}"]
+
+  # This doesn't work.
+  # See https://github.com/terraform-providers/terraform-provider-docker/issues/48
+  # lifecycle {
+  #   ignore_changes = [
+  #     "upload.2151376053.content",
+  #     "upload.2151376053.executable",
+  #     "upload.2151376053.file",
+  #   ]
+  # }
 }
 
 resource "docker_image" "gitea" {
