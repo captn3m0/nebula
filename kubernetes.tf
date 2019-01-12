@@ -13,7 +13,10 @@ module "etcd" {
 }
 
 module "kubelet-master" {
-  source     = "modules/kubelet"
+  source   = "modules/kubelet"
+  host_ip  = "${var.ips["dovpn"]}"
+  k8s_host = "k8s.${var.root-domain}"
+
   depends_on = "${module.bootkube-start.image}"
 
   providers = {

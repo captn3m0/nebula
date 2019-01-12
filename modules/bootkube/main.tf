@@ -11,7 +11,7 @@ resource "docker_container" "render" {
   command = [
     "bootkube",
     "render",
-    "--etcd-servers=http://${host_ip}:2379",
+    "--etcd-servers=http://${var.host_ip}:2379",
     "--asset-dir=/home/.bootkube",
     "--api-servers=https://kubernetes.default:${var.host_port},https://${var.k8s_host}:${var.host_port},https://${var.host_ip}:${var.host_port}",
     "--pod-cidr=${var.pod_cidr}",

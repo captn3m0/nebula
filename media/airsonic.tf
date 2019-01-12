@@ -60,12 +60,15 @@ module "airsonic" {
   ]
 }
 
-data "template_file" "airsonic-properties-file" {
-  template = "${file("${path.module}/conf/airsonic.properties.tpl")}"
+# data "template_file" "airsonic-properties-file" {
+#   template = "${file("${path.module}/conf/airsonic.properties.tpl")}"
 
-  vars {
-    smtp-password = "${var.airsonic-smtp-password}"
 
-    # db-password   = "${var.airsonic-db-password}"
-  }
-}
+#   vars {
+#     smtp-password = "${var.airsonic-smtp-password}"
+
+
+#     # db-password   = "${var.airsonic-db-password}"
+#   }
+# }
+

@@ -81,29 +81,45 @@ resource "docker_container" "kubelet" {
   }
   command = [
     "kubelet",
-    "--kubeconfig=/etc/kubernetes/kubeconfig",
-    "--client-ca-file=/etc/kubernetes/ca.crt",
-    "--anonymous-auth=false",
-    "--cni-conf-dir=/etc/kubernetes/cni/net.d",
-    "--network-plugin=cni",
-    "--lock-file=/var/run/lock/kubelet.lock",
-    "--exit-on-lock-contention",
-    "--pod-manifest-path=/etc/kubernetes/manifests",
     "--allow-privileged",
+    "--anonymous-auth=false",
+    "--cert-dir=/var/lib/kubelet/pki",
+    "--client-ca-file=/etc/kubernetes/ca.crt",
+    "--cni-conf-dir=/etc/kubernetes/cni/net.d",
+    "--exit-on-lock-contention=true",
+    "--hostname-override=${var.host_ip}",
+    "--kubeconfig=/etc/kubernetes/kubeconfig",
+    "--lock-file=/var/run/lock/kubelet.lock",
     "--minimum-container-ttl-duration=10m0s",
+    "--network-plugin=cni",
+    "--node-labels=node-role.kubernetes.io/master",
+    "--pod-manifest-path=/etc/kubernetes/manifests",
+    "--rotate-certificates",
+
+    // TODO: Change to var
     "--cluster_dns=10.25.0.10",
-    "--cluster_domain=k8s.bb8.fun",
+
+    "--cluster_domain=${var.k8s_host}",
   ]
+  host {
+    host = "kubernetes.default"
+    ip   = "${var.host_ip}"
+  }
+  host {
+    host = "${var.k8s_host}"
+    ip   = "${var.host_ip}"
+  }
 
   # TODO
   # "--register-with-taints=${var.node_taints}",
   # "--node-labels=${var.node_label}",
 
-  network_mode    = "host"
-  privileged      = true
-  restart         = "no"
-  must_run        = false
-  max_retry_count = 1
+  network_mode = "host"
+  privileged   = true
+  restart      = "no"
+  must_run     = false
+
+  # max_retry_count = 1
 }
 
 data "docker_registry_image" "image" {

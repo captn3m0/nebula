@@ -17,3 +17,9 @@ variable "depends_on" {
 variable "asset_dir_volume_name" {
   default = "k8s-assets"
 }
+
+variable "host_ip" {}
+
+variable "k8s_host" {
+  description = "kubenetes hostname"
+}

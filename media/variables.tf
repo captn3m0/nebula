@@ -2,7 +2,7 @@ variable "domain" {
   type = "string"
 }
 
-variable "airsonic-smtp-password" {}
+# variable "airsonic-smtp-password" {}
 
 variable "traefik-labels" {
   type = "map"
