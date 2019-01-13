@@ -83,9 +83,11 @@ resource "docker_container" "kubelet" {
     "kubelet",
     "--allow-privileged",
     "--anonymous-auth=false",
+    "--authentication-token-webhook",
+    "--authorization-mode=Webhook",
     "--cert-dir=/var/lib/kubelet/pki",
     "--client-ca-file=/etc/kubernetes/ca.crt",
-    "--cni-conf-dir=/etc/kubernetes/cni/net.d",
+    "--cluster_dns=${var.dns_ip}",
     "--exit-on-lock-contention=true",
     "--hostname-override=${var.host_ip}",
     "--kubeconfig=/etc/kubernetes/kubeconfig",
@@ -94,11 +96,8 @@ resource "docker_container" "kubelet" {
     "--network-plugin=cni",
     "--node-labels=node-role.kubernetes.io/master",
     "--pod-manifest-path=/etc/kubernetes/manifests",
+    "--read-only-port=0",
     "--rotate-certificates",
-
-    // TODO: Change to var
-    "--cluster_dns=10.25.0.10",
-
     "--cluster_domain=${var.k8s_host}",
   ]
   host {

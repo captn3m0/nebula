@@ -11,7 +11,7 @@ resource "docker_container" "render" {
   command = [
     "bootkube",
     "render",
-    "--etcd-servers=http://${var.host_ip}:2379",
+    "--etcd-servers=https://${var.host_ip}:2379",
     "--asset-dir=/home/.bootkube",
     "--api-servers=https://kubernetes.default:${var.host_port},https://${var.k8s_host}:${var.host_port},https://${var.host_ip}:${var.host_port}",
     "--pod-cidr=${var.pod_cidr}",
@@ -53,7 +53,7 @@ resource "docker_container" "start" {
 }
 
 data "docker_registry_image" "image" {
-  name = "captn3m0/bootkube:v${var.version}"
+  name = "quay.io/coreos/bootkube:v${var.version}"
 }
 
 resource "docker_image" "image" {

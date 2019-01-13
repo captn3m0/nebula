@@ -20,6 +20,10 @@ variable "asset_dir_volume_name" {
 
 variable "host_ip" {}
 
+variable "dns_ip" {
+  default = "10.25.0.10"
+}
+
 variable "k8s_host" {
   description = "kubenetes hostname"
 }
