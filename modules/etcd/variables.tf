@@ -1,7 +1,6 @@
-variable "host_ip" {
-  description = "Host IP Address to bind etcd to"
+variable "domain" {
+  description = "Host name to advertise"
   type        = "string"
-  default     = "0.0.0.0"
 }
 
 variable "data_dir" {
@@ -9,19 +8,26 @@ variable "data_dir" {
   type        = "string"
 }
 
-variable "bootkube_asset_dir" {
-  description = "bootkube render is run against this directory"
-  type        = "string"
-  default     = "/etc/kube-assets"
-}
-
 variable "node_name" {
   description = "name of the etcd node"
-  default     = "master"
+  default     = "controller"
 }
 
 variable "depends_on" {
   default = []
 
   type = "list"
+}
+
+variable "pki" {
+  type = "map"
+}
+
+variable "version" {
+  description = "etcd version"
+  default     = "3.3.11"
+}
+
+variable "host_bind_ip" {
+  description = "IP address to expose the ports on host"
 }

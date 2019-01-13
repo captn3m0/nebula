@@ -83,6 +83,13 @@ resource "cloudflare_record" "dovpn_wildcard" {
   ttl    = 3600
 }
 
+resource "cloudflare_record" "etcd" {
+  domain = "${var.domain}"
+  name   = "etcd"
+  value  = "${var.ips["dovpn"]}"
+  type   = "A"
+}
+
 ########################
 ## Mailgun Mailing Lists
 ########################

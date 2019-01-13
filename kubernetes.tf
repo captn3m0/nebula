@@ -1,15 +1,27 @@
 module "etcd" {
-  source   = "modules/etcd"
-  host_ip  = "${var.ips["dovpn"]}"
-  data_dir = "/mnt/xwing/etcd"
+  source       = "modules/etcd"
+  data_dir     = "/mnt/disk/etcd"
+  host_bind_ip = "10.8.0.1"
+  domain       = "etcd.bb8.fun"
 
-  bootkube_asset_dir = "/etc/kube-assets"
+  pki = {
+    /**
+     * client_cert = "${module.bootkube.etcd_client_cert}"
+     * client_key  = "${module.bootkube.etcd_client_key}"
+     */
+
+    ca_cert     = "${module.bootkube.etcd_ca_cert}"
+    server_cert = "${module.bootkube.etcd_server_cert}"
+    server_key  = "${module.bootkube.etcd_server_key}"
+    peer_cert   = "${module.bootkube.etcd_peer_cert}"
+    peer_key    = "${module.bootkube.etcd_peer_key}"
+  }
 
   providers = {
     docker = "docker.sydney"
   }
 
-  depends_on = "${module.bootkube-start.image}"
+  depends_on = "${module.bootkube.id}"
 }
 
 module "kubelet-master" {
@@ -24,9 +36,9 @@ module "kubelet-master" {
   }
 }
 
-module "bootkube-render" {
+module "bootkube-start" {
   source   = "modules/bootkube"
-  mode     = "render"
+  mode     = "start"
   host_ip  = "${var.ips["dovpn"]}"
   k8s_host = "k8s.${var.root-domain}"
 
@@ -35,14 +47,12 @@ module "bootkube-render" {
   }
 }
 
-module "bootkube-start" {
-  depends_on = "${module.bootkube-render.image}"
-  source     = "modules/bootkube"
-  mode       = "start"
-  host_ip    = "${var.ips["dovpn"]}"
-  k8s_host   = "k8s.${var.root-domain}"
+module "bootkube" {
+  source = "git::https://github.com/poseidon/terraform-render-bootkube.git?ref=bcbdddd8d07c99ab88b2e9ebfb662de4c104de0a"
 
-  providers = {
-    docker = "docker.sydney"
-  }
+  cluster_name          = "k8s.bb8.fun"
+  api_servers           = ["10.8.0.1", "k8s.bb8.fun"]
+  cluster_domain_suffix = "k8s.bb8.fun"
+  etcd_servers          = ["etcd.bb8.fun"]
+  asset_dir             = "./k8s"
 }
