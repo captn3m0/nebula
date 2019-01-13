@@ -9,11 +9,11 @@ resource "docker_container" "render" {
   }
 
   command = [
-    "bootkube",
+    "/bootkube",
     "render",
     "--etcd-servers=https://${var.host_ip}:2379",
     "--asset-dir=/home/.bootkube",
-    "--api-servers=https://kubernetes.default:${var.host_port},https://${var.k8s_host}:${var.host_port},https://${var.host_ip}:${var.host_port}",
+    "--api-servers=https://${var.k8s_host}:${var.host_port},https://${var.host_ip}:${var.host_port}",
     "--pod-cidr=${var.pod_cidr}",
     "--network-provider=${var.network_provider}",
   ]
@@ -42,7 +42,7 @@ resource "docker_container" "start" {
   # "There is no war within the container. Here we are safe. Here we are free."
   # - Docker Li agent brainwashing Nemo
   command = [
-    "bootkube",
+    "/bootkube",
     "start",
     "--asset-dir=/home/.bootkube",
   ]

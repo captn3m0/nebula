@@ -73,6 +73,13 @@ resource "docker_container" "kubelet" {
     read_only      = true
   }
 
+  volumes {
+    container_path = "/rootfs"
+    host_path      = "/"
+    read_only      = true
+    read_only      = true
+  }
+
   // Deviates from kubelet-wrapper
 
   volumes {
@@ -88,7 +95,11 @@ resource "docker_container" "kubelet" {
     "--cert-dir=/var/lib/kubelet/pki",
     "--client-ca-file=/etc/kubernetes/ca.crt",
     "--cluster_dns=${var.dns_ip}",
+    "--cluster_domain=${var.k8s_host}",
+
+    # "--containerized",
     "--exit-on-lock-contention=true",
+
     "--hostname-override=${var.host_ip}",
     "--kubeconfig=/etc/kubernetes/kubeconfig",
     "--lock-file=/var/run/lock/kubelet.lock",
@@ -98,12 +109,7 @@ resource "docker_container" "kubelet" {
     "--pod-manifest-path=/etc/kubernetes/manifests",
     "--read-only-port=0",
     "--rotate-certificates",
-    "--cluster_domain=${var.k8s_host}",
   ]
-  host {
-    host = "kubernetes.default"
-    ip   = "${var.host_ip}"
-  }
   host {
     host = "${var.k8s_host}"
     ip   = "${var.host_ip}"
