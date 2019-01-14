@@ -1,6 +1,9 @@
 # https://github.com/go-gitea/gitea/releases
 data "docker_registry_image" "gitea" {
-  name = "gitea/gitea:1.7"
+  name = "gitea/gitea:latest"
+
+  # Currently on latest master to avoid https://github.com/go-gitea/gitea/issues/5704
+  # name = "gitea/gitea:1.7"
 }
 
 data "docker_registry_image" "redis" {
