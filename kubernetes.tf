@@ -5,11 +5,6 @@ module "etcd" {
   domain       = "etcd.bb8.fun"
 
   pki = {
-    /**
-     * client_cert = "${module.bootkube.etcd_client_cert}"
-     * client_key  = "${module.bootkube.etcd_client_key}"
-     */
-
     ca_cert     = "${module.bootkube.etcd_ca_cert}"
     server_cert = "${module.bootkube.etcd_server_cert}"
     server_key  = "${module.bootkube.etcd_server_key}"
