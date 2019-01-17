@@ -1,36 +1,22 @@
 module "rss-bridge" {
   name   = "rss-bridge"
   source = "modules/container"
-  image  = "rssbridge/rss-bridge:latest"
+
+  image = "captn3m0/rss-bridge:sec-filings"
 
   web {
     expose = true
     host   = "rss-bridge.${var.root-domain}"
   }
 
-  networks = "${list(module.docker.traefik-network-id)}"
+  networks = ["${data.docker_network.bridge.id}"]
 
-  #   files    = ["/app/public/whitelist.txt"]
+  volumes = [{
+    container_path = "/app/public/whitelist.txt"
+    host_path      = "/mnt/xwing/config/rss-bridge/whitelist.txt"
+  }]
+}
 
-  #   contents = [
-  #     <<EOF
-  # AmazonBridge
-  # BandcampBridge
-  # ContainerLinuxReleasesBridge
-  # DiscogsBridge
-  # FDroidBridge
-  # FacebookBridge
-  # GithubIssueBridge
-  # GithubSearchBridge
-  # GoComicsBridge
-  # GoogleSearchBridge
-  # InstagramBridge
-  # ReadComicsBridge
-  # SoundcloudBridge
-  # SteamBridge
-  # StripeAPIChangeLogBridge
-  # AmazonPriceTrackerBridge
-  # EOF
-  #     ,
-  #   ]
+data "docker_network" "bridge" {
+  name = "bridge"
 }
