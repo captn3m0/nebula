@@ -6,7 +6,7 @@ module "opml" {
 
   web {
     expose = true
-    host   = "opml.${var.domain}"
+    host   = "${var.domain}"
   }
 
   env = [

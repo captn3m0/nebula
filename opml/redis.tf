@@ -7,7 +7,6 @@ module "redis" {
   # ThisSucks
   web {
     expose = "false"
-    host   = ""
   }
 
   resource {

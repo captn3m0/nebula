@@ -1,7 +1,7 @@
 data "docker_registry_image" "traefik" {
   # Critical and I like upgrading it
   # for updating config for new features
-  name = "traefik:1.7-alpine"
+  name = "traefik:1.7"
 }
 
 data "docker_registry_image" "wikijs" {

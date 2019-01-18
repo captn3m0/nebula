@@ -6,3 +6,4 @@
 *.out
 *.backup
 secrets
+k8s/

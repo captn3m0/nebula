@@ -87,10 +87,15 @@ resource "docker_container" "traefik" {
   // https://github.com/terraform-providers/terraform-provider-docker/issues/10
   networks = [
     "${docker_network.traefik.id}",
+    "${data.docker_network.bridge.id}",
   ]
 
   env = [
     "CLOUDFLARE_EMAIL=${var.cloudflare_email}",
     "CLOUDFLARE_API_KEY=${var.cloudflare_key}",
   ]
+}
+
+data "docker_network" "bridge" {
+  name = "bridge"
 }

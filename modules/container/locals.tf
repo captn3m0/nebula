@@ -5,7 +5,7 @@ locals {
 
   web {
     "traefik.port"          = "${lookup(var.web, "port", "80")}"
-    "traefik.frontend.rule" = "Host:${lookup(var.web, "host")}"
+    "traefik.frontend.rule" = "Host:${lookup(var.web, "host", "example.invalid")}"
     "traefik.protocol"      = "${lookup(var.web, "protocol", "http")}"
   }
 

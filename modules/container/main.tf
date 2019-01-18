@@ -25,7 +25,7 @@ resource "docker_container" "container" {
 
   // Only attach the traefik network if
   // service is exposed to the web
-  networks = ["${concat(var.networks,split(",",lookup(var.web, "expose", "false") == "false" ? "" :"${data.docker_network.traefik.id}"))}"]
+  networks = ["${concat(var.networks,compact(split(",",lookup(var.web, "expose", "false") == "false" ? "" :"${data.docker_network.traefik.id}")))}"]
 
   memory = "${local.resource["memory"]}"
 
