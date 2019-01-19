@@ -21,5 +21,6 @@ module "container" {
     "${data.docker_network.postgres.id}",
   ]
 
-  env = "${local.environment}"
+  env                   = "${local.environment}"
+  destroy_grace_seconds = "22"
 }

@@ -8,7 +8,22 @@ resource "random_string" "password_test" {
   special = false
 }
 
+resource "random_string" "minio_access_key" {
+  length  = 20
+  lower   = false
+  special = false
+}
+
+resource "random_string" "minio_secret_key" {
+  length  = 20
+  lower   = false
+  special = false
+}
+
 locals {
+  minio_secret_key = "${random_string.minio_secret_key.result}"
+  minio_access_key = "${random_string.minio_access_key.result}"
+
   environment = [
     "DATABASE_URL=postgres://${var.db_username}:${random_string.password.result}@${var.db_host}:${var.db_port}/${var.db_name}?ssl_mode=disable",
     "DATABASE_URL_TEST=postgres://${var.db_username}:${random_string.password_test.result}@${var.db_host}:${var.db_port}/${var.db_name_test}?ssl_mode=disable",
@@ -41,6 +56,14 @@ locals {
     "SMTP_PASSWORD=${var.smtp_password}",
     "SMTP_FROM_EMAIL=${var.smtp_email}",
     "SMTP_REPLY_EMAIL=${var.reply_email}",
+
+    # AWS credentials (optional in dev)
+    "AWS_ACCESS_KEY_ID=${local.minio_access_key}",
+
+    "AWS_SECRET_ACCESS_KEY=${local.minio_secret_key}",
+    "AWS_S3_UPLOAD_BUCKET_URL=http://outline-s3:9000",
+    "AWS_S3_UPLOAD_BUCKET_NAME=outline",
+    "AWS_S3_UPLOAD_MAX_SIZE=26214400",
   ]
 
   # Used for showing new releases
@@ -51,12 +74,5 @@ locals {
 
   # "GOOGLE_ANALYTICS_ID=",
   # "BUGSNAG_KEY=",
-
-  # AWS credentials (optional in dev)
-  # "AWS_ACCESS_KEY_ID=notcheckedindev",
-  # "AWS_SECRET_ACCESS_KEY=notcheckedindev",
-  # "AWS_S3_UPLOAD_BUCKET_URL=http://s3:4569",
-  # "AWS_S3_UPLOAD_BUCKET_NAME=outline-dev",
-  # "AWS_S3_UPLOAD_MAX_SIZE=26214400",
   # "DEBUG=sql,cache,presenters,events",
 }
