@@ -85,3 +85,10 @@ variable "root-domain" {
 
 variable "znc_pass" {}
 variable "znc_user" {}
+
+variable "outline_smtp_password" {}
+variable "outline_secret_key" {}
+variable "outline_slack_key" {}
+variable "outline_slack_secret" {}
+variable "outline_slack_app_id" {}
+variable "outline_slack_verification_token" {}
