@@ -16,7 +16,7 @@ resource "docker_container" "container" {
   image      = "${docker_image.image.latest}"
   ports      = "${var.ports}"
   restart    = "${var.restart}"
-  env        = "${var.env}"
+  env        = ["${var.env}"]
   command    = "${var.command}"
   entrypoint = "${var.entrypoint}"
   user       = "${var.user}"
@@ -27,7 +27,8 @@ resource "docker_container" "container" {
   // service is exposed to the web
   networks = ["${concat(var.networks,compact(split(",",lookup(var.web, "expose", "false") == "false" ? "" :"${data.docker_network.traefik.id}")))}"]
 
-  memory = "${local.resource["memory"]}"
+  memory      = "${local.resource["memory"]}"
+  memory_swap = "${local.resource["memory_swap"]}"
 
   volumes = ["${var.volumes}"]
 

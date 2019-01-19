@@ -10,7 +10,8 @@ locals {
   }
 
   resource {
-    "memory" = "${lookup(var.resource, "memory", 64)}"
+    memory      = "${lookup(var.resource, "memory", 64)}"
+    memory_swap = "${lookup(var.resource, "memory_swap", 128)}"
   }
 
   traefik_common_labels {

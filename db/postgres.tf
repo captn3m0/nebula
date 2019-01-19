@@ -32,7 +32,7 @@ resource "docker_container" "postgres" {
     "POSTGRES_PASSWORD=${var.postgres-root-password}",
   ]
 
-  networks = ["${docker_network.postgres.id}"]
+  networks = ["${docker_network.postgres.id}", "${data.docker_network.bridge.id}"]
 }
 
 resource "docker_image" "postgres" {
@@ -42,4 +42,8 @@ resource "docker_image" "postgres" {
 
 data "docker_registry_image" "postgres" {
   name = "postgres:${var.postgres-version}"
+}
+
+data "docker_network" "bridge" {
+  name = "bridge"
 }
