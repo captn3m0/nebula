@@ -5,7 +5,7 @@ module "rss-bridge" {
   image = "captn3m0/rss-bridge:sec-filings"
 
   web {
-    expose = true
+    expose = "true"
     host   = "rss-bridge.${var.root-domain}"
   }
 
@@ -15,8 +15,4 @@ module "rss-bridge" {
     container_path = "/app/public/whitelist.txt"
     host_path      = "/mnt/xwing/config/rss-bridge/whitelist.txt"
   }]
-}
-
-data "docker_network" "bridge" {
-  name = "bridge"
 }
