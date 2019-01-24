@@ -238,7 +238,7 @@ ENABLE_OPENID_SIGNUP = true
 
 [metrics]
 ; Enables metrics endpoint. True or false; default is false.
-ENABLED = false
+ENABLED = true
 ; If you want to add authorization, specify a token here
 ; TODO
 TOKEN =
