@@ -10,16 +10,16 @@ resource "docker_container" "bootkube" {
   # bootstrap manifests
 
   upload {
-    content = "${file("${var.asset-dir}/bootstra-manifests/bootstrap-apiserver.yaml")}"
-    file    = "/home/.bootkube/bootstra-manifests/bootstrap-apiserver.yaml"
+    content = "${file("${var.asset-dir}/bootstrap-manifests/bootstrap-apiserver.yaml")}"
+    file    = "/home/.bootkube/bootstrap-manifests/bootstrap-apiserver.yaml"
   }
   upload {
-    content = "${file("${var.asset-dir}/bootstra-manifests/bootstrap-controller-manager.yaml")}"
-    file    = "/home/.bootkube/bootstra-manifests/bootstrap-controller-manager.yaml"
+    content = "${file("${var.asset-dir}/bootstrap-manifests/bootstrap-controller-manager.yaml")}"
+    file    = "/home/.bootkube/bootstrap-manifests/bootstrap-controller-manager.yaml"
   }
   upload {
-    content = "${file("${var.asset-dir}/bootstra-manifests/bootstrap-scheduler.yaml")}"
-    file    = "/home/.bootkube/bootstra-manifests/bootstrap-scheduler.yaml"
+    content = "${file("${var.asset-dir}/bootstrap-manifests/bootstrap-scheduler.yaml")}"
+    file    = "/home/.bootkube/bootstrap-manifests/bootstrap-scheduler.yaml"
   }
   # Cluster Networking
   upload {
@@ -39,7 +39,7 @@ resource "docker_container" "bootkube" {
     file    = "/home/.bootkube/manifests-networking/daemonset.yaml"
   }
   upload {
-    content = "${file("${var.asset-dir}/manifests-networkingservice-account.yaml")}"
+    content = "${file("${var.asset-dir}/manifests-networking/service-account.yaml")}"
     file    = "/home/.bootkube/manifests-networking/service-account.yaml"
   }
   # TLS
@@ -81,6 +81,12 @@ resource "docker_container" "bootkube" {
   upload {
     content = "${var.assets["kubeconfig-kubelet"]}"
     file    = "/home/.bootkube/auth/kubeconfig-kubelet"
+  }
+  # TODO: Move to a module read instead of file
+  # auth/kubeconfig
+  upload {
+    file    = "/home/.bootkube/auth/kubeconfig"
+    content = "${file("${var.asset-dir}/auth/kubeconfig")}"
   }
   # Manifests Directory
   upload {

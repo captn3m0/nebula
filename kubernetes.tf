@@ -46,14 +46,19 @@ module "bootkube-start" {
   asset-dir = "${path.root}/k8s"
 
   assets = {
+    kubeconfig         = "${module.bootkube.kubeconfig-kubelet}"
+    ca_cert            = "${base64decode(module.bootkube.ca_cert)}"
+    kubelet_cert       = "${base64decode(module.bootkube.kubelet_cert)}"
+    kubelet_key        = "${base64decode(module.bootkube.kubelet_key)}"
     kubeconfig-kubelet = "${module.bootkube.kubeconfig-kubelet}"
-    etcd_ca_cert       = "${module.bootkube.etcd_ca_cert}"
-    etcd_client_cert   = "${module.bootkube.etcd_client_cert}"
-    etcd_client_key    = "${module.bootkube.etcd_client_key}"
-    etcd_server_cert   = "${module.bootkube.etcd_server_cert}"
-    etcd_server_key    = "${module.bootkube.etcd_server_key}"
-    etcd_peer_cert     = "${module.bootkube.etcd_peer_cert}"
-    etcd_peer_key      = "${module.bootkube.etcd_peer_key}"
+
+    # etcd_ca_cert       = "${module.bootkube.etcd_ca_cert}"
+    # etcd_client_cert   = "${module.bootkube.etcd_client_cert}"
+    # etcd_client_key    = "${module.bootkube.etcd_client_key}"
+    # etcd_server_cert   = "${module.bootkube.etcd_server_cert}"
+    # etcd_server_key    = "${module.bootkube.etcd_server_key}"
+    # etcd_peer_cert     = "${module.bootkube.etcd_peer_cert}"
+    # etcd_peer_key      = "${module.bootkube.etcd_peer_key}"
   }
 
   providers = {
