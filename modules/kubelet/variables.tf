@@ -27,3 +27,7 @@ variable "dns_ip" {
 variable "k8s_host" {
   description = "kubenetes hostname"
 }
+
+variable "assets" {
+  type = "map"
+}

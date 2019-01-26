@@ -3,24 +3,20 @@ resource "docker_container" "kubelet" {
   image = "${docker_image.image.latest}"
   name  = "kubelet-static"
 
-  volumes {
-    container_path = "/etc/kubernetes"
-    host_path      = "/etc/kubernetes"
+  upload {
+    file    = "/etc/kubernetes/kubeconfig"
+    content = "${var.assets["kubeconfig"]}"
   }
 
-  volumes {
-    container_path = "/etc/kubernetes/kubeconfig"
-    host_path      = "/etc/kube-assets/auth/kubeconfig-kubelet"
+  upload {
+    file    = "/etc/kubernetes/ca.crt"
+    content = "${var.assets["ca_cert"]}"
   }
 
-  volumes {
-    container_path = "/etc/kubernetes/kubeconfig-admin"
-    host_path      = "/etc/kube-assets/auth/kubeconfig"
-  }
-
-  volumes {
-    container_path = "/etc/kubernetes/ca.crt"
-    host_path      = "/etc/kube-assets/tls/ca.crt"
+  # Make sure that the manifests directory exists
+  upload {
+    file    = "/etc/kubernetes/manifests/.empty"
+    content = ""
   }
 
   volumes {
@@ -38,6 +34,11 @@ resource "docker_container" "kubelet" {
   volumes {
     container_path = "/var/lib/docker"
     host_path      = "/var/lib/docker"
+  }
+
+  volumes {
+    container_path = "/etc/kubernetes"
+    host_path      = "/etc/kubernetes"
   }
 
   volumes {
@@ -86,6 +87,10 @@ resource "docker_container" "kubelet" {
     container_path = "/var/lib/cni"
     host_path      = "/var/lib/cni"
   }
+  #
+  # "There is no war within the container. Here we are safe. Here we are free."
+  # - Docker Li agent brainwashing Nemo
+  #
   command = [
     "kubelet",
     "--allow-privileged",

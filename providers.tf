@@ -5,7 +5,7 @@ provider "docker" {
 }
 
 provider "docker" {
-  host      = "tcp://dovpn.vpn.bb8.fun:2376"
+  host      = "tcp://docker.dovpn.bb8.fun:2376"
   cert_path = "./secrets/sydney"
   alias     = "sydney"
   version   = "~> 2.0.0"

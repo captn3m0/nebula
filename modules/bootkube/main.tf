@@ -1,52 +1,193 @@
-resource "docker_container" "render" {
-  count = "${var.mode == "render" ? 1 : 0}"
+resource "docker_container" "bootkube" {
   image = "${docker_image.image.latest}"
-  name  = "bootkube-render"
+  name  = "bootkube"
 
   volumes {
-    container_path = "/home/.bootkube"
-    volume_name    = "/etc/kube-assets"
+    container_path = "/etc/kubernetes/manifests"
+    host_path      = "/etc/kubernetes/manifests"
   }
 
-  command = [
-    "/bootkube",
-    "render",
-    "--etcd-servers=https://${var.host_ip}:2379",
-    "--asset-dir=/home/.bootkube",
-    "--api-servers=https://${var.k8s_host}:${var.host_port},https://${var.host_ip}:${var.host_port}",
-    "--pod-cidr=${var.pod_cidr}",
-    "--network-provider=${var.network_provider}",
-  ]
+  # bootstrap manifests
 
-  network_mode    = "host"
-  restart         = "on-failure"
-  max_retry_count = 5
-}
-
-resource "docker_container" "start" {
-  count = "${var.mode == "start" ? 1 : 0}"
-  image = "${docker_image.image.latest}"
-  name  = "bootkube-${var.mode}"
-
-  volumes {
-    container_path = "/home/.bootkube"
-    volume_name    = "/etc/kube-assets"
-    read_only      = true
+  upload {
+    content = "${file("${var.asset-dir}/bootstra-manifests/bootstrap-apiserver.yaml")}"
+    file    = "/home/.bootkube/bootstra-manifests/bootstrap-apiserver.yaml"
   }
-
-  volumes {
-    container_path = "/etc/kubernetes"
-    host_path      = "/etc/kubernetes"
+  upload {
+    content = "${file("${var.asset-dir}/bootstra-manifests/bootstrap-controller-manager.yaml")}"
+    file    = "/home/.bootkube/bootstra-manifests/bootstrap-controller-manager.yaml"
   }
-
-  # "There is no war within the container. Here we are safe. Here we are free."
-  # - Docker Li agent brainwashing Nemo
+  upload {
+    content = "${file("${var.asset-dir}/bootstra-manifests/bootstrap-scheduler.yaml")}"
+    file    = "/home/.bootkube/bootstra-manifests/bootstrap-scheduler.yaml"
+  }
+  # Cluster Networking
+  upload {
+    content = "${file("${var.asset-dir}/manifests-networking/cluster-role-binding.yaml")}"
+    file    = "/home/.bootkube/manifests-networking/cluster-role-binding.yaml"
+  }
+  upload {
+    content = "${file("${var.asset-dir}/manifests-networking/cluster-role.yaml")}"
+    file    = "/home/.bootkube/manifests-networking/cluster-role.yaml"
+  }
+  upload {
+    content = "${file("${var.asset-dir}/manifests-networking/config.yaml")}"
+    file    = "/home/.bootkube/manifests-networking/config.yaml"
+  }
+  upload {
+    content = "${file("${var.asset-dir}/manifests-networking/daemonset.yaml")}"
+    file    = "/home/.bootkube/manifests-networking/daemonset.yaml"
+  }
+  upload {
+    content = "${file("${var.asset-dir}/manifests-networkingservice-account.yaml")}"
+    file    = "/home/.bootkube/manifests-networking/service-account.yaml"
+  }
+  # TLS
+  upload {
+    file    = "/home/.bootkube/tls/service-account.pub"
+    content = "${file("${var.asset-dir}/tls/service-account.pub")}"
+  }
+  upload {
+    content = "${file("${var.asset-dir}/tls/ca.key")}"
+    file    = "/home/.bootkube/tls/ca.key"
+  }
+  upload {
+    content = "${file("${var.asset-dir}/tls/ca.crt")}"
+    file    = "/home/.bootkube/tls/ca.crt"
+  }
+  upload {
+    content = "${file("${var.asset-dir}/tls/apiserver.key")}"
+    file    = "/home/.bootkube/tls/apiserver.key"
+  }
+  upload {
+    content = "${file("${var.asset-dir}/tls/apiserver.crt")}"
+    file    = "/home/.bootkube/tls/apiserver.crt"
+  }
+  upload {
+    content = "${var.assets["kubelet_cert"]}"
+    file    = "/home/.bootkube/tls/kubelet.crt"
+  }
+  upload {
+    content = "${var.assets["kubelet_key"]}"
+    file    = "/home/.bootkube/tls/kubelet.key"
+  }
+  # TODO: Generate Filenames Dynamically
+  # TODO: Check if this is needed at all
+  upload {
+    content = "${file("${var.asset-dir}/auth/k8s.bb8.fun-config")}"
+    file    = "/home/.bootkube/auth/k8s.bb8.fun-config"
+  }
+  # auth/kubeconfig-kubelet
+  upload {
+    content = "${var.assets["kubeconfig-kubelet"]}"
+    file    = "/home/.bootkube/auth/kubeconfig-kubelet"
+  }
+  # Manifests Directory
+  upload {
+    file    = "/home/.bootkube/manifests/kube-apiserver-role-binding.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-apiserver-role-binding.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-apiserver-sa.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-apiserver-sa.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-apiserver-secret.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-apiserver-secret.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-apiserver.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-apiserver.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kubeconfig-in-cluster.yaml"
+    content = "${file("${var.asset-dir}/manifests/kubeconfig-in-cluster.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-controller-manager-disruption.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-controller-manager-disruption.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-controller-manager-role-binding.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-controller-manager-role-binding.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-controller-manager-sa.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-controller-manager-sa.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-controller-manager-secret.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-controller-manager-secret.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-controller-manager.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-controller-manager.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kubelet-nodes-cluster-role-binding.yaml"
+    content = "${file("${var.asset-dir}/manifests/kubelet-nodes-cluster-role-binding.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-proxy-role-binding.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-proxy-role-binding.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-proxy-sa.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-proxy-sa.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-proxy.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-proxy.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-scheduler-disruption.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-scheduler-disruption.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-scheduler-role-binding.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-scheduler-role-binding.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-scheduler-sa.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-scheduler-sa.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-scheduler-volume-scheduler-role-binding.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-scheduler-volume-scheduler-role-binding.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/kube-scheduler.yaml"
+    content = "${file("${var.asset-dir}/manifests/kube-scheduler.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/pod-checkpointer-cluster-role-binding.yaml"
+    content = "${file("${var.asset-dir}/manifests/pod-checkpointer-cluster-role-binding.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/pod-checkpointer-cluster-role.yaml"
+    content = "${file("${var.asset-dir}/manifests/pod-checkpointer-cluster-role.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/pod-checkpointer-role-binding.yaml"
+    content = "${file("${var.asset-dir}/manifests/pod-checkpointer-role-binding.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/pod-checkpointer-role.yaml"
+    content = "${file("${var.asset-dir}/manifests/pod-checkpointer-role.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/pod-checkpointer-sa.yaml"
+    content = "${file("${var.asset-dir}/manifests/pod-checkpointer-sa.yaml")}"
+  }
+  upload {
+    file    = "/home/.bootkube/manifests/pod-checkpointer.yaml"
+    content = "${file("${var.asset-dir}/manifests/pod-checkpointer.yaml")}"
+  }
   command = [
     "/bootkube",
     "start",
     "--asset-dir=/home/.bootkube",
   ]
-
   network_mode    = "host"
   restart         = "on-failure"
   max_retry_count = 5

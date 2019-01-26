@@ -33,3 +33,9 @@ variable "depends_on" {
 
   type = "list"
 }
+
+variable "assets" {
+  type = "map"
+}
+
+variable "asset-dir" {}
