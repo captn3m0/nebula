@@ -10,7 +10,8 @@ module "sonarr-container" {
   }
 
   resource {
-    memory = 512
+    memory      = 512
+    memory_swap = 1024
   }
 
   volumes = [

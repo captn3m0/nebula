@@ -92,3 +92,5 @@ variable "outline_slack_key" {}
 variable "outline_slack_secret" {}
 variable "outline_slack_app_id" {}
 variable "outline_slack_verification_token" {}
+
+variable "syncserver_secret" {}
