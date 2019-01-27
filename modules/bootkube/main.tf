@@ -38,23 +38,23 @@ resource "docker_container" "bootkube" {
   # Cluster Networking
   upload {
     content = "${file("${var.asset-dir}/manifests-networking/cluster-role-binding.yaml")}"
-    file    = "/home/.bootkube/manifests-networking/cluster-role-binding.yaml"
+    file    = "/home/.bootkube/manifests/networking-cluster-role-binding.yaml"
   }
   upload {
     content = "${file("${var.asset-dir}/manifests-networking/cluster-role.yaml")}"
-    file    = "/home/.bootkube/manifests-networking/cluster-role.yaml"
+    file    = "/home/.bootkube/manifests/networking-cluster-role.yaml"
   }
   upload {
     content = "${file("${var.asset-dir}/manifests-networking/config.yaml")}"
-    file    = "/home/.bootkube/manifests-networking/config.yaml"
+    file    = "/home/.bootkube/manifests/networking-config.yaml"
   }
   upload {
     content = "${file("${var.asset-dir}/manifests-networking/daemonset.yaml")}"
-    file    = "/home/.bootkube/manifests-networking/daemonset.yaml"
+    file    = "/home/.bootkube/manifests/networking-daemonset.yaml"
   }
   upload {
     content = "${file("${var.asset-dir}/manifests-networking/service-account.yaml")}"
-    file    = "/home/.bootkube/manifests-networking/service-account.yaml"
+    file    = "/home/.bootkube/manifests/networking-service-account.yaml"
   }
   # TLS
   upload {

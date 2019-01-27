@@ -26,58 +26,68 @@ resource "docker_container" "kubelet" {
   }
 
   volumes {
-    container_path = "/usr/share/ca-certificates"
-    host_path      = "/usr/share/ca-certificates"
+    container_path = "/sys"
+    host_path      = "/sys"
     read_only      = true
   }
 
   volumes {
+    container_path = "/dev"
+    host_path      = "/dev"
+  }
+
+  # volumes {
+  #   container_path = "/usr"
+  #   host_path      = "/usr"
+  # }
+
+  # volumes {
+  #   container_path = "/lib64"
+  #   host_path      = "/lib64"
+  # }
+  volumes {
+    container_path = "/usr/share/ca-certificates"
+    host_path      = "/usr/share/ca-certificates"
+    read_only      = true
+  }
+  volumes {
     container_path = "/var/lib/docker"
     host_path      = "/var/lib/docker"
   }
-
   volumes {
     container_path = "/etc/kubernetes"
     host_path      = "/etc/kubernetes"
   }
-
   volumes {
     container_path = "/var/lib/kubelet"
     host_path      = "/var/lib/kubelet"
   }
-
   volumes {
     container_path = "/var/log"
     host_path      = "/var/log"
   }
-
   volumes {
     container_path = "/run"
     host_path      = "/run"
   }
-
   volumes {
     container_path = "/lib/modules"
     host_path      = "/lib/modules"
     read_only      = true
   }
-
   volumes {
     container_path = "/etc/os-release"
     host_path      = "/usr/lib/os-release"
     read_only      = true
   }
-
   volumes {
     container_path = "/etc/machine-id"
     host_path      = "/etc/machine-id"
     read_only      = true
   }
-
   volumes {
     container_path = "/rootfs"
     host_path      = "/"
-    read_only      = true
     read_only      = true
   }
 
@@ -89,7 +99,7 @@ resource "docker_container" "kubelet" {
   }
   volumes {
     container_path = "/etc/cni/net.d"
-    host_path      = "/etc/cni/net.d"
+    host_path      = "/etc/kubernetes/cni/net.d"
   }
   #
   # "There is no war within the container. Here we are safe. Here we are free."
@@ -101,10 +111,8 @@ resource "docker_container" "kubelet" {
     "--anonymous-auth=false",
     "--authentication-token-webhook",
     "--authorization-mode=Webhook",
-
-    # "--cert-dir=/var/lib/kubelet/pki",
+    "--cert-dir=/var/lib/kubelet/pki",
     "--client-ca-file=/etc/kubernetes/ca.crt",
-
     "--cluster_dns=${var.dns_ip}",
     "--cluster_domain=${var.k8s_host}",
 
