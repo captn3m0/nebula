@@ -5,7 +5,11 @@ variable "version" {
 
 variable "node_label" {
   description = "kubelet version"
-  default     = "node.kubernetes.io/master"
+  default     = "node-role.kubernetes.io/master"
+}
+
+variable "node_taints" {
+  default = "node-role.kubernetes.io/master=:NoSchedule"
 }
 
 variable "depends_on" {

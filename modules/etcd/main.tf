@@ -46,7 +46,7 @@ resource "docker_container" "etcd" {
 
   env = [
     "ETCD_NAME=${var.node_name}",
-    "ETCD_DATA_DIR=/var/lib/etcd",
+    "ETCD_DATA_DIR=/etcd-data",
     "ETCD_ADVERTISE_CLIENT_URLS=https://${var.domain}:2379",
     "ETCD_INITIAL_ADVERTISE_PEER_URLS=https://${var.domain}:2380",
     "ETCD_LISTEN_CLIENT_URLS=https://0.0.0.0:2379",

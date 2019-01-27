@@ -101,8 +101,10 @@ resource "docker_container" "kubelet" {
     "--anonymous-auth=false",
     "--authentication-token-webhook",
     "--authorization-mode=Webhook",
-    "--cert-dir=/var/lib/kubelet/pki",
+
+    # "--cert-dir=/var/lib/kubelet/pki",
     "--client-ca-file=/etc/kubernetes/ca.crt",
+
     "--cluster_dns=${var.dns_ip}",
     "--cluster_domain=${var.k8s_host}",
 
@@ -117,6 +119,8 @@ resource "docker_container" "kubelet" {
     "--node-labels=node-role.kubernetes.io/master",
     "--pod-manifest-path=/etc/kubernetes/manifests",
     "--read-only-port=0",
+    "--register-with-taints=${var.node_taints}",
+    "--node-labels=${var.node_label}",
     "--rotate-certificates",
   ]
   host {
@@ -125,8 +129,6 @@ resource "docker_container" "kubelet" {
   }
 
   # TODO
-  # "--register-with-taints=${var.node_taints}",
-  # "--node-labels=${var.node_label}",
 
   network_mode = "host"
   privileged   = true

@@ -62,6 +62,10 @@ resource "docker_container" "bootkube" {
     content = "${file("${var.asset-dir}/tls/service-account.pub")}"
   }
   upload {
+    file    = "/home/.bootkube/tls/service-account.key"
+    content = "${file("${var.asset-dir}/tls/service-account.key")}"
+  }
+  upload {
     content = "${file("${var.asset-dir}/tls/ca.key")}"
     file    = "/home/.bootkube/tls/ca.key"
   }
