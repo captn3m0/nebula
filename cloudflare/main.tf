@@ -124,10 +124,10 @@ resource "cloudflare_record" "mailgun-mxb" {
   priority = 20
 }
 
-resource "cloudflare_record" "k8s-talk" {
+resource "cloudflare_record" "k8s" {
   domain = "${var.domain}"
   name   = "k8s"
-  value  = "lightsaber.captnemo.in"
-  type   = "CNAME"
+  value  = "10.8.0.1"
+  type   = "A"
   ttl    = 3600
 }

@@ -3,8 +3,8 @@ resource "docker_container" "bootkube" {
   name  = "bootkube"
 
   volumes {
-    container_path = "/etc/kubernetes/manifests"
-    host_path      = "/etc/kubernetes/manifests"
+    container_path = "/etc/kubernetes"
+    host_path      = "/etc/kubernetes"
   }
 
   # bootstrap manifests
@@ -20,6 +20,20 @@ resource "docker_container" "bootkube" {
   upload {
     content = "${file("${var.asset-dir}/bootstrap-manifests/bootstrap-scheduler.yaml")}"
     file    = "/home/.bootkube/bootstrap-manifests/bootstrap-scheduler.yaml"
+  }
+  # etcd secrets
+  #
+  upload {
+    file    = "/home/.bootkube/tls/etcd-client-ca.crt"
+    content = "${file("${var.asset-dir}/tls/etcd-client-ca.crt")}"
+  }
+  upload {
+    file    = "/home/.bootkube/tls/etcd-client.crt"
+    content = "${file("${var.asset-dir}/tls/etcd-client.crt")}"
+  }
+  upload {
+    file    = "/home/.bootkube/tls/etcd-client.key"
+    content = "${file("${var.asset-dir}/tls/etcd-client.key")}"
   }
   # Cluster Networking
   upload {

@@ -70,7 +70,7 @@ module "bootkube" {
   source = "git::https://github.com/poseidon/terraform-render-bootkube.git?ref=bcbdddd8d07c99ab88b2e9ebfb662de4c104de0a"
 
   cluster_name          = "k8s.bb8.fun"
-  api_servers           = ["10.8.0.1", "k8s.bb8.fun"]
+  api_servers           = ["k8s.bb8.fun"]
   cluster_domain_suffix = "k8s.bb8.fun"
   etcd_servers          = ["etcd.bb8.fun"]
   asset_dir             = "./k8s"

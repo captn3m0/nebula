@@ -84,8 +84,12 @@ resource "docker_container" "kubelet" {
   // Deviates from kubelet-wrapper
 
   volumes {
-    container_path = "/var/lib/cni"
-    host_path      = "/var/lib/cni"
+    container_path = "/opt/cni/bin"
+    host_path      = "/opt/cni/bin"
+  }
+  volumes {
+    container_path = "/etc/cni/net.d"
+    host_path      = "/etc/cni/net.d"
   }
   #
   # "There is no war within the container. Here we are safe. Here we are free."
