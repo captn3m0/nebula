@@ -35,5 +35,5 @@ module "sonarr-container" {
     "TZ=Asia/Kolkata",
   ]
 
-  networks = "${list(docker_network.media.id)}"
+  networks = "${list(docker_network.media.id, data.docker_network.bridge.id)}"
 }

@@ -3,6 +3,8 @@ module "jackett" {
   source = "../modules/container"
   image  = "linuxserver/jackett:latest"
 
+  networks = "${list(data.docker_network.bridge.id)}"
+
   web {
     expose = true
     port   = 9117
@@ -17,7 +19,8 @@ module "jackett" {
   }]
 
   resource {
-    memory = "256"
+    memory      = "256"
+    memory_swap = "512"
   }
 
   env = [

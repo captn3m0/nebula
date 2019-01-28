@@ -3,6 +3,8 @@ module "radarr" {
   source = "../modules/container"
   image  = "linuxserver/radarr:latest"
 
+  networks = "${list(docker_network.media.id, data.docker_network.bridge.id)}"
+
   web {
     expose = true
     port   = 7878
