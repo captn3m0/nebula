@@ -22,8 +22,6 @@ variable "service_cidr" {
   default = "10.96.0.0/16"
 }
 
-variable "mode" {}
-
 variable "version" {
   default = "0.14.0"
 }

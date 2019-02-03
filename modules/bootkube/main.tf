@@ -89,12 +89,6 @@ resource "docker_container" "bootkube" {
     content = "${var.assets["kubelet_key"]}"
     file    = "/home/.bootkube/tls/kubelet.key"
   }
-  # TODO: Generate Filenames Dynamically
-  # TODO: Check if this is needed at all
-  upload {
-    content = "${file("${var.asset-dir}/auth/k8s.bb8.fun-config")}"
-    file    = "/home/.bootkube/auth/k8s.bb8.fun-config"
-  }
   # auth/kubeconfig-kubelet
   upload {
     content = "${var.assets["kubeconfig-kubelet"]}"

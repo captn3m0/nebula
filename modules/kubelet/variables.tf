@@ -9,7 +9,8 @@ variable "node_label" {
 }
 
 variable "node_taints" {
-  default = "node-role.kubernetes.io/master=:NoSchedule"
+  description = "node taints"
+  default     = "node-role.kubernetes.io/master=:NoSchedule"
 }
 
 variable "depends_on" {

@@ -30,4 +30,5 @@ variable "version" {
 
 variable "host_bind_ip" {
   description = "IP address to expose the ports on host"
+  default     = "0.0.0.0"
 }

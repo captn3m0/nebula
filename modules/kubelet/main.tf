@@ -1,15 +1,15 @@
 // This is primarily based on https://github.com/coreos/coreos-overlay/blob/master/app-admin/kubelet-wrapper/files/kubelet-wrapper
 resource "docker_container" "kubelet" {
   image = "${docker_image.image.latest}"
-  name  = "kubelet-static"
+  name  = "kubelet"
 
   upload {
-    file    = "/etc/kubernetes/kubeconfig"
+    file    = "/etc/kubeconfig"
     content = "${var.assets["kubeconfig"]}"
   }
 
   upload {
-    file    = "/etc/kubernetes/ca.crt"
+    file    = "/etc/kubeca.crt"
     content = "${var.assets["ca_cert"]}"
   }
 
@@ -39,14 +39,6 @@ resource "docker_container" "kubelet" {
   volumes {
     container_path = "/var/lib/docker"
     host_path      = "/var/lib/docker"
-  }
-
-  // TODO: Test with this
-  // It technically only needs the /etc/kubernetes/manifests
-  // Make sure that the manifests directory exists
-  upload {
-    file    = "/etc/kubernetes/manifests/.empty"
-    content = ""
   }
 
   volumes {
@@ -94,14 +86,6 @@ resource "docker_container" "kubelet" {
     read_only      = true
   }
 
-  // Don't think this is needed anymore
-
-  volumes {
-    container_path = "/rootfs"
-    host_path      = "/"
-    read_only      = true
-  }
-
   // Deviates from kubelet-wrapper
 
   volumes {
@@ -123,21 +107,19 @@ resource "docker_container" "kubelet" {
     "--anonymous-auth=false",
     "--authentication-token-webhook",
     "--authorization-mode=Webhook",
-    "--cert-dir=/var/lib/kubelet/pki",
-    "--client-ca-file=/etc/kubernetes/ca.crt",
+    "--client-ca-file=/etc/kubeca.crt",
     "--cluster_dns=${var.dns_ip}",
     "--cluster_domain=${var.k8s_host}",
     "--exit-on-lock-contention=true",
     "--hostname-override=${var.host_ip}",
-    "--kubeconfig=/etc/kubernetes/kubeconfig",
+    "--kubeconfig=/etc/kubeconfig",
     "--lock-file=/var/run/lock/kubelet.lock",
     "--minimum-container-ttl-duration=10m0s",
     "--network-plugin=cni",
-    "--node-labels=node-role.kubernetes.io/master",
+    "--node-labels=${var.node_label}",
     "--pod-manifest-path=/etc/kubernetes/manifests",
     "--read-only-port=0",
     "--register-with-taints=${var.node_taints}",
-    "--node-labels=${var.node_label}",
     "--rotate-certificates",
   ]
   host {
