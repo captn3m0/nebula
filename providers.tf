@@ -4,20 +4,6 @@ provider "docker" {
   version   = "~> 2.0.0"
 }
 
-provider "docker" {
-  host      = "tcp://docker.dovpn.bb8.fun:2376"
-  cert_path = "./secrets/sydney"
-  alias     = "sydney"
-  version   = "~> 2.0.0"
-}
-
-provider "docker" {
-  host      = "tcp://docker.captnemo.in:4243"
-  cert_path = "./secrets/nautilus"
-  alias     = "nautilus"
-  version   = "~> 2.0.0"
-}
-
 provider "kubernetes" {
   version = "1.3.0-custom"
   host    = "https://k8s.bb8.fun:6443"
