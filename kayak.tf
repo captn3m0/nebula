@@ -27,5 +27,21 @@ resource "cloudflare_record" "kayak-docker" {
   value  = "${module.kayak.droplet_ipv4}"
   domain = "${var.root-domain}"
   type   = "A"
-  ttl    = 3600
+  ttl    = 120
+}
+
+resource "cloudflare_record" "kayak" {
+  name   = "kayak"
+  value  = "${module.kayak.droplet_ipv4}"
+  domain = "${var.root-domain}"
+  type   = "A"
+  ttl    = 120
+}
+
+resource "cloudflare_record" "kayak-etcd" {
+  name   = "etcd.kayak"
+  value  = "${module.kayak.droplet_ipv4_private}"
+  domain = "${var.root-domain}"
+  type   = "A"
+  ttl    = 120
 }
