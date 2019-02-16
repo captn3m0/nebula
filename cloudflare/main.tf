@@ -64,6 +64,32 @@ resource "cloudflare_record" "vpn_wildcard" {
   ttl    = 3600
 }
 
+/**
+ *   vpn.bb8.fun
+ * *.vpn.bb8.fun
+ */
+resource "cloudflare_record" "dovpn" {
+  domain = "${var.domain}"
+  name   = "dovpn"
+  value  = "${var.ips["dovpn"]}"
+  type   = "A"
+}
+
+resource "cloudflare_record" "dovpn_wildcard" {
+  domain = "${var.domain}"
+  name   = "*.dovpn.${var.domain}"
+  value  = "${cloudflare_record.dovpn.hostname}"
+  type   = "CNAME"
+  ttl    = 3600
+}
+
+resource "cloudflare_record" "etcd" {
+  domain = "${var.domain}"
+  name   = "etcd"
+  value  = "${var.ips["dovpn"]}"
+  type   = "A"
+}
+
 ########################
 ## Mailgun Mailing Lists
 ########################
@@ -98,10 +124,10 @@ resource "cloudflare_record" "mailgun-mxb" {
   priority = 20
 }
 
-resource "cloudflare_record" "k8s-talk" {
+resource "cloudflare_record" "k8s" {
   domain = "${var.domain}"
   name   = "k8s"
-  value  = "lightsaber.captnemo.in"
-  type   = "CNAME"
+  value  = "10.8.0.1"
+  type   = "A"
   ttl    = 3600
 }

@@ -16,8 +16,6 @@ module "radarr" {
     memory_swap = 1024
   }
 
-  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
-
   volumes = [
     {
       host_path      = "/mnt/xwing/config/radarr"

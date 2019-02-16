@@ -11,8 +11,6 @@ module "jackett" {
     host   = "jackett.${var.domain}"
   }
 
-  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
-
   volumes = [{
     host_path      = "/mnt/xwing/config/jackett"
     container_path = "/config"

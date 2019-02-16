@@ -88,3 +88,9 @@ variable "volumes" {
   type        = "list"
   default     = []
 }
+
+variable "devices" {
+  description = "volumes"
+  type        = "list"
+  default     = []
+}

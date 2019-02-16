@@ -4,7 +4,7 @@ module "airsonic" {
   name   = "airsonic"
 
   resource {
-    memory = "256"
+    memory = "1024"
   }
 
   web {
@@ -13,14 +13,17 @@ module "airsonic" {
     expose = true
   }
 
-  user = "lounge:audio"
-
   env = [
     "PUID=1004",
     "PGID=1003",
     "TZ=Asia/Kolkata",
     "JAVA_OPTS=-Xmx512m -Dserver.use-forward-headers=true -Dserver.context-path=/",
   ]
+
+  devices = [{
+    host_path      = "/dev/snd"
+    container_path = "/dev/snd"
+  }]
 
   # files = [
   #   "/usr/lib/jvm/java-1.8-openjdk/jre/lib/airsonic.properties",
@@ -50,15 +53,22 @@ module "airsonic" {
       host_path      = "/mnt/xwing/config/airsonic/podcasts"
       container_path = "/podcasts"
     },
+    {
+      host_path      = "/mnt/xwing/config/airsonic/jre"
+      container_path = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/"
+    },
   ]
 }
 
-data "template_file" "airsonic-properties-file" {
-  template = "${file("${path.module}/conf/airsonic.properties.tpl")}"
+# data "template_file" "airsonic-properties-file" {
+#   template = "${file("${path.module}/conf/airsonic.properties.tpl")}"
 
-  vars {
-    smtp-password = "${var.airsonic-smtp-password}"
 
-    # db-password   = "${var.airsonic-db-password}"
-  }
-}
+#   vars {
+#     smtp-password = "${var.airsonic-smtp-password}"
+
+
+#     # db-password   = "${var.airsonic-db-password}"
+#   }
+# }
+

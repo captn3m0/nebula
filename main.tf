@@ -67,12 +67,11 @@ module "resilio" {
 }
 
 module "media" {
-  source                 = "media"
-  domain                 = "bb8.fun"
-  traefik-labels         = "${var.traefik-common-labels}"
-  airsonic-smtp-password = "${var.airsonic-smtp-password}"
-  ips                    = "${var.ips}"
-  traefik-network-id     = "${module.docker.traefik-network-id}"
+  source             = "media"
+  domain             = "bb8.fun"
+  traefik-labels     = "${var.traefik-common-labels}"
+  ips                = "${var.ips}"
+  traefik-network-id = "${module.docker.traefik-network-id}"
 }
 
 module "monitoring" {
