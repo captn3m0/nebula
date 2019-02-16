@@ -77,6 +77,10 @@ variable "auth_header" {
   default = "tatooine:$2y$05$iPbatint3Gulbs6kUtyALO9Yq5sBJ..aiF82bcIziH4ytz9nFoPr6,reddit:$2y$05$ghKxSydYCpAT8r2VVMDmWO/BBecghGfLsRJUkr3ii7XxPyxBqp8Oy"
 }
 
+variable "network_mode" {
+  default = "bridge"
+}
+
 variable "resource" {
   description = "Resource usage for the container"
 
@@ -89,8 +93,20 @@ variable "volumes" {
   default     = []
 }
 
+variable "capabilities" {
+  description = "capabilities"
+  type        = "list"
+  default     = []
+}
+
 variable "devices" {
-  description = "volumes"
+  description = "devices"
+  type        = "list"
+  default     = []
+}
+
+variable "dns" {
+  description = "dns"
   type        = "list"
   default     = []
 }

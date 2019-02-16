@@ -95,3 +95,4 @@ variable "outline_slack_app_id" {}
 variable "outline_slack_verification_token" {}
 
 variable "syncserver_secret" {}
+variable "pihole_password" {}

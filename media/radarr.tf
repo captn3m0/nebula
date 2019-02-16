@@ -5,6 +5,10 @@ module "radarr" {
 
   networks = "${list(docker_network.media.id, data.docker_network.bridge.id)}"
 
+  // TODO: Create a new separate network for DNS
+  // and use that instead
+  dns = ["192.168.1.111"]
+
   web {
     expose = true
     port   = 7878

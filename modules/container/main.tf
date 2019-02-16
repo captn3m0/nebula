@@ -21,7 +21,9 @@ resource "docker_container" "container" {
   entrypoint = "${var.entrypoint}"
   user       = "${var.user}"
 
-  network_mode = "bridge"
+  network_mode = "${var.network_mode}"
+
+  capabilities = ["${var.capabilities}"]
 
   // Only attach the traefik network if
   // service is exposed to the web
@@ -32,6 +34,8 @@ resource "docker_container" "container" {
 
   volumes = ["${var.volumes}"]
   devices = ["${var.devices}"]
+
+  dns = ["${var.dns}"]
 
   # Look at this monstrosity
   # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618
