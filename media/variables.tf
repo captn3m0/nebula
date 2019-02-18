@@ -18,3 +18,4 @@ variable "ips" {
 }
 
 variable "traefik-network-id" {}
+variable "airsonic-smtp-password" {}

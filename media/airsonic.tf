@@ -4,7 +4,8 @@ module "airsonic" {
   name   = "airsonic"
 
   resource {
-    memory = "1024"
+    memory      = "1024"
+    memory_swap = "1024"
   }
 
   web {
@@ -25,16 +26,16 @@ module "airsonic" {
     container_path = "/dev/snd"
   }]
 
-  # files = [
-  #   "/usr/lib/jvm/java-1.8-openjdk/jre/lib/airsonic.properties",
-  #   "/usr/lib/jvm/java-1.8-openjdk/jre/lib/sound.properties",
-  # ]
-
-
-  # contents = [
-  #   "${data.template_file.airsonic-properties-file.rendered}",
-  #   "${file("${path.module}/conf/airsonic.sound.properties")}",
-  # ]
+  uploads = [
+    {
+      content = "${data.template_file.airsonic-properties-file.rendered}"
+      file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/airsonic.properties"
+    },
+    {
+      content = "${file("${path.module}/conf/airsonic.sound.properties")}"
+      file    = "/usr/lib/jvm/java-1.8-openjdk/jre/lib/sound.properties"
+    },
+  ]
 
   volumes = [
     {
@@ -60,15 +61,12 @@ module "airsonic" {
   ]
 }
 
-# data "template_file" "airsonic-properties-file" {
-#   template = "${file("${path.module}/conf/airsonic.properties.tpl")}"
+data "template_file" "airsonic-properties-file" {
+  template = "${file("${path.module}/conf/airsonic.properties.tpl")}"
 
+  vars {
+    smtp-password = "${var.airsonic-smtp-password}"
 
-#   vars {
-#     smtp-password = "${var.airsonic-smtp-password}"
-
-
-#     # db-password   = "${var.airsonic-db-password}"
-#   }
-# }
-
+    # db-password   = "${var.airsonic-db-password}"
+  }
+}

@@ -23,6 +23,8 @@ resource "docker_container" "container" {
 
   network_mode = "bridge"
 
+  upload = ["${var.uploads}"]
+
   // Only attach the traefik network if
   // service is exposed to the web
   networks = ["${concat(var.networks,compact(split(",",lookup(var.web, "expose", "false") == "false" ? "" :"${data.docker_network.traefik.id}")))}"]

@@ -94,3 +94,7 @@ variable "devices" {
   type        = "list"
   default     = []
 }
+
+variable "uploads" {
+  default = []
+}
