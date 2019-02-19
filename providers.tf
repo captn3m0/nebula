@@ -5,8 +5,8 @@ provider "docker" {
 }
 
 provider "kubernetes" {
-  version = "1.3.0-custom"
-  host    = "https://k8s.bb8.fun:6443"
+  # version = "1.3.0-custom"
+  host = "https://k8s.bb8.fun:6443"
 
   config_path = "${path.root}/k8s/auth/kubeconfig"
 }

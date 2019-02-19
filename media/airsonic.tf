@@ -4,7 +4,8 @@ module "airsonic" {
   name   = "airsonic"
 
   resource {
-    memory = "1024"
+    memory      = "1024"
+    memory_swap = "1024"
   }
 
   web {
@@ -12,6 +13,8 @@ module "airsonic" {
     host   = "airsonic.bb8.fun"
     expose = true
   }
+
+  networks = "${list(docker_network.media.id, data.docker_network.bridge.id)}"
 
   env = [
     "PUID=1004",
