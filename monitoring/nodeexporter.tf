@@ -18,6 +18,12 @@ resource "docker_container" "nodeexporter" {
     read_only      = true
   }
 
+  volumes {
+    host_path      = "/mnt/xwing"
+    container_path = "/host/mnt"
+    read_only      = true
+  }
+
   command = [
     "--path.procfs=/host/proc",
     "--path.sysfs=/host/sys",

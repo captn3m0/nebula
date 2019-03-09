@@ -96,3 +96,4 @@ variable "outline_slack_verification_token" {}
 
 variable "syncserver_secret" {}
 variable "pihole_password" {}
+variable "nextcloud-db-password" {}
