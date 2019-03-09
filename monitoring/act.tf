@@ -8,7 +8,10 @@ resource "docker_container" "act-exporter" {
 
   entrypoint = ["/usr/local/bin/node", "server.js"]
 
-  networks = ["${docker_network.monitoring.id}"]
+  networks = [
+    "${data.docker_network.bridge.id}",
+    "${docker_network.monitoring.id}",
+  ]
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
