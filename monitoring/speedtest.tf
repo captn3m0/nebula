@@ -5,10 +5,14 @@ resource "docker_container" "speedtest" {
   name  = "speedtest"
   image = "${docker_image.speedtest.latest}"
 
-  networks = [
-    "${data.docker_network.bridge.id}",
-    "${docker_network.monitoring.id}",
-  ]
+  networks_advanced {
+    name    = "monitoring"
+    aliases = ["speedtest", "speedtest.docker"]
+  }
+
+  networks_advanced {
+    name = "bridge"
+  }
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

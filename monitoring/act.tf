@@ -8,10 +8,15 @@ resource "docker_container" "act-exporter" {
 
   entrypoint = ["/usr/local/bin/node", "server.js"]
 
-  networks = [
-    "${data.docker_network.bridge.id}",
-    "${docker_network.monitoring.id}",
-  ]
+  networks_advanced {
+    name    = "monitoring"
+    aliases = ["act-exporter", "act-exporter.docker"]
+  }
+
+  // So it can talk to ACT
+  networks_advanced {
+    name = "bridge"
+  }
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
