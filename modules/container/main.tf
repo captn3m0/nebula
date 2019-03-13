@@ -29,6 +29,8 @@ resource "docker_container" "container" {
   // service is exposed to the web
   networks = ["${concat(var.networks,compact(split(",",lookup(var.web, "expose", "false") == "false" ? "" :"${data.docker_network.traefik.id}")))}"]
 
+  networks_advanced = ["${var.networks_advanced}"]
+
   memory      = "${local.resource["memory"]}"
   memory_swap = "${local.resource["memory_swap"]}"
 

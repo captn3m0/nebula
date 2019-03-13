@@ -12,6 +12,12 @@ variable "ports" {
   default     = []
 }
 
+variable "networks_advanced" {
+  description = "list of networks_advanced"
+  type        = "list"
+  default     = []
+}
+
 variable "networks" {
   description = "list of networks"
   type        = "list"
