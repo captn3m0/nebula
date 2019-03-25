@@ -1,26 +1,3 @@
-variable "cloudflare_key" {
-  type        = "string"
-  description = "cloudflare API Key"
-}
-
-variable "web_username" {
-  type = "string"
-}
-
-variable "web_password" {
-  type = "string"
-}
-
-variable "postgres-root-password" {
-  type = "string"
-}
-
-variable "gitea-mysql-password" {}
-
-variable "wiki_session_secret" {
-  type = "string"
-}
-
 variable "ips" {
   type = "map"
 
@@ -31,17 +8,6 @@ variable "ips" {
     static = "139.59.48.222"
   }
 }
-
-variable "gf-security-admin-password" {
-  type = "string"
-}
-
-variable "gitea-secret-key" {}
-variable "gitea-internal-token" {}
-variable "gitea-smtp-password" {}
-variable "gitea-lfs-jwt-secret" {}
-variable "digitalocean-token" {}
-variable "airsonic-smtp-password" {}
 
 variable "traefik-common-labels" {
   type = "map"
@@ -67,33 +33,7 @@ variable "traefik-common-labels" {
   }
 }
 
-variable "timemachine-password-2" {}
-variable "timemachine-password-1" {}
-
-variable "opml-github-client-id" {}
-variable "opml-github-client-secret" {}
-variable "miniflux-db-password" {}
-
-variable "monica-db-password" {}
-variable "monica-app-key" {}
-variable "monica-hash-salt" {}
-variable "monica-smtp-password" {}
-
 variable "root-domain" {
   description = "root domain for most applications"
   default     = "bb8.fun"
 }
-
-variable "znc_pass" {}
-variable "znc_user" {}
-
-variable "outline_smtp_password" {}
-variable "outline_secret_key" {}
-variable "outline_slack_key" {}
-variable "outline_slack_secret" {}
-variable "outline_slack_app_id" {}
-variable "outline_slack_verification_token" {}
-
-variable "syncserver_secret" {}
-variable "pihole_password" {}
-variable "nextcloud-db-password" {}

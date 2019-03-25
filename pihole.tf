@@ -21,7 +21,7 @@ module "pihole" {
 
   env = [
     "ServerIP=192.168.1.111",
-    "WEBPASSWORD=${var.pihole_password}",
+    "WEBPASSWORD=${data.pass_password.pihole_password.password}",
     "DNS1=172.30.0.2",
     "DNS2=no",
     "VIRTUAL_HOST=dns.in.${var.root-domain}",

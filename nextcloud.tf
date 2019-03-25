@@ -1,7 +1,7 @@
 module "nextcloud-db" {
   source   = "modules/postgres"
   name     = "nextcloud"
-  password = "${var.nextcloud-db-password}"
+  password = "${data.pass_password.nextcloud-db-password.password}"
 }
 
 module "nextcloud-container" {
@@ -17,7 +17,7 @@ module "nextcloud-container" {
   env = [
     "POSTGRES_DB=nextcloud",
     "POSTGRES_USER=nextcloud",
-    "POSTGRES_PASSWORD=${var.nextcloud-db-password}",
+    "POSTGRES_PASSWORD=${data.pass_password.nextcloud-db-password.password}",
     "POSTGRES_HOST=postgres",
     "NEXTCLOUD_TRUSTED_DOMAINS=c.${var.root-domain},nextcloud.${var.root-domain}",
     "NEXTCLOUD_UPDATE=0",

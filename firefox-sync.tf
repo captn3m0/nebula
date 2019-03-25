@@ -17,7 +17,7 @@ module "firefox-sync" {
 
   env = [
     "SYNCSERVER_PUBLIC_URL=https://firesync.${var.root-domain}",
-    "SYNCSERVER_SECRET=${var.syncserver_secret}",
+    "SYNCSERVER_SECRET=${data.pass_password.syncserver_secret.password}",
     "SYNCSERVER_SQLURI=sqlite:////data/sync.db",
     "SYNCSERVER_BATCH_UPLOAD_ENABLED=true",
     "SYNCSERVER_FORCE_WSGI_ENVIRON=true",

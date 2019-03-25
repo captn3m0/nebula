@@ -16,7 +16,7 @@ module "miniflux-container" {
   )}"
 
   env = [
-    "DATABASE_URL=postgres://miniflux:${var.miniflux-db-password}@postgres/miniflux?sslmode=disable",
+    "DATABASE_URL=postgres://miniflux:${data.pass_password.miniflux-db-password.password}@postgres/miniflux?sslmode=disable",
     "RUN_MIGRATIONS=1",
   ]
 }
@@ -24,5 +24,5 @@ module "miniflux-container" {
 module "miniflux-db" {
   source   = "modules/postgres"
   name     = "miniflux"
-  password = "${var.miniflux-db-password}"
+  password = "${data.pass_password.miniflux-db-password.password}"
 }

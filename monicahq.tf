@@ -13,8 +13,8 @@ module "monicahq-container" {
   env = [
     "APP_ENV=production",
     "APP_DEBUG=false",
-    "APP_KEY=${var.monica-app-key}",
-    "HASH_SALT=${var.monica-hash-salt}",
+    "APP_KEY=${data.pass_password.monica-app-key.password}",
+    "HASH_SALT=${data.pass_password.monica-hash-salt.password}",
     "HASH_LENGTH=18",
     "APP_URL=https://monica.${var.root-domain}",
     "DB_CONNECTION=pgsql",
@@ -22,13 +22,13 @@ module "monicahq-container" {
     "DB_DATABASE=monica",
     "DB_PORT=5432",
     "DB_USERNAME=monica",
-    "DB_PASSWORD=${var.monica-db-password}",
+    "DB_PASSWORD=${data.pass_password.monica-db-password.password}",
     "DB_PREFIX=",
     "MAIL_DRIVER=smtp",
     "MAIL_HOST=smtp.mailgun.org",
     "MAIL_PORT=587",
     "MAIL_USERNAME=monica@captnemo.in",
-    "MAIL_PASSWORD=${var.monica-smtp-password}",
+    "MAIL_PASSWORD=${data.pass_password.monica-smtp-password.password}",
     "MAIL_ENCRYPTION=tls",
     "MAIL_FROM_ADDRESS=monica@captnemo.in",
     "MAIL_FROM_NAME=Nemo",
@@ -61,5 +61,5 @@ module "monicahq-container" {
 module "monicahq-db" {
   source   = "modules/postgres"
   name     = "monica"
-  password = "${var.monica-db-password}"
+  password = "${data.pass_password.monica-db-password.password}"
 }
