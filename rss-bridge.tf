@@ -11,7 +11,7 @@ module "rss-bridge" {
 
   networks_advanced = [
     {
-      name = "bridge"
+      name = "external"
     },
     {
       name = "traefik"

@@ -12,10 +12,6 @@ resource "docker_container" "emby" {
     container_path = "/media"
   }
 
-  // TODO: Create a new separate network for DNS
-  // and use that instead
-  dns = ["192.168.1.111"]
-
   labels = "${merge(
     var.traefik-labels,
     map(
