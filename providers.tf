@@ -29,6 +29,6 @@ provider "digitalocean" {
 }
 
 provider "pass" {
-  store_dir     = "/home/nemo/.password-store/Nebula"
-  refresh_store = true
+  store_dir     = "/home/nemo/.password-store/Nebula/"
+  refresh_store = false
 }
