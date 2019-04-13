@@ -24,7 +24,12 @@ module "firefox-sync" {
     "PORT=5000",
   ]
 
-  networks = [
-    "${list(module.docker.traefik-network-id)}",
+  networks_advanced = [
+    {
+      name = "traefik"
+    },
+    {
+      name = "bridge"
+    },
   ]
 }
