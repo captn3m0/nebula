@@ -7,7 +7,7 @@ module "nextcloud-db" {
 module "nextcloud-container" {
   source = "modules/container"
   name   = "nextcloud"
-  image  = "nextcloud:15-apache"
+  image  = "nextcloud:16-rc-apache"
 
   volumes = [{
     container_path = "/var/www/html"
@@ -35,18 +35,34 @@ module "nextcloud-container" {
     host   = "c.${var.root-domain}"
   }
 
-  # module.docker.traefik-network-id,
-  networks = "${list(
-    data.docker_network.bridge.id,
-    module.db.postgres-network-id
-  )}"
+  networks_advanced = [
+    {
+      name = "traefik"
+    },
+    {
+      name = "nextcloud"
+    },
+    {
+      name = "postgres"
+    },
+  ]
+}
+
+resource "docker_network" "nextcloud" {
+  name     = "nextcloud"
+  internal = true
 }
 
 module "nextcloud-redis" {
-  name     = "nextcloud-redis"
-  source   = "modules/container"
-  image    = "redis:alpine"
-  networks = ["${data.docker_network.bridge.id}"]
+  name   = "nextcloud-redis"
+  source = "modules/container"
+  image  = "redis:alpine"
+
+  networks_advanced = [
+    {
+      name = "nextcloud"
+    },
+  ]
 
   # ThisSucks
   web {
