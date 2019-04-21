@@ -7,7 +7,7 @@ module "nextcloud-db" {
 module "nextcloud-container" {
   source = "modules/container"
   name   = "nextcloud"
-  image  = "nextcloud:16-rc-apache"
+  image  = "nextcloud:stable-apache"
 
   volumes = [{
     container_path = "/var/www/html"
