@@ -57,7 +57,7 @@ resource "docker_container" "gitea" {
     file    = "/data/gitea/conf/app.ini"
   }
   memory                = 256
-  restart               = "unless-stopped"
+  restart               = "always"
   destroy_grace_seconds = 10
   must_run              = true
   networks              = ["${docker_network.gitea.id}", "${var.traefik-network-id}"]

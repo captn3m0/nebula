@@ -8,7 +8,7 @@ resource "docker_container" "redis" {
   }
 
   memory                = 64
-  restart               = "unless-stopped"
+  restart               = "always"
   destroy_grace_seconds = 10
   must_run              = true
 
