@@ -16,6 +16,7 @@ module "opml" {
   ]
 
   resource {
-    memory = 256
+    memory      = 256
+    memory_swap = 256
   }
 }

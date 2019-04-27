@@ -116,3 +116,8 @@ variable "dns" {
   type        = "list"
   default     = []
 }
+
+variable "keep_image" {
+  description = "keep image, don't delete"
+  default     = false
+}

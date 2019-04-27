@@ -1,8 +1,9 @@
 module "redis" {
-  name     = "opml-redis"
-  source   = "../modules/container"
-  image    = "redis:alpine"
-  networks = ["${docker_network.opml.id}"]
+  name       = "opml-redis"
+  source     = "../modules/container"
+  image      = "redis:alpine"
+  networks   = ["${docker_network.opml.id}"]
+  keep_image = true
 
   # ThisSucks
   web {
@@ -10,6 +11,7 @@ module "redis" {
   }
 
   resource {
-    memory = 256
+    memory      = 256
+    memory_swap = 256
   }
 }
