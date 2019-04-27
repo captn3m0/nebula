@@ -46,6 +46,10 @@ resource "docker_container" "gitea" {
     content = "${file("${path.module}/../docker/conf/humans.txt")}"
     file    = "/data/gitea/public/humans.txt"
   }
+  upload {
+    content = "${file("${path.module}/conf/public/robots.txt")}"
+    file    = "/data/gitea/public/robots.txt"
+  }
   # Extra Links in header
   upload {
     content = "${file("${path.module}/conf/extra_links.tmpl")}"
