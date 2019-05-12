@@ -5,3 +5,5 @@ variable "domain" {
 variable "ips" {
   type = "map"
 }
+
+variable "droplet_ip" {}

@@ -2,6 +2,8 @@ module "cloudflare" {
   source = "cloudflare"
   domain = "bb8.fun"
   ips    = "${var.ips}"
+
+  droplet_ip = "${module.digitalocean.droplet_ipv4}"
 }
 
 module "docker" {

@@ -1,28 +1,28 @@
-resource "docker_container" "nodeexporter" {
-  name  = "nodeexporter"
-  image = "${docker_image.nodeexporter.latest}"
+module "nodeexporter" {
+  name   = "nodeexporter"
+  source = "../modules/container"
+  image  = "prom/node-exporter:latest"
 
-  volumes {
-    host_path      = "/proc"
-    container_path = "/host/proc"
-  }
-
-  volumes {
-    host_path      = "/sys"
-    container_path = "/host/sys"
-  }
-
-  volumes {
-    host_path      = "/"
-    container_path = "/rootfs"
-    read_only      = true
-  }
-
-  volumes {
-    host_path      = "/mnt/xwing"
-    container_path = "/host/mnt"
-    read_only      = true
-  }
+  volumes = [
+    {
+      host_path      = "/proc"
+      container_path = "/host/proc"
+    },
+    {
+      host_path      = "/sys"
+      container_path = "/host/sys"
+    },
+    {
+      host_path      = "/"
+      container_path = "/rootfs"
+      read_only      = true
+    },
+    {
+      host_path      = "/mnt/xwing"
+      container_path = "/host/mnt"
+      read_only      = true
+    },
+  ]
 
   command = [
     "--path.procfs=/host/proc",
@@ -30,7 +30,9 @@ resource "docker_container" "nodeexporter" {
     "--collector.filesystem.ignored-mount-points=\"^/(sys|proc|dev|host|etc)($$|/)\"",
   ]
 
-  networks = ["${docker_network.monitoring.id}"]
+  networks = [
+    "${docker_network.monitoring.id}",
+  ]
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

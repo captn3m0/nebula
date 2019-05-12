@@ -1,44 +1,44 @@
 global:
   scrape_interval: 15s
   external_labels:
-    monitor: 'docker-monitor'
+    monitor: "docker-monitor"
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: "prometheus"
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ["localhost:9090"]
 
-  - job_name: 'node'
+  - job_name: "node"
     scrape_interval: 5s
     static_configs:
-      - targets: ['nodeexporter:9100']
+      - targets: ["nodeexporter:9100"]
 
-  - job_name: 'cadvisor'
+  - job_name: "cadvisor"
     scrape_interval: 5s
     static_configs:
-      - targets: ['cadvisor:8080']
+      - targets: ["cadvisor:8080"]
 
-  - job_name: 'speedtest'
+  - job_name: "speedtest"
     scrape_interval: 15m
     scrape_timeout: 2m
     static_configs:
-      - targets: ['speedtest.docker:9696']
+      - targets: ["speedtest:9696"]
 
-  - job_name: 'docker'
+  - job_name: "docker"
     scrape_interval: 5s
     static_configs:
-      - targets: ['192.168.1.111:1337']
+      - targets: ["192.168.1.111:1337"]
 
-  - job_name: 'traefik'
+  - job_name: "traefik"
     scrape_interval: 5s
     static_configs:
-      - targets: ['192.168.1.111:1111']
+      - targets: ["192.168.1.111:1111"]
 
-  - job_name: 'act'
+  - job_name: "act"
     scrape_interval: 15m
     scrape_timeout: 1m
     static_configs:
-      - targets: ['act-exporter.docker:3000']
+      - targets: ["act-exporter.docker:3000"]
 
 rule_files:
-  - 'alert.rules'
+  - "alert.rules"

@@ -25,7 +25,7 @@ resource "cloudflare_record" "home-wildcard" {
 resource "cloudflare_record" "internet" {
   domain = "${var.domain}"
   name   = "@"
-  value  = "${var.ips["static"]}"
+  value  = "${var.droplet_ip}"
   type   = "A"
 }
 
@@ -37,6 +37,22 @@ resource "cloudflare_record" "internet-wildcard" {
   ttl    = 3600
 }
 
+resource "cloudflare_record" "dns" {
+  domain = "${var.domain}"
+  name   = "dns"
+  value  = "${var.ips["static"]}"
+  type   = "A"
+}
+
+resource "cloudflare_record" "doh" {
+  domain = "${var.domain}"
+  name   = "doh"
+  value  = "${var.ips["static"]}"
+  type   = "A"
+}
+
+// This ensures that _acme-challenge is not a CNAME
+// alongside the above wildcard CNAME entry.
 resource "cloudflare_record" "acme-no-cname-1" {
   domain = "${var.domain}"
   name   = "_acme-challenge.${var.domain}"

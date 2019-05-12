@@ -1,22 +1,31 @@
-resource "docker_container" "grafana" {
-  name  = "grafana"
-  image = "${docker_image.grafana.latest}"
+# resource "docker_container" "grafana" {
+module "grafana" {
+  name   = "grafana"
+  source = "../modules/container"
+  image  = "grafana/grafana:latest"
 
   // grafana:grafana
   user = "984:982"
 
-  labels = "${merge(
-    var.traefik-labels, map(
-      "traefik.port", 3000,
-      "traefik.frontend.rule","Host:grafana.${var.domain}"
-  ))}"
-
-  volumes {
-    host_path      = "/mnt/xwing/data/grafana"
-    container_path = "/var/lib/grafana"
+  web {
+    port   = 3000
+    host   = "grafana.${var.domain}"
+    expose = true
   }
 
-  networks = ["${var.traefik-network-id}", "${docker_network.monitoring.id}"]
+  volumes = [{
+    host_path      = "/mnt/xwing/data/grafana"
+    container_path = "/var/lib/grafana"
+  }]
+
+  networks_advanced = [
+    {
+      name = "traefik"
+    },
+    {
+      name = "monitoring"
+    },
+  ]
 
   env = [
     "GF_SERVER_ROOT_URL=https://grafana.${var.domain}",
