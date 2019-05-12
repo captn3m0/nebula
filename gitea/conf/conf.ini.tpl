@@ -2,6 +2,7 @@
 ; Copy required sections to your own app.ini (default is custom/conf/app.ini)
 ; and modify as needed.
 ; See the cheatsheet at https://docs.gitea.io/en-us/config-cheat-sheet/
+; A sample file with all configuration documented is at https://github.com/go-gitea/gitea/blob/master/custom/conf/app.ini.sample
 
 ; App name that shows on every page title
 APP_NAME = Nemo's code
@@ -67,9 +68,9 @@ ROOT_URL         = https://git.captnemo.in/
 DISABLE_SSH      = false
 SSH_PORT         = 22
 DOMAIN           = git.captnemo.in
-LFS_START_SERVER = false
+LFS_START_SERVER = true
 LFS_CONTENT_PATH = /data/gitea/lfs
-LFS_JWT_SECRET   = ${lfs-jwt-secret}
+LFS_JWT_SECRET   = "${lfs-jwt-secret}"
 OFFLINE_MODE     = true
 LANDING_PAGE     = explore
 MINIMUM_KEY_SIZE_CHECK = true
@@ -79,6 +80,8 @@ SSH_SERVER_CIPHERS = chacha20-poly1305@openssh.com, aes256-gcm@openssh.com, aes1
 SSH_SERVER_KEY_EXCHANGES = curve25519-sha256@libssh.org, ecdh-sha2-nistp521, ecdh-sha2-nistp384, ecdh-sha2-nistp256, diffie-hellman-group-exchange-sha256
 SSH_SERVER_MACS = hmac-sha2-512-etm@openssh.com, hmac-sha2-256-etm@openssh.com, umac-128-etm@openssh.com, hmac-sha2-512, hmac-sha2-256, umac-128@openssh.com
 
+DISABLE_ROUTER_LOG = true
+ENABLE_GZIP = true
 [database]
 
 ; TODO
@@ -124,7 +127,7 @@ DISABLE_REGULAR_ORG_CREATION = false
 INSTALL_LOCK = true
 LOGIN_REMEMBER_DAYS = 30
 MIN_PASSWORD_LENGTH = 10
-IMPORT_LOCAL_PATHS = false
+IMPORT_LOCAL_PATHS = true
 DISABLE_GIT_HOOKS = true
 SECRET_KEY     = ${secret_key}
 INTERNAL_TOKEN = ${internal_token}
@@ -143,6 +146,7 @@ ENABLE_NOTIFY_MAIL                = true
 DISABLE_REGISTRATION              = false
 ; ; Enable captcha validation for registration
 ENABLE_CAPTCHA                    = true
+CAPTCHA_TYPE = image
 ; ; User must sign in to view anything.
 REQUIRE_SIGNIN_VIEW               = false
 ; ; Default value for KeepEmailPrivate
@@ -189,6 +193,10 @@ ENABLE_SET_COOKIE = true
 ; ; Session life time in seconds, default is 86400 (1 day)
 SESSION_LIFE_TIME = 2592000
 
+[picture]
+
+ENABLE_FEDERATED_AVATAR = true
+
 [attachment]
 ; ; Whether attachments are enabled. Defaults to `true`
 ENABLE = true
@@ -197,9 +205,9 @@ PATH = data/attachments
 ; ; One or more allowed types, e.g. image/jpeg|image/png
 ALLOWED_TYPES = image/jpeg|image/png|application/zip|application/gzip|application/pdf|text/csv
 ; ; Max size of each file. Defaults to 32MB
-; MAX_SIZE = 4
+MAX_SIZE = 20
 ; ; Max number of files per upload. Defaults to 10
-; MAX_FILES = 5
+MAX_FILES = 10
 
 [log]
 ROOT_PATH =
@@ -210,6 +218,10 @@ MODE = console
 BUFFER_LEN = 10000
 ; Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
 LEVEL = Critical
+REDIRECT_MACARON_LOG = true
+ROUTER_LOG_LEVEL = Critical
+ENABLE_ACCESS_LOG = true
+ENABLE_XORM_LOG = false
 
 [cron]
 ; Enable running cron tasks periodically.
@@ -217,9 +229,29 @@ ENABLED = true
 ; ; Run cron tasks when Gitea starts.
 RUN_AT_START = false
 
+[cron.archive_cleanup]
+RUN_AT_START = true
+SCHEDULE = @every 24h
+; Archives created more than OLDER_THAN ago are subject to deletion
+OLDER_THAN = 24h
+
 ; ; Update mirrors
 [cron.update_mirrors]
 SCHEDULE = @every 3h
+
+
+; Repository health check
+[cron.repo_health_check]
+SCHEDULE = @every 24h
+TIMEOUT = 60s
+; Arguments for command 'git fsck', e.g. "--unreachable --tags"
+; see more on http://git-scm.com/docs/git-fsck
+ARGS =
+
+; Check repository statistics
+[cron.check_repo_stats]
+RUN_AT_START = true
+SCHEDULE = @every 24h
 
 [api]
 ; Max number of items will response in a page
@@ -242,3 +274,26 @@ ENABLED = true
 ; If you want to add authorization, specify a token here
 ; TODO
 TOKEN =
+
+
+[git]
+; Disables highlight of added and removed changes
+DISABLE_DIFF_HIGHLIGHT = false
+; Max number of lines allowed in a single file in diff view
+MAX_GIT_DIFF_LINES = 1000
+; Max number of allowed characters in a line in diff view
+MAX_GIT_DIFF_LINE_CHARACTERS = 5000
+; Max number of files shown in diff view
+MAX_GIT_DIFF_FILES = 100
+; Arguments for command 'git gc', e.g. "--aggressive --auto"
+; see more on http://git-scm.com/docs/git-gc/
+GC_ARGS =
+
+; Operation timeout in seconds
+[git.timeout]
+DEFAULT = 360
+MIGRATE = 600
+MIRROR = 300
+CLONE = 300
+PULL = 300
+GC = 60
