@@ -38,7 +38,7 @@ scrape_configs:
     scrape_interval: 15m
     scrape_timeout: 1m
     static_configs:
-      - targets: ["act-exporter.docker:3000"]
+      - targets: ["act-exporter:3000"]
 
 rule_files:
   - "alert.rules"
