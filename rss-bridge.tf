@@ -19,7 +19,7 @@ module "rss-bridge" {
   ]
 
   volumes = [{
-    container_path = "/app/public/whitelist.txt"
+    container_path = "/app/whitelist.txt"
     host_path      = "/mnt/xwing/config/rss-bridge/whitelist.txt"
   }]
 }
