@@ -2,7 +2,7 @@ module "rss-bridge" {
   name   = "rss-bridge"
   source = "modules/container"
 
-  image = "captn3m0/rss-bridge:docker-improvements"
+  image = "rssbridge/rss-bridge:latest"
 
   web {
     expose = "true"
