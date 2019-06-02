@@ -171,6 +171,7 @@ USER = git@captnemo.in
 PASSWD = ${smtp_password}
 HOST = smtp.migadu.com:587
 SEND_AS_PLAIN_TEXT = true
+SUBJECT_PREFIX = "[git.captnemo.in] "
 
 [cache]
 ADAPTER = redis
