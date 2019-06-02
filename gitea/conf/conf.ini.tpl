@@ -129,8 +129,8 @@ LOGIN_REMEMBER_DAYS = 30
 MIN_PASSWORD_LENGTH = 10
 IMPORT_LOCAL_PATHS = true
 DISABLE_GIT_HOOKS = true
-SECRET_KEY     = ${secret_key}
-INTERNAL_TOKEN = ${internal_token}
+SECRET_KEY     = "${secret_key}"
+INTERNAL_TOKEN = "${internal_token}"
 
 [service]
 ; ; More detail: https://github.com/gogits/gogs/issues/165
@@ -297,3 +297,8 @@ MIRROR = 300
 CLONE = 300
 PULL = 300
 GC = 60
+
+[oauth2]
+ENABLE = false
+; this is same as JWT secret above
+JWT_SECRET = "${oauth2-jwt-secret}"

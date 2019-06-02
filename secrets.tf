@@ -18,6 +18,10 @@ data "pass_password" "gitea-secret-key" {
   path = "GITEA_SECRET_KEY"
 }
 
+data "pass_password" "gitea-oauth2-jwt-secret" {
+  path = "GITEA_OAUTH2_JWT_SECRET"
+}
+
 data "pass_password" "gf-security-admin-password" {
   path = "GRAFANA_ADMIN_PASSWORD"
 }

@@ -34,14 +34,15 @@ module "timemachine" {
 }
 
 module "gitea" {
-  source         = "gitea"
-  domain         = "git.captnemo.in"
-  traefik-labels = "${var.traefik-common-labels}"
-  ips            = "${var.ips}"
-  secret-key     = "${data.pass_password.gitea-secret-key.password}"
-  internal-token = "${data.pass_password.gitea-internal-token.password}"
-  smtp-password  = "${data.pass_password.gitea-smtp-password.password}"
-  lfs-jwt-secret = "${data.pass_password.gitea-lfs-jwt-secret.password}"
+  source            = "gitea"
+  domain            = "git.captnemo.in"
+  traefik-labels    = "${var.traefik-common-labels}"
+  ips               = "${var.ips}"
+  secret-key        = "${data.pass_password.gitea-secret-key.password}"
+  internal-token    = "${data.pass_password.gitea-internal-token.password}"
+  smtp-password     = "${data.pass_password.gitea-smtp-password.password}"
+  lfs-jwt-secret    = "${data.pass_password.gitea-lfs-jwt-secret.password}"
+  oauth2-jwt-secret = "${data.pass_password.gitea-oauth2-jwt-secret.password}"
 
   //passed, but not used
   mysql-password = ""
