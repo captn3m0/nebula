@@ -38,8 +38,6 @@ resource "docker_container" "container" {
   volumes = ["${var.volumes}"]
   devices = ["${var.devices}"]
 
-  dns = ["${var.dns}"]
-
   upload = ["${var.uploads}"]
 
   # Look at this monstrosity
