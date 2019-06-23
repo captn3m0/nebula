@@ -131,3 +131,11 @@ data "pass_password" "web_username" {
 data "pass_password" "web_password" {
   path = "web_password"
 }
+
+data "pass_password" "stringer-db-password" {
+  path = "stringer-db-password"
+}
+
+data "pass_password" "stringer-secret-token" {
+  path = "stringer-secret-token"
+}
