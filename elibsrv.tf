@@ -1,7 +1,12 @@
 module "elibsrv" {
   name   = "elibsrv"
   source = "./modules/container"
-  image  = "captn3m0/elibsrv:latest"
+  image  = "captn3m0/elibsrv:v0.0.3"
+
+  resource {
+    memory      = 256
+    memory_swap = 256
+  }
 
   web {
     expose = true
