@@ -54,9 +54,10 @@ resource "docker_network" "nextcloud" {
 }
 
 module "nextcloud-redis" {
-  name   = "nextcloud-redis"
-  source = "modules/container"
-  image  = "redis:alpine"
+  name       = "nextcloud-redis"
+  source     = "modules/container"
+  image      = "redis:alpine"
+  keep_image = true
 
   networks_advanced = [
     {
