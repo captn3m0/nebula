@@ -63,13 +63,13 @@ module "radicale" {
   domain = "radicale.bb8.fun"
 }
 
-module "resilio" {
-  source             = "resilio"
-  domain             = "sync.bb8.fun"
-  traefik-labels     = "${var.traefik-common-labels}"
-  ips                = "${var.ips}"
-  traefik-network-id = "${module.docker.traefik-network-id}"
-}
+# module "resilio" {
+#   source             = "resilio"
+#   domain             = "sync.bb8.fun"
+#   traefik-labels     = "${var.traefik-common-labels}"
+#   ips                = "${var.ips}"
+#   traefik-network-id = "${module.docker.traefik-network-id}"
+# }
 
 module "media" {
   source             = "media"
@@ -100,9 +100,11 @@ module "digitalocean" {
 #   ips    = "${var.ips}"
 # }
 
-module "abstruse" {
-  source             = "abstruse"
-  domain             = "ci.bb8.fun"
-  traefik-labels     = "${var.traefik-common-labels}"
-  traefik-network-id = "${module.docker.traefik-network-id}"
-}
+
+# module "abstruse" {
+#   source             = "abstruse"
+#   domain             = "ci.bb8.fun"
+#   traefik-labels     = "${var.traefik-common-labels}"
+#   traefik-network-id = "${module.docker.traefik-network-id}"
+# }
+
