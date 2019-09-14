@@ -9,6 +9,16 @@ module "audioserve" {
     auth   = "true"
   }
 
+  resource {
+    memory      = 256
+    memory_swap = 256
+  }
+
+  command = [
+    "--no-authentication",
+    "/audiobooks",
+  ]
+
   restart = "always"
 
   image = "izderadicka/audioserve"
