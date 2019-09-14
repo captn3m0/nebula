@@ -62,7 +62,7 @@ DSA = 1024
 
 [server]
 APP_DATA_PATH    = /data/gitea
-SSH_DOMAIN       = git.captnemo.in
+SSH_DOMAIN       = code.captnemo.in
 HTTP_PORT        = 3000
 ROOT_URL         = https://git.captnemo.in/
 DISABLE_SSH      = false
