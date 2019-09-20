@@ -10,15 +10,14 @@
 #     docker = "docker.kayak"
 #   }
 # }
-provider "docker" {
-  host          = "tcp://${cloudflare_record.kayak-docker.hostname}:2376"
-  version       = "~> 2.0.0"
-  alias         = "kayak"
-  ca_material   = "${module.kayak.docker_ca_cert}"
-  cert_material = "${module.kayak.docker_client_cert}"
-  key_material  = "${module.kayak.docker_client_key}"
-}
-
+# provider "docker" {
+#   host          = "tcp://${cloudflare_record.kayak-docker.hostname}:2376"
+#   version       = "~> 2.0.0"
+#   alias         = "kayak"
+#   ca_material   = "${module.kayak.docker_ca_cert}"
+#   cert_material = "${module.kayak.docker_client_cert}"
+#   key_material  = "${module.kayak.docker_client_key}"
+# }
 # resource "cloudflare_record" "kayak-docker" {
 #   name   = "docker.kayak"
 #   value  = "${module.kayak.droplet_ipv4}"
