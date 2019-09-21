@@ -1,0 +1,45 @@
+# This configures docker service discovery
+[providers.docker]
+exposedByDefault = false
+network = "traefik"
+defaultRule = ""
+
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+
+  [entryPoints.web-secure]
+    address = ":443"
+
+[http.middlewares]
+  [http.middlewares.everything.redirectScheme]
+    scheme = "https"
+
+[tcp.routers]
+  [tcp.routers.forwardtohome]
+    entryPoints = ["web-secure"]
+    rule = "HostSNI(`emby.bb8.fun`, `git.captnemo.in`)"
+    service = "homeserver"
+    [tcp.routers.forwardtohome.tls]
+    passthrough = true
+
+[tcp.services]
+  [tcp.services.homeserver.loadBalancer]
+    [[tcp.services.homeserver.loadBalancer.servers]]
+      address = "10.8.0.14:443"
+
+[certificatesResolvers.default.acme]
+  email = "certs@captnemo.in"
+  storage = "/acme/acme.json"
+  [certificatesResolvers.default.acme.httpChallenge]
+    # used during the challenge
+    entryPoint = "web"
+
+
+[tls.options]
+  [tls.options.foo]
+    minVersion = "VersionTLS12"
+    cipherSuites = [
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_RSA_WITH_AES_256_GCM_SHA384"
+    ]

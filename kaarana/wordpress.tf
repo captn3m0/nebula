@@ -2,6 +2,22 @@ resource "docker_container" "wp" {
   image = "${docker_image.wp.latest}"
   name  = "kaarana-wordpress"
 
+  restart  = "always"
+  must_run = true
+
+  labels {
+    "traefik.enable"                   = "true"
+    "traefik.tcp.routers.kaarana.rule" = "HostSNI(`kaarana.captnemo.in`)"
+    "traefik.tcp.routers.kaarana.tls"  = "true"
+
+    # "traefik.tcp.routers.kaarana.tls.options"                 = "foo"
+    "traefik.tcp.services.wordpress.loadbalancer.server.port" = "80"
+
+    # "traefik.tcp.routers.kaarana.entrypoints"                 = "web-secure"
+    "traefik.tcp.routers.kaarana.tls.certResolver"    = "default"
+    "traefik.tcp.routers.kaarana.tls.domains[0].main" = "kaarana.captnemo.in"
+  }
+
   env = [
     "WORDPRESS_DB_HOST=${local.db_hostname}",
     "WORDPRESS_DB_USER=${local.username}",
@@ -29,6 +45,9 @@ resource "docker_container" "wp" {
       // TODO: Once configuration/plugins have stabilized
       // remove internet access from wordpress
       name = "bridge"
+    },
+    {
+      name = "traefik"
     },
   ]
 }
