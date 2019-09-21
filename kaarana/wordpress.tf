@@ -16,7 +16,7 @@ resource "docker_container" "wp" {
   }
 
   ports {
-    internal = 8080
+    internal = 80
     external = 8213
     ip       = "10.8.0.1"
   }
