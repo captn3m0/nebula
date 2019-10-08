@@ -7,14 +7,23 @@ module "nextcloud-db" {
 module "nextcloud-container" {
   source = "modules/container"
   name   = "nextcloud"
-  image  = "nextcloud:stable-apache"
+  image  = "linuxserver/nextcloud"
 
-  volumes = [{
-    container_path = "/var/www/html"
-    host_path      = "/mnt/xwing/data/nextcloud"
-  }]
+  volumes = [
+    {
+      container_path = "/data"
+      host_path      = "/mnt/xwing/data/nextcloud/data"
+    },
+    {
+      container_path = "/config"
+      host_path      = "/mnt/xwing/config/nextcloud"
+    },
+  ]
 
   env = [
+    "PUID=1004",
+    "PGID=1003",
+    "TZ=Asia/Kolkata",
     "POSTGRES_DB=nextcloud",
     "POSTGRES_USER=nextcloud",
     "POSTGRES_PASSWORD=${data.pass_password.nextcloud-db-password.password}",
@@ -31,7 +40,7 @@ module "nextcloud-container" {
 
   web {
     expose = true
-    port   = 80
+    port   = 443
     host   = "c.${var.root-domain}"
   }
 
