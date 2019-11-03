@@ -31,11 +31,15 @@ module "elibsrv" {
     },
   ]
 
+  # The corresponding scan command is run using a cronjob
+  # `docker run --volume "/mnt/xwing/media/EBooks:/books:ro" --volume "/mnt/xwing/config/elibsrv:/config" --env "elibsrv_thumbheight=320" captn3m0/elibsrv scan
+
+  command    = ["serve"]
+  keep_image = true
   env = [
     "elibsrv_thumbheight=320",
     "elibsrv_title=Scarif Media Archives",
   ]
-
   networks_advanced = [
     {
       name = "traefik"
