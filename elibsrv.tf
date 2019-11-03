@@ -1,11 +1,11 @@
 module "elibsrv" {
   name   = "elibsrv"
   source = "./modules/container"
-  image  = "captn3m0/elibsrv:v0.0.3"
+  image  = "captn3m0/elibsrv"
 
   resource {
-    memory      = 256
-    memory_swap = 256
+    memory      = 512
+    memory_swap = 512
   }
 
   web {
@@ -18,10 +18,12 @@ module "elibsrv" {
     {
       host_path      = "/mnt/xwing/media/EBooks"
       container_path = "/books"
+      read_only      = true
     },
     {
       host_path      = "/mnt/xwing/config/elibsrv"
       container_path = "/config"
+      read_only      = true
     },
     {
       host_path      = "/mnt/xwing/cache/elibsrv"
