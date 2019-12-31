@@ -1,0 +1,34 @@
+module "gonic" {
+  source = "../modules/container"
+  image  = "sentriz/gonic"
+  name   = "gonic"
+
+  resource {
+    memory      = "256"
+    memory_swap = "256"
+  }
+
+  web {
+    port   = 80
+    host   = "gonic.bb8.fun"
+    expose = true
+  }
+
+  env = [
+    "GONIC_SCAN_INTERVAL=60"
+  ]
+
+  networks = "${list(docker_network.media.id, data.docker_network.bridge.id)}"
+
+  volumes = [
+    {
+      host_path      = "/mnt/xwing/config/gonic"
+      container_path = "/data"
+    },
+    {
+      host_path      = "/mnt/xwing/media/Music"
+      container_path = "/music"
+      read_only      = true
+    }
+  ]
+}
