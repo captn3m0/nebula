@@ -1,7 +1,7 @@
 # https://github.com/go-gitea/gitea/releases
 data "docker_registry_image" "gitea" {
   # not bleeding, this is hemorrhaging edge
-  name = "gitea/gitea:1.10"
+  name = "gitea/gitea:1.11"
 }
 
 data "docker_registry_image" "redis" {

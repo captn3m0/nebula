@@ -14,12 +14,12 @@ scrape_configs:
       - targets: ["nodeexporter:9100"]
 
   - job_name: "cadvisor"
-    scrape_interval: 5s
+    scrape_interval: 1m
     static_configs:
       - targets: ["cadvisor:8080"]
 
   - job_name: "speedtest"
-    scrape_interval: 15m
+    scrape_interval: 1h
     scrape_timeout: 2m
     static_configs:
       - targets: ["speedtest:9696"]
@@ -35,7 +35,7 @@ scrape_configs:
       - targets: ["192.168.1.111:1111"]
 
   - job_name: "act"
-    scrape_interval: 15m
+    scrape_interval: 1h
     scrape_timeout: 1m
     static_configs:
       - targets: ["act-exporter:3000"]

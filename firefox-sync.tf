@@ -10,6 +10,11 @@ module "firefox-sync" {
     host   = "firesync.${var.root-domain}"
   }
 
+  resource {
+    memory      = "400"
+    memory_swap = "400"
+  }
+
   volumes = [{
     host_path      = "/mnt/xwing/data/firefox-sync"
     container_path = "/data"

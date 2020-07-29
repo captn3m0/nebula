@@ -1,8 +1,8 @@
-module "stringer-db" {
-  source   = "modules/postgres"
-  name     = "stringer"
-  password = "${data.pass_password.stringer-db-password.password}"
-}
+# module "stringer-db" {
+#   source   = "modules/postgres"
+#   name     = "stringer"
+#   password = "${data.pass_password.stringer-db-password.password}"
+# }
 
 # module "stringer-container" {
 #   name   = "stringer"

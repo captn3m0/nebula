@@ -22,7 +22,7 @@ variable "traefik-common-labels" {
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
 
     // X-Powered-By, Server headers
-    "traefik.frontend.headers.customResponseHeaders" = "X-Powered-By:Allomancy||X-Server:Blackbox"
+    "traefik.frontend.headers.customResponseHeaders" = "X-Powered-By:Allomancy||X-Server:Blackbox||X-Clacks-Overhead:GNU Terry Pratchett"
 
     // X-Frame-Options
     "traefik.frontend.headers.customFrameOptionsValue" = "ALLOW-FROM https://bb8.fun/"
