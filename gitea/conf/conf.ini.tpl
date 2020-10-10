@@ -146,6 +146,7 @@ ENABLE_NOTIFY_MAIL                = true
 DISABLE_REGISTRATION              = false
 ; ; Enable captcha validation for registration
 ENABLE_CAPTCHA                    = true
+REQUIRE_EXTERNAL_REGISTRATION_CAPTCHA = true
 CAPTCHA_TYPE = image
 ; ; User must sign in to view anything.
 REQUIRE_SIGNIN_VIEW               = false
