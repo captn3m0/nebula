@@ -13,7 +13,6 @@ module "docker" {
   cloudflare_key      = "${data.pass_password.cloudflare_key.password}"
   cloudflare_email    = "bb8@captnemo.in"
   wiki_session_secret = "${data.pass_password.wiki_session_secret.password}"
-  networks-mongorocks = "${module.db.networks-mongorocks}"
   ips                 = "${var.ips}"
   domain              = "bb8.fun"
 }

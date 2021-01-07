@@ -8,3 +8,5 @@
 secrets
 k8s/
 k8s2/
+docker/conf/wiki.yml
+plan

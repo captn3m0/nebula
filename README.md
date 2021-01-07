@@ -63,7 +63,6 @@ Currently running the following (all links are to the `store.docker.com` links f
 | miniflux/miniflux                | 2.0.9      | tools                                                |
 | monicahq/monicahq                | latest     | services                                             |
 | odarriba/timemachine             | latest     | tools                                                |
-| percona/percona-server-mongodb   | 3.4        | database                                             |
 | postgres                         | 10-alpine  | database                                             |
 | prom/node-exporter               | v0.15.2    | monitoring                                           |
 | prom/prometheus                  | latest     | monitoring                                           |

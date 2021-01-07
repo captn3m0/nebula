@@ -139,3 +139,6 @@ data "pass_password" "stringer-db-password" {
 data "pass_password" "stringer-secret-token" {
   path = "stringer-secret-token"
 }
+data "pass_password" "wiki-db-password" {
+  path = "wiki-db-password"
+}
