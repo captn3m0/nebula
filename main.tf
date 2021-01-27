@@ -62,14 +62,6 @@ module "radicale" {
   domain = "radicale.bb8.fun"
 }
 
-# module "resilio" {
-#   source             = "resilio"
-#   domain             = "sync.bb8.fun"
-#   traefik-labels     = "${var.traefik-common-labels}"
-#   ips                = "${var.ips}"
-#   traefik-network-id = "${module.docker.traefik-network-id}"
-# }
-
 module "media" {
   source             = "media"
   domain             = "bb8.fun"

@@ -11,6 +11,7 @@ Manages the local infrastructure of my home server. I'm also doing blog posts ar
 3.  [Part 3, Learnings](https://captnemo.in/blog/2017/12/18/home-server-learnings/)
 4.  [Part 4, Migrating from Google (and more)](https://captnemo.in/blog/2017/12/31/migrating-from-google/)
 5.  [Part 5, Networking](https://captnemo.in/blog/2018/04/22/home-server-networking/)
+6.  [Part 6, RAID](https://captnemo.in/blog/2019/02/24/btrfs-raid-device-replacement-story/)
 
 The canonical URL for this repo is https://git.captnemo.in/nemo/nebula/. A mirror is maintained on GitHub at <https://github.com/captn3m0/nebula>
 
@@ -40,7 +41,6 @@ Currently running the following (all links are to the `store.docker.com` links f
 
 | image                            | tag        | module/link                                          |
 | -------------------------------- | ---------- | ---------------------------------------------------- |
-| bleenco/abstruse                 | latest     | ci                                                   |
 | captn3m0/opml-gen                | latest     | https://opml.bb8.fun                                 |
 | captn3m0/prometheus-act-exporter | latest     | https://git.captnemo.in/nemo/prometheus-act-exporter |
 | captn3m0/rss-bridge              | latest     | https://github.com/RSS-Bridge/rss-bridge             |
@@ -56,13 +56,10 @@ Currently running the following (all links are to the `store.docker.com` links f
 | linuxserver/lidarr               | latest     | media                                                |
 | linuxserver/lychee               | latest     | media                                                |
 | linuxserver/radarr               | latest     | media                                                |
-| linuxserver/resilio-sync         | latest     | sync                                                 |
 | linuxserver/sonarr               | latest     | media                                                |
 | linuxserver/transmission         | latest     | media                                                |
 | linuxserver/ubooquity            | latest     | media                                                |
 | miniflux/miniflux                | 2.0.9      | tools                                                |
-| monicahq/monicahq                | latest     | services                                             |
-| odarriba/timemachine             | latest     | tools                                                |
 | postgres                         | 10-alpine  | database                                             |
 | prom/node-exporter               | v0.15.2    | monitoring                                           |
 | prom/prometheus                  | latest     | monitoring                                           |
