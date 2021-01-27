@@ -142,3 +142,14 @@ data "pass_password" "stringer-secret-token" {
 data "pass_password" "wiki-db-password" {
   path = "wiki-db-password"
 }
+
+data "pass_password" "klaxon-db-password" {
+  path = "klaxon-db-password"
+}
+
+data "pass_password" "klaxon-secret-key" {
+  path = "klaxon-secret-key"
+}
+data "pass_password" "klaxon-sendgrid-password" {
+  path = "klaxon-sendgrid-password"
+}
