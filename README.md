@@ -51,7 +51,6 @@ Currently running the following (all links are to the `store.docker.com` links f
 | grafana/grafana                  | latest     | monitoring                                           |
 | jankysolutions/requestbin        | latest     | tools                                                |
 | linuxserver/airsonic             | latest     | media                                                |
-| linuxserver/heimdall             | latest     | tools                                                |
 | linuxserver/jackett              | latest     | media                                                |
 | linuxserver/lidarr               | latest     | media                                                |
 | linuxserver/lychee               | latest     | media                                                |
