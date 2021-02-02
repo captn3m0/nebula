@@ -11,7 +11,7 @@ RUN_USER = git
 
 [repository]
 ROOT = /data/git/repositories
-USE_COMPAT_SSH_URI = true
+USE_COMPAT_SSH_URI = false
 
 [repository.upload]
 TEMP_PATH = /data/gitea/uploads
@@ -62,11 +62,9 @@ DSA = 1024
 
 [server]
 APP_DATA_PATH    = /data/gitea
-SSH_DOMAIN       = code.captnemo.in
 HTTP_PORT        = 3000
 ROOT_URL         = https://git.captnemo.in/
-DISABLE_SSH      = false
-SSH_PORT         = 22
+DISABLE_SSH      = true
 DOMAIN           = git.captnemo.in
 LFS_START_SERVER = true
 LFS_CONTENT_PATH = /data/gitea/lfs
@@ -212,14 +210,13 @@ MAX_SIZE = 20
 MAX_FILES = 10
 
 [log]
-ROOT_PATH =
 ; Either "console", "file", "conn", "smtp" or "database", default is "console"
 ; Use comma to separate multiple modes, e.g. "console, file"
 MODE = console
 ; Buffer length of the channel, keep it as it is if you don't know what it is.
 BUFFER_LEN = 10000
 ; Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
-LEVEL = Critical
+LEVEL = Trace
 REDIRECT_MACARON_LOG = true
 ROUTER_LOG_LEVEL = Critical
 ENABLE_ACCESS_LOG = true

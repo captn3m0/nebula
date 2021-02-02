@@ -1,6 +1,6 @@
 # https://github.com/go-gitea/gitea/releases
 data "docker_registry_image" "gitea" {
-  name = "gitea/gitea:1.12"
+  name = "gitea/gitea:1.13"
 }
 
 data "docker_registry_image" "redis" {

@@ -5,20 +5,8 @@ resource "docker_container" "gitea" {
   labels = "${merge(
     var.traefik-labels, map(
       "traefik.port", 3000,
-      "traefik.frontend.rule","Host:${var.domain}"
+      "traefik.frontend.rule", "Host:${var.domain}"
   ))}"
-
-  ports {
-    internal = 22
-    external = 2222
-    ip       = "${var.ips["eth0"]}"
-  }
-
-  ports {
-    internal = 22
-    external = 2222
-    ip       = "${var.ips["tun0"]}"
-  }
 
   volumes {
     volume_name    = "${docker_volume.gitea_volume.name}"
@@ -60,7 +48,7 @@ resource "docker_container" "gitea" {
     content = "${data.template_file.gitea-config-file.rendered}"
     file    = "/data/gitea/conf/app.ini"
   }
-  memory                = 256
+  memory                = 512
   restart               = "always"
   destroy_grace_seconds = 10
   must_run              = true
