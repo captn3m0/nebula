@@ -90,12 +90,3 @@ module "digitalocean" {
 #   source = "tinyproxy"
 #   ips    = "${var.ips}"
 # }
-
-
-# module "abstruse" {
-#   source             = "abstruse"
-#   domain             = "ci.bb8.fun"
-#   traefik-labels     = "${var.traefik-common-labels}"
-#   traefik-network-id = "${module.docker.traefik-network-id}"
-# }
-
