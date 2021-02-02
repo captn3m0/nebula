@@ -23,6 +23,9 @@ checkNewVersion = false
 
 [docker]
   # Make sure you mount this as readonly
+  # NOTE: readonly doesn't reduce the risk because
+  # it is a unix socket - it doesn't automatically translate
+  # read|write perms to GET/POST requests.
   endpoint = "unix:///var/run/docker.sock"
   domain = "bb8.fun"
   watch = true
