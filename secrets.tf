@@ -153,3 +153,17 @@ data "pass_password" "klaxon-secret-key" {
 data "pass_password" "klaxon-sendgrid-password" {
   path = "klaxon-sendgrid-password"
 }
+
+
+data "pass_password" "navidrome-lastfm-api-key" {
+  path = "navidrome-lastfm-api-key"
+}
+data "pass_password" "navidrome-lastfm-secret" {
+  path = "navidrome-lastfm-secret"
+}
+data "pass_password" "navidrome-spotify-id" {
+  path = "navidrome-spotify-id"
+}
+data "pass_password" "navidrome-spotify-secret" {
+  path = "navidrome-spotify-secret"
+}

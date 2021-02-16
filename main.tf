@@ -68,6 +68,10 @@ module "media" {
   traefik-labels     = "${var.traefik-common-labels}"
   ips                = "${var.ips}"
   traefik-network-id = "${module.docker.traefik-network-id}"
+  lastfm_api_key     = "${data.pass_password.navidrome-lastfm-api-key.password}"
+  lastfm_secret      = "${data.pass_password.navidrome-lastfm-secret.password}"
+  spotify_id         = "${data.pass_password.navidrome-spotify-id.password}"
+  spotify_secret     = "${data.pass_password.navidrome-spotify-secret.password}"
 }
 
 module "monitoring" {

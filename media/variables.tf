@@ -18,3 +18,19 @@ variable "ips" {
 }
 
 variable "traefik-network-id" {}
+variable "lastfm_api_key" {
+  description = "Navidrome Configuration for lastfm_api_key"
+  type        = "string"
+}
+variable "lastfm_secret" {
+  description = "Navidrome Configuration for lastfm_secret"
+  type        = "string"
+}
+variable "spotify_id" {
+  description = "Navidrome Configuration for spotify_id"
+  type        = "string"
+}
+variable "spotify_secret" {
+  description = "Navidrome Configuration for spotify_secret"
+  type        = "string"
+}
