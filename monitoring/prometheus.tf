@@ -1,6 +1,6 @@
 resource "docker_container" "prometheus" {
   name  = "prometheus"
-  image = "${docker_image.prometheus.latest}"
+  image = docker_image.prometheus.latest
 
   # prometheus:prometheus
   user = "985:983"
@@ -8,13 +8,13 @@ resource "docker_container" "prometheus" {
   ports {
     internal = 9090
     external = 8811
-    ip       = "${var.ips["eth0"]}"
+    ip       = var.ips["eth0"]
   }
 
   ports {
     internal = 9090
     external = 8811
-    ip       = "${var.ips["tun0"]}"
+    ip       = var.ips["tun0"]
   }
 
   command = ["--config.file=/etc/prometheus/prometheus.yml"]
@@ -25,7 +25,7 @@ resource "docker_container" "prometheus" {
   }
 
   upload {
-    content = "${file("${path.module}/config/prometheus.yml")}"
+    content = file("${path.module}/config/prometheus.yml")
     file    = "/etc/prometheus/prometheus.yml"
   }
 
@@ -38,8 +38,8 @@ resource "docker_container" "prometheus" {
   }
 
   networks = [
-    "${data.docker_network.bridge.id}",
-    "${docker_network.monitoring.id}",
+    data.docker_network.bridge.id,
+    docker_network.monitoring.id,
   ]
 
   restart               = "unless-stopped"
@@ -50,3 +50,4 @@ resource "docker_container" "prometheus" {
 data "docker_network" "bridge" {
   name = "bridge"
 }
+

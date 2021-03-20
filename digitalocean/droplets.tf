@@ -18,5 +18,6 @@ resource "digitalocean_droplet" "sydney" {
 }
 
 output "droplet_ipv4" {
-  value = "${digitalocean_droplet.sydney.ipv4_address}"
+  value = digitalocean_droplet.sydney.ipv4_address
 }
+

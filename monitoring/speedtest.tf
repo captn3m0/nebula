@@ -17,7 +17,7 @@ module "speedtest" {
     },
   ]
 
-  resource {
+  resource = {
     memory      = 256
     memory_swap = 256
   }
@@ -26,3 +26,4 @@ module "speedtest" {
   destroy_grace_seconds = 10
   must_run              = true
 }
+

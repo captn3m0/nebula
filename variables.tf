@@ -1,5 +1,5 @@
 variable "ips" {
-  type = "map"
+  type = map(string)
 
   default = {
     eth0    = "192.168.1.111"
@@ -11,24 +11,20 @@ variable "ips" {
 }
 
 variable "traefik-common-labels" {
-  type = "map"
+  type = map(string)
 
   default = {
     "traefik.enable" = "true"
-
     // HSTS
     "traefik.frontend.headers.SSLTemporaryRedirect" = "true"
     "traefik.frontend.headers.STSSeconds"           = "2592000"
     "traefik.frontend.headers.STSIncludeSubdomains" = "false"
-
     // X-Powered-By, Server headers
     "traefik.frontend.headers.customResponseHeaders" = "X-Powered-By:Allomancy||X-Server:Blackbox||X-Clacks-Overhead:GNU Terry Pratchett"
-
     // X-Frame-Options
     "traefik.frontend.headers.customFrameOptionsValue" = "ALLOW-FROM https://bb8.fun/"
     "traefik.frontend.headers.contentTypeNosniff"      = "true"
     "traefik.frontend.headers.browserXSSFilter"        = "true"
-
     // Use the Traefik network
     "traefik.docker.network" = "traefik"
   }
@@ -38,3 +34,4 @@ variable "root-domain" {
   description = "root domain for most applications"
   default     = "bb8.fun"
 }
+

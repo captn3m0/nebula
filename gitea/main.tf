@@ -1,59 +1,62 @@
 resource "docker_container" "gitea" {
   name  = "gitea"
-  image = "${docker_image.gitea.latest}"
+  image = docker_image.gitea.latest
 
-  labels = "${merge(
-    var.traefik-labels, map(
-      "traefik.port", 3000,
-      "traefik.frontend.rule", "Host:${var.domain}"
-  ))}"
+  labels = merge(
+    var.traefik-labels,
+    {
+      "traefik.port"          = 3000
+      "traefik.frontend.rule" = "Host:${var.domain}"
+    },
+  )
 
   volumes {
-    volume_name    = "${docker_volume.gitea_volume.name}"
+    volume_name    = docker_volume.gitea_volume.name
     container_path = "/data"
-    host_path      = "${docker_volume.gitea_volume.mountpoint}"
+    host_path      = docker_volume.gitea_volume.mountpoint
   }
 
   # Logos
   # TODO: Add svg
 
   upload {
-    content = "${file("${path.module}/conf/public/img/gitea-lg.png")}"
+    content = file("${path.module}/conf/public/img/gitea-lg.png")
     file    = "/data/gitea/public/img/gitea-lg.png"
   }
   upload {
-    content = "${file("${path.module}/conf/public/img/gitea-sm.png")}"
+    content = file("${path.module}/conf/public/img/gitea-sm.png")
     file    = "/data/gitea/public/img/gitea-sm.png"
   }
   upload {
-    content    = "${file("${path.module}/conf/public/img/gitea-sm.png")}"
+    content    = file("${path.module}/conf/public/img/gitea-sm.png")
     file       = "/data/gitea/public/img/favicon.png"
     executable = false
   }
   upload {
-    content = "${file("${path.module}/../docker/conf/humans.txt")}"
+    content = file("${path.module}/../docker/conf/humans.txt")
     file    = "/data/gitea/public/humans.txt"
   }
   upload {
-    content = "${file("${path.module}/conf/public/robots.txt")}"
+    content = file("${path.module}/conf/public/robots.txt")
     file    = "/data/gitea/public/robots.txt"
   }
+
   # Extra Links in header
   upload {
-    content = "${file("${path.module}/conf/extra_links.tmpl")}"
+    content = file("${path.module}/conf/extra_links.tmpl")
     file    = "/data/gitea/templates/custom/extra_links.tmpl"
   }
+
   # This is the main configuration file
   upload {
-    content = "${data.template_file.gitea-config-file.rendered}"
+    content = data.template_file.gitea-config-file.rendered
     file    = "/data/gitea/conf/app.ini"
   }
   memory                = 512
   restart               = "always"
   destroy_grace_seconds = 10
   must_run              = true
-  networks              = ["${docker_network.gitea.id}", "${var.traefik-network-id}"]
-
+  networks              = [docker_network.gitea.id, var.traefik-network-id]
   # This doesn't work.
   # See https://github.com/terraform-providers/terraform-provider-docker/issues/48
   # lifecycle {
@@ -66,6 +69,7 @@ resource "docker_container" "gitea" {
 }
 
 resource "docker_image" "gitea" {
-  name          = "${data.docker_registry_image.gitea.name}"
-  pull_triggers = ["${data.docker_registry_image.gitea.sha256_digest}"]
+  name          = data.docker_registry_image.gitea.name
+  pull_triggers = [data.docker_registry_image.gitea.sha256_digest]
 }
+

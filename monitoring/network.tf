@@ -3,3 +3,4 @@ resource "docker_network" "monitoring" {
   driver   = "bridge"
   internal = true
 }
+

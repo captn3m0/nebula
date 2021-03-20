@@ -4,7 +4,9 @@ variable "postgres-version" {
 }
 
 variable "ips" {
-  type = "map"
+  type = map(string)
 }
 
-variable "postgres-root-password" {}
+variable "postgres-root-password" {
+}
+

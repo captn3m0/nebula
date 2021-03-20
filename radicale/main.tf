@@ -3,15 +3,15 @@ module "container" {
   source = "../modules/container"
   image  = "tomsquest/docker-radicale:amd64"
 
-  resource {
+  resource = {
     memory      = 512
     memory_swap = 512
   }
 
-  web {
+  web = {
     expose = true
     port   = 5232
-    host   = "${var.domain}"
+    host   = var.domain
   }
 
   volumes = [
@@ -97,3 +97,4 @@ EOT
     },
   ]
 }
+

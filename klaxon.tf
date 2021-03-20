@@ -1,20 +1,20 @@
 module "klaxon-db" {
-  source   = "modules/postgres"
+  source   = "./modules/postgres"
   name     = "klaxon"
-  password = "${data.pass_password.klaxon-db-password.password}"
+  password = data.pass_password.klaxon-db-password.password
 }
 
 module "klaxon" {
   name   = "klaxon"
-  source = "modules/container"
+  source = "./modules/container"
 
-  web {
+  web = {
     expose = true
     port   = "3000"
     host   = "klaxon.${var.root-domain}"
   }
 
-  resource {
+  resource = {
     memory      = 1024
     memory_swap = 1024
   }
@@ -29,7 +29,7 @@ module "klaxon" {
     "KLAXON_FORCE_SSL=false",
     "KLAXON_COMPILE_ASSETS=true",
     "ADMIN_EMAILS=klaxon@captnemo.in",
-    "MAILER_FROM_ADDRESS=klaxon@sendgrid.captnemo.in"
+    "MAILER_FROM_ADDRESS=klaxon@sendgrid.captnemo.in",
   ]
   restart = "always"
 
@@ -38,9 +38,13 @@ module "klaxon" {
   networks_advanced = [
     {
       name = "traefik"
-      }, {
+    },
+    {
       name = "postgres"
-      }, {
+    },
+    {
       name = "external"
-  }]
+    },
+  ]
 }
+

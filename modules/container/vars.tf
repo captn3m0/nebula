@@ -8,20 +8,16 @@ variable "name" {
 
 variable "ports" {
   description = "list of port mappings"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "networks_advanced" {
   description = "list of networks_advanced"
-  type        = "list"
-  default     = []
-}
+  type        = map
+  default = {
 
-variable "networks" {
-  description = "list of networks"
-  type        = "list"
-  default     = []
+  }
 }
 
 variable "restart" {
@@ -32,7 +28,7 @@ variable "restart" {
 variable "must_run" {
   description = "If true, then the Docker container will be kept running. "
   default     = "true"
-  type        = "string"
+  type        = string
 }
 
 variable "user" {
@@ -43,7 +39,7 @@ variable "user" {
 variable "destroy_grace_seconds" {
   description = "Container will be destroyed after n seconds or on successful stop."
   default     = 10
-  type        = "string"
+  type        = string
 }
 
 variable "command" {
@@ -95,20 +91,21 @@ variable "resource" {
 
 variable "volumes" {
   description = "volumes"
-  type        = "list"
-  default     = []
+  default     = {}
 }
 
 variable "capabilities" {
   description = "capabilities"
-  type        = "list"
-  default     = []
+
+  default = {
+    add  = []
+    drop = []
+  }
 }
 
 variable "devices" {
   description = "devices"
-  type        = "list"
-  default     = []
+  default     = {}
 }
 
 variable "keep_image" {
@@ -119,3 +116,4 @@ variable "keep_image" {
 variable "uploads" {
   default = []
 }
+

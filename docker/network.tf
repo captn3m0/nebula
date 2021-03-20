@@ -3,3 +3,4 @@ resource "docker_network" "traefik" {
   driver   = "bridge"
   internal = true
 }
+

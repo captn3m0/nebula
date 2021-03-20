@@ -4,7 +4,7 @@ data "docker_registry_image" "wp" {
 
 resource "docker_image" "wp" {
   name          = "wordpress"
-  pull_triggers = ["${data.docker_registry_image.wp.sha256_digest}"]
+  pull_triggers = [data.docker_registry_image.wp.sha256_digest]
 }
 
 data "docker_registry_image" "db" {
@@ -13,7 +13,7 @@ data "docker_registry_image" "db" {
 
 resource "docker_image" "db" {
   name          = "mariadb"
-  pull_triggers = ["${data.docker_registry_image.db.sha256_digest}"]
+  pull_triggers = [data.docker_registry_image.db.sha256_digest]
 }
 
 data "docker_registry_image" "traefik" {
@@ -22,5 +22,6 @@ data "docker_registry_image" "traefik" {
 
 resource "docker_image" "traefik" {
   name          = "traefik"
-  pull_triggers = ["${data.docker_registry_image.db.sha256_digest}"]
+  pull_triggers = [data.docker_registry_image.db.sha256_digest]
 }
+

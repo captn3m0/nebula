@@ -2,21 +2,23 @@ module "jackett" {
   name   = "jackett"
   source = "../modules/container"
   image  = "linuxserver/jackett:latest"
+  # TODO FIXME
+  # networks = [data.docker_network.bridge.id]
 
-  networks = "${list(data.docker_network.bridge.id)}"
-
-  web {
+  web = {
     expose = true
     port   = 9117
     host   = "jackett.${var.domain}"
   }
 
-  volumes = [{
-    host_path      = "/mnt/xwing/config/jackett"
-    container_path = "/config"
-  }]
+  volumes = [
+    {
+      host_path      = "/mnt/xwing/config/jackett"
+      container_path = "/config"
+    },
+  ]
 
-  resource {
+  resource = {
     memory      = "256"
     memory_swap = "512"
   }
@@ -27,3 +29,4 @@ module "jackett" {
     "TZ=Asia/Kolkata",
   ]
 }
+

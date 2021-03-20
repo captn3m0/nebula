@@ -1,6 +1,6 @@
 resource "docker_container" "emby" {
   name  = "emby"
-  image = "${docker_image.emby.latest}"
+  image = docker_image.emby.latest
 
   volumes {
     host_path      = "/mnt/xwing/config/emby"
@@ -12,15 +12,16 @@ resource "docker_container" "emby" {
     container_path = "/media"
   }
 
-  labels = "${merge(
+  labels = merge(
     var.traefik-labels,
-    map(
-      "traefik.frontend.rule", "Host:emby.in.${var.domain},emby.${var.domain}",
-      "traefik.frontend.passHostHeader", "true",
-      "traefik.port", 8096,
-    ))}"
+    {
+      "traefik.frontend.rule"           = "Host:emby.in.${var.domain},emby.${var.domain}"
+      "traefik.frontend.passHostHeader" = "true"
+      "traefik.port"                    = 8096
+    },
+  )
 
-  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
+  networks = [docker_network.media.id, var.traefik-network-id]
 
   memory                = 2048
   restart               = "unless-stopped"
@@ -38,10 +39,11 @@ resource "docker_container" "emby" {
 }
 
 resource "docker_image" "emby" {
-  name          = "${data.docker_registry_image.emby.name}"
-  pull_triggers = ["${data.docker_registry_image.emby.sha256_digest}"]
+  name          = data.docker_registry_image.emby.name
+  pull_triggers = [data.docker_registry_image.emby.sha256_digest]
 }
 
 data "docker_registry_image" "emby" {
   name = "emby/embyserver:latest"
 }
+

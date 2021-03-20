@@ -1,11 +1,11 @@
 variable "domain" {
-  type = "string"
+  type = string
 }
 
 # variable "airsonic-smtp-password" {}
 
 variable "traefik-labels" {
-  type = "map"
+  type = map(string)
 }
 
 // TODO: Remove duplication
@@ -14,23 +14,29 @@ variable "basic_auth" {
 }
 
 variable "ips" {
-  type = "map"
+  type = map(string)
 }
 
-variable "traefik-network-id" {}
+variable "traefik-network-id" {
+}
+
 variable "lastfm_api_key" {
   description = "Navidrome Configuration for lastfm_api_key"
-  type        = "string"
+  type        = string
 }
+
 variable "lastfm_secret" {
   description = "Navidrome Configuration for lastfm_secret"
-  type        = "string"
+  type        = string
 }
+
 variable "spotify_id" {
   description = "Navidrome Configuration for spotify_id"
-  type        = "string"
+  type        = string
 }
+
 variable "spotify_secret" {
   description = "Navidrome Configuration for spotify_secret"
-  type        = "string"
+  type        = string
 }
+
