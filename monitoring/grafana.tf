@@ -7,16 +7,18 @@ module "grafana" {
   // grafana:grafana
   user = "984:982"
 
-  web {
+  web = {
     port   = 3000
     host   = "grafana.${var.domain}"
     expose = true
   }
 
-  volumes = [{
-    host_path      = "/mnt/xwing/data/grafana"
-    container_path = "/var/lib/grafana"
-  }]
+  volumes = [
+    {
+      host_path      = "/mnt/xwing/data/grafana"
+      container_path = "/var/lib/grafana"
+    },
+  ]
 
   networks_advanced = [
     {
@@ -31,8 +33,6 @@ module "grafana" {
     "GF_SERVER_ROOT_URL=https://grafana.${var.domain}",
     "GF_AUTH_ANONYMOUS_ENABLED=true",
     "GF_AUTH_ANONYMOUS_ORG_NAME=Tatooine",
-
-    # Keep this disabled unless bringing up a new grafana instance
     "GF_SECURITY_ADMIN_PASSWORD=${var.gf-security-admin-password}",
   ]
 
@@ -40,3 +40,4 @@ module "grafana" {
   destroy_grace_seconds = 10
   must_run              = true
 }
+

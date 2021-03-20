@@ -3,7 +3,7 @@ module "cadvisor" {
   name   = "cadvisor"
   image  = "google/cadvisor:latest"
 
-  resource {
+  resource = {
     memory      = 512
     memory_swap = 512
   }
@@ -48,9 +48,10 @@ module "cadvisor" {
     },
   ]
 
-  web {
+  web = {
     expose = true
     port   = 8080
     auth   = true
   }
 }
+

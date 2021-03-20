@@ -1,10 +1,11 @@
 resource "postgresql_database" "db" {
-  name  = "${var.name}"
-  owner = "${var.name}"
+  name  = var.name
+  owner = var.name
 }
 
 resource "postgresql_role" "role" {
-  name     = "${var.name}"
+  name     = var.name
   login    = true
-  password = "${var.password}"
+  password = var.password
 }
+

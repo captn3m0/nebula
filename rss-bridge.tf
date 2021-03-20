@@ -1,15 +1,15 @@
 module "rss-bridge" {
   name   = "rss-bridge"
-  source = "modules/container"
+  source = "./modules/container"
 
   image = "captn3m0/rss-bridge:develop"
 
-  resource {
+  resource = {
     memory      = 256
     memory_swap = 256
   }
 
-  web {
+  web = {
     expose = "true"
     host   = "rss-bridge.${var.root-domain}"
   }
@@ -23,8 +23,11 @@ module "rss-bridge" {
     },
   ]
 
-  volumes = [{
-    container_path = "/app/whitelist.txt"
-    host_path      = "/mnt/xwing/config/rss-bridge/whitelist.txt"
-  }]
+  volumes = [
+    {
+      container_path = "/app/whitelist.txt"
+      host_path      = "/mnt/xwing/config/rss-bridge/whitelist.txt"
+    },
+  ]
 }
+

@@ -1,18 +1,32 @@
 variable "traefik-labels" {
-  type = "map"
+  type = map(string)
 }
 
-variable "domain" {}
+variable "domain" {
+}
 
 variable "ips" {
-  type = "map"
+  type = map(string)
 }
 
-variable "secret-key" {}
-variable "internal-token" {}
-variable "smtp-password" {}
-variable "lfs-jwt-secret" {}
-variable "oauth2-jwt-secret" {}
-variable "mysql-password" {}
+variable "secret-key" {
+}
 
-variable "traefik-network-id" {}
+variable "internal-token" {
+}
+
+variable "smtp-password" {
+}
+
+variable "lfs-jwt-secret" {
+}
+
+variable "oauth2-jwt-secret" {
+}
+
+variable "mysql-password" {
+}
+
+variable "traefik-network-id" {
+}
+

@@ -1,12 +1,13 @@
 module "opml" {
-  name     = "opml"
-  source   = "../modules/container"
-  image    = "captn3m0/opml-gen:latest"
-  networks = ["${docker_network.opml.id}", "${var.traefik-network-id}"]
+  name   = "opml"
+  source = "../modules/container"
+  image  = "captn3m0/opml-gen:latest"
+  # TODO FIXME
+  # networks = [docker_network.opml.id, var.traefik-network-id]
 
-  web {
+  web = {
     expose = true
-    host   = "${var.domain}"
+    host   = var.domain
   }
 
   env = [
@@ -15,8 +16,9 @@ module "opml" {
     "REDIS_URL=redis://opml-redis:6379/1",
   ]
 
-  resource {
+  resource = {
     memory      = 256
     memory_swap = 256
   }
 }
+

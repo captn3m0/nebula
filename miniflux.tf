@@ -1,19 +1,20 @@
 module "miniflux-container" {
   name   = "miniflux"
-  source = "modules/container"
+  source = "./modules/container"
   image  = "miniflux/miniflux:2.0.28"
 
-  web {
+  web = {
     expose = true
     port   = 8080
     host   = "rss.captnemo.in"
   }
 
-  networks = "${list(
-    data.docker_network.bridge.id,
-    module.docker.traefik-network-id,
-    module.db.postgres-network-id
-  )}"
+  # TODO FIXME
+  # networks = [
+  #   data.docker_network.bridge.id,
+  #   module.docker.traefik-network-id,
+  #   module.db.postgres-network-id,
+  # ]
 
   env = [
     "DATABASE_URL=postgres://miniflux:${data.pass_password.miniflux-db-password.password}@postgres/miniflux?sslmode=disable",
@@ -22,7 +23,8 @@ module "miniflux-container" {
 }
 
 module "miniflux-db" {
-  source   = "modules/postgres"
+  source   = "./modules/postgres"
   name     = "miniflux"
-  password = "${data.pass_password.miniflux-db-password.password}"
+  password = data.pass_password.miniflux-db-password.password
 }
+

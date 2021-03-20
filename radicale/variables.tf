@@ -1,3 +1,4 @@
 variable "domain" {
-  type = "string"
+  type = string
 }
+

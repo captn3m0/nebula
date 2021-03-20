@@ -1,9 +1,10 @@
 variable "domain" {
-  type = "string"
+  type = string
 }
 
 variable "ips" {
-  type = "map"
+  type = map
 }
 
 variable "droplet_ip" {}
+variable "zone_id" {}

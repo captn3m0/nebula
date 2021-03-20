@@ -19,23 +19,24 @@ provider "kubernetes" {
 }
 
 provider "cloudflare" {
-  email = "bb8@captnemo.in"
-  token = "${data.pass_password.cloudflare_key.password}"
+  email   = "bb8@captnemo.in"
+  api_key = data.pass_password.cloudflare_key.password
 }
 
 provider "postgresql" {
   host     = "postgres.vpn.bb8.fun"
   port     = 5432
   username = "postgres"
-  password = "${data.pass_password.postgres-root-password.password}"
+  password = data.pass_password.postgres-root-password.password
   sslmode  = "disable"
 }
 
 provider "digitalocean" {
-  token = "${data.pass_password.digitalocean-token.password}"
+  token = data.pass_password.digitalocean-token.password
 }
 
 provider "pass" {
   store_dir     = "/home/nemo/.password-store/Nebula/"
   refresh_store = false
 }
+

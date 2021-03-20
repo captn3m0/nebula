@@ -1,17 +1,17 @@
 variable "gf-security-admin-password" {
-  type = "string"
+  type = string
 }
 
 variable "domain" {
-  type = "string"
+  type = string
 }
 
 variable "transmission" {
-  type = "string"
+  type = string
 }
 
 variable "links-traefik" {
-  type = "string"
+  type = string
 }
 
 variable "alert-slack-username" {
@@ -31,11 +31,13 @@ variable "basic_auth" {
 }
 
 variable "traefik-labels" {
-  type = "map"
+  type = map(string)
 }
 
 variable "ips" {
-  type = "map"
+  type = map(string)
 }
 
-variable "traefik-network-id" {}
+variable "traefik-network-id" {
+}
+

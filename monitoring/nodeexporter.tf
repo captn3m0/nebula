@@ -27,14 +27,17 @@ module "nodeexporter" {
   command = [
     "--path.procfs=/host/proc",
     "--path.sysfs=/host/sys",
-    "--collector.filesystem.ignored-mount-points=\"^/(sys|proc|dev|host|etc)($$|/)\"",
+    "--collector.filesystem.ignored-mount-points=\"^/(sys|proc|dev|host|etc)($|/)\"",
   ]
 
-  networks = [
-    "${docker_network.monitoring.id}",
-  ]
+  # TODO FIXME
+
+  # networks = [
+  #   docker_network.monitoring.id,
+  # ]
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
 }
+

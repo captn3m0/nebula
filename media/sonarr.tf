@@ -3,13 +3,13 @@ module "sonarr-container" {
   source = "../modules/container"
   image  = "linuxserver/sonarr:latest"
 
-  web {
+  web = {
     expose = true
     port   = 8989
     host   = "sonarr.${var.domain}"
   }
 
-  resource {
+  resource = {
     memory      = 512
     memory_swap = 1024
   }
@@ -35,5 +35,6 @@ module "sonarr-container" {
     "TZ=Asia/Kolkata",
   ]
 
-  networks = "${list(docker_network.media.id, data.docker_network.bridge.id)}"
+  networks = [docker_network.media.id, data.docker_network.bridge.id]
 }
+

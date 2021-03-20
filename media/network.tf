@@ -7,3 +7,4 @@ resource "docker_network" "media" {
     gateway = "172.18.0.1"
   }
 }
+

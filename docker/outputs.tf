@@ -3,13 +3,14 @@
 # }
 
 output "names-traefik" {
-  value = "${docker_container.traefik.name}"
+  value = docker_container.traefik.name
 }
 
 output "traefik-network-id" {
-  value = "${docker_network.traefik.id}"
+  value = docker_network.traefik.id
 }
 
 output "auth-header" {
-  value = "${var.basic_auth}"
+  value = var.basic_auth
 }
+

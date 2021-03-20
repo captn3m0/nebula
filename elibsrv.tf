@@ -1,14 +1,14 @@
 module "elibsrv" {
-  name   = "elibsrv"
+  name   = "./elibsrv"
   source = "./modules/container"
   image  = "captn3m0/elibsrv"
 
-  resource {
+  resource = {
     memory      = 512
     memory_swap = 512
   }
 
-  web {
+  web = {
     expose = true
     host   = "ebooks.${var.root-domain}"
     auth   = true
@@ -49,3 +49,4 @@ module "elibsrv" {
     },
   ]
 }
+

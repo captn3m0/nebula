@@ -3,19 +3,21 @@ data "docker_registry_image" "lidarr" {
 }
 
 resource "docker_image" "lidarr" {
-  name          = "${data.docker_registry_image.lidarr.name}"
-  pull_triggers = ["${data.docker_registry_image.lidarr.sha256_digest}"]
+  name          = data.docker_registry_image.lidarr.name
+  pull_triggers = [data.docker_registry_image.lidarr.sha256_digest]
 }
 
 resource "docker_container" "lidarr" {
   name  = "lidarr"
-  image = "${docker_image.lidarr.latest}"
+  image = docker_image.lidarr.latest
 
-  labels = "${merge(
-    var.traefik-labels, map(
-      "traefik.port", 8686,
-      "traefik.frontend.rule","Host:lidarr.${var.domain}"
-  ))}"
+  labels = merge(
+    var.traefik-labels,
+    {
+      "traefik.port"          = 8686
+      "traefik.frontend.rule" = "Host:lidarr.${var.domain}"
+    },
+  )
 
   memory                = 512
   restart               = "unless-stopped"
@@ -43,5 +45,6 @@ resource "docker_container" "lidarr" {
     "TZ=Asia/Kolkata",
   ]
 
-  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
+  networks = [docker_network.media.id, var.traefik-network-id]
 }
+
