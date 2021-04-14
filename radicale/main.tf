@@ -35,64 +35,31 @@ hosts = 0.0.0.0:5232
 # Max parallel connections
 max_connections = 10
 
-# Message displayed in the client when a password is needed
-realm = Authentication required
-
 [auth]
-
 # Authentication method
 # Value: none | htpasswd | remote_user | http_x_remote_user
 type = htpasswd
 htpasswd_filename = /config/users
+htpasswd_encryption = bcrypt
 
 [storage]
 filesystem_folder = /data/collections
 
 [logging]
-
-# For more information about the syntax of the configuration file, see:
-# http://docs.python.org/library/logging.config.html
-# config = /config/logging
+level=warning
 
 [headers]
-
 # Additional HTTP headers
 X-Powered-By: Allomancy
 Server: Blackbox
 EOT
-
-      file = "/config/config"
+      file    = "/config/config"
     },
     {
       content = <<EOT
-[loggers]
-keys = root
-
-[handlers]
-keys = file
-
-[formatters]
-keys = full
-
-[logger_root]
-# Change this to DEBUG or INFO for higher verbosity.
-level = WARNING
-handlers = file
-
-[handler_file]
-class = FileHandler
-# Specify the output file here.
-args = ('/var/log/radicale/log',)
-formatter = full
-
-[formatter_full]
-format = %(asctime)s - [%(thread)x] %(levelname)s: %(message)s
+nemo:$2y$05$vC1WTAuKn2xuDYZ6I3ucxuPnCrtZrVKzdDHSYhqCegi97RM/pdzXW
+axy:$2b$10$iqCLs3F1IRDBoSGxGlsOFO9C3peh8QH14hMnHN4o6oqu21PWL9vu2
 EOT
-
-      file = "/config/logging"
-    },
-    {
-      content = "nemo:$2y$05$vC1WTAuKn2xuDYZ6I3ucxuPnCrtZrVKzdDHSYhqCegi97RM/pdzXW"
       file    = "/config/users"
     },
   ]

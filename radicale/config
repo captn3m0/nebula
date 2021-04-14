@@ -5,9 +5,6 @@ hosts = 0.0.0.0:5232
 # Max parallel connections
 max_connections = 10
 
-# Message displayed in the client when a password is needed
-realm = Authentication required
-
 [auth]
 
 # Authentication method
@@ -19,6 +16,8 @@ htpasswd_filename = /config/users
 filesystem_folder = /data/collections
 
 [logging]
+
+level = warning
 
 # For more information about the syntax of the configuration file, see:
 # http://docs.python.org/library/logging.config.html
