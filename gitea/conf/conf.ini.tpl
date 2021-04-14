@@ -100,10 +100,6 @@ SQLITE_TIMEOUT = 500
 ; Show the database generated SQL
 LOG_SQL = false
 
-[session]
-PROVIDER_CONFIG = /data/gitea/sessions
-PROVIDER        = file
-
 [picture]
 AVATAR_UPLOAD_PATH      = /data/gitea/avatars
 DISABLE_GRAVATAR        = true
@@ -174,34 +170,22 @@ SUBJECT_PREFIX = "[git.captnemo.in] "
 
 [cache]
 ADAPTER = redis
-INTERVAL = 60
 HOST = "network=tcp,addr=gitea-redis:6379,db=0,pool_size=100,idle_timeout=180"
-ITEM_TTL = 16h
 
 [session]
 ; ; Either "memory", "file", or "redis", default is "memory"
 PROVIDER = redis
+; Provider config options
+; redis: network=tcp,addr=:6379,password=macaron,db=0,pool_size=100,idle_timeout=180
 PROVIDER_CONFIG = "network=tcp,addr=gitea-redis:6379,db=1,pool_size=100,idle_timeout=180"
-; ; Session cookie name
-COOKIE_NAME = i_like_gitea
 ; ; If you use session in https only, default is false
 COOKIE_SECURE = true
-; ; Enable set cookie, default is true
-ENABLE_SET_COOKIE = true
-; ; Session GC time interval in seconds, default is 86400 (1 day)
-; GC_INTERVAL_TIME = 86400
-; ; Session life time in seconds, default is 86400 (1 day)
-SESSION_LIFE_TIME = 2592000
-
-[picture]
-
-ENABLE_FEDERATED_AVATAR = true
+; SameSite settings. Either "none", "lax", or "strict"
+SAME_SITE = strict
 
 [attachment]
 ; ; Whether attachments are enabled. Defaults to `true`
 ENABLE = true
-; ; Path for attachments. Defaults to `data/attachments`
-PATH = data/attachments
 ; ; One or more allowed types, e.g. image/jpeg|image/png
 ALLOWED_TYPES = image/jpeg|image/png|application/zip|application/gzip|application/pdf|text/csv
 ; ; Max size of each file. Defaults to 32MB
@@ -216,7 +200,7 @@ MODE = console
 ; Buffer length of the channel, keep it as it is if you don't know what it is.
 BUFFER_LEN = 10000
 ; Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
-LEVEL = Trace
+LEVEL = Warn
 REDIRECT_MACARON_LOG = true
 ROUTER_LOG_LEVEL = Critical
 ENABLE_ACCESS_LOG = true
@@ -270,32 +254,6 @@ ENABLE_OPENID_SIGNUP = true
 [metrics]
 ; Enables metrics endpoint. True or false; default is false.
 ENABLED = true
-; If you want to add authorization, specify a token here
-; TODO
-TOKEN =
-
-
-[git]
-; Disables highlight of added and removed changes
-DISABLE_DIFF_HIGHLIGHT = false
-; Max number of lines allowed in a single file in diff view
-MAX_GIT_DIFF_LINES = 1000
-; Max number of allowed characters in a line in diff view
-MAX_GIT_DIFF_LINE_CHARACTERS = 5000
-; Max number of files shown in diff view
-MAX_GIT_DIFF_FILES = 100
-; Arguments for command 'git gc', e.g. "--aggressive --auto"
-; see more on http://git-scm.com/docs/git-gc/
-GC_ARGS =
-
-; Operation timeout in seconds
-[git.timeout]
-DEFAULT = 360
-MIGRATE = 600
-MIRROR = 300
-CLONE = 300
-PULL = 300
-GC = 60
 
 [oauth2]
 ENABLE = false
