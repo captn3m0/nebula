@@ -4,8 +4,8 @@ module "container" {
   image  = "tomsquest/docker-radicale:amd64"
 
   resource {
-    memory      = 512
-    memory_swap = 512
+    memory      = 2000
+    memory_swap = 2000
   }
 
   web {
