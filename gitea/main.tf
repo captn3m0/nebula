@@ -52,20 +52,12 @@ resource "docker_container" "gitea" {
     content = data.template_file.gitea-config-file.rendered
     file    = "/data/gitea/conf/app.ini"
   }
+
   memory                = 800
   restart               = "always"
   destroy_grace_seconds = 10
   must_run              = true
-  networks              = [docker_network.gitea.id, var.traefik-network-id]
-  # This doesn't work.
-  # See https://github.com/terraform-providers/terraform-provider-docker/issues/48
-  # lifecycle {
-  #   ignore_changes = [
-  #     "upload.2151376053.content",
-  #     "upload.2151376053.executable",
-  #     "upload.2151376053.file",
-  #   ]
-  # }
+  networks              = ["gitea", "traefik"]
 }
 
 resource "docker_image" "gitea" {

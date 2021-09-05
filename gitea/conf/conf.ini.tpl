@@ -137,7 +137,7 @@ ACTIVE_CODE_LIVE_MINUTES = 15
 RESET_PASSWD_CODE_LIVE_MINUTES = 30
 REGISTER_EMAIL_CONFIRM            = true
 ENABLE_NOTIFY_MAIL                = true
-DISABLE_REGISTRATION              = false
+DISABLE_REGISTRATION              = true
 ; ; Enable captcha validation for registration
 ENABLE_CAPTCHA                    = true
 REQUIRE_EXTERNAL_REGISTRATION_CAPTCHA = true
@@ -146,7 +146,7 @@ CAPTCHA_TYPE = image
 REQUIRE_SIGNIN_VIEW               = false
 ; ; Default value for KeepEmailPrivate
 ; ; New user will get the value of this setting copied into their profile
-DEFAULT_KEEP_EMAIL_PRIVATE        = false
+DEFAULT_KEEP_EMAIL_PRIVATE        = true
 ; ; Default value for AllowCreateOrganization
 ; ; New user will have rights set to create organizations depending on this setting
 DEFAULT_ALLOW_CREATE_ORGANIZATION = true
@@ -249,7 +249,7 @@ SHOW_FOOTER_TEMPLATE_LOAD_TIME = false
 
 [openid]
 ENABLE_OPENID_SIGNIN = true
-ENABLE_OPENID_SIGNUP = true
+ENABLE_OPENID_SIGNUP = false
 
 [metrics]
 ; Enables metrics endpoint. True or false; default is false.
