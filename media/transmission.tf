@@ -28,6 +28,11 @@ resource "docker_container" "transmission" {
   }
 
   volumes {
+    host_path      = "/mnt/xwing/media/Music/Audiobooks"
+    container_path = "/audiobooks"
+  }
+
+  volumes {
     host_path      = "/mnt/xwing/data/watch/transmission"
     container_path = "/watch"
   }
