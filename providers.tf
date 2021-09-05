@@ -1,13 +1,13 @@
 provider "docker" {
   host      = "tcp://docker.vpn.bb8.fun:2376"
   cert_path = "./secrets/tatooine"
-  version   = "~> 2.2.0"
+  version   = "~> 2.7.2"
 }
 
 provider "docker" {
   host      = "tcp://docker.dovpn.bb8.fun:2376"
   cert_path = "./secrets/sydney"
-  version   = "~> 2.2.0"
+  version   = "~> 2.7.2"
   alias     = "sydney"
 }
 
