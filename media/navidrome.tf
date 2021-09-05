@@ -16,6 +16,10 @@ module "navidrome" {
     expose = true
   }
 
+  labels = {
+    "traefik.read.frontend.headers.contentTypeNosniff" = "false"
+  }
+
   env = [
     "ND_SCANINTERVAL=1h",
     "ND_LOGLEVEL=info",
