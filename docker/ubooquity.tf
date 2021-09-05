@@ -38,7 +38,6 @@ resource "docker_container" "ubooquity" {
     "traefik.read.frontend.headers.SSLTemporaryRedirect"  = "true"
     "traefik.read.frontend.headers.STSSeconds"            = "2592000"
     "traefik.read.frontend.headers.STSIncludeSubdomains"  = "false"
-    "traefik.read.frontend.headers.contentTypeNosniff"    = "true"
     "traefik.read.frontend.headers.browserXSSFilter"      = "true"
     "traefik.read.frontend.headers.customResponseHeaders" = var.xpoweredby
     "traefik.frontend.headers.customFrameOptionsValue"    = var.xfo_allow
