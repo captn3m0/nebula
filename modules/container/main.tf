@@ -47,6 +47,9 @@ resource "docker_container" "container" {
       # which keys might be set in maps assigned here, so it has
       # produced a comprehensive set here. Consider simplifying
       # this after confirming which keys can be set in practice.
+      // Only attach the traefik network if
+      // service is exposed to the web
+      networks = ["${concat(var.networks, compact(split(",", lookup(var.web, "expose", "false") == "false" ? "" : "${data.docker_network.traefik.id}")))}"]
 
       aliases      = lookup(networks_advanced.value, "aliases", null)
       ipv4_address = lookup(networks_advanced.value, "ipv4_address", null)
@@ -86,27 +89,18 @@ resource "docker_container" "container" {
       permissions    = lookup(devices.value, "permissions", null)
     }
   }
-
   dynamic "upload" {
-    for_each = [var.uploads]
+    for_each = var.uploads
     content {
-      # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
-      # which keys might be set in maps assigned here, so it has
-      # produced a comprehensive set here. Consider simplifying
-      # this after confirming which keys can be set in practice.
-
-      content        = lookup(upload.value, "content", null)
-      content_base64 = lookup(upload.value, "content_base64", null)
-      executable     = lookup(upload.value, "executable", null)
-      file           = upload.value.file
-      source         = lookup(upload.value, "source", null)
-      source_hash    = lookup(upload.value, "source_hash", null)
+      upload = upload.value["content"]
+      file   = upload.value["file"]
     }
   }
 
   # Look at this monstrosity
   # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618
   # for why this is needed
+
 
   dynamic "labels" {
     for_each = merge(
