@@ -18,7 +18,7 @@ resource "docker_container" "emby" {
       "traefik.frontend.rule"           = "Host:emby.in.${var.domain},emby.${var.domain}"
       "traefik.frontend.passHostHeader" = "true"
       "traefik.port"                    = 8096
-    },
+    }
   )
 
   networks = [docker_network.media.id, var.traefik-network-id]
@@ -28,13 +28,16 @@ resource "docker_container" "emby" {
   destroy_grace_seconds = 10
   must_run              = true
 
+  devices = [{
+    host_path      = "/dev/dri"
+    container_path = "/dev/dri"
+  }]
+
   # Running as lounge:tatooine
   env = [
-    "APP_USER=lounge",
-    "APP_UID=1004",
-    "APP_GID=1003",
-    "APP_CONFIG=/mnt/xwing/config",
-    "TZ=Asia/Kolkata",
+    "UID=1004",
+    "GID=1003",
+    "GIDLIST=1003"
   ]
 }
 
