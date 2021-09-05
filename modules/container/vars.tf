@@ -59,7 +59,6 @@ variable "env" {
 
 variable "labels" {
   description = "labels"
-  default     = {}
 }
 
 variable "xpoweredby" {
@@ -114,6 +113,5 @@ variable "keep_image" {
 }
 
 variable "uploads" {
-  default = []
 }
 
