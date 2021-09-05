@@ -9,3 +9,16 @@ module "echo-server" {
     host   = "debug.${var.root-domain},debug.in.${var.root-domain}"
   }
 }
+
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "2.15.0"
+    }
+  }
+}
+
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
