@@ -38,33 +38,6 @@ checkNewVersion = false
 # Since I can't apply a authentication
 # on this yet
 
-[backends.elibsrv]
-[backends.elibsrv.servers.default]
-  url = "http://elibsrv.captnemo.in:90"
-
-[backends.scan]
-[backends.scan.servers.default]
-  url = "http://scan.in.bb8.fun:90"
-
-[frontends]
-
-[frontends.scan]
-  backend = "scan"
-  [frontends.scan.headers]
-    SSLRedirect = true
-    SSLTemporaryRedirect = true
-    STSSeconds = 2592000
-    FrameDeny = true
-    ContentTypeNosniff = true
-    BrowserXssFilter = true
-    ReferrerPolicy = "no-referrer"
-  [frontends.scan.headers.customresponseheaders]
-    X-Powered-By = "Allomancy"
-    Server = "BlackBox"
-    X-Clacks-Overhead = "GNU Terry Pratchett"
-[frontends.scan.routes.domain]
-  rule = "Host:scan.bb8.fun"
-
 [web]
   address = ":1111"
   readOnly = true
