@@ -52,7 +52,8 @@ resource "docker_container" "gitea" {
     content = data.template_file.gitea-config-file.rendered
     file    = "/data/gitea/conf/app.ini"
   }
-  memory                = 512
+
+  memory                = 800
   restart               = "always"
   destroy_grace_seconds = 10
   must_run              = true
