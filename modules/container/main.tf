@@ -1,20 +1,7 @@
-data "docker_registry_image" "image" {
-  name = var.image
-}
-
-resource "docker_image" "image" {
-  name          = var.image
-  pull_triggers = [data.docker_registry_image.image.sha256_digest]
-  keep_locally  = var.keep_image
-}
-
-data "docker_network" "traefik" {
-  name = "traefik"
-}
-
 resource "docker_container" "container" {
   name  = var.name
   image = docker_image.image.latest
+
   dynamic "ports" {
     for_each = var.ports
     content {
@@ -41,20 +28,9 @@ resource "docker_container" "container" {
   }
 
   dynamic "networks_advanced" {
-    for_each = [var.networks_advanced]
+    for_each = [local.networks]
     content {
-      # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
-      # which keys might be set in maps assigned here, so it has
-      # produced a comprehensive set here. Consider simplifying
-      # this after confirming which keys can be set in practice.
-      // Only attach the traefik network if
-      // service is exposed to the web
-      networks = [concat(var.networks, compact(split(",", lookup(var.web, "expose", "false") == "false" ? "" : data.docker_network.traefik.id)))]
-
-      aliases      = lookup(networks_advanced.value, "aliases", null)
-      ipv4_address = lookup(networks_advanced.value, "ipv4_address", null)
-      ipv6_address = lookup(networks_advanced.value, "ipv6_address", null)
-      name         = networks_advanced.value.name
+      name = networks_advanced.value
     }
   }
 
@@ -64,11 +40,6 @@ resource "docker_container" "container" {
   dynamic "volumes" {
     for_each = [var.volumes]
     content {
-      # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
-      # which keys might be set in maps assigned here, so it has
-      # produced a comprehensive set here. Consider simplifying
-      # this after confirming which keys can be set in practice.
-
       container_path = lookup(volumes.value, "container_path", null)
       from_container = lookup(volumes.value, "from_container", null)
       host_path      = lookup(volumes.value, "host_path", null)
@@ -80,13 +51,8 @@ resource "docker_container" "container" {
   dynamic "devices" {
     for_each = [var.devices]
     content {
-      # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
-      # which keys might be set in maps assigned here, so it has
-      # produced a comprehensive set here. Consider simplifying
-      # this after confirming which keys can be set in practice.
-
-      container_path = lookup(devices.value, "container_path", null)
       host_path      = devices.value.host_path
+      container_path = lookup(devices.value, "container_path", null)
       permissions    = lookup(devices.value, "permissions", null)
     }
   }
@@ -102,10 +68,6 @@ resource "docker_container" "container" {
       source_hash    = lookup(upload.value, "source_hash", null)
     }
   }
-
-  # Look at this monstrosity
-  # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618
-  # for why this is needed
 
   dynamic "labels" {
     for_each = local.labels
