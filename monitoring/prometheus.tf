@@ -29,18 +29,7 @@ resource "docker_container" "prometheus" {
     file    = "/etc/prometheus/prometheus.yml"
   }
 
-  networks_advanced {
-    name = "monitoring"
-  }
-
-  networks_advanced {
-    name = "bridge"
-  }
-
-  networks = [
-    data.docker_network.bridge.id,
-    docker_network.monitoring.id,
-  ]
+  networks = ["monitoring", "bridge"]
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

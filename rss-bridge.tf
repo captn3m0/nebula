@@ -14,14 +14,7 @@ module "rss-bridge" {
     host   = "rss-bridge.${var.root-domain}"
   }
 
-  networks_advanced = [
-    {
-      name = "external"
-    },
-    {
-      name = "traefik"
-    },
-  ]
+  networks = ["external"]
 
   volumes = [
     {

@@ -3,11 +3,6 @@ module "znc" {
   image  = "znc:latest"
   name   = "znc"
 
-  web = {
-    expose = "false"
-    host   = ""
-  }
-
   volumes = [
     {
       container_path = "/znc-data"
@@ -17,8 +12,8 @@ module "znc" {
 
   ports = [
     {
-      internal = 6697
-      external = 6697
+      internal = "6697"
+      external = "6697"
       ip       = var.ips["tun0"]
     },
   ]

@@ -14,9 +14,7 @@ resource "docker_container" "act-exporter" {
   }
 
   // So it can talk to ACT
-  networks_advanced {
-    name = "bridge"
-  }
+  networks = ["bridge"]
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 10

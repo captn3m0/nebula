@@ -1,14 +1,21 @@
+locals {
+  transmission_labels = merge(var.traefik-labels, {
+    "traefik.frontend.auth.basic" = var.basic_auth
+    "traefik.port"                = 9091
+  })
+}
+
 resource "docker_container" "transmission" {
   name  = "transmission"
   image = docker_image.transmission.latest
 
-  labels = merge(
-    var.traefik-labels,
-    {
-      "traefik.frontend.auth.basic" = var.basic_auth
-      "traefik.port"                = 9091
-    },
-  )
+  dynamic "labels" {
+    for_each = local.transmission_labels
+    content {
+      label = labels.key
+      value = labels.value
+    }
+  }
 
   ports {
     internal = 51413

@@ -7,17 +7,25 @@ resource "docker_image" "lidarr" {
   pull_triggers = [data.docker_registry_image.lidarr.sha256_digest]
 }
 
+locals {
+  lidarr_labels = merge(var.traefik-labels, {
+    "traefik.port"          = 8686
+    "traefik.frontend.rule" = "Host:lidarr.${var.domain}"
+  })
+}
+
 resource "docker_container" "lidarr" {
   name  = "lidarr"
   image = docker_image.lidarr.latest
 
-  labels = merge(
-    var.traefik-labels,
-    {
-      "traefik.port"          = 8686
-      "traefik.frontend.rule" = "Host:lidarr.${var.domain}"
-    },
-  )
+  dynamic "labels" {
+    for_each = local.lidarr_labels
+    content {
+      label = labels.key
+      value = labels.value
+    }
+  }
+
 
   memory                = 512
   restart               = "unless-stopped"

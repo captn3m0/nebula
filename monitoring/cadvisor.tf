@@ -39,14 +39,7 @@ module "cadvisor" {
     },
   ]
 
-  networks_advanced = [
-    {
-      name = "traefik"
-    },
-    {
-      name = "monitoring"
-    },
-  ]
+  networks = ["monitoring"]
 
   web = {
     expose = true

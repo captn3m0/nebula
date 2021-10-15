@@ -7,15 +7,7 @@ module "speedtest" {
   image  = "captn3m0/speedtest-exporter:alpine"
   source = "../modules/container"
 
-  networks_advanced = [
-    {
-      name    = "monitoring"
-      aliases = ["speedtest", "speedtest.docker"]
-    },
-    {
-      name = "bridge"
-    },
-  ]
+  networks = ["monitoring"]
 
   resource = {
     memory      = 256

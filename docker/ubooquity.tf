@@ -1,3 +1,10 @@
+locals {
+  l = merge(local.traefik_common_labels, {
+    "traefik.port"          = 3000
+    "traefik.frontend.rule" = "Host:${var.domain}"
+  })
+}
+
 resource "docker_container" "ubooquity" {
   name  = "ubooquity"
   image = docker_image.ubooquity.latest
@@ -25,23 +32,33 @@ resource "docker_container" "ubooquity" {
     host_path      = "/mnt/xwing/media/EBooks/Comics"
     container_path = "/comics"
   }
-
-  labels = {
-    "traefik.enable"              = "true"
-    "traefik.admin.port"          = 2203
-    "traefik.admin.frontend.rule" = "Host:library.${var.domain}"
-    # I do not trust the Ubooquity authentication
-    # it does some shady JS encryption
-    "traefik.admin.frontend.auth.basic"                   = var.basic_auth
-    "traefik.read.port"                                   = 2202
-    "traefik.read.frontend.rule"                          = "Host:read.${var.domain},comics.${var.domain},books.${var.domain}"
-    "traefik.read.frontend.headers.SSLTemporaryRedirect"  = "true"
-    "traefik.read.frontend.headers.STSSeconds"            = "2592000"
-    "traefik.read.frontend.headers.STSIncludeSubdomains"  = "false"
-    "traefik.read.frontend.headers.browserXSSFilter"      = "true"
-    "traefik.read.frontend.headers.customResponseHeaders" = var.xpoweredby
-    "traefik.frontend.headers.customFrameOptionsValue"    = var.xfo_allow
-    "traefik.docker.network"                              = "traefik"
+  labels {
+    label = "traefik.enable"
+    value = "true"
+  }
+  labels {
+    label = "traefik.admin.port"
+    value = 2203
+  }
+  labels {
+    label = "traefik.admin.frontend.rule"
+    value = "Host:library.${var.domain}"
+  }
+  labels {
+    label = "traefik.admin.frontend.auth.basic"
+    value = var.basic_auth
+  }
+  labels {
+    label = "traefik.read.port"
+    value = 2202
+  }
+  labels {
+    label = "traefik.read.frontend.rule"
+    value = "Host:read.${var.domain},comics.${var.domain},books.${var.domain}"
+  }
+  labels {
+    label = "traefik.docker.network"
+    value = "traefik"
   }
 
   upload {

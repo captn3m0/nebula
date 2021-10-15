@@ -37,17 +37,7 @@ module "nextcloud-container" {
     host   = "c.${var.root-domain}"
   }
 
-  networks_advanced = [
-    {
-      name = "traefik"
-    },
-    {
-      name = "nextcloud"
-    },
-    {
-      name = "postgres"
-    },
-  ]
+  networks = ["nextcloud", "postgres"]
 }
 
 resource "docker_network" "nextcloud" {
@@ -61,16 +51,7 @@ module "nextcloud-redis" {
   image      = "redis:alpine"
   keep_image = true
 
-  networks_advanced = [
-    {
-      name = "nextcloud"
-    },
-  ]
-
-  # ThisSucks
-  web = {
-    expose = "false"
-  }
+  networks = ["nextcloud"]
 
   resource = {
     memory      = 256

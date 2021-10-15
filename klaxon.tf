@@ -35,16 +35,6 @@ module "klaxon" {
 
   image = "themarshallproject/klaxon"
 
-  networks_advanced = [
-    {
-      name = "traefik"
-    },
-    {
-      name = "postgres"
-    },
-    {
-      name = "external"
-    },
-  ]
+  networks = ["postgres", "external"]
 }
 

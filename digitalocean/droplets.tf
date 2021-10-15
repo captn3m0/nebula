@@ -1,5 +1,5 @@
 resource "digitalocean_droplet" "sydney" {
-  image              = ""
+  image              = "??"
   name               = "sydney.captnemo.in"
   region             = "blr1"
   size               = "s-1vcpu-2gb"

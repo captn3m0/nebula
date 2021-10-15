@@ -93,18 +93,16 @@ resource "docker_container" "traefik" {
 
   // `bridge` is auto-connected for now
   // https://github.com/terraform-providers/terraform-provider-docker/issues/10
-  networks = [
-    docker_network.traefik.id,
-    data.docker_network.bridge.id,
-  ]
+  networks_advanced {
+    name = "traefik"
+  }
+
+  networks_advanced {
+    name = "bridge"
+  }
 
   env = [
     "CLOUDFLARE_EMAIL=${var.cloudflare_email}",
     "CLOUDFLARE_API_KEY=${var.cloudflare_key}",
   ]
 }
-
-data "docker_network" "bridge" {
-  name = "bridge"
-}
-
