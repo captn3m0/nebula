@@ -49,7 +49,7 @@ resource "docker_container" "container" {
       # this after confirming which keys can be set in practice.
       // Only attach the traefik network if
       // service is exposed to the web
-      networks = ["${concat(var.networks, compact(split(",", lookup(var.web, "expose", "false") == "false" ? "" : "${data.docker_network.traefik.id}")))}"]
+      networks = [concat(var.networks, compact(split(",", lookup(var.web, "expose", "false") == "false" ? "" : data.docker_network.traefik.id)))]
 
       aliases      = lookup(networks_advanced.value, "aliases", null)
       ipv4_address = lookup(networks_advanced.value, "ipv4_address", null)
@@ -76,6 +76,7 @@ resource "docker_container" "container" {
       volume_name    = lookup(volumes.value, "volume_name", null)
     }
   }
+
   dynamic "devices" {
     for_each = [var.devices]
     content {
@@ -89,11 +90,16 @@ resource "docker_container" "container" {
       permissions    = lookup(devices.value, "permissions", null)
     }
   }
+
   dynamic "upload" {
     for_each = var.uploads
     content {
-      upload = upload.value["content"]
-      file   = upload.value["file"]
+      file           = lookup(upload.value, "file", null)
+      content        = lookup(upload.value, "content", null)
+      content_base64 = lookup(upload.value, "content_base64", null)
+      executable     = lookup(upload.value, "executable", null)
+      source         = lookup(upload.value, "source", null)
+      source_hash    = lookup(upload.value, "source_hash", null)
     }
   }
 
@@ -101,87 +107,14 @@ resource "docker_container" "container" {
   # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618
   # for why this is needed
 
-
   dynamic "labels" {
-    for_each = merge(
-      local.default_labels,
-      zipmap(
-        concat(
-          keys(local.default_labels),
-          split(
-            "~",
-            lookup(var.web, "expose", "false") == "false" ? "" : join("~", keys(local.traefik_common_labels)),
-          ),
-        ),
-        concat(
-          values(local.default_labels),
-          split(
-            "~",
-            lookup(var.web, "expose", "false") == "false" ? "" : join("~", values(local.traefik_common_labels)),
-          ),
-        ),
-      ),
-      zipmap(
-        concat(
-          keys(local.default_labels),
-          split(
-            "~",
-            lookup(var.web, "expose", "false") == "false" ? "" : join("~", keys(local.web)),
-          ),
-        ),
-        concat(
-          values(local.default_labels),
-          split(
-            "~",
-            lookup(var.web, "expose", "false") == "false" ? "" : join("~", values(local.web)),
-          ),
-        ),
-      ),
-      zipmap(
-        concat(
-          keys(local.default_labels),
-          split(
-            "~",
-            lookup(var.web, "expose", "false") == "false" ? "" : join("~", keys(local.traefik_common_labels)),
-          ),
-        ),
-        concat(
-          values(local.default_labels),
-          split(
-            "~",
-            lookup(var.web, "expose", "false") == "false" ? "" : join("~", values(local.traefik_common_labels)),
-          ),
-        ),
-      ),
-      zipmap(
-        concat(
-          keys(local.default_labels),
-          split(
-            "~",
-            lookup(var.web, "auth", "false") == "false" ? "" : join("~", keys(local.traefik_auth_labels)),
-          ),
-        ),
-        concat(
-          values(local.default_labels),
-          split(
-            "~",
-            lookup(var.web, "auth", "false") == "false" ? "" : join("~", values(local.traefik_auth_labels)),
-          ),
-        ),
-      ),
-    )
+    for_each = local.labels
     content {
-      # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
-      # which keys might be set in maps assigned here, so it has
-      # produced a comprehensive set here. Consider simplifying
-      # this after confirming which keys can be set in practice.
-
-      label = labels.value.label
-      value = labels.value.value
+      value = labels.key
+      label = labels.value
     }
   }
 
   destroy_grace_seconds = var.destroy_grace_seconds
   must_run              = var.must_run
 }
-

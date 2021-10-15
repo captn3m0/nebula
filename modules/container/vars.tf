@@ -15,9 +15,7 @@ variable "ports" {
 variable "networks_advanced" {
   description = "list of networks_advanced"
   type        = map
-  default = {
-
-  }
+  default     = {}
 }
 
 variable "restart" {
@@ -57,9 +55,9 @@ variable "env" {
   default     = []
 }
 
-variable "labels" {
-  description = "labels"
-}
+# variable "labels" {
+#   description = "labels"
+# }
 
 variable "xpoweredby" {
   default = "X-Powered-By:Allomancy||X-Server:Blackbox"
@@ -67,10 +65,20 @@ variable "xpoweredby" {
 
 variable "web" {
   description = "Web Configuration"
+  type = object({
+    expose   = bool
+    auth     = optional(bool)
+    port     = optional(number)
+    host     = optional(string)
+    protocol = optional(string)
+  })
 
   default = {
-    expose = "false"
-    auth   = "false"
+    expose   = false
+    auth     = false
+    port     = 80
+    host     = ""
+    protocol = "http"
   }
 }
 
@@ -113,5 +121,13 @@ variable "keep_image" {
 }
 
 variable "uploads" {
+  description = ""
+  type = list(object({
+    file           = string
+    content        = optional(string)
+    content_base64 = optional(string)
+    executable     = optional(bool)
+    source         = optional(string)
+    source_hash    = optional(string)
+  }))
 }
-
