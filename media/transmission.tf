@@ -1,18 +1,26 @@
+locals {
+  transmission_labels = merge(var.traefik-labels, {
+    "traefik.frontend.auth.basic" = var.basic_auth
+    "traefik.port"                = 9091
+  })
+}
+
 resource "docker_container" "transmission" {
   name  = "transmission"
-  image = "${docker_image.transmission.latest}"
+  image = docker_image.transmission.latest
 
-  labels = "${merge(
-    var.traefik-labels,
-    map(
-      "traefik.frontend.auth.basic", "${var.basic_auth}",
-      "traefik.port", 9091,
-    ))}"
+  dynamic "labels" {
+    for_each = local.transmission_labels
+    content {
+      label = labels.key
+      value = labels.value
+    }
+  }
 
   ports {
     internal = 51413
     external = 51413
-    ip       = "${var.ips["eth0"]}"
+    ip       = var.ips["eth0"]
     protocol = "udp"
   }
 
@@ -27,12 +35,17 @@ resource "docker_container" "transmission" {
   }
 
   volumes {
+    host_path      = "/mnt/xwing/media/Music/Audiobooks"
+    container_path = "/audiobooks"
+  }
+
+  volumes {
     host_path      = "/mnt/xwing/data/watch/transmission"
     container_path = "/watch"
   }
 
   upload {
-    content = "${file("${path.module}/conf/transmission.json")}"
+    content = file("${path.module}/conf/transmission.json")
     file    = "/config/settings.json"
   }
 
@@ -42,7 +55,7 @@ resource "docker_container" "transmission" {
     "TZ=Asia/Kolkata",
   ]
 
-  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
+  networks = [docker_network.media.id, var.traefik-network-id]
 
   memory                = 1024
   restart               = "unless-stopped"
@@ -51,10 +64,11 @@ resource "docker_container" "transmission" {
 }
 
 resource "docker_image" "transmission" {
-  name          = "${data.docker_registry_image.transmission.name}"
-  pull_triggers = ["${data.docker_registry_image.transmission.sha256_digest}"]
+  name          = data.docker_registry_image.transmission.name
+  pull_triggers = [data.docker_registry_image.transmission.sha256_digest]
 }
 
 data "docker_registry_image" "transmission" {
   name = "linuxserver/transmission:latest"
 }
+

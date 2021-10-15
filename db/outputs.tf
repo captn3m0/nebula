@@ -1,3 +1,4 @@
 output "postgres-network-id" {
-  value = "${docker_network.postgres.name}"
+  value = docker_network.postgres.name
 }
+

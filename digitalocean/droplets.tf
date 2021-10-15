@@ -1,5 +1,5 @@
 resource "digitalocean_droplet" "sydney" {
-  image              = ""
+  image              = "??"
   name               = "sydney.captnemo.in"
   region             = "blr1"
   size               = "s-1vcpu-2gb"
@@ -18,5 +18,6 @@ resource "digitalocean_droplet" "sydney" {
 }
 
 output "droplet_ipv4" {
-  value = "${digitalocean_droplet.sydney.ipv4_address}"
+  value = digitalocean_droplet.sydney.ipv4_address
 }
+

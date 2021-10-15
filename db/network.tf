@@ -8,3 +8,4 @@ resource "docker_network" "postgres" {
     gateway = "172.20.0.9"
   }
 }
+

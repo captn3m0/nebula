@@ -1,5 +1,12 @@
-variable "domain" {}
-variable "client-id" {}
-variable "client-secret" {}
+variable "domain" {
+}
 
-variable "traefik-network-id" {}
+variable "client-id" {
+}
+
+variable "client-secret" {
+}
+
+variable "traefik-network-id" {
+}
+

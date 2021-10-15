@@ -1,18 +1,20 @@
 module "nextcloud-db" {
-  source   = "modules/postgres"
+  source   = "./modules/postgres"
   name     = "nextcloud"
-  password = "${data.pass_password.nextcloud-db-password.password}"
+  password = data.pass_password.nextcloud-db-password.password
 }
 
 module "nextcloud-container" {
-  source = "modules/container"
+  source = "./modules/container"
   name   = "nextcloud"
   image  = "nextcloud:stable-apache"
 
-  volumes = [{
-    container_path = "/var/www/html"
-    host_path      = "/mnt/xwing/data/nextcloud"
-  }]
+  volumes = [
+    {
+      container_path = "/var/www/html"
+      host_path      = "/mnt/xwing/data/nextcloud"
+    },
+  ]
 
   env = [
     "POSTGRES_DB=nextcloud",
@@ -24,28 +26,18 @@ module "nextcloud-container" {
     "REDIS_HOST=nextcloud-redis",
   ]
 
-  resource {
+  resource = {
     memory      = 1024
     memory_swap = 1024
   }
 
-  web {
+  web = {
     expose = true
     port   = 80
     host   = "c.${var.root-domain}"
   }
 
-  networks_advanced = [
-    {
-      name = "traefik"
-    },
-    {
-      name = "nextcloud"
-    },
-    {
-      name = "postgres"
-    },
-  ]
+  networks = ["nextcloud", "postgres"]
 }
 
 resource "docker_network" "nextcloud" {
@@ -55,23 +47,15 @@ resource "docker_network" "nextcloud" {
 
 module "nextcloud-redis" {
   name       = "nextcloud-redis"
-  source     = "modules/container"
+  source     = "./modules/container"
   image      = "redis:alpine"
   keep_image = true
 
-  networks_advanced = [
-    {
-      name = "nextcloud"
-    },
-  ]
+  networks = ["nextcloud"]
 
-  # ThisSucks
-  web {
-    expose = "false"
-  }
-
-  resource {
+  resource = {
     memory      = 256
     memory_swap = 256
   }
 }
+

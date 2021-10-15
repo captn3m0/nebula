@@ -12,7 +12,7 @@ resource "docker_network" "traefik" {
 
 resource "docker_container" "traefik" {
   name  = "traefik"
-  image = "${docker_image.traefik.latest}"
+  image = docker_image.traefik.latest
 
   # Do not offer HTTP2
   # https://community.containo.us/t/traefikv2-http-2-0/1199
@@ -21,7 +21,7 @@ resource "docker_container" "traefik" {
   ]
 
   upload {
-    content = "${file("${path.module}/traefik.toml")}"
+    content = file("${path.module}/traefik.toml")
     file    = "/etc/traefik/traefik.toml"
   }
 
@@ -53,12 +53,12 @@ resource "docker_container" "traefik" {
   destroy_grace_seconds = 10
   must_run              = true
 
-  networks_advanced = [
-    {
-      name = "bridge"
-    },
-    {
-      name = "traefik"
-    },
-  ]
+  networks_advanced {
+    name = "bridge"
+  }
+
+  networks_advanced {
+    name = "traefik"
+  }
 }
+

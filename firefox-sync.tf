@@ -4,21 +4,23 @@ module "firefox-sync" {
   image  = "mozilla/syncserver:latest"
 
   // Default is port 80
-  web {
+  web = {
     expose = true
     port   = "5000"
     host   = "firesync.${var.root-domain}"
   }
 
-  resource {
+  resource = {
     memory      = "400"
     memory_swap = "400"
   }
 
-  volumes = [{
-    host_path      = "/mnt/xwing/data/firefox-sync"
-    container_path = "/data"
-  }]
+  volumes = [
+    {
+      host_path      = "/mnt/xwing/data/firefox-sync"
+      container_path = "/data"
+    },
+  ]
 
   env = [
     "SYNCSERVER_PUBLIC_URL=https://firesync.${var.root-domain}",
@@ -29,12 +31,6 @@ module "firefox-sync" {
     "PORT=5000",
   ]
 
-  networks_advanced = [
-    {
-      name = "traefik"
-    },
-    {
-      name = "bridge"
-    },
-  ]
+  networks = ["bridge"]
 }
+

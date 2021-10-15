@@ -1,6 +1,15 @@
+
+locals {
+  emby_labels = merge(var.traefik-labels, {
+    "traefik.frontend.rule"           = "Host:emby.in.${var.domain},emby.${var.domain}"
+    "traefik.frontend.passHostHeader" = "true"
+    "traefik.port"                    = 8096
+  })
+}
+
 resource "docker_container" "emby" {
   name  = "emby"
-  image = "${docker_image.emby.latest}"
+  image = docker_image.emby.latest
 
   volumes {
     host_path      = "/mnt/xwing/config/emby"
@@ -12,36 +21,40 @@ resource "docker_container" "emby" {
     container_path = "/media"
   }
 
-  labels = "${merge(
-    var.traefik-labels,
-    map(
-      "traefik.frontend.rule", "Host:emby.in.${var.domain},emby.${var.domain}",
-      "traefik.frontend.passHostHeader", "true",
-      "traefik.port", 8096,
-    ))}"
+  dynamic "labels" {
+    for_each = local.emby_labels
+    content {
+      label = labels.key
+      value = labels.value
+    }
+  }
 
-  networks = ["${docker_network.media.id}", "${var.traefik-network-id}"]
+  networks = [docker_network.media.id, var.traefik-network-id]
 
   memory                = 2048
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
 
+  devices {
+    host_path      = "/dev/dri"
+    container_path = "/dev/dri"
+  }
+
   # Running as lounge:tatooine
   env = [
-    "APP_USER=lounge",
-    "APP_UID=1004",
-    "APP_GID=1003",
-    "APP_CONFIG=/mnt/xwing/config",
-    "TZ=Asia/Kolkata",
+    "UID=1004",
+    "GID=1003",
+    "GIDLIST=1003"
   ]
 }
 
 resource "docker_image" "emby" {
-  name          = "${data.docker_registry_image.emby.name}"
-  pull_triggers = ["${data.docker_registry_image.emby.sha256_digest}"]
+  name          = data.docker_registry_image.emby.name
+  pull_triggers = [data.docker_registry_image.emby.sha256_digest]
 }
 
 data "docker_registry_image" "emby" {
   name = "emby/embyserver:latest"
 }
+

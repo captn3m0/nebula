@@ -3,15 +3,16 @@ module "radarr" {
   source = "../modules/container"
   image  = "linuxserver/radarr:latest"
 
-  networks = "${list(docker_network.media.id, data.docker_network.bridge.id)}"
+  # TODO FIXME
+  # networks = [docker_network.media.id, data.docker_network.bridge.id]
 
-  web {
+  web = {
     expose = true
     port   = 7878
     host   = "radarr.${var.domain}"
   }
 
-  resource {
+  resource = {
     memory      = 512
     memory_swap = 1024
   }
@@ -37,3 +38,4 @@ module "radarr" {
     "TZ=Asia/Kolkata",
   ]
 }
+

@@ -1,18 +1,18 @@
 variable "web_username" {
-  type = "string"
+  type = string
 }
 
 variable "web_password" {
-  type = "string"
+  type = string
 }
 
 variable "cloudflare_key" {
-  type        = "string"
+  type        = string
   description = "cloudflare API Key"
 }
 
 variable "cloudflare_email" {
-  type        = "string"
+  type        = string
   description = "cloudflare email address"
 }
 
@@ -39,15 +39,15 @@ variable "refpolicy" {
 }
 
 variable "wiki_session_secret" {
-  type = "string"
+  type = string
 }
 
 variable "domain" {
-  type = "string"
+  type = string
 }
 
 variable "ips" {
-  type = "map"
+  type = map(string)
 }
 
 # variable "links-mariadb" {}

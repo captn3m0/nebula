@@ -8,19 +8,13 @@ variable "name" {
 
 variable "ports" {
   description = "list of port mappings"
-  type        = "list"
-  default     = []
-}
-
-variable "networks_advanced" {
-  description = "list of networks_advanced"
-  type        = "list"
+  type        = list(map(string))
   default     = []
 }
 
 variable "networks" {
-  description = "list of networks"
-  type        = "list"
+  description = "list of names of networks to attach to"
+  type        = list(string)
   default     = []
 }
 
@@ -32,7 +26,7 @@ variable "restart" {
 variable "must_run" {
   description = "If true, then the Docker container will be kept running. "
   default     = "true"
-  type        = "string"
+  type        = string
 }
 
 variable "user" {
@@ -43,7 +37,7 @@ variable "user" {
 variable "destroy_grace_seconds" {
   description = "Container will be destroyed after n seconds or on successful stop."
   default     = 10
-  type        = "string"
+  type        = string
 }
 
 variable "command" {
@@ -61,10 +55,9 @@ variable "env" {
   default     = []
 }
 
-variable "labels" {
-  description = "labels"
-  default     = {}
-}
+# variable "labels" {
+#   description = "labels"
+# }
 
 variable "xpoweredby" {
   default = "X-Powered-By:Allomancy||X-Server:Blackbox"
@@ -72,10 +65,20 @@ variable "xpoweredby" {
 
 variable "web" {
   description = "Web Configuration"
+  type = object({
+    expose   = bool
+    auth     = optional(bool)
+    port     = optional(number)
+    host     = optional(string)
+    protocol = optional(string)
+  })
 
   default = {
-    expose = "false"
-    auth   = "false"
+    expose   = false
+    auth     = false
+    port     = 80
+    host     = ""
+    protocol = "http"
   }
 }
 
@@ -95,20 +98,23 @@ variable "resource" {
 
 variable "volumes" {
   description = "volumes"
-  type        = "list"
-  default     = []
+  default     = {}
 }
 
 variable "capabilities" {
   description = "capabilities"
-  type        = "list"
-  default     = []
+
+  default = {
+    add  = []
+    drop = []
+  }
 }
 
 variable "devices" {
-  description = "devices"
-  type        = "list"
-  default     = []
+  description = "list of devices"
+  type        = list(map(string))
+
+  default = []
 }
 
 variable "keep_image" {
@@ -117,5 +123,15 @@ variable "keep_image" {
 }
 
 variable "uploads" {
+  description = "Files to Upload"
+  type = list(object({
+    file           = string
+    content        = optional(string)
+    content_base64 = optional(string)
+    executable     = optional(bool)
+    source         = optional(string)
+    source_hash    = optional(string)
+  }))
+
   default = []
 }

@@ -18,7 +18,7 @@ resource "docker_network" "kaarana-db" {
 // Run a small mySQL container in this subnet
 
 resource "docker_container" "mysql" {
-  image    = "${docker_image.db.latest}"
+  image    = docker_image.db.latest
   name     = "kaarana-mariadb"
   restart  = "always"
   must_run = true
@@ -35,8 +35,6 @@ resource "docker_container" "mysql" {
     container_path = "/var/lib/mysql"
   }
 
-  networks_advanced {
-    name    = "kaarana-db"
-    aliases = ["${local.db_hostname}"]
-  }
+  networks = ["kaarana-db"]
 }
+

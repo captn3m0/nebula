@@ -9,3 +9,4 @@ data "docker_registry_image" "ubooquity" {
 data "docker_registry_image" "lychee" {
   name = "linuxserver/lychee:latest"
 }
+

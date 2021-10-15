@@ -1,125 +1,82 @@
-data "docker_registry_image" "image" {
-  name = "${var.image}"
-}
-
-resource "docker_image" "image" {
-  name          = "${var.image}"
-  pull_triggers = ["${data.docker_registry_image.image.sha256_digest}"]
-  keep_locally  = "${var.keep_image}"
-}
-
-data "docker_network" "traefik" {
-  name = "traefik"
-}
-
 resource "docker_container" "container" {
-  name       = "${var.name}"
-  image      = "${docker_image.image.latest}"
-  ports      = "${var.ports}"
-  restart    = "${var.restart}"
-  env        = ["${var.env}"]
-  command    = "${var.command}"
-  entrypoint = "${var.entrypoint}"
-  user       = "${var.user}"
+  name  = var.name
+  image = docker_image.image.latest
 
-  network_mode = "${var.network_mode}"
+  dynamic "ports" {
+    for_each = var.ports
+    content {
+      external = ports.value.external
+      internal = ports.value.internal
+      ip       = ports.value.ip
+      protocol = lookup(ports.value, "protocol", "tcp")
+    }
+  }
+  restart    = var.restart
+  env        = var.env
+  command    = var.command
+  entrypoint = var.entrypoint
+  user       = var.user
 
-  capabilities = ["${var.capabilities}"]
+  network_mode = var.network_mode
 
-  // Only attach the traefik network if
-  // service is exposed to the web
-  networks = ["${concat(var.networks,compact(split(",",lookup(var.web, "expose", "false") == "false" ? "" :"${data.docker_network.traefik.id}")))}"]
+  dynamic "capabilities" {
+    for_each = [var.capabilities]
+    content {
+      add  = lookup(capabilities.value, "add", [])
+      drop = lookup(capabilities.value, "drop", [])
+    }
+  }
 
-  networks_advanced = ["${var.networks_advanced}"]
+  dynamic "networks_advanced" {
+    for_each = local.networks
+    content {
+      name = networks_advanced.value
+    }
+  }
 
-  memory      = "${local.resource["memory"]}"
-  memory_swap = "${local.resource["memory_swap"]}"
+  memory      = local.resource["memory"]
+  memory_swap = local.resource["memory_swap"]
 
-  volumes = ["${var.volumes}"]
-  devices = ["${var.devices}"]
+  dynamic "volumes" {
+    for_each = var.volumes
+    content {
+      container_path = lookup(volumes.value, "container_path", null)
+      from_container = lookup(volumes.value, "from_container", null)
+      host_path      = lookup(volumes.value, "host_path", null)
+      read_only      = lookup(volumes.value, "read_only", null)
+      volume_name    = lookup(volumes.value, "volume_name", null)
+    }
+  }
 
-  upload = ["${var.uploads}"]
+  dynamic "devices" {
+    for_each = var.devices
+    content {
+      host_path      = devices.value["host_path"]
+      container_path = devices.value["container_path"]
+      permissions    = devices.value["permissions"]
+    }
+  }
 
-  # Look at this monstrosity
-  # And then https://github.com/hashicorp/terraform/issues/12453#issuecomment-365569618
-  # for why this is needed
+  dynamic "upload" {
+    for_each = var.uploads
+    content {
+      file           = lookup(upload.value, "file", null)
+      content        = lookup(upload.value, "content", null)
+      content_base64 = lookup(upload.value, "content_base64", null)
+      executable     = lookup(upload.value, "executable", null)
+      source         = lookup(upload.value, "source", null)
+      source_hash    = lookup(upload.value, "source_hash", null)
+    }
+  }
 
-  labels = "${merge(local.default_labels,
-    zipmap(
-      concat(
-        keys(local.default_labels),
-        split("~",
-          lookup(var.web, "expose", "false") == "false" ?
-            "" :
-            join("~", keys(local.traefik_common_labels))
-        )
-      ),
-      concat(
-        values(local.default_labels),
-        split("~",
-          lookup(var.web, "expose", "false") == "false" ?
-            "" :
-            join("~", values(local.traefik_common_labels))
-        )
-      )
-    ),
-    zipmap(
-      concat(
-        keys(local.default_labels),
-        split("~",
-          lookup(var.web, "expose", "false") == "false" ?
-            "" :
-            join("~", keys(local.web))
-        )
-      ),
-      concat(
-        values(local.default_labels),
-        split("~",
-          lookup(var.web, "expose", "false") == "false" ?
-            "" :
-            join("~", values(local.web))
-        )
-      )
-    ),
+  dynamic "labels" {
+    for_each = local.labels
+    content {
+      label = labels.key
+      value = labels.value
+    }
+  }
 
-
-    zipmap(
-      concat(
-        keys(local.default_labels),
-        split("~",
-          lookup(var.web, "expose", "false") == "false" ?
-            "" :
-            join("~", keys(local.traefik_common_labels))
-        )
-      ),
-      concat(
-        values(local.default_labels),
-        split("~",
-          lookup(var.web, "expose", "false") == "false" ?
-            "" :
-            join("~", values(local.traefik_common_labels))
-        )
-      )
-    ),
-    zipmap(
-      concat(
-        keys(local.default_labels),
-        split("~",
-          lookup(var.web, "auth", "false") == "false" ?
-            "" :
-            join("~", keys(local.traefik_auth_labels))
-        )
-      ),
-      concat(
-        values(local.default_labels),
-        split("~",
-          lookup(var.web, "auth", "false") == "false" ?
-            "" :
-            join("~", values(local.traefik_auth_labels))
-        )
-      )
-    )
-  )}"
-  destroy_grace_seconds = "${var.destroy_grace_seconds}"
-  must_run              = "${var.must_run}"
+  destroy_grace_seconds = var.destroy_grace_seconds
+  must_run              = var.must_run
 }

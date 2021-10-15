@@ -7,17 +7,9 @@ module "speedtest" {
   image  = "captn3m0/speedtest-exporter:alpine"
   source = "../modules/container"
 
-  networks_advanced = [
-    {
-      name    = "monitoring"
-      aliases = ["speedtest", "speedtest.docker"]
-    },
-    {
-      name = "bridge"
-    },
-  ]
+  networks = ["monitoring"]
 
-  resource {
+  resource = {
     memory      = 256
     memory_swap = 256
   }
@@ -26,3 +18,4 @@ module "speedtest" {
   destroy_grace_seconds = 10
   must_run              = true
 }
+

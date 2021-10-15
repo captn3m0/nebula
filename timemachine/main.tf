@@ -3,13 +3,13 @@ data "docker_registry_image" "timemachine" {
 }
 
 resource "docker_image" "timemachine" {
-  name          = "${data.docker_registry_image.timemachine.name}"
-  pull_triggers = ["${data.docker_registry_image.timemachine.sha256_digest}"]
+  name          = data.docker_registry_image.timemachine.name
+  pull_triggers = [data.docker_registry_image.timemachine.sha256_digest]
 }
 
 resource "docker_container" "timemachine" {
   name  = "timemachine"
-  image = "${docker_image.timemachine.latest}"
+  image = docker_image.timemachine.latest
 
   volumes {
     host_path      = "/mnt/xwing/data/timemachine"
@@ -19,17 +19,17 @@ resource "docker_container" "timemachine" {
   ports {
     internal = 548
     external = 548
-    ip       = "${var.ips["eth0"]}"
+    ip       = var.ips["eth0"]
   }
 
   ports {
     internal = 636
     external = 636
-    ip       = "${var.ips["eth0"]}"
+    ip       = var.ips["eth0"]
   }
 
   upload {
-    content = "${data.template_file.timemachine-entrypoint.rendered}"
+    content = data.template_file.timemachine-entrypoint.rendered
     file    = "/entrypoint-custom.sh"
   }
 
@@ -44,13 +44,13 @@ resource "docker_container" "timemachine" {
 }
 
 data "template_file" "timemachine-entrypoint" {
-  template = "${file("${path.module}/entrypoint.sh.tpl")}"
+  template = file("${path.module}/entrypoint.sh.tpl")
 
-  vars {
-    username-1 = "${var.username-1}"
-    password-1 = "${var.password-1}"
-
-    username-2 = "${var.username-2}"
-    password-2 = "${var.password-2}"
+  vars = {
+    username-1 = var.username-1
+    password-1 = var.password-1
+    username-2 = var.username-2
+    password-2 = var.password-2
   }
 }
+

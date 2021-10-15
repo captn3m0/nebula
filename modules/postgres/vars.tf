@@ -1,9 +1,10 @@
 variable "name" {
   description = "database/role name"
-  type        = "string"
+  type        = string
 }
 
 variable "password" {
   description = "role password"
-  type        = "string"
+  type        = string
 }
+
