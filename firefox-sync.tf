@@ -31,13 +31,6 @@ module "firefox-sync" {
     "PORT=5000",
   ]
 
-  networks_advanced = [
-    {
-      name = "traefik"
-    },
-    {
-      name = "bridge"
-    },
-  ]
+  networks = ["bridge"]
 }
 

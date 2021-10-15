@@ -40,13 +40,6 @@ module "elibsrv" {
     "elibsrv_thumbheight=320",
     "elibsrv_title=Scarif Media Archives",
   ]
-  networks_advanced = [
-    {
-      name = "traefik"
-    },
-    {
-      name = "bridge"
-    },
-  ]
+  networks = ["bridge"]
 }
 

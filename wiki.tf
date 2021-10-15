@@ -26,17 +26,7 @@ module "wiki-container" {
     host   = "wiki.bb8.fun"
   }
 
-  networks_advanced = [
-    {
-      name = "traefik"
-    },
-    {
-      name = "postgres"
-    },
-    {
-      name = "external"
-    },
-  ]
+  networks = ["postgres", "external"]
 
   uploads = [
     {

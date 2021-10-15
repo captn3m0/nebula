@@ -1,14 +1,21 @@
+locals {
+  l = merge(var.traefik-labels, {
+    "traefik.port"          = 3000
+    "traefik.frontend.rule" = "Host:${var.domain}"
+  })
+}
+
 resource "docker_container" "gitea" {
   name  = "gitea"
   image = docker_image.gitea.latest
 
-  labels = merge(
-    var.traefik-labels,
-    {
-      "traefik.port"          = 3000
-      "traefik.frontend.rule" = "Host:${var.domain}"
-    },
-  )
+  dynamic "labels" {
+    for_each = local.l
+    content {
+      label = labels.key
+      value = labels.value
+    }
+  }
 
   volumes {
     volume_name    = docker_volume.gitea_volume.name
@@ -20,17 +27,17 @@ resource "docker_container" "gitea" {
   # TODO: Add svg
 
   upload {
-    content = file("${path.module}/conf/public/img/gitea-lg.png")
-    file    = "/data/gitea/public/img/gitea-lg.png"
+    content_base64 = filebase64("${path.module}/conf/public/img/gitea-lg.png")
+    file           = "/data/gitea/public/img/gitea-lg.png"
   }
   upload {
-    content = file("${path.module}/conf/public/img/gitea-sm.png")
-    file    = "/data/gitea/public/img/gitea-sm.png"
+    content_base64 = filebase64("${path.module}/conf/public/img/gitea-sm.png")
+    file           = "/data/gitea/public/img/gitea-sm.png"
   }
   upload {
-    content    = file("${path.module}/conf/public/img/gitea-sm.png")
-    file       = "/data/gitea/public/img/favicon.png"
-    executable = false
+    content_base64 = filebase64("${path.module}/conf/public/img/gitea-sm.png")
+    file           = "/data/gitea/public/img/favicon.png"
+    executable     = false
   }
   upload {
     content = file("${path.module}/../docker/conf/humans.txt")

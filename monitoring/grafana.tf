@@ -20,14 +20,7 @@ module "grafana" {
     },
   ]
 
-  networks_advanced = [
-    {
-      name = "traefik"
-    },
-    {
-      name = "monitoring"
-    },
-  ]
+  networks = ["monitoring"]
 
   env = [
     "GF_SERVER_ROOT_URL=https://grafana.${var.domain}",

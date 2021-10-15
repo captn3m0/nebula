@@ -56,6 +56,7 @@ resource "docker_container" "traefik" {
   networks_advanced {
     name = "bridge"
   }
+
   networks_advanced {
     name = "traefik"
   }

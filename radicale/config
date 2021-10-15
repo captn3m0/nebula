@@ -5,15 +5,16 @@ hosts = 0.0.0.0:5232
 # Max parallel connections
 max_connections = 10
 
-# Message displayed in the client when a password is needed
-realm = Authentication required
-
 [auth]
 
 # Authentication method
 # Value: none | htpasswd | remote_user | http_x_remote_user
 type = htpasswd
 htpasswd_filename = /config/users
+htpasswd_encryption = bcrypt
+
+# Message displayed in the client when a password is needed
+realm = Authentication required
 
 [storage]
 filesystem_folder = /data/collections

@@ -35,16 +35,6 @@ resource "docker_container" "wp" {
     ip       = "10.8.0.1"
   }
 
-  networks_advanced {
-    name = "kaarana-db"
-  }
-  networks_advanced {
-    // TODO: Once configuration/plugins have stabilized
-    // remove internet access from wordpress
-    name = "bridge"
-  }
-  networks_advanced {
-    name = "traefik"
-  }
+  networks = ["bridge", "kaarana-db"]
 }
 

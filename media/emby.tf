@@ -1,3 +1,12 @@
+
+locals {
+  emby_labels = merge(var.traefik-labels, {
+    "traefik.frontend.rule"           = "Host:emby.in.${var.domain},emby.${var.domain}"
+    "traefik.frontend.passHostHeader" = "true"
+    "traefik.port"                    = 8096
+  })
+}
+
 resource "docker_container" "emby" {
   name  = "emby"
   image = docker_image.emby.latest
@@ -12,14 +21,13 @@ resource "docker_container" "emby" {
     container_path = "/media"
   }
 
-  labels = merge(
-    var.traefik-labels,
-    {
-      "traefik.frontend.rule"           = "Host:emby.in.${var.domain},emby.${var.domain}"
-      "traefik.frontend.passHostHeader" = "true"
-      "traefik.port"                    = 8096
+  dynamic "labels" {
+    for_each = local.emby_labels
+    content {
+      label = labels.key
+      value = labels.value
     }
-  )
+  }
 
   networks = [docker_network.media.id, var.traefik-network-id]
 
@@ -28,10 +36,10 @@ resource "docker_container" "emby" {
   destroy_grace_seconds = 10
   must_run              = true
 
-  devices = [{
+  devices {
     host_path      = "/dev/dri"
     container_path = "/dev/dri"
-  }]
+  }
 
   # Running as lounge:tatooine
   env = [
