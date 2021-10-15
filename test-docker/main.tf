@@ -4,8 +4,19 @@ module "echo-server" {
   image  = "jmalloc/echo-server:latest"
 
   web = {
-    expose = "true"
+    expose = false
     port   = 8080
-    host   = "debug.${var.root-domain},debug.in.${var.root-domain}"
+    host   = "debug.example.com,debug.in.example.com"
   }
+
+  uploads = [
+    {
+      file    = "/x"
+      content = "adadadad"
+    },
+    {
+      file           = "/y"
+      content_base64 = "Cg=="
+    }
+  ]
 }
