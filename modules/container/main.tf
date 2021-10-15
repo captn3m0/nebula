@@ -28,7 +28,7 @@ resource "docker_container" "container" {
   }
 
   dynamic "networks_advanced" {
-    for_each = [local.networks]
+    for_each = local.networks
     content {
       name = networks_advanced.value
     }
@@ -38,7 +38,7 @@ resource "docker_container" "container" {
   memory_swap = local.resource["memory_swap"]
 
   dynamic "volumes" {
-    for_each = [var.volumes]
+    for_each = var.volumes
     content {
       container_path = lookup(volumes.value, "container_path", null)
       from_container = lookup(volumes.value, "from_container", null)
@@ -49,11 +49,11 @@ resource "docker_container" "container" {
   }
 
   dynamic "devices" {
-    for_each = [var.devices]
+    for_each = var.devices
     content {
-      host_path      = devices.value.host_path
-      container_path = lookup(devices.value, "container_path", null)
-      permissions    = lookup(devices.value, "permissions", null)
+      host_path      = devices.value["host_path"]
+      container_path = devices.value["container_path"]
+      permissions    = devices.value["permissions"]
     }
   }
 
@@ -72,8 +72,8 @@ resource "docker_container" "container" {
   dynamic "labels" {
     for_each = local.labels
     content {
-      value = labels.key
-      label = labels.value
+      label = labels.key
+      value = labels.value
     }
   }
 

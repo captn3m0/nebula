@@ -8,7 +8,7 @@ variable "name" {
 
 variable "ports" {
   description = "list of port mappings"
-  type        = list(string)
+  type        = list(map(string))
   default     = []
 }
 
@@ -111,8 +111,10 @@ variable "capabilities" {
 }
 
 variable "devices" {
-  description = "devices"
-  default     = {}
+  description = "list of devices"
+  type        = list(map(string))
+
+  default = []
 }
 
 variable "keep_image" {
@@ -121,7 +123,7 @@ variable "keep_image" {
 }
 
 variable "uploads" {
-  description = ""
+  description = "Files to Upload"
   type = list(object({
     file           = string
     content        = optional(string)
@@ -130,4 +132,6 @@ variable "uploads" {
     source         = optional(string)
     source_hash    = optional(string)
   }))
+
+  default = []
 }
