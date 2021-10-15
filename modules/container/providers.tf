@@ -1,9 +1,5 @@
 terraform {
-  required_version = ">= 1.0.7"
-  experiments      = [module_variable_optional_attrs]
-}
-
-terraform {
+  experiments = [module_variable_optional_attrs]
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
