@@ -19,6 +19,8 @@ module "echo-server" {
       content_base64 = "Cg=="
     }
   ]
+
+  networks = ["media"]
 }
 
 terraform {

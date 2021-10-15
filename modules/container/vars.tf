@@ -12,10 +12,10 @@ variable "ports" {
   default     = []
 }
 
-variable "networks_advanced" {
-  description = "list of networks_advanced"
-  type        = map
-  default     = {}
+variable "networks" {
+  description = "list of names of networks to attach to"
+  type        = list(string)
+  default     = []
 }
 
 variable "restart" {
