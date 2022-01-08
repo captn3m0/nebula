@@ -3,8 +3,7 @@ module "radarr" {
   source = "../modules/container"
   image  = "linuxserver/radarr:latest"
 
-  # TODO FIXME
-  # networks = [docker_network.media.id, data.docker_network.bridge.id]
+  networks = [docker_network.media.id, data.docker_network.bridge.id]
 
   web = {
     expose = true

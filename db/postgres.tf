@@ -3,9 +3,9 @@ resource "docker_container" "postgres" {
   image = docker_image.postgres.latest
 
   volumes {
-    volume_name    = docker_volume.postgres_volume.name
+    volume_name    = docker_volume.pg_data.name
     container_path = "/var/lib/postgresql/data"
-    host_path      = docker_volume.postgres_volume.mountpoint
+    read_only      = false
   }
 
   // This is so that other host-only services can share this
@@ -24,6 +24,7 @@ resource "docker_container" "postgres" {
   }
 
   memory                = 256
+  memory_swap           = 512
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
@@ -47,4 +48,3 @@ data "docker_registry_image" "postgres" {
 data "docker_network" "bridge" {
   name = "bridge"
 }
-

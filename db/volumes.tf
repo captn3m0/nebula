@@ -1,4 +1,3 @@
-resource "docker_volume" "postgres_volume" {
-  name = "postgres_volume"
+resource "docker_volume" "pg_data" {
+  name = "pg_data"
 }
-

@@ -58,7 +58,7 @@ acmelogging = true
 
 [acme.dnsChallenge]
   provider = "cloudflare"
-  delayBeforeCheck = 30
+  delayBeforeCheck = 120
 
 # Primary 2 wildcard certs
 [[acme.domains]]

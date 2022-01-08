@@ -21,7 +21,6 @@ module "requestrr" {
     },
   ]
 
-  # TODO FIXME
-  # networks = [docker_network.media.id, data.docker_network.bridge.id]
+  networks = [docker_network.media.id, data.docker_network.bridge.id]
 }
 

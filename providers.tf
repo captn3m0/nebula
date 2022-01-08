@@ -1,8 +1,6 @@
 provider "docker" {
   host      = "tcp://docker.vpn.bb8.fun:2376"
   cert_path = "./secrets/tatooine"
-
-
 }
 
 provider "docker" {

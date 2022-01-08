@@ -1,5 +1,5 @@
 module "elibsrv" {
-  name   = "./elibsrv"
+  name   = "elibsrv"
   source = "./modules/container"
   image  = "captn3m0/elibsrv"
 

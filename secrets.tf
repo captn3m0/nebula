@@ -34,6 +34,10 @@ data "pass_password" "miniflux-db-password" {
   path = "Nebula/MINIFLUX_DB_PASSWORD"
 }
 
+data "pass_password" "firesync-db-password" {
+  path = "Nebula/FIRESYNC_DB_PASSWORD"
+}
+
 data "pass_password" "cloudflare_key" {
   path = "Nebula/CLOUDFLARE_KEY"
 }
