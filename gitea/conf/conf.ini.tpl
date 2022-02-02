@@ -214,7 +214,7 @@ RUN_AT_START = false
 
 [cron.archive_cleanup]
 RUN_AT_START = true
-SCHEDULE = @every 24h
+SCHEDULE = @midnight
 ; Archives created more than OLDER_THAN ago are subject to deletion
 OLDER_THAN = 24h
 
@@ -225,7 +225,7 @@ SCHEDULE = @every 3h
 
 ; Repository health check
 [cron.repo_health_check]
-SCHEDULE = @every 24h
+SCHEDULE = @midnight
 TIMEOUT = 60s
 ; Arguments for command 'git fsck', e.g. "--unreachable --tags"
 ; see more on http://git-scm.com/docs/git-fsck
@@ -234,7 +234,7 @@ ARGS =
 ; Check repository statistics
 [cron.check_repo_stats]
 RUN_AT_START = true
-SCHEDULE = @every 24h
+SCHEDULE = @midnight
 
 [api]
 ; Max number of items will response in a page
@@ -259,3 +259,6 @@ ENABLED = true
 ENABLE = false
 ; this is same as JWT secret above
 JWT_SECRET = "${oauth2-jwt-secret}"
+
+[federation]
+ENABLED=false
