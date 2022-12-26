@@ -12,7 +12,7 @@ resource "docker_network" "traefik" {
 
 resource "docker_container" "traefik" {
   name  = "traefik"
-  image = docker_image.traefik.latest
+  image = docker_image.traefik.image_id
 
   # Do not offer HTTP2
   # https://community.containo.us/t/traefikv2-http-2-0/1199

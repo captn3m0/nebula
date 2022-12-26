@@ -1,5 +1,5 @@
 resource "docker_container" "wp" {
-  image = docker_image.wp.latest
+  image = docker_image.wp.image_id
   name  = "kaarana-wordpress"
 
   restart  = "always"
