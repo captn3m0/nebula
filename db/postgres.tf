@@ -1,6 +1,6 @@
 resource "docker_container" "postgres" {
   name  = "postgres"
-  image = docker_image.postgres.latest
+  image = docker_image.postgres.image_id
 
   volumes {
     volume_name    = docker_volume.pg_data.name
@@ -23,8 +23,8 @@ resource "docker_container" "postgres" {
     ip       = var.ips["tun0"]
   }
 
-  memory                = 256
-  memory_swap           = 512
+  memory                = 2048
+  memory_swap           = 2048
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
