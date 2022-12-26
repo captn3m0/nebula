@@ -19,6 +19,8 @@ resource "docker_container" "container" {
 
   network_mode = var.network_mode
 
+  gpus = var.gpu ? "all" : ""
+
   dynamic "capabilities" {
     for_each = [var.capabilities]
     content {

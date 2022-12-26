@@ -31,6 +31,7 @@ provider "pass" {
 
 
 terraform {
+  required_version = ">= 1.3.0"
   required_providers {
     pass = {
       source = "camptocamp/pass"
@@ -46,6 +47,7 @@ terraform {
     }
     docker = {
       source = "kreuzwerker/docker"
+      version = "~> 2.23"
     }
   }
 }

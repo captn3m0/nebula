@@ -135,3 +135,8 @@ variable "uploads" {
 
   default = []
 }
+
+variable "gpu" {
+  type = bool
+  default  = false
+}
