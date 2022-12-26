@@ -1,18 +1,21 @@
 resource "docker_container" "traefik" {
   name  = "traefik"
-  image = docker_image.traefik17.latest
+  image = docker_image.traefik17.image_id
 
-  # Admin Backend
-  ports {
-    internal = 1111
-    external = 1111
-    ip       = var.ips["eth0"]
+
+  labels {
+    label = "traefik.enable"
+    value = "true"
   }
 
-  ports {
-    internal = 1111
-    external = 1111
-    ip       = var.ips["tun0"]
+  labels {
+    label = "traefik.http.routers.api.rule"
+    value = "Host('traefik.in.bb8.fun')"
+  }
+
+  labels {
+    label = "traefik.http.routers.api.service"
+    value = "api@internal"
   }
 
   # Local Web Server
@@ -59,6 +62,20 @@ resource "docker_container" "traefik" {
       "/home/nemo/projects/personal/certs/git.captnemo.in/privkey.pem",
     )
     file = "/etc/traefik/git.captnemo.in.key"
+  }
+
+  upload {
+    content = file(
+      "/home/nemo/projects/personal/certs/lego/certificates/tatooine.club.key",
+    )
+    file = "/etc/traefik/tatooine.club.key"
+  }
+
+  upload {
+    content = file(
+      "/home/nemo/projects/personal/certs/lego/certificates/tatooine.club.crt",
+    )
+    file = "/etc/traefik/tatooine.club.crt"
   }
 
   upload {
