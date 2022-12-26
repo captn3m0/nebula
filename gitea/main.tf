@@ -7,7 +7,7 @@ locals {
 
 resource "docker_container" "gitea" {
   name  = "gitea"
-  image = docker_image.gitea.latest
+  image = docker_image.gitea.image_id
 
   dynamic "labels" {
     for_each = local.l
