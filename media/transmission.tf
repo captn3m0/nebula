@@ -7,7 +7,7 @@ locals {
 
 resource "docker_container" "transmission" {
   name  = "transmission"
-  image = docker_image.transmission.latest
+  image = docker_image.transmission.image_id
 
   dynamic "labels" {
     for_each = local.transmission_labels

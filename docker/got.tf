@@ -8,7 +8,7 @@ data "docker_registry_image" "gotviz" {
 # }
 # resource "docker_container" "gotviz" {
 #   name  = "gotviz"
-#   image = "${docker_image.gotviz.latest}"
+#   image = "${docker_image.gotviz.image_id}"
 #   labels = "${merge(
 #     local.traefik_common_labels, map(
 #       "traefik.port", 8080,

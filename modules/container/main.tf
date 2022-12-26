@@ -1,6 +1,6 @@
 resource "docker_container" "container" {
   name  = var.name
-  image = docker_image.image.latest
+  image = docker_image.image.image_id
 
   dynamic "ports" {
     for_each = var.ports

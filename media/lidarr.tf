@@ -16,7 +16,7 @@ locals {
 
 resource "docker_container" "lidarr" {
   name  = "lidarr"
-  image = docker_image.lidarr.latest
+  image = docker_image.lidarr.image_id
 
   dynamic "labels" {
     for_each = local.lidarr_labels

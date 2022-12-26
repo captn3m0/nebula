@@ -4,7 +4,7 @@ data "docker_registry_image" "act-exporter" {
 
 resource "docker_container" "act-exporter" {
   name  = "act-exporter"
-  image = docker_image.act-exporter.latest
+  image = docker_image.act-exporter.image_id
 
   entrypoint = ["/usr/local/bin/node", "server.js"]
 

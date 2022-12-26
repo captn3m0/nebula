@@ -1,6 +1,6 @@
 resource "docker_container" "prometheus" {
   name  = "prometheus"
-  image = docker_image.prometheus.latest
+  image = docker_image.prometheus.image_id
 
   # prometheus:prometheus
   user = "985:983"

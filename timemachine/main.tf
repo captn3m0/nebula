@@ -9,7 +9,7 @@ resource "docker_image" "timemachine" {
 
 resource "docker_container" "timemachine" {
   name  = "timemachine"
-  image = docker_image.timemachine.latest
+  image = docker_image.timemachine.image_id
 
   volumes {
     host_path      = "/mnt/xwing/data/timemachine"

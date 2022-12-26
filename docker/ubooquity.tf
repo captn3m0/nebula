@@ -7,7 +7,7 @@ locals {
 
 resource "docker_container" "ubooquity" {
   name  = "ubooquity"
-  image = docker_image.ubooquity.latest
+  image = docker_image.ubooquity.image_id
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 30

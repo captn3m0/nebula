@@ -12,6 +12,6 @@ resource "docker_image" "image" {
 }
 
 output "image" {
-  value = docker_image.image.latest
+  value = docker_image.image.image_id
 }
 

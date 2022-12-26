@@ -9,7 +9,7 @@ locals {
 
 resource "docker_container" "emby" {
   name  = "emby"
-  image = docker_image.emby.latest
+  image = docker_image.emby.image_id
 
   volumes {
     host_path      = "/mnt/xwing/config/emby"
@@ -36,10 +36,7 @@ resource "docker_container" "emby" {
   destroy_grace_seconds = 10
   must_run              = true
 
-  devices {
-    host_path      = "/dev/dri"
-    container_path = "/dev/dri"
-  }
+  gpus = "all"
 
   # Running as lounge:tatooine
   env = [

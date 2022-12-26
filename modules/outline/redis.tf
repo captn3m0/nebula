@@ -1,6 +1,6 @@
 resource "docker_container" "redis" {
   name  = "outline-redis"
-  image = "${docker_image.redis.latest}"
+  image = "${docker_image.redis.image_id}"
 
   volumes {
     host_path      = "/mnt/xwing/cache/outline"

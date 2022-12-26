@@ -1,6 +1,6 @@
 # resource "docker_container" "lychee" {
 #   name  = "lychee"
-#   image = "${docker_image.lychee.latest}"
+#   image = "${docker_image.lychee.image_id}"
 #   restart               = "unless-stopped"
 #   destroy_grace_seconds = 10
 #   must_run              = true
