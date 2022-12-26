@@ -68,7 +68,8 @@ module "media" {
   domain             = "bb8.fun"
   traefik-labels     = var.traefik-common-labels
   ips                = var.ips
-  traefik-network-id = module.docker.traefik-network-id
+  # ToDO: Change this to lookup
+  traefik-network-id = "ffc1e366849e"
   lastfm_api_key     = data.pass_password.navidrome-lastfm-api-key.password
   lastfm_secret      = data.pass_password.navidrome-lastfm-secret.password
   spotify_id         = data.pass_password.navidrome-spotify-id.password
@@ -88,6 +89,11 @@ module "monitoring" {
 
 module "digitalocean" {
   source = "./digitalocean"
+}
+
+module "mastodon" {
+  source = "./mastodon"
+  db-password = data.pass_password.mastodon-db-password.password
 }
 
 // Used to force access to ISP related resources
