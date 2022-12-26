@@ -1,0 +1,72 @@
+# Web must be converted manually. See https://docs.traefik.io/operations/api/
+# Redirect on entry point "http" must be converted manually. See https://docs.traefik.io/middlewares/http/redirectscheme/
+# TLS on entry point "https" must be converted manually. See https://docs.traefik.io/routing/routers/#tls
+# The domain (bb8.fun) defined in the Docker provider must be converted manually. See https://docs.traefik.io/providers/docker/#defaultrule
+# All the elements related to dynamic configuration (backends, frontends, ...) must be converted manually. See https://docs.traefik.io/routing/overview/
+# The entry point (https) defined in the ACME configuration must be converted manually. See https://docs.traefik.io/routing/routers/#certresolver
+
+[global]
+  sendAnonymousUsage = true
+
+[tls.options]
+  [tls.options.default]
+    minVersion = "VersionTLS12"
+
+[[tls.certificates]]
+  certFile = "/etc/traefik/git.captnemo.in.crt"
+  keyFile = "/etc/traefik/git.captnemo.in.key"
+[[tls.certificates]]
+  certFile = "/etc/traefik/rss.captnemo.in.crt"
+  keyFile = "/etc/traefik/rss.captnemo.in.key"
+
+# This forces port 8080
+[api]
+  # https://doc.traefik.io/traefik/operations/dashboard/#insecure-mode
+  dashboard = true
+  # Enable the API in insecure mode, which means that the API will be available directly on the entryPoint named traefik.
+  insecure = true
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+    [entryPoints.http.http]
+  [entryPoints.https]
+    address = ":443"
+    [entryPoints.https.http]
+
+[providers]
+  providersThrottleDuration = "2s"
+  [providers.docker]
+    watch = true
+    endpoint = "unix:///var/run/docker.sock"
+    swarmModeRefreshSeconds = "15s"
+    httpClientTimeout = "0s"
+  [providers.file]
+
+[log]
+
+[accessLog]
+  bufferingSize = 0
+
+[certificatesResolvers]
+  [certificatesResolvers.default]
+    [certificatesResolvers.default.acme]
+      email = "acme@captnemo.in"
+      storage = "/acme/acme.json"
+      certificatesDuration = 0
+      [certificatesResolvers.default.acme.dnsChallenge]
+        provider = "cloudflare"
+        delayBeforeCheck = "2m0s"
+      [certificatesResolvers.default.acme.httpChallenge]
+        entryPoint = "http"
+  [certificatesResolvers.t]
+    [certificatesResolvers.t.acme]
+      email = "acme@captnemo.in"
+      storage = "/acme/acme.json"
+      [certificatesResolvers.myresolver.acme.tlsChallenge]
+
+
+[http.middlewares]
+  [http.middlewares.test-redirectscheme.redirectScheme]
+    scheme = "https"
+    permanent = true

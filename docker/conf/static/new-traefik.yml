@@ -1,0 +1,26 @@
+global:
+  sendAnonymousUsage: true
+entryPoints:
+  http:
+    address: :80
+  https:
+    address: :443
+providers:
+  providersThrottleDuration: 2s
+  docker:
+    watch: true
+    endpoint: unix:///var/run/docker.sock
+    swarmModeRefreshSeconds: 15s
+  file: {}
+log: {}
+accessLog: {}
+certificatesResolvers:
+  default:
+    acme:
+      email: acme@captnemo.in
+      storage: /acme/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 2m0s
+      httpChallenge:
+        entryPoint: http
