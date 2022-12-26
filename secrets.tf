@@ -176,3 +176,8 @@ data "pass_password" "navidrome-spotify-secret" {
   path = "Nebula/navidrome-spotify-secret"
 }
 
+
+
+data "pass_password" "mastodon-db-password" {
+  path = "Nebula/MASTODON_DB_PASSWORD"
+}
