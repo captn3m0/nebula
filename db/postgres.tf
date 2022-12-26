@@ -2,6 +2,14 @@ resource "docker_container" "postgres" {
   name  = "postgres"
   image = docker_image.postgres.image_id
 
+  command = [
+    "postgres",
+    "-c",
+    "max_connections=250",
+    "-c",
+    "shared_buffers=500MB",
+  ]
+
   volumes {
     volume_name    = docker_volume.pg_data.name
     container_path = "/var/lib/postgresql/data"
