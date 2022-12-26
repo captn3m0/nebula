@@ -6,10 +6,6 @@ checkNewVersion = false
 [accessLog]
 
 [entryPoints]
-[entryPoints.http]
-  address = ":80"
-  [entryPoints.http.redirect]
-    entryPoint = "https"
 [entryPoints.https]
   address = ":443"
   # This is required for ACME support
@@ -20,6 +16,9 @@ checkNewVersion = false
   [[entryPoints.https.tls.certificates]]
     certFile = "/etc/traefik/rss.captnemo.in.crt"
     keyFile  = "/etc/traefik/rss.captnemo.in.key"
+  [[entryPoints.https.tls.certificates]]
+    certFile = "/etc/traefik/tatooine.club.crt"
+    keyFile  = "/etc/traefik/tatooine.club.key"
 
 [docker]
   # Make sure you mount this as readonly
