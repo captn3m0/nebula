@@ -2,7 +2,7 @@ module "rss-bridge" {
   name   = "rss-bridge"
   source = "./modules/container"
 
-  image = "captn3m0/rss-bridge:develop"
+  image = "ghcr.io/rss-bridge/rss-bridge:latest"
 
   resource = {
     memory      = 256
@@ -14,7 +14,7 @@ module "rss-bridge" {
     host   = "rss-bridge.${var.root-domain}"
   }
 
-  networks = ["external"]
+  networks = ["bridge"]
 
   volumes = [
     {
