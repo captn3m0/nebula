@@ -176,8 +176,21 @@ data "pass_password" "navidrome-spotify-secret" {
   path = "Nebula/navidrome-spotify-secret"
 }
 
-
-
 data "pass_password" "mastodon-db-password" {
   path = "Nebula/MASTODON_DB_PASSWORD"
+}
+data "pass_password" "mastodon-secret-key-base" {
+  path = "Nebula/MASTODON_SECRET_KEY_BASE"
+}
+data "pass_password" "mastodon-otp-secret" {
+  path = "Nebula/MASTODON_OTP_SECRET"
+}
+data "pass_password" "mastodon-vapid-private-key" {
+  path = "Nebula/MASTODON_VAPID_PRIVATE_KEY"
+}
+data "pass_password" "mastodon-vapid-public-key" {
+  path = "Nebula/MASTODON_VAPID_PUBLIC_KEY"
+}
+data "pass_password" "mastodon-smtp-password" {
+  path = "Nebula/MASTODON_SMTP_PASSWORD"
 }

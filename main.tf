@@ -94,6 +94,11 @@ module "digitalocean" {
 module "mastodon" {
   source = "./mastodon"
   db-password = data.pass_password.mastodon-db-password.password
+  secret-key-base = data.pass_password.mastodon-secret-key-base.password
+  otp-secret = data.pass_password.mastodon-otp-secret.password
+  vapid-private-key = data.pass_password.mastodon-vapid-private-key.password
+  vapid-public-key = data.pass_password.mastodon-vapid-public-key.password
+  smtp-password = data.pass_password.mastodon-smtp-password.password
 }
 
 // Used to force access to ISP related resources
