@@ -23,29 +23,44 @@ resource "docker_container" "gitea" {
     host_path      = docker_volume.gitea_volume.mountpoint
   }
 
-  # Logos
-  # TODO: Add svg
+  # For the following uploads, note that
+  # /data/gitea is GITEA_CUSTOM_PATH
 
+  # Logos
+
+  # https://docs.gitea.com/next/administration/customizing-gitea#changing-the-logo
+  # PNG images
   upload {
     content_base64 = filebase64("${path.module}/conf/public/img/gitea-lg.png")
-    file           = "/data/gitea/public/img/gitea-lg.png"
+    file           = "/data/gitea/public/img/logo.png"
   }
   upload {
-    content_base64 = filebase64("${path.module}/conf/public/img/gitea-sm.png")
-    file           = "/data/gitea/public/img/gitea-sm.png"
+    content_base64 = filebase64("${path.module}/conf/public/img/gitea-lg.png")
+    file           = "/data/gitea/public/img/apple-touch-icon.png"
   }
   upload {
     content_base64 = filebase64("${path.module}/conf/public/img/gitea-sm.png")
     file           = "/data/gitea/public/img/favicon.png"
-    executable     = false
+  }
+
+  # SVG images
+  upload {
+    content_base64 = filebase64("${path.module}/conf/public/img/favicon.svg")
+    file           = "/data/gitea/public/img/logo.svg"
   }
   upload {
+    content_base64 = filebase64("${path.module}/conf/public/img/favicon.svg")
+    file           = "/data/gitea/public/img/favicon.svg"
+  }
+
+  # Some files at top-level
+  upload {
     content = file("${path.module}/../docker/conf/humans.txt")
-    file    = "/data/gitea/public/humans.txt"
+    file    = "/data/gitea/humans.txt"
   }
   upload {
     content = file("${path.module}/conf/public/robots.txt")
-    file    = "/data/gitea/public/robots.txt"
+    file    = "/data/gitea/robots.txt"
   }
 
   # Extra Links in header

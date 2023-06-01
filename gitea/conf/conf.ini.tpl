@@ -2,7 +2,7 @@
 ; Copy required sections to your own app.ini (default is custom/conf/app.ini)
 ; and modify as needed.
 ; See the cheatsheet at https://docs.gitea.io/en-us/config-cheat-sheet/
-; A sample file with all configuration documented is at https://github.com/go-gitea/gitea/blob/master/custom/conf/app.ini.sample
+; A sample file with all configuration documented is at https://github.com/go-gitea/gitea/blob/main/custom/conf/app.example.ini
 
 ; App name that shows on every page title
 APP_NAME = Nemo's code
@@ -17,6 +17,10 @@ USE_COMPAT_SSH_URI = false
 TEMP_PATH = /data/gitea/uploads
 
 [ui]
+
+;; Number of issues that are displayed on one page
+ISSUE_PAGING_NUM = 20
+
 ; Value of `theme-color` meta tag, used by Android >= 5.0
 ; An invalid color like "none" or "disable" will have the default style
 ; More info: https://developers.google.com/web/updates/2014/11/Support-for-theme-color-in-Chrome-39-for-Android
@@ -36,6 +40,11 @@ NOTICE_PAGING_NUM = 25
 ; Number of organization that are showed in one page
 ORG_PAGING_NUM = 50
 
+;; Whether to only show relevant repos on the explore page when no keyword is specified and default sorting is used.
+;; A repo is considered irrelevant if it's a fork or if it has no metadata (no description, no icon, no topic).
+
+ONLY_SHOW_RELEVANT_REPOS = true
+
 [ui.user]
 ; Number of repos that are showed in one page
 REPO_PAGING_NUM = 15
@@ -52,6 +61,9 @@ ENABLE_HARD_LINE_BREAK = false
 ; for example git,magnet
 CUSTOM_URL_SCHEMES = git,magnet,steam,irc,slack
 FILE_EXTENSIONS = .md,.markdown,.mdown,.mkd
+
+;; Enables math inline and block detection
+ENABLE_MATH = true
 
 ; Define allowed algorithms and their minimum key length (use -1 to disable a type)
 [ssh.minimum_key_sizes]
@@ -99,6 +111,7 @@ SQLITE_TIMEOUT = 500
 ; ITERATE_BUFFER_SIZE = 50
 ; Show the database generated SQL
 LOG_SQL = false
+SQLITE_JOURNAL_MODE = WAL
 
 [picture]
 AVATAR_UPLOAD_PATH      = /data/gitea/avatars
@@ -164,7 +177,9 @@ ENABLED = true
 FROM = git@captnemo.in
 USER = git@captnemo.in
 PASSWD = ${smtp_password}
-HOST = smtp.migadu.com:587
+PROTOCOL = smtps
+SMTP_ADDR = smtp.migadu.com
+SMTP_PORT = 465
 SEND_AS_PLAIN_TEXT = true
 SUBJECT_PREFIX = "[git.captnemo.in] "
 
@@ -182,6 +197,11 @@ PROVIDER_CONFIG = "network=tcp,addr=gitea-redis:6379,db=1,pool_size=100,idle_tim
 COOKIE_SECURE = true
 ; SameSite settings. Either "none", "lax", or "strict"
 SAME_SITE = strict
+
+[migrations]
+ALLOWED_DOMAINS = github.com
+ALLOW_LOCALNETWORKS = false
+
 
 [attachment]
 ; ; Whether attachments are enabled. Defaults to `true`
@@ -262,3 +282,27 @@ JWT_SECRET = "${oauth2-jwt-secret}"
 
 [federation]
 ENABLED=false
+;; Enable/Disable user statistics for nodeinfo if federation is enabled
+;SHARE_USER_STATISTICS = true
+;;
+;; Maximum federation request and response size (MB)
+;MAX_SIZE = 4
+;;
+;; WARNING: Changing the settings below can break federation.
+;;
+;; HTTP signature algorithms
+;ALGORITHMS = rsa-sha256, rsa-sha512, ed25519
+;;
+;; HTTP signature digest algorithm
+;DIGEST_ALGORITHM = SHA-256
+;;
+;; GET headers for federation requests
+;GET_HEADERS = (request-target), Date
+;;
+;; POST headers for federation requests
+;POST_HEADERS = (request-target), Date, Digest
+
+
+[packages]
+;; Enable/Disable package registry capabilities
+ENABLED = true

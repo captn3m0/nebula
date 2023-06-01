@@ -18,3 +18,5 @@ User-agent: Xenu’s
 Disallow: /
 User-agent: Xenu’s Link Sleuth 1.1c
 Disallow: /
+User-agent: AhrefsBot
+Disallow: /
