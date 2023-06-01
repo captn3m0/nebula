@@ -2,6 +2,7 @@ module "mastodon-web" {
   name   = "mastodon-web"
   source = "../modules/container"
   image  = "tootsuite/mastodon:v${local.version}"
+  keep_image = true
 
   networks = ["mastodon", "traefik", "external", "postgres"]
 
@@ -38,6 +39,7 @@ module "mastodon-streaming" {
   name   = "mastodon-streaming"
   source = "../modules/container"
   image  = "tootsuite/mastodon:v${local.version}"
+  keep_image = true
   # 24 threads for Streaming
   env = concat(local.env,[
     "DB_POOL=8",
@@ -66,6 +68,7 @@ module "mastodon-sidekiq" {
   name   = "mastodon-sidekiq"
   source = "../modules/container"
   image  = "tootsuite/mastodon:v${local.version}"
+  keep_image = true
   env = concat(local.env,[
     "DB_POOL=50"
   ])
