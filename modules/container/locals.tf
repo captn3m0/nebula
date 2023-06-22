@@ -41,6 +41,8 @@ locals {
     var.web.expose ? local.web : null,
     # And finally a label for Basic Authentication if the service wants it
     var.web.auth != null ? (var.web.auth ? local.traefik_auth_labels : null) : null,
+
+    var.labels,
   )
 
   networks = concat(var.networks, var.web.expose ? ["traefik"] : [])

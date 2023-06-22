@@ -55,9 +55,10 @@ variable "env" {
   default     = []
 }
 
-# variable "labels" {
-#   description = "labels"
-# }
+variable "labels" {
+  description = "labels"
+  default = {}
+}
 
 variable "xpoweredby" {
   default = "X-Powered-By:Allomancy||X-Server:Blackbox"

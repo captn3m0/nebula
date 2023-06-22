@@ -6,6 +6,12 @@ module "mastodon-web" {
 
   networks = ["mastodon", "traefik", "external", "postgres"]
 
+  labels = {
+    "traefik.frontend.headers.STSPreload"           = "true"
+    "traefik.frontend.headers.STSIncludeSubdomains" = "true"
+    "traefik.frontend.headers.STSSeconds"           = "31536000"
+  }
+
   env = concat(local.env,[
     "MAX_THREADS=4",
     "WEB_CONCURRENCY=5"
