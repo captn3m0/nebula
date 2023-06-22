@@ -1,5 +1,5 @@
 locals {
-  version = "4.1"
+  version = "4.1.2"
   env = [
     "LOCAL_DOMAIN=tatooine.club",
     "REDIS_HOST=mastodon-redis",

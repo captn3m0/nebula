@@ -29,8 +29,8 @@ module "mastodon-web" {
   }
 
   resource = {
-    memory      = 1024
-    memory_swap = 1024
+    memory      = 2048
+    memory_swap = 2048
   }
 }
 
@@ -58,8 +58,8 @@ module "mastodon-streaming" {
   }
 
   resource = {
-    memory      = 1024
-    memory_swap = 1024
+    memory      = 512
+    memory_swap = 512
   }
 }
 
@@ -91,7 +91,7 @@ module "mastodon-sidekiq" {
     }]
 
   resource = {
-    memory      = 1024
-    memory_swap = 1024
+    memory      = 2048
+    memory_swap = 2048
   }
 }
