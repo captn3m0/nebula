@@ -18,8 +18,13 @@ module "radarr" {
 
   volumes = [
     {
-      host_path      = "/mnt/xwing/config/radarr"
+      host_path      = "/mnt/zwing/config/radarr"
       container_path = "/config"
+    },
+    # Backups stay on spinning disks
+    {
+      host_path      = "/mnt/xwing/backups/config/sonarr"
+      container_path = "/config/Backups"
     },
     {
       host_path      = "/mnt/xwing/media/DL"
