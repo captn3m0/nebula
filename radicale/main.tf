@@ -17,15 +17,12 @@ module "container" {
     host   = var.domain
   }
 
+  # SSD
   volumes = [
     {
-      host_path      = "/mnt/xwing/data/radicale"
+      host_path      = "/mnt/zwing/config/radicale"
       container_path = "/data"
-    },
-    {
-      host_path      = "/mnt/xwing/config/radicale"
-      container_path = "/config"
-    },
+    }
   ]
 
   uploads = [
