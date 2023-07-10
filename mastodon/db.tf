@@ -9,6 +9,17 @@ module "mastodon-redis" {
     memory      = 256
     memory_swap = 256
   }
+
+  # In case the cache dies,
+  # tootctl feeds build
+  # regenerates the feeds, run it from
+  # inside a mastodon container
+  volumes = [
+    {
+      host_path      = "/mnt/zwing/cache/mastodon-redis"
+      container_path = "/data"
+    }
+  ]
 }
 
 module "mastodon-db" {
