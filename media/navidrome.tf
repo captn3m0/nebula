@@ -17,7 +17,7 @@ module "navidrome" {
   }
 
   env = [
-    "ND_SCANINTERVAL=1h",
+    "ND_SCANINTERVAL=6h",
     "ND_LOGLEVEL=info",
     "ND_SESSIONTIMEOUT=300h",
     "ND_BASEURL=",
@@ -31,10 +31,14 @@ module "navidrome" {
   # TODO FIXME
   # networks = [docker_network.media.id, data.docker_network.bridge.id]
 
+  # Keep cache and data config so we can do easier backups
   volumes = [
     {
-      host_path      = "/mnt/xwing/data/navidrome"
+      host_path      = "/mnt/zwing/config/navidrome"
       container_path = "/data"
+    },{
+      host_path      = "/mnt/zwing/cache/navidrome"
+      container_path = "/data/cache"
     },
     {
       host_path      = "/mnt/xwing/media/Music"
