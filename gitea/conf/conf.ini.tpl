@@ -8,6 +8,7 @@
 APP_NAME = Nemo's code
 RUN_MODE = prod
 RUN_USER = git
+WORK_PATH=/data/gitea
 
 [repository]
 ROOT = /data/git/repositories
@@ -72,6 +73,9 @@ ECDSA = 256
 RSA = 2048
 DSA = 1024
 
+[lfs]
+PATH=/data/gitea/lfs
+
 [server]
 APP_DATA_PATH    = /data/gitea
 HTTP_PORT        = 3000
@@ -79,7 +83,6 @@ ROOT_URL         = https://git.captnemo.in/
 DISABLE_SSH      = true
 DOMAIN           = git.captnemo.in
 LFS_START_SERVER = true
-LFS_CONTENT_PATH = /data/gitea/lfs
 LFS_JWT_SECRET   = "${lfs-jwt-secret}"
 OFFLINE_MODE     = true
 LANDING_PAGE     = explore
@@ -123,8 +126,10 @@ ISSUE_INDEXER_PATH = indexers/issues.bleve
 ; repo indexer by default disabled, since it uses a lot of disk space
 REPO_INDEXER_ENABLED = true
 REPO_INDEXER_PATH = indexers/repos.bleve
-UPDATE_BUFFER_LEN = 20
 MAX_FILE_SIZE = 1048576
+
+[queue.issue_indexer]
+LENGTH = 100
 
 [admin]
 ; Disable regular (non-admin) users to create organizations
@@ -223,8 +228,8 @@ BUFFER_LEN = 10000
 LEVEL = Warn
 REDIRECT_MACARON_LOG = true
 ROUTER_LOG_LEVEL = Critical
-ENABLE_ACCESS_LOG = true
-ENABLE_XORM_LOG = false
+logger.access.MODE=,
+logger.xorm.MODE=,
 
 [cron]
 ; Enable running cron tasks periodically.

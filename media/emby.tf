@@ -36,7 +36,7 @@ resource "docker_container" "emby" {
   destroy_grace_seconds = 10
   must_run              = true
 
-  gpus = "all"
+  # gpus = "all"
 
   # Running as lounge:tatooine
   env = [
