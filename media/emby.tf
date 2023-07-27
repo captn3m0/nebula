@@ -11,11 +11,26 @@ resource "docker_container" "emby" {
   name  = "emby"
   image = docker_image.emby.image_id
 
+  # SSD holds both the cache and data
   volumes {
-    host_path      = "/mnt/xwing/config/emby"
+    host_path      = "/mnt/zwing/config/emby"
     container_path = "/config"
   }
 
+  # We keep the cache separate
+  # So the config directory isn't bloated
+  volumes {
+    host_path      = "/mnt/zwing/cache/emby"
+    container_path = "/config/cache"
+  }
+
+  # We want backups on the HDD
+  volumes {
+    host_path = "/mnt/xwing/backups/config/emby"
+    container_path = "/backups"
+  }
+
+  # And mount the media as well
   volumes {
     host_path      = "/mnt/xwing/media"
     container_path = "/media"
@@ -36,6 +51,8 @@ resource "docker_container" "emby" {
   destroy_grace_seconds = 10
   must_run              = true
 
+  # This breaks every time we upgrade the kernel
+  # or the nvidia driver, and needs a reboot.
   # gpus = "all"
 
   # Running as lounge:tatooine
