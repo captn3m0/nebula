@@ -17,6 +17,8 @@ resource "docker_container" "container" {
   entrypoint = var.entrypoint
   user       = var.user
 
+  privileged = var.privileged
+
   network_mode = var.network_mode
 
   gpus = var.gpu ? "all" : ""

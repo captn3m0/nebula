@@ -91,6 +91,10 @@ module "digitalocean" {
   source = "./digitalocean"
 }
 
+module "home-assistant" {
+  source = "./home-assistant"
+}
+
 module "mastodon" {
   source = "./mastodon"
   db-password = data.pass_password.mastodon-db-password.password

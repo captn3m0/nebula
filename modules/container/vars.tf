@@ -102,6 +102,11 @@ variable "volumes" {
   default     = {}
 }
 
+variable "privileged" {
+  description = "  If true, the container runs in privileged mode."
+  default = false
+}
+
 variable "capabilities" {
   description = "capabilities"
 
