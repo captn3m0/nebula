@@ -34,11 +34,5 @@ scrape_configs:
     static_configs:
       - targets: ["192.168.1.111:1111"]
 
-  - job_name: "act"
-    scrape_interval: 1h
-    scrape_timeout: 1m
-    static_configs:
-      - targets: ["act-exporter:3000"]
-
 rule_files:
   - "alert.rules"

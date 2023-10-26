@@ -42,7 +42,6 @@ Currently running the following (all links are to the `store.docker.com` links f
 | image                            | tag        | module/link                                          |
 | -------------------------------- | ---------- | ---------------------------------------------------- |
 | captn3m0/opml-gen                | latest     | https://opml.bb8.fun                                 |
-| captn3m0/prometheus-act-exporter | latest     | https://git.captnemo.in/nemo/prometheus-act-exporter |
 | captn3m0/rss-bridge              | latest     | https://github.com/RSS-Bridge/rss-bridge             |
 | captn3m0/speedtest-exporter      | alpine     | https://github.com/stefanwalther/speedtest-exporter  |
 | emby/embyserver                  | latest     | https://emby.media                                   |
