@@ -1,7 +1,7 @@
 module "cadvisor" {
   source = "../modules/container"
   name   = "cadvisor"
-  image  = "google/cadvisor:latest"
+  image  = "gcr.io/cadvisor/cadvisor"
 
   resource = {
     memory      = 512
@@ -11,6 +11,7 @@ module "cadvisor" {
   restart               = "unless-stopped"
   destroy_grace_seconds = 10
   must_run              = true
+  privileged = true
 
   volumes = [
     {
@@ -36,6 +37,7 @@ module "cadvisor" {
     {
       host_path      = "/var/run"
       container_path = "/var/run"
+      read_only      = true
     },
   ]
 

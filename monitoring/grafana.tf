@@ -2,10 +2,15 @@
 module "grafana" {
   name   = "grafana"
   source = "../modules/container"
-  image  = "grafana/grafana:latest"
+  image  = "grafana/grafana-oss:latest"
 
-  // grafana:grafana
-  user = "984:982"
+  // grafana
+  user = "472"
+
+  resource = {
+    memory      = 512
+    memory_swap = 512
+  }
 
   web = {
     port   = 3000
