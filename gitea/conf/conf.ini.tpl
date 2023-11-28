@@ -214,7 +214,7 @@ ENABLE = true
 ; ; One or more allowed types, e.g. image/jpeg|image/png
 ALLOWED_TYPES = image/jpeg|image/png|application/zip|application/gzip|application/pdf|text/csv
 ; ; Max size of each file. Defaults to 32MB
-MAX_SIZE = 20
+MAX_SIZE = 200
 ; ; Max number of files per upload. Defaults to 10
 MAX_FILES = 10
 
