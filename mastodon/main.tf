@@ -5,6 +5,10 @@ module "mastodon-web" {
   keep_image = true
 
   networks = ["mastodon", "traefik", "external", "postgres"]
+  dns = [
+    "192.168.1.111",
+    "1.1.1.1"
+  ]
 
   labels = {
     "traefik.frontend.headers.STSPreload"           = "true"
@@ -54,6 +58,10 @@ module "mastodon-streaming" {
   ])
 
   networks = ["postgres", "external", "mastodon"]
+  dns = [
+    "192.168.1.111",
+    "1.1.1.1"
+  ]
 
   command = [
     "node",
@@ -84,6 +92,10 @@ module "mastodon-sidekiq" {
   }
 
   networks = ["postgres", "external", "mastodon"]
+  dns = [
+    "192.168.1.111",
+    "1.1.1.1"
+  ]
 
   command = [
     "bundle",

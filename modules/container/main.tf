@@ -16,6 +16,7 @@ resource "docker_container" "container" {
   command    = var.command
   entrypoint = var.entrypoint
   user       = var.user
+  dns        = var.dns
 
   privileged = var.privileged
 

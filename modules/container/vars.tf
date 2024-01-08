@@ -146,3 +146,8 @@ variable "gpu" {
   type = bool
   default  = false
 }
+
+variable "dns" {
+  description = "set of dns servers"
+  default = []
+}

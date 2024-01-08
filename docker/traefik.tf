@@ -56,7 +56,6 @@ resource "docker_container" "traefik" {
     )
     file = "/etc/traefik/git.captnemo.in.crt"
   }
-
   upload {
     content = file(
       "/home/nemo/projects/personal/certs/git.captnemo.in/privkey.pem",
@@ -66,17 +65,18 @@ resource "docker_container" "traefik" {
 
   upload {
     content = file(
-      "/home/nemo/projects/personal/certs/lego/certificates/tatooine.club.key",
+      "/home/nemo/projects/personal/certs/tatooine.club/fullchain.pem",
+    )
+    file = "/etc/traefik/tatooine.club.crt"
+  }
+  upload {
+    content = file(
+      "/home/nemo/projects/personal/certs/tatooine.club/privkey.pem",
     )
     file = "/etc/traefik/tatooine.club.key"
   }
 
-  upload {
-    content = file(
-      "/home/nemo/projects/personal/certs/lego/certificates/tatooine.club.crt",
-    )
-    file = "/etc/traefik/tatooine.club.crt"
-  }
+
 
   upload {
     content = file(

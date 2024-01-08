@@ -53,7 +53,7 @@ resource "docker_container" "emby" {
 
   # This breaks every time we upgrade the kernel
   # or the nvidia driver, and needs a reboot.
-  gpus = "all"
+  # gpus = "all"
 
   # Running as lounge:tatooine
   env = [

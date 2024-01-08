@@ -3,6 +3,10 @@ module "rss-bridge" {
   source = "./modules/container"
 
   image = "ghcr.io/rss-bridge/rss-bridge:latest"
+  dns = [
+    "192.168.1.111",
+    "1.1.1.1"
+  ]
 
   resource = {
     memory      = 256
