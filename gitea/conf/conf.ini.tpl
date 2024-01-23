@@ -204,7 +204,7 @@ COOKIE_SECURE = true
 SAME_SITE = strict
 
 [migrations]
-ALLOWED_DOMAINS = github.com
+ALLOWED_DOMAINS = github.com,api.github.com
 ALLOW_LOCALNETWORKS = false
 
 
