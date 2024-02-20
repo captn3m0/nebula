@@ -23,14 +23,6 @@ resource "docker_container" "postgres" {
     ip       = var.ips["eth0"]
   }
 
-  // This is a not-so-great idea
-  // TODO: Figure out a better way to make terraform SSH and then connect to localhost
-  ports {
-    internal = 5432
-    external = 5432
-    ip       = var.ips["tun0"]
-  }
-
   memory                = 2048
   memory_swap           = 2048
   restart               = "unless-stopped"
