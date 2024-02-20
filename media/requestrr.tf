@@ -1,7 +1,7 @@
 module "requestrr" {
   name   = "requestrr"
   source = "../modules/container"
-  image  = "darkalfx/requestrr:latest"
+  image  = "thomst08/requestrr:latest"
 
   web = {
     expose = true
