@@ -2,22 +2,6 @@ resource "docker_container" "traefik" {
   name  = "traefik"
   image = docker_image.traefik17.image_id
 
-
-  labels {
-    label = "traefik.enable"
-    value = "true"
-  }
-
-  labels {
-    label = "traefik.http.routers.api.rule"
-    value = "Host('traefik.in.bb8.fun')"
-  }
-
-  labels {
-    label = "traefik.http.routers.api.service"
-    value = "api@internal"
-  }
-
   # Local Web Server
   ports {
     internal = 80
@@ -76,6 +60,20 @@ resource "docker_container" "traefik" {
     file = "/etc/traefik/tatooine.club.key"
   }
 
+  upload {
+    content = file(
+      "/home/nemo/.acme.sh/*.bb8.fun_ecc/*.bb8.fun.key",
+    )
+    file = "/etc/traefik/star.bb8.fun.key"
+  }
+
+  upload {
+    content = file(
+      "/home/nemo/.acme.sh/*.bb8.fun_ecc/fullchain.cer",
+    )
+    file = "/etc/traefik/star.bb8.fun.crt"
+  }
+
 
 
   upload {
@@ -118,8 +116,4 @@ resource "docker_container" "traefik" {
     name = "bridge"
   }
 
-  env = [
-    "CLOUDFLARE_EMAIL=${var.cloudflare_email}",
-    "CLOUDFLARE_API_KEY=${var.cloudflare_key}",
-  ]
 }
