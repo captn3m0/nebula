@@ -1,7 +1,7 @@
 module "miniflux-container" {
   name   = "miniflux"
   source = "./modules/container"
-  image  = "miniflux/miniflux:2.1.0"
+  image  = "miniflux/miniflux:2.1.1"
 
   web = {
     expose = true
