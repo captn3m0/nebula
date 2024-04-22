@@ -11,7 +11,7 @@ module "prowlarr" {
   }
 
   resource = {
-    memory      = 512
+    memory      = 1024
     memory_swap = 1024
   }
 

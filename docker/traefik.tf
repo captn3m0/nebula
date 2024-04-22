@@ -49,13 +49,13 @@ resource "docker_container" "traefik" {
 
   upload {
     content = file(
-      "/home/nemo/projects/personal/certs/tatooine.club/fullchain.pem",
+      "/home/nemo/projects/personal/certs/lego/certificates/tatooine.club.crt",
     )
     file = "/etc/traefik/tatooine.club.crt"
   }
   upload {
     content = file(
-      "/home/nemo/projects/personal/certs/tatooine.club/privkey.pem",
+      "/home/nemo/projects/personal/certs/lego/certificates/tatooine.club.key",
     )
     file = "/etc/traefik/tatooine.club.key"
   }

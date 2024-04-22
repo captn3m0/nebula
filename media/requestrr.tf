@@ -10,8 +10,8 @@ module "requestrr" {
   }
 
   resource = {
-    memory      = 256
-    memory_swap = 256
+    memory      = 512
+    memory_swap = 512
   }
 
   volumes = [
