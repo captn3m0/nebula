@@ -1,7 +1,13 @@
+data "github_release" "miniflux" {
+    repository  = "v2"
+    owner       = "miniflux"
+    retrieve_by = "latest"
+}
+
 module "miniflux-container" {
   name   = "miniflux"
   source = "./modules/container"
-  image  = "miniflux/miniflux:2.1.1"
+  image  = "miniflux/miniflux:${trimprefix(data.github_release.miniflux.release_tag, "v")}"
 
   web = {
     expose = true

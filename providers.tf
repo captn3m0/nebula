@@ -29,7 +29,6 @@ provider "digitalocean" {
 provider "pass" {
 }
 
-
 terraform {
   required_version = ">= 1.3.0"
   required_providers {
@@ -49,5 +48,13 @@ terraform {
       source = "kreuzwerker/docker"
       version = "~> 2.23"
     }
+    github = {
+      source  = "integrations/github"
+      version = "~> 6.0"
+    }
   }
 }
+
+
+# Configure the GitHub Provider
+provider "github" {}
