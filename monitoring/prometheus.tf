@@ -14,7 +14,7 @@ resource "docker_container" "prometheus" {
   ports {
     internal = 9090
     external = 8811
-    ip       = var.ips["tun0"]
+    ip       = var.ips["ts"]
   }
 
   command = ["--config.file=/etc/prometheus/prometheus.yml"]
