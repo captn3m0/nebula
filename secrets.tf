@@ -194,3 +194,7 @@ data "pass_password" "mastodon-vapid-public-key" {
 data "pass_password" "mastodon-smtp-password" {
   path = "Nebula/MASTODON_SMTP_PASSWORD"
 }
+
+data "pass_password" "github-actions-runner-token-blr-today" {
+  path = "blr.today/GITHUB_ACTIONS_RUNNER_TOKEN"
+}

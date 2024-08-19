@@ -110,3 +110,11 @@ module "mastodon" {
 #   source = "./tinyproxy"
 #   ips    = "${var.ips}"
 # }
+
+module "gh-runner-blr-today" {
+  source = "./modules/gh-runner"
+  name = "blr-today"
+  runner_version = "2.317.0"
+  token = "${data.pass_password.github-actions-runner-token-blr-today.password}"
+  url = "https://github.com/blr-today"
+}
