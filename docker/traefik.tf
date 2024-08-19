@@ -20,13 +20,13 @@ resource "docker_container" "traefik" {
   ports {
     internal = 443
     external = 443
-    ip       = var.ips["tun0"]
+    ip       = var.ips["ts"]
   }
 
   ports {
     internal = 80
     external = 80
-    ip       = var.ips["tun0"]
+    ip       = var.ips["ts"]
   }
 
   upload {
@@ -49,13 +49,13 @@ resource "docker_container" "traefik" {
 
   upload {
     content = file(
-      "/home/nemo/projects/personal/certs/lego/certificates/tatooine.club.crt",
+      "/home/nemo/projects/personal/certs/tatooine.club/fullchain.pem",
     )
     file = "/etc/traefik/tatooine.club.crt"
   }
   upload {
     content = file(
-      "/home/nemo/projects/personal/certs/lego/certificates/tatooine.club.key",
+      "/home/nemo/projects/personal/certs/tatooine.club/privkey.pem",
     )
     file = "/etc/traefik/tatooine.club.key"
   }

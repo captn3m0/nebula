@@ -68,7 +68,7 @@ resource "cloudflare_record" "acme-no-cname-1" {
 resource "cloudflare_record" "vpn" {
   zone_id = var.zone_id
   name    = "vpn"
-  value   = var.ips["tun0"]
+  value   = var.ips["ts"]
   type    = "A"
 }
 
@@ -97,13 +97,6 @@ resource "cloudflare_record" "dovpn_wildcard" {
   value   = cloudflare_record.dovpn.hostname
   type    = "CNAME"
   ttl     = 3600
-}
-
-resource "cloudflare_record" "etcd" {
-  zone_id = var.zone_id
-  name    = "etcd"
-  value   = var.ips["dovpn"]
-  type    = "A"
 }
 
 ########################
@@ -138,12 +131,4 @@ resource "cloudflare_record" "mailgun-mxb" {
   value    = "mxb.mailgun.org"
   type     = "MX"
   priority = 20
-}
-
-resource "cloudflare_record" "k8s" {
-  zone_id = var.zone_id
-  name    = "k8s"
-  value   = "10.8.0.1"
-  type    = "A"
-  ttl     = 3600
 }

@@ -14,7 +14,7 @@ module "znc" {
     {
       internal = "6697"
       external = "6697"
-      ip       = var.ips["tun0"]
+      ip       = var.ips["ts"]
     },
   ]
 }
