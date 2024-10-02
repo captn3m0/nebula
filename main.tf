@@ -105,16 +105,10 @@ module "mastodon" {
   smtp-password = data.pass_password.mastodon-smtp-password.password
 }
 
-// Used to force access to ISP related resources
-# module "tinyproxy" {
-#   source = "./tinyproxy"
-#   ips    = "${var.ips}"
-# }
-
 module "gh-runner-blr-today" {
   source = "./modules/gh-runner"
   name = "blr-today"
-  runner_version = "2.317.0"
+  runner_version = "2.319.0"
   token = "${data.pass_password.github-actions-runner-token-blr-today.password}"
   url = "https://github.com/blr-today"
 }

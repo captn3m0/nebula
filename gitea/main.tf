@@ -32,35 +32,35 @@ resource "docker_container" "gitea" {
   # PNG images
   upload {
     content_base64 = filebase64("${path.module}/conf/public/img/gitea-lg.png")
-    file           = "/data/gitea/public/img/logo.png"
+    file           = "/data/gitea/public/assets/img/logo.png"
   }
   upload {
     content_base64 = filebase64("${path.module}/conf/public/img/gitea-lg.png")
-    file           = "/data/gitea/public/img/apple-touch-icon.png"
+    file           = "/data/gitea/public/assets/img/apple-touch-icon.png"
   }
   upload {
     content_base64 = filebase64("${path.module}/conf/public/img/gitea-sm.png")
-    file           = "/data/gitea/public/img/favicon.png"
+    file           = "/data/gitea/public/assets/img/favicon.png"
   }
 
   # SVG images
   upload {
     content_base64 = filebase64("${path.module}/conf/public/img/favicon.svg")
-    file           = "/data/gitea/public/img/logo.svg"
+    file           = "/data/gitea/public/assets/img/logo.svg"
   }
   upload {
     content_base64 = filebase64("${path.module}/conf/public/img/favicon.svg")
-    file           = "/data/gitea/public/img/favicon.svg"
+    file           = "/data/gitea/public/assets/img/favicon.svg"
   }
 
   # Some files at top-level
   upload {
-    content = file("${path.module}/../docker/conf/humans.txt")
-    file    = "/data/gitea/humans.txt"
+    content = file("${path.module}/conf/public/humans.txt")
+    file    = "/data/gitea/public/humans.txt"
   }
   upload {
     content = file("${path.module}/conf/public/robots.txt")
-    file    = "/data/gitea/robots.txt"
+    file    = "/data/gitea/public/robots.txt"
   }
 
   # Extra Links in header

@@ -281,7 +281,7 @@ ENABLE_OPENID_SIGNUP = false
 ENABLED = true
 
 [oauth2]
-ENABLE = false
+ENABLED = false
 ; this is same as JWT secret above
 JWT_SECRET = "${oauth2-jwt-secret}"
 
