@@ -7,6 +7,9 @@ module "mastodon-web" {
   networks = ["mastodon", "traefik", "external", "postgres"]
   dns = [
     "192.168.1.111",
+    # NextDNS
+    "45.90.28.120",
+    "45.90.30.120",
     "1.1.1.1"
   ]
 
@@ -60,9 +63,11 @@ module "mastodon-streaming" {
   networks = ["postgres", "external", "mastodon"]
   dns = [
     "192.168.1.111",
+    # NextDNS
+    "45.90.28.120",
+    "45.90.30.120",
     "1.1.1.1"
   ]
-
   command = [
     "node",
     "./streaming"
@@ -94,6 +99,9 @@ module "mastodon-sidekiq" {
   networks = ["postgres", "external", "mastodon"]
   dns = [
     "192.168.1.111",
+    # NextDNS
+    "45.90.28.120",
+    "45.90.30.120",
     "1.1.1.1"
   ]
 

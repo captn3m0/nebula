@@ -10,6 +10,7 @@ resource "docker_container" "postgres" {
     "shared_buffers=500MB",
   ]
 
+
   volumes {
     volume_name    = docker_volume.pg_data.name
     container_path = "/var/lib/postgresql/data"
@@ -23,6 +24,7 @@ resource "docker_container" "postgres" {
     ip       = var.ips["eth0"]
   }
 
+  remove_volumes        = false
   memory                = 2048
   memory_swap           = 2048
   restart               = "unless-stopped"

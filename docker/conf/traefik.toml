@@ -1,7 +1,10 @@
 defaultEntryPoints = ["http", "https"]
-sendAnonymousUsage = true
+sendAnonymousUsage = false
 checkNewVersion = false
-
+[web]
+address = ":1111"
+readOnly = true
+[web.statistics]
 [traefikLog]
 [accessLog]
 

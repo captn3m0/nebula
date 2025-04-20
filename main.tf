@@ -108,7 +108,7 @@ module "mastodon" {
 module "gh-runner-blr-today" {
   source = "./modules/gh-runner"
   name = "blr-today"
-  runner_version = "2.319.0"
+  runner_version = "2.323.0"
   token = "${data.pass_password.github-actions-runner-token-blr-today.password}"
   url = "https://github.com/blr-today"
 }
