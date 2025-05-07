@@ -1,5 +1,5 @@
 locals {
-  version = "4.1.25"
+  version = "4.2.21"
   env = [
     "LOCAL_DOMAIN=tatooine.club",
     "REDIS_HOST=mastodon-redis",
@@ -19,5 +19,7 @@ locals {
     "SMTP_LOGIN=mastodon@mail.tatooine.club",
     "SMTP_PASSWORD=${var.smtp-password}",
     "SMTP_FROM_ADDRESS=mastodon@mail.tatooine.club",
+    # Disable admin notifications for new Mastodon versions
+    "UPDATE_CHECK_URL="
   ]
 }
