@@ -16,19 +16,23 @@ module "rgit" {
     "[::]:8000",
     "/git",
     "-d",
-    "/dev/shm/rgit-cache.db"
+    "/cache/rgit-cache.db"
   ]
 
   env = [
-    "REFRESH_INTERVAL=5m"
+    "REFRESH_INTERVAL=5m",
+    "RUST_LOG=error"
   ]
 
   volumes = [
     {
       host_path      = "/mnt/xwing/data/gickup"
-      container_path = "/git",
+      container_path = "/git"
       read_only = true
-      type= "bind"
+    },
+    {
+      host_path      = "/mnt/xwing/cache/rgit"
+      container_path = "/cache"
     }
   ]
 
