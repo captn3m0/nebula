@@ -25,7 +25,14 @@ module "grafana" {
     },
   ]
 
-  networks = ["monitoring"]
+  networks = ["monitoring", "bridge"]
+
+  dns = [
+    "192.168.1.111",
+    # NextDNS
+    "45.90.28.120",
+    "45.90.30.120",
+  ]
 
   env = [
     "GF_SERVER_ROOT_URL=https://grafana.${var.domain}",
