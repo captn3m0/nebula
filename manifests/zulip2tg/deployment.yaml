@@ -19,7 +19,7 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: zulip2tg
-          image: ghcr.io/captn3m0/zulip2tg:v5
+          image: ghcr.io/captn3m0/zulip2tg:v6
           args:
             - -c
             - /etc/zulip2tg/config.yaml
