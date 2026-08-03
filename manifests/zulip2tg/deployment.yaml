@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zulip2tg
+  namespace: slidge
+  labels:
+    app.kubernetes.io/name: zulip2tg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: zulip2tg
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: zulip2tg
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: zulip2tg
+          image: ghcr.io/captn3m0/zulip2tg:v1
+          args:
+            - -c
+            - /etc/zulip2tg/config.yaml
+          volumeMounts:
+            - name: config
+              mountPath: /etc/zulip2tg
+              readOnly: true
+      volumes:
+        - name: config
+          secret:
+            secretName: zulip2tg-config
