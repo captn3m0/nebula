@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  log.override: |
+    #
+  stub.server: |
+    #
+kind: ConfigMap
+metadata:
+  annotations:
+  name: coredns-custom
+  namespace: kube-system
