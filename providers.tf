@@ -9,21 +9,12 @@ provider "docker" {
   alias     = "sydney"
 }
 
-provider "cloudflare" {
-  email   = "bb8@captnemo.in"
-  api_key = data.pass_password.cloudflare_key.password
-}
-
 provider "postgresql" {
   host     = "postgres.vpn.bb8.fun"
   port     = 5432
   username = "postgres"
   password = data.pass_password.postgres-root-password.password
   sslmode  = "disable"
-}
-
-provider "digitalocean" {
-  token = data.pass_password.digitalocean-token.password
 }
 
 provider "pass" {
@@ -35,14 +26,8 @@ terraform {
     pass = {
       source = "camptocamp/pass"
     }
-    digitalocean = {
-      source = "digitalocean/digitalocean"
-    }
     postgresql = {
       source = "cyrilgdn/postgresql"
-    }
-    cloudflare = {
-      source = "cloudflare/cloudflare"
     }
     docker = {
       source = "kreuzwerker/docker"

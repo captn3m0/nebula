@@ -7,10 +7,6 @@ slidgram for Telegram. Runs in the existing `slidge` namespace. See
 ## Install
 
 ```bash
-cp manifests/zulip2tg/secret.example.yaml manifests/zulip2tg/secret.yaml
-# fill in zulip.key and telegram.bot_token in secret.yaml
-
-kubectl apply -f manifests/zulip2tg/secret.yaml
 kubectl apply -f manifests/zulip2tg/deployment.yaml
 ```
 

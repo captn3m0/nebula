@@ -1,12 +1,3 @@
-module "cloudflare" {
-  source  = "./cloudflare"
-  domain  = "bb8.fun"
-  zone_id = lookup(data.cloudflare_zones.bb8.zones[0], "id")
-  ips     = var.ips
-
-  droplet_ip = module.digitalocean.droplet_ipv4
-}
-
 module "docker" {
   source              = "./docker"
   web_username        = data.pass_password.web_username.password
@@ -85,10 +76,6 @@ module "monitoring" {
   ips                        = var.ips
   links-traefik              = module.docker.names-traefik
   traefik-network-id         = module.docker.traefik-network-id
-}
-
-module "digitalocean" {
-  source = "./digitalocean"
 }
 
 module "home-assistant" {

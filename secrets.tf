@@ -2,10 +2,6 @@ data "pass_password" "airsonic-smtp-password" {
   path = "Nebula/AIRSONIC_SMTP_PASSWORD"
 }
 
-data "pass_password" "digitalocean-token" {
-  path = "Nebula/DO_TOKEN"
-}
-
 data "pass_password" "gitea-internal-token" {
   path = "Nebula/GITEA_INTERNAL_TOKEN"
 }

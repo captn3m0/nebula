@@ -2,10 +2,13 @@ data "docker_network" "bridge" {
   name = "bridge"
 }
 
-data "cloudflare_zones" "bb8" {
-  filter {
-    name        = "bb8"
-    lookup_type = "exact"
-    match       = "bb8.fun"
+data "terraform_remote_state" "digitalocean" {
+  backend = "s3"
+
+  config = {
+    bucket  = "nebula-301109182511-eu-central-1-an"
+    key     = "terraform/digitalocean.tfstate"
+    region  = "eu-central-1"
+    profile = "nebula"
   }
 }

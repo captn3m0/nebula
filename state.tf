@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket  = "rmx-nemo"
+    bucket  = "nebula-301109182511-eu-central-1-an"
     key     = "terraform/nebula.tfstate"
-    region  = "ap-south-1"
+    region  = "eu-central-1"
     profile = "nebula"
   }
 }
