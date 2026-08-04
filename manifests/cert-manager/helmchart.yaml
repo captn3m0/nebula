@@ -1,0 +1,29 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: cert-manager
+  namespace: kube-system
+spec:
+  repo: https://charts.jetstack.io
+  chart: cert-manager
+  version: v1.21.1
+  targetNamespace: cert-manager
+  createNamespace: true
+  valuesContent: |-
+    # cert-manager Helm values for a small homeserver cluster.
+    crds:
+      enabled: true
+
+    replicaCount: 1
+
+    prometheus:
+      enabled: false
+
+    webhook:
+      replicaCount: 1
+
+    cainjector:
+      replicaCount: 1
+
+    startupapicheck:
+      enabled: true
