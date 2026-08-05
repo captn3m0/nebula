@@ -103,6 +103,14 @@ Their is a lot of additional infrastructure that is _not-yet_ part of this repo.
 4.  btrfs-backed subvolumes and snapshotting for most things in /mnt/xwing/ (in-progress)
 5.  User-creation on the main server. (I'm using a common user for media applications and specific users for other applications)
 
+# Kubernetes
+
+After draging the Ubuntu VM I started my Digital Ocean droplet from
+16.04 to 24.04 (kicking and screaming), it finally gave up and I
+finally created a new droplet (Debian) and installed k3s on it.
+
+Kubernetes stuff is managed in `manifests/`. There is some git-ops
+
 # License
 
 All code in this repository is shared under the [MIT License](https://nemo.mit-license.org/).
