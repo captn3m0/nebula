@@ -50,8 +50,8 @@ resource "cloudflare_record" "srv_xmpp_server_tatooine" {
 # Component subdomains don't strictly need their own DNS entry for XMPP
 # stanza routing (the server routes to them internally over the one
 # connection already established to tatooine.club), but some clients do a
-# naive "does this domain resolve" check on manually-entered JIDs. signal/
-# upload stay unresolvable for now since those gateways aren't enabled.
+# naive "does this domain resolve" check on manually-entered JIDs. signal
+# stays unresolvable for now since that gateway isn't enabled.
 resource "cloudflare_record" "muc_tatooine" {
   provider = cloudflare.global
   zone_id  = lookup(data.cloudflare_zones.tatooine.zones[0], "id")
@@ -64,6 +64,18 @@ resource "cloudflare_record" "telegram_tatooine" {
   provider = cloudflare.global
   zone_id  = lookup(data.cloudflare_zones.tatooine.zones[0], "id")
   name     = "telegram"
+  content  = cloudflare_record.ceylon_tatooine.hostname
+  type     = "CNAME"
+}
+
+# HTTP File Upload (XEP-0363). Served over HTTPS by Traefik (HTTP-01, see
+# manifests/traefik/helmchartconfig.yaml), which proxies to Prosody's upload
+# component - this needs to resolve since it's a real HTTP endpoint, not
+# just a JID component.
+resource "cloudflare_record" "upload_tatooine" {
+  provider = cloudflare.global
+  zone_id  = lookup(data.cloudflare_zones.tatooine.zones[0], "id")
+  name     = "files.xmpp"
   content  = cloudflare_record.ceylon_tatooine.hostname
   type     = "CNAME"
 }

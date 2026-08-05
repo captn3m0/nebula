@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prosody-upload
+  namespace: slidge
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`files.xmpp.tatooine.club`)
+      services:
+        - name: slidge-zulip-slidge-zulip-prosody
+          port: 5281
+  tls:
+    certResolver: letsencrypt-http

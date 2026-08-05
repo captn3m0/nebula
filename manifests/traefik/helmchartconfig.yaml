@@ -1,0 +1,55 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    hostNetwork: true
+    logs:
+      general:
+        level: INFO
+    podSecurityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+      runAsGroup: 0
+    securityContext:
+      capabilities:
+        drop: [ALL]
+        add: [NET_BIND_SERVICE]
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
+    ports:
+      web:
+        port: 80
+        hostIP: "10.47.0.6"
+        hostPort: 80
+      websecure:
+        port: 443
+        hostIP: "10.47.0.6"
+        hostPort: 443
+    persistence:
+      enabled: true
+      path: /data
+      size: 128Mi
+    envFrom:
+      - secretRef:
+          name: traefik-cloudflare-credentials
+    certificatesResolvers:
+      cloudflare:
+        acme:
+          email: bb8@captnemo.in
+          storage: /data/acme.json
+          dnsChallenge:
+            provider: cloudflare
+            resolvers:
+              - "1.1.1.1:53"
+              - "8.8.8.8:53"
+      # HTTP-01 resolver for hosts that don't need a Cloudflare DNS secret
+      # (e.g. single-hostname certs where wildcard/DNS-01 isn't needed).
+      letsencrypt-http:
+        acme:
+          email: bb8@captnemo.in
+          storage: /data/acme-http.json
+          httpChallenge:
+            entryPoint: web
