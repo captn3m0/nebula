@@ -1,0 +1,10 @@
+# Holds events.db and the posting ledgers; losing it makes runs refuse, never repost
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: scheduler-state
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi

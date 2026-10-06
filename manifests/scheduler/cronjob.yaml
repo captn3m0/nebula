@@ -1,0 +1,65 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: scheduler
+  labels:
+    app.kubernetes.io/name: scheduler
+spec:
+  schedule: "*/5 * * * *"
+  # Unsuspend once ghcr.io/blr-today/scheduler has this tag; adopt-job.yaml is only for recovery
+  suspend: true
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 240
+      ttlSecondsAfterFinished: 3600
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: scheduler
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            fsGroup: 65534
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: scheduler
+              image: ghcr.io/blr-today/scheduler:1
+              args: ["run"]
+              env:
+                - name: BLUESKY_APP_PASSWORDS
+                  valueFrom:
+                    secretKeyRef:
+                      name: scheduler-bluesky
+                      key: app-passwords
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 64Mi
+                limits:
+                  memory: 256Mi
+              volumeMounts:
+                - name: state
+                  mountPath: /state
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            - name: state
+              persistentVolumeClaim:
+                claimName: scheduler-state
+            - name: tmp
+              emptyDir: {}
