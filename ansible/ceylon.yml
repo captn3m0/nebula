@@ -1,0 +1,57 @@
+# Keeps the 2 GB k3s node responsive under memory pressure (it hung on 2026-10-06)
+- name: Memory safety for ceylon
+  hosts: ceylon
+  vars:
+    swapfile: /swapfile
+    swap_size_mb: 2048
+  tasks:
+    - name: Create the swapfile
+      ansible.builtin.command: fallocate -l {{ swap_size_mb }}M {{ swapfile }}
+      args:
+        creates: "{{ swapfile }}"
+      register: swapfile_created
+
+    - name: Restrict the swapfile to root
+      ansible.builtin.file:
+        path: "{{ swapfile }}"
+        mode: "0600"
+      when: not (ansible_check_mode and swapfile_created is changed)
+
+    - name: Format the swapfile
+      ansible.builtin.command: mkswap {{ swapfile }}
+      when: swapfile_created is changed
+
+    - name: Enable the swapfile at boot
+      ansible.builtin.lineinfile:
+        path: /etc/fstab
+        line: "{{ swapfile }} none swap sw 0 0"
+
+    - name: Turn the swapfile on
+      ansible.builtin.command: swapon {{ swapfile }}
+      when: swapfile_created is changed
+
+    - name: Prefer RAM and swap only under pressure
+      ansible.builtin.copy:
+        dest: /etc/sysctl.d/90-swappiness.conf
+        content: "vm.swappiness = 10\n"
+        mode: "0644"
+      notify: Reload sysctl
+
+    - name: Evict pods before the node runs out of memory
+      ansible.builtin.copy:
+        dest: /etc/rancher/k3s/config.yaml
+        content: |
+          kubelet-arg:
+            - "eviction-hard=memory.available<150Mi"
+            - "eviction-minimum-reclaim=memory.available=100Mi"
+        mode: "0600"
+      notify: Restart k3s
+
+  handlers:
+    - name: Reload sysctl
+      ansible.builtin.command: sysctl -p /etc/sysctl.d/90-swappiness.conf
+
+    - name: Restart k3s
+      ansible.builtin.systemd_service:
+        name: k3s
+        state: restarted
