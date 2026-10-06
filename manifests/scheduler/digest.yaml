@@ -33,7 +33,7 @@ spec:
               type: RuntimeDefault
           containers:
             - name: digest
-              image: ghcr.io/blr-today/scheduler:11
+              image: ghcr.io/blr-today/scheduler:11@sha256:52f8aefa2d2d45ce8d7419b8dc18c210b36e8acf1fef5ba4123e2fbfff01753e
               args: ["--state", "/tmp/state", "digest", "--send"]
               envFrom:
                 - secretRef:
