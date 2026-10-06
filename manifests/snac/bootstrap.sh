@@ -6,11 +6,13 @@ host=${SNAC_URL:-https://fedi.blr.today}
 prefix=${PASS_PREFIX:-blr.today/fedi}
 avatar=${AVATAR:-$here/../../../blr-today-website/img/android-chrome-512x512.png}
 kubectl=${KUBECTL:-kubectl}
-all="Follow @events@fedi.blr.today for every Bengaluru event."
+all="One of blr.today's area, topic and venue accounts: follow the ones you care about."
+# Accounts that can't be followed: they only exist for the others to boost
+locked="events"
 
 # uid|display name|bio
 accounts=$(cat <<EOF
-events|BLR.today Events|Every upcoming Bengaluru event from blr.today, posted 2–7 days ahead. This is the full firehose; the area, topic and venue accounts share slices of it.
+events|BLR.today Events|Every upcoming Bengaluru event from blr.today, posted 2–7 days ahead. Follow the area, topic and venue accounts instead: they boost the events you care about.
 curated|BLR.today Curated 🍉|Events from the blr.today homepage calendar. $all
 lastcall|BLR.today Last Call|Replies when a blr.today event is nearly sold out. Mute this account or #lastcall to skip them. $all
 indiranagar|BLR.today Indiranagar|Upcoming events in Indiranagar from blr.today. $all
@@ -62,7 +64,8 @@ while IFS="|" read -r -u 3 uid name bio; do
   img=()
   [[ "$(jq -r .avatar <<<"$me")" == */s/* ]] || img=(-F "avatar=@$avatar;type=image/png")
   curl -sf -X PATCH -H "Authorization: Bearer $tok" "$host/api/v1/accounts/update_credentials" \
-    --form-string "display_name=$name" --form-string "note=$bio" --form-string "bot=true" "${img[@]}" >/dev/null
+    --form-string "display_name=$name" --form-string "note=$bio" --form-string "bot=true" \
+    --form-string "locked=$([[ " $locked " == *" $uid "* ]] && echo true || echo false)" "${img[@]}" >/dev/null
   tokens=$(jq -c --arg u "$uid" --arg t "$tok" '.[$u] = $t' <<<"$tokens")
   pass insert -m -f "$prefix/github-actions-secret" <<<"$tokens" >/dev/null
   [ "$new" = 1 ] && echo "$uid created" || echo "$uid updated"
