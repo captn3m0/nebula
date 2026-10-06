@@ -61,6 +61,14 @@ template() {
 link_template=$(template "Manage link" tx "Your blr.today weekly link" manage-link.html)
 weekly_template=$(template "blr.today weekly" campaign "" weekly.html)
 
+for name in web digest; do
+  if [ -n "${PASS_PREFIX:-}" ] && [ -s "$OUT/token-$name" ]; then
+    printf '%s\nuser: %s\nlist_id: %s\nlink_template_id: %s\nweekly_template_id: %s\n' "$(cat "$OUT/token-$name")" \
+      "$name" "$list" "$link_template" "$weekly_template" | pass insert -m -f "$PASS_PREFIX-$name" > /dev/null
+    rm -f "$OUT/token-$name" && echo "stored the $name token in pass at $PASS_PREFIX-$name" >&2
+  fi
+done
+
 echo "LISTMONK_LIST_ID=$list"
 echo "LISTMONK_LINK_TEMPLATE_ID=$link_template"
 echo "LISTMONK_WEEKLY_TEMPLATE_ID=$weekly_template"

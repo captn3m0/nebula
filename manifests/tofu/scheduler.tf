@@ -31,3 +31,23 @@ resource "kubernetes_secret_v1" "scheduler_fedi" {
 
   type = "Opaque"
 }
+
+data "pass_password" "listmonk_digest" {
+  path = "blr.today/listmonk-api-digest"
+}
+
+resource "kubernetes_secret_v1" "scheduler_listmonk" {
+  metadata {
+    name      = "scheduler-listmonk"
+    namespace = "scheduler"
+  }
+
+  data = {
+    LISTMONK_API_USER    = data.pass_password.listmonk_digest.data["user"]
+    LISTMONK_API_TOKEN   = trimspace(data.pass_password.listmonk_digest.password)
+    LISTMONK_LIST_ID     = data.pass_password.listmonk_digest.data["list_id"]
+    LISTMONK_TEMPLATE_ID = data.pass_password.listmonk_digest.data["weekly_template_id"]
+  }
+
+  type = "Opaque"
+}

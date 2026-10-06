@@ -7,6 +7,9 @@ terraform {
     pass = {
       source = "camptocamp/pass"
     }
+    random = {
+      source = "hashicorp/random"
+    }
   }
 }
 

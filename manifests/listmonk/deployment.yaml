@@ -1,0 +1,90 @@
+# listmonk for the blr.today weekly email; state lives in the Supabase `listmonk` database, mail goes out through SES
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: listmonk
+  labels:
+    app: listmonk
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: listmonk
+  template:
+    metadata:
+      labels:
+        app: listmonk
+    spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      initContainers:
+        - name: migrate
+          image: docker.io/listmonk/listmonk:v6.2.0@sha256:f535d59e14991337a9f2d570273685378ae86b0d7698c3e00da444e3bc205286
+          command: [sh, -euc, "./listmonk --install --idempotent --yes && ./listmonk --upgrade --yes"]
+          envFrom: &env
+            - configMapRef: { name: listmonk-env }
+          env: &secrets
+            - name: LISTMONK_db__password
+              valueFrom: { secretKeyRef: { name: listmonk-db, key: password } }
+            - name: LISTMONK_ADMIN_USER
+              valueFrom: { secretKeyRef: { name: listmonk-admin, key: username } }
+            - name: LISTMONK_ADMIN_PASSWORD
+              valueFrom: { secretKeyRef: { name: listmonk-admin, key: password } }
+          securityContext: &hardened
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources: &resources
+            requests: { cpu: 10m, memory: 32Mi }
+            limits: { memory: 192Mi }
+          volumeMounts: &mounts
+            - { name: ca, mountPath: /etc/supabase, readOnly: true }
+            - { name: tmp, mountPath: /tmp }
+            - { name: uploads, mountPath: /listmonk/uploads }
+      containers:
+        - name: listmonk
+          image: docker.io/listmonk/listmonk:v6.2.0@sha256:f535d59e14991337a9f2d570273685378ae86b0d7698c3e00da444e3bc205286
+          command: [./listmonk]
+          envFrom: *env
+          env: *secrets
+          ports:
+            - { name: http, containerPort: 9000 }
+          readinessProbe:
+            httpGet: { path: /admin/login, port: http }
+            initialDelaySeconds: 3
+            periodSeconds: 30
+          securityContext: *hardened
+          resources: *resources
+          volumeMounts: *mounts
+      volumes:
+        - name: ca
+          configMap: { name: supabase-ca }
+        - name: tmp
+          emptyDir: { sizeLimit: 16Mi }
+        - name: uploads
+          emptyDir: { sizeLimit: 16Mi }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: listmonk-env
+data:
+  LISTMONK_app__address: "0.0.0.0:9000"
+  # Supavisor session pooler: IPv4, and keeps listmonk's prepared statements working
+  LISTMONK_db__host: aws-0-ap-south-1.pooler.supabase.com
+  LISTMONK_db__port: "5432"
+  LISTMONK_db__user: postgres.seipyzfjfunowcaizcoi
+  LISTMONK_db__database: listmonk
+  LISTMONK_db__ssl_mode: verify-full
+  LISTMONK_db__params: sslrootcert=/etc/supabase/supabase-root-2021.crt
+  LISTMONK_db__max_open: "8"
+  LISTMONK_db__max_idle: "2"

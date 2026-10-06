@@ -5,4 +5,5 @@ resources:
   - namespace.yaml
   - pvc.yaml
   - cronjob.yaml
+  - digest.yaml
   - web.yaml

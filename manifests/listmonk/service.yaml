@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: listmonk
+spec:
+  selector:
+    app: listmonk
+  ports:
+    - { name: http, port: 9000, targetPort: http }

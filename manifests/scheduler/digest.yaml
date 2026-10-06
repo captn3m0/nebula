@@ -1,0 +1,57 @@
+# The weekly email: one listmonk campaign, every Wednesday at 10:00 IST, with its own events.db in /tmp
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: digest
+  labels:
+    app.kubernetes.io/name: digest
+spec:
+  schedule: "0 10 * * 3"
+  timeZone: Asia/Kolkata
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 3600
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 900
+      ttlSecondsAfterFinished: 604800
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: digest
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            fsGroup: 65534
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: digest
+              image: ghcr.io/blr-today/scheduler:11
+              args: ["--state", "/tmp/state", "digest", "--send"]
+              envFrom:
+                - secretRef:
+                    name: scheduler-listmonk
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 96Mi
+                limits:
+                  memory: 256Mi
+              volumeMounts:
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            - name: tmp
+              emptyDir: { sizeLimit: 256Mi }

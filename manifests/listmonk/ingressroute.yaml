@@ -1,0 +1,38 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: listmonk
+spec:
+  entryPoints: [websecure]
+  routes:
+    - match: Host(`lists.blr.today`)
+      kind: Rule
+      services:
+        - name: listmonk
+          port: 9000
+  tls:
+    certResolver: letsencrypt-http
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: listmonk-http
+spec:
+  entryPoints: [web]
+  routes:
+    - match: Host(`lists.blr.today`)
+      kind: Rule
+      middlewares:
+        - name: listmonk-https
+      services:
+        - name: listmonk
+          port: 9000
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: listmonk-https
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
