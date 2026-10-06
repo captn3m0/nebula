@@ -33,7 +33,7 @@ spec:
               type: RuntimeDefault
           containers:
             - name: scheduler
-              image: ghcr.io/blr-today/scheduler:9@sha256:1bd7329ab9ef58603c3f4d7c819c5e300211abd96ab736c551559b3b2e6118b1
+              image: ghcr.io/blr-today/scheduler:10@sha256:0c8178b765ce92b485c9e990e04d4b3004eb94849eb9fb7e0ef58eaad01d6d47
               args: ["run"]
               env:
                 # Posting hours run until 20:00 IST on this one date
