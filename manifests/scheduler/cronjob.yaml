@@ -33,9 +33,12 @@ spec:
               type: RuntimeDefault
           containers:
             - name: scheduler
-              image: ghcr.io/blr-today/scheduler:8@sha256:e1bf6b7ab1673b5ea2836ab66b259b6157ecf033c95501c44bf433ca9ce580ad
+              image: ghcr.io/blr-today/scheduler:9@sha256:1bd7329ab9ef58603c3f4d7c819c5e300211abd96ab736c551559b3b2e6118b1
               args: ["run"]
               env:
+                # Posting hours run until 20:00 IST on this one date
+                - name: SCHEDULER_DAY_END
+                  value: "2026-10-06T20:00+05:30"
                 - name: BLUESKY_APP_PASSWORDS
                   valueFrom:
                     secretKeyRef:
