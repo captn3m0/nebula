@@ -4,6 +4,8 @@ locals {
     events      = "did:plc:kz3xdvmoztnqr2f36oxtjr7g"
     curated     = "did:plc:e47aa4am3hekue3qfws3vn74"
     indiranagar = "did:plc:thsvbapfrowczhsakvvuq7lf"
+    cbd         = "did:plc:kzdb4mxxj5tqqkj26kzegabp"
+    lastcall    = "did:plc:iijvidif5qnmtgik6d6q3isb"
   }
 }
 
