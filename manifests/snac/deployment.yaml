@@ -45,7 +45,6 @@ spec:
           image: alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
           command: [sh, -euc, "apk add --no-cache libcurl tzdata && exec /opt/snac/snac httpd /data/snac"]
           env:
-            - { name: SNAC_BASEDIR, value: /data/snac }
             - { name: PATH, value: "/opt/snac:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" }
           ports:
             - { name: http, containerPort: 8001 }
