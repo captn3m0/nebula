@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: snac
+spec:
+  selector:
+    app: snac
+  ports:
+    - { name: http, port: 8001, targetPort: http }

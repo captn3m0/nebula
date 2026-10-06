@@ -1,0 +1,65 @@
+# snac has no official image, so an init container builds a pinned release
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snac
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: snac
+  template:
+    metadata:
+      labels:
+        app: snac
+    spec:
+      initContainers:
+        - name: build
+          image: alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+          env:
+            - name: SNAC_VERSION
+              value: "2.95"
+            - name: SNAC_SHA256
+              value: c4d89953926a1853dc9f760ddc1a94a971ab5f839a30cb4a81808b67800a2387
+          command:
+            - sh
+            - -euc
+            - |
+              apk add --no-cache build-base curl-dev openssl-dev
+              cd /tmp
+              wget -q -O snac.tar.gz "https://codeberg.org/grunfink/snac2/archive/${SNAC_VERSION}.tar.gz"
+              echo "${SNAC_SHA256}  snac.tar.gz" | sha256sum -c -
+              tar xzf snac.tar.gz
+              make -C snac2 -j2
+              install -m 755 snac2/snac /opt/snac/snac
+              if [ ! -f /data/snac/server.json ]; then
+                printf '0.0.0.0\n8001\nfedi.blr.today\n\nme@captnemo.in\n' | /opt/snac/snac init /data/snac
+              fi
+          volumeMounts:
+            - { name: bin, mountPath: /opt/snac }
+            - { name: data, mountPath: /data }
+      containers:
+        - name: snac
+          image: alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+          command: [sh, -euc, "apk add --no-cache libcurl tzdata && exec /opt/snac/snac httpd /data/snac"]
+          env:
+            - { name: SNAC_BASEDIR, value: /data/snac }
+            - { name: PATH, value: "/opt/snac:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" }
+          ports:
+            - { name: http, containerPort: 8001 }
+          readinessProbe:
+            httpGet: { path: /api/v1/instance, port: http }
+            initialDelaySeconds: 5
+          resources:
+            requests: { cpu: 10m, memory: 32Mi }
+            limits: { memory: 256Mi }
+          volumeMounts:
+            - { name: bin, mountPath: /opt/snac }
+            - { name: data, mountPath: /data }
+      volumes:
+        - { name: bin, emptyDir: {} }
+        - name: data
+          persistentVolumeClaim:
+            claimName: snac-data

@@ -4,6 +4,7 @@ Each subdirectory here corresponds to one namespace or cluster-scoped setup:
 
 - `cert-manager/` for the cert-manager namespace and cluster-wide issuers
 - `slidge/` for the Slidge Zulip bridge namespace and Helm values
+- `snac/` for the fedi.blr.today ActivityPub server (`kubectl apply -k`, then `bootstrap.sh`)
 
 The intended flow is:
 
