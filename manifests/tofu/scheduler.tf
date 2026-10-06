@@ -14,3 +14,20 @@ resource "kubernetes_secret_v1" "scheduler_bluesky" {
 
   type = "Opaque"
 }
+
+data "pass_password" "scheduler_fedi" {
+  path = "blr.today/fedi/github-actions-secret"
+}
+
+resource "kubernetes_secret_v1" "scheduler_fedi" {
+  metadata {
+    name      = "scheduler-fedi"
+    namespace = "scheduler"
+  }
+
+  data = {
+    tokens = data.pass_password.scheduler_fedi.password
+  }
+
+  type = "Opaque"
+}
