@@ -34,3 +34,11 @@ resource "netlify_dns_record" "fedi" {
   hostname = "fedi.blr.today"
   value    = "139.59.48.222"
 }
+
+# The scheduler's report, proxied by the website at /_debug/social/
+resource "netlify_dns_record" "scheduler" {
+  type     = "A"
+  zone_id  = data.netlify_dns_zone.blr_today.id
+  hostname = "scheduler.blr.today"
+  value    = "139.59.48.222"
+}
