@@ -5,10 +5,11 @@ resource "aws_iam_user" "smtp" {
 data "aws_iam_policy_document" "smtp" {
   statement {
     actions = ["ses:SendRawEmail", "ses:SendEmail"]
-    resources = [
+    resources = concat([
       aws_sesv2_email_identity.blr_today.arn,
       aws_sesv2_configuration_set.weekly.arn,
-    ]
+      # In the sandbox SES also checks the verified recipient's identity
+    ], [for r in aws_sesv2_email_identity.test_recipient : r.arn])
   }
 }
 
@@ -44,7 +45,7 @@ resource "aws_sns_topic_subscription" "listmonk" {
 
 variable "listmonk_webhook_enabled" {
   type    = bool
-  default = false
+  default = true
 }
 
 output "smtp_host" {

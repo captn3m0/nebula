@@ -17,7 +17,7 @@ api GET /api/settings | jq --arg root "$ROOT_URL" --arg host "$SMTP_HOST" --argj
   --arg user "$SMTP_USER" --arg pass "$SMTP_PASSWORD" --arg tls "$SMTP_TLS" '.data
   | .["app.root_url"]=$root | .["app.site_name"]="blr.today" | .["app.from_email"]="blr.today <weekly@blr.today>"
   | .["app.check_updates"]=false | .["app.enable_public_archive"]=false | .["app.enable_public_subscription_page"]=false
-  | .["app.message_rate"]=10
+  | .["app.message_rate"]=10 | .["bounce.enabled"]=true | .["bounce.webhooks_enabled"]=true | .["bounce.ses_enabled"]=true
   | .["privacy.individual_tracking"]=false | .["privacy.disable_tracking"]=true | .["privacy.unsubscribe_header"]=true
   | .["privacy.allow_preferences"]=false | .["privacy.allow_export"]=false | .["privacy.record_optin_ip"]=false
   | .smtp=[{name:"ses", enabled:true, host:$host, hello_hostname:"", port:$port,
