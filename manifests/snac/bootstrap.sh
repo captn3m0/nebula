@@ -62,7 +62,7 @@ while IFS="|" read -r -u 3 uid name bio; do
   img=()
   [[ "$(jq -r .avatar <<<"$me")" == */s/* ]] || img=(-F "avatar=@$avatar;type=image/png")
   curl -sf -X PATCH -H "Authorization: Bearer $tok" "$host/api/v1/accounts/update_credentials" \
-    -F "display_name=$name" -F "note=$bio" -F "bot=true" "${img[@]}" >/dev/null
+    --form-string "display_name=$name" --form-string "note=$bio" --form-string "bot=true" "${img[@]}" >/dev/null
   tokens=$(jq -c --arg u "$uid" --arg t "$tok" '.[$u] = $t' <<<"$tokens")
   pass insert -m -f "$prefix/github-actions-secret" <<<"$tokens" >/dev/null
   [ "$new" = 1 ] && echo "$uid created" || echo "$uid updated"
