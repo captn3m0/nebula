@@ -23,7 +23,7 @@ spec:
           type: RuntimeDefault
       containers:
       - name: scheduler
-        image: ghcr.io/blr-today/scheduler:7@sha256:d0e9f1389195b1a6ae6078797520ff8f0e2286a5b1c5550b18e0f87b4ff35fb6
+        image: ghcr.io/blr-today/scheduler:8@sha256:e1bf6b7ab1673b5ea2836ab66b259b6157ecf033c95501c44bf433ca9ce580ad
         args:
         - adopt
         - bluesky
