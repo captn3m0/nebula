@@ -42,3 +42,19 @@ resource "netlify_dns_record" "scheduler" {
   hostname = "scheduler.blr.today"
   value    = "139.59.48.222"
 }
+
+# Bearer or basic auth password for Grafana Cloud to scrape blr.today/metrics/authenticated
+data "pass_password" "metrics_token" {
+  path = "blr.today/grafana-metrics"
+}
+
+resource "netlify_environment_variable" "metrics_token" {
+  team_id = "5a2d2d35df99534c1cda3053"
+  site_id = "22e12fee-effc-43e9-a409-2c0d2e8d7602"
+  key     = "METRICS_TOKEN"
+  # Secrets need scopes, which the free plan can't set
+  values = [{
+    value   = trimspace(data.pass_password.metrics_token.password)
+    context = "all"
+  }]
+}
