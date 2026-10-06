@@ -12,7 +12,7 @@ declare -A notes=(
 tokens='{}'
 for uid in events indiranagar curated; do
   if ! pass show "blr.today/fedi/$uid" >/dev/null 2>&1; then
-    kubectl -n snac exec deploy/snac -c snac -- /opt/snac/snac adduser /data/snac "$uid" </dev/null \
+    ${KUBECTL:-kubectl} -n snac exec deploy/snac -c snac -- /opt/snac/snac adduser /data/snac "$uid" </dev/null \
       | sed -n 's/^User password is //p' | pass insert -m "blr.today/fedi/$uid" >/dev/null
   fi
   pw=$(pass show "blr.today/fedi/$uid" | head -1)
