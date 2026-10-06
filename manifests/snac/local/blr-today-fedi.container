@@ -1,0 +1,17 @@
+# Local stand-in for fedi.blr.today until the k3s deploy, as a podman quadlet
+[Unit]
+Description=Local replica of fedi.blr.today (snac)
+
+[Container]
+Image=docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+ContainerName=blr-today-fedi
+Network=host
+Volume=%h/.local/share/blr-today-fedi/bin:/opt/snac:Z
+Volume=%h/.local/share/blr-today-fedi/data:/data:Z
+Exec=sh -euc "apk add -q --no-cache libcurl tzdata && exec /opt/snac/snac httpd /data/snac"
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

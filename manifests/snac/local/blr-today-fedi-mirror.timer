@@ -1,0 +1,8 @@
+[Unit]
+Description=Mirror blr.today to the local fedi replica every 30 minutes, 10:00-19:30 IST
+
+[Timer]
+OnCalendar=*-*-* 10..19:00,30:00 Asia/Kolkata
+
+[Install]
+WantedBy=timers.target

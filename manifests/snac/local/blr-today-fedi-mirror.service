@@ -1,0 +1,8 @@
+[Unit]
+Description=Mirror the blr.today Bluesky firehose to the local fedi replica
+Requires=blr-today-fedi.service
+After=blr-today-fedi.service network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/projects/personal/nebula/manifests/snac/local/mirror.sh
