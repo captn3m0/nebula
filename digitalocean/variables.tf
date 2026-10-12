@@ -1,6 +1,6 @@
 variable "k3s_version" {
   type    = string
-  default = "v1.36.2+k3s1"
+  default = "v1.37.1+k3s1"
 }
 
 variable "tailscale_ip" {
