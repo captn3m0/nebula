@@ -1,0 +1,154 @@
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets:
+  - name: ghcr-pull-secret
+# Rendered by manifests/tofu/slidge.tf from pass
+secretRefName: slidge-zulip-slidge-zulip-runtime
+waitImage: busybox:1.36
+
+xmpp:
+  # TODO: Replace with the real public XMPP domains you want to serve.
+  domain: tatooine.club
+  conferenceDomain: 521ab.tatooine.club
+  signalDomain: signal.tatooine.club
+  uploadDomain: files.xmpp.tatooine.club
+  # Traefik terminates TLS for this one (HTTP-01, see manifests/traefik) so
+  # we don't need a Cloudflare DNS secret just for this hostname.
+  uploadExternalUrl: https://files.xmpp.tatooine.club/
+
+  # Server-wide admins. Prosody treats these as owner-level in every MUC room too.
+  admins:
+    - nemo@tatooine.club
+
+  mucPrivate: true
+  federation: true
+  adminContact: "mailto:bb8@captnemo.in"
+  uploadSizeLimitMB: 20
+  uploadDailyQuotaMB: 500
+  archiveExpiresAfter: "30d"
+
+  bridgeUser: bridge
+  bridgeNick: zulip
+
+  tls:
+    existingSecret: ""
+    generateSelfSigned: false
+    crt: ""
+    key: ""
+    ca: ""
+
+certManager:
+  enabled: true
+  secretName: ""
+  issuerRef:
+    name: letsencrypt-prod-tatooine
+    kind: ClusterIssuer
+    group: cert-manager.io
+  duration: 2160h
+  renewBefore: 360h
+
+zulip:
+  # TODO: Replace with the real Zulip realm and bot credentials.
+  site: https://521ab.zulipchat.com
+  botEmail: xmpp-bot@521ab.zulipchat.com
+
+  # TODO: Set to true after Zulip support grants can_forge_sender.
+  forge: false
+
+  profileFields:
+    xmpp: XMPP Username
+    telegram: Telegram Username
+    signal: Signal Username
+
+routes:
+  - stream: general
+    topic: general chat
+    room: general@521ab.tatooine.club
+  - stream: general
+    topic: Bangalore
+    room: bangalore@521ab.tatooine.club
+  - stream: general
+    topic: Librefin
+    room: librefin@521ab.tatooine.club
+  - stream: general
+    topic: introductions
+    room: introductions@521ab.tatooine.club
+  - stream: general
+    topic: panqr
+    room: panqr@521ab.tatooine.club
+
+prosody:
+  image:
+    repository: prosodyim/prosody
+    tag: "13.0"
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    c2sPort: 5222
+    componentPort: 5347
+
+  # c2s (5222) is bound via hostPort to the anchor IP, not the floating IP
+  # directly (DO NATs floating-IP traffic to the anchor IP before it reaches
+  # the droplet) and not through the ClusterIP service above.
+  hostIP: "10.47.0.6"
+
+  allowRegistration: false
+  resources:
+    requests: {cpu: 10m, memory: 16Mi}
+    limits: {memory: 96Mi}
+
+  persistence:
+    enabled: true
+    storageClassName: ""
+    accessModes:
+      - ReadWriteOnce
+    # NOTE: k3s's local-path StorageClass doesn't support volume expansion,
+    # so this can't just be bumped on an existing PVC without a manual
+    # migration. Upload storage (uploadDailyQuotaMB below) shares this
+    # volume - keep an eye on usage.
+    size: 5Gi
+
+bridge:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/captn3m0/slidge-zulip
+    tag: v8
+    pullPolicy: IfNotPresent
+
+  # Public Let's Encrypt certs should already be trusted by the image.
+  caFile: ""
+
+  resources:
+    requests: {cpu: 10m, memory: 48Mi}
+    limits: {memory: 192Mi}
+
+
+slidgnal:
+  # TODO: Set true when enabling Signal.
+  enabled: false
+
+  image:
+    repository: codeberg.org/slidge/slidgnal
+    tag: latest-amd64
+    pullPolicy: IfNotPresent
+
+  extraArgs: []
+  extraEnv: []
+  resources: {}
+
+  persistence:
+    enabled: true
+    storageClassName: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
+
+podAnnotations: {}
+podLabels: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
