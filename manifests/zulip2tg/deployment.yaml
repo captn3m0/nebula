@@ -23,6 +23,9 @@ spec:
           args:
             - -c
             - /etc/zulip2tg/config.yaml
+          resources:
+            requests: {cpu: 5m, memory: 16Mi}
+            limits: {memory: 64Mi}
           volumeMounts:
             - name: config
               mountPath: /etc/zulip2tg

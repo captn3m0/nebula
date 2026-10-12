@@ -9,6 +9,13 @@ spec:
     logs:
       general:
         level: INFO
+    # hostPorts on one node: stop the old pod before starting the new one
+    updateStrategy:
+      type: RollingUpdate
+      rollingUpdate: {maxSurge: 0, maxUnavailable: 1}
+    resources:
+      requests: {cpu: 25m, memory: 64Mi}
+      limits: {memory: 192Mi}
     podSecurityContext:
       runAsNonRoot: false
       runAsUser: 0
