@@ -50,15 +50,63 @@
         mode: "0644"
       notify: Reload sysctl
 
-    - name: Evict pods before the node runs out of memory
+    - name: Evict pods before the node runs out of memory, drop unused controllers
       ansible.builtin.copy:
         dest: /etc/rancher/k3s/config.yaml
         content: |
+          disable-cloud-controller: true
+          disable-network-policy: true
           kubelet-arg:
             - "eviction-hard=memory.available<150Mi"
             - "eviction-minimum-reclaim=memory.available=100Mi"
         mode: "0600"
       notify: Restart k3s
+
+    - name: Create the k3s systemd drop-in directory
+      ansible.builtin.file:
+        path: /etc/systemd/system/k3s.service.d
+        state: directory
+        mode: "0755"
+
+    - name: Make the k3s Go runtime return idle heap to the OS (k3s.service.env is rewritten on upgrade)
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/k3s.service.d/go-runtime.conf
+        content: |
+          [Service]
+          Environment=GOMEMLIMIT=550MiB
+          Environment=GOGC=50
+        mode: "0644"
+      notify: Restart k3s
+
+    - name: Drop the old Go runtime settings from k3s.service.env
+      ansible.builtin.lineinfile:
+        path: /etc/systemd/system/k3s.service.env
+        regexp: "^(GOMEMLIMIT|GOGC)="
+        state: absent
+      notify: Restart k3s
+
+    - name: Stop docker, which k3s does not use
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        state: stopped
+        enabled: false
+      loop: [docker.socket, docker.service, containerd.service]
+      failed_when: false
+
+    - name: Create the journald drop-in directory
+      ansible.builtin.file:
+        path: /etc/systemd/journald.conf.d
+        state: directory
+        mode: "0755"
+
+    - name: Cap the journal size
+      ansible.builtin.copy:
+        dest: /etc/systemd/journald.conf.d/size.conf
+        content: |
+          [Journal]
+          SystemMaxUse=300M
+        mode: "0644"
+      notify: Restart journald
 
   handlers:
     - name: Reload sysctl
@@ -67,4 +115,10 @@
     - name: Restart k3s
       ansible.builtin.systemd_service:
         name: k3s
+        state: restarted
+        daemon_reload: true
+
+    - name: Restart journald
+      ansible.builtin.systemd_service:
+        name: systemd-journald
         state: restarted
