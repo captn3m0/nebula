@@ -14,4 +14,3 @@ plan
 kubeconfig
 manifests/slidge/values.yaml
 manifests/cert-manager/cloudflare-api-token-secret.yaml
-manifests/zulip2tg/secret.yaml

@@ -1,0 +1,38 @@
+zulip:
+  site: "https://521ab.zulipchat.com"
+  email: "tg-bot@521ab.zulipchat.com"
+  key: ${jsonencode(zulip_key)}
+
+telegram:
+  bot_token: ${jsonencode(telegram_bot_token)}
+  chat_id: -1003918956818
+
+# Allow-list: only these stream+topic pairs bridge, each to its own
+# Telegram forum topic. Add more entries over time as needed.
+routes:
+  - stream: "general"
+    topic: "general chat"
+    telegram_thread_id: 0
+  - stream: "sandbox"
+    topic: "debug"
+    telegram_thread_id: 15
+  - stream: "general"
+    topic: "Bangalore"
+    telegram_thread_id: 6
+  - stream: "general"
+    topic: "Librefin"
+    telegram_thread_id: 2
+  - stream: "general"
+    topic: "candidates"
+    telegram_thread_id: 4
+  - stream: "general"
+    topic: "introductions"
+    telegram_thread_id: 5
+
+attachments:
+  enabled: true
+  max_size_mb: 20
+  download_timeout: 30s
+
+message_format:
+  include_zulip_link: false
