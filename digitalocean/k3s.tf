@@ -17,11 +17,7 @@ resource "null_resource" "k3s_install" {
   }
 
   provisioner "local-exec" {
-    command = <<-EOT
-      scp -o StrictHostKeyChecking=accept-new root@${var.tailscale_ip}:/etc/rancher/k3s/k3s.yaml ${path.module}/kubeconfig
-      sed -i.bak 's/127.0.0.1/${var.tailscale_ip}/' ${path.module}/kubeconfig
-      rm -f ${path.module}/kubeconfig.bak
-    EOT
+    command = "${path.module}/kubeconfig-to-pass.sh ${var.tailscale_ip} ${path.module}/kubeconfig"
   }
 }
 
