@@ -5,7 +5,7 @@ CronJob that disables every denylist entry on the NextDNS profile `Jeju`
 
 The schedule and timezone are read from the profile's parental control
 recreation settings, so edit them at <https://my.nextdns.io/ccb484/parentalcontrol>.
-The job runs every 5 minutes and only PATCHes entries that need flipping.
+The job runs every 15 minutes and only PATCHes entries that need flipping.
 
 ## Install
 
