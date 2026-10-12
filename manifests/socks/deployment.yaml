@@ -1,0 +1,74 @@
+# Tailnet-only SOCKS5 proxy whose egress is pinned to the anchor IP (floating IP)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sockd
+  labels:
+    app.kubernetes.io/name: sockd
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sockd
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sockd
+    spec:
+      hostNetwork: true
+      dnsPolicy: Default
+      automountServiceAccountToken: false
+      initContainers:
+        - name: install
+          image: alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+          command: ["sh", "-c", "apk add --no-cache dante-server && cp /usr/sbin/sockd /opt/bin/"]
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              memory: 64Mi
+          volumeMounts:
+            - name: bin
+              mountPath: /opt/bin
+      containers:
+        - name: sockd
+          image: alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+          command: ["/opt/bin/sockd", "-f", "/etc/sockd/sockd.conf", "-p", "/tmp/sockd.pid"]
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              memory: 64Mi
+          volumeMounts:
+            - name: bin
+              mountPath: /opt/bin
+              readOnly: true
+            - name: config
+              mountPath: /etc/sockd
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: bin
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: sockd
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 16Mi
