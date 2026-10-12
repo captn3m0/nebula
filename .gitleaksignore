@@ -1,0 +1,17 @@
+# Historical leaks from retired services (gitea, wiki, ubooquity) and a dummy value; accepted
+0d6ad17fe410a6422b964ed733f695057f8d9adf:docker/conf/ubooquity.json:generic-api-key:32
+0d6ad17fe410a6422b964ed733f695057f8d9adf:docker/conf/ubooquity.json:generic-api-key:36
+1be61eadae6d434fdc7231c7982a487f3464858a:docker/conf/ubooquity.json:generic-api-key:49
+1be61eadae6d434fdc7231c7982a487f3464858a:docker/conf/ubooquity.json:generic-api-key:53
+1be61eadae6d434fdc7231c7982a487f3464858a:docker/conf/ubooquity.json:generic-api-key:57
+452c7d5b79b5dfd88916f24f3275f6e353a5e994:docker/conf/ubooquity.json:generic-api-key:63
+47e27ee6583d682266148f53769f64dfa90f71a5:docker/conf/ubooquity.json:generic-api-key:70
+92083c7e8a23a19e35b2cf12270a35716eab1562:docker/conf/ubooquity.json:generic-api-key:78
+a0e5f7edd71ee90d76d31e47adc18b70eb07c519:docker/conf/wiki.yml:generic-api-key:75
+abe774561e1032d04a85855292dd9643136336b3:docker/conf/ubooquity.json:generic-api-key:101
+abe774561e1032d04a85855292dd9643136336b3:docker/conf/ubooquity.json:generic-api-key:105
+abe774561e1032d04a85855292dd9643136336b3:docker/conf/ubooquity.json:generic-api-key:109
+abe774561e1032d04a85855292dd9643136336b3:docker/conf/ubooquity.json:generic-api-key:113
+abe774561e1032d04a85855292dd9643136336b3:docker/conf/ubooquity.json:generic-api-key:97
+bc9f2a61a14a04738a6e4cfa5692f6b6e918ee3b:docker/conf/gitea/conf.ini.tpl:generic-api-key:73
+fa787e084adc8f75c03e1c79179bce28b4da4222:main.tf:hashicorp-tf-password:75
