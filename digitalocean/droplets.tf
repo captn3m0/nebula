@@ -16,6 +16,11 @@ resource "digitalocean_droplet" "ceylon" {
     "ceylon",
     "vpn",
   ]
+
+  # Destroying the droplet releases its public IP 139.59.25.55
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 output "droplet_ipv4" {
