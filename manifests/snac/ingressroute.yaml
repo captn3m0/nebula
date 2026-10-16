@@ -21,6 +21,14 @@ spec:
       services:
         - name: snac
           port: 8001
+    # snac serves its own icon here, ignoring favicon_url
+    - match: Host(`fedi.blr.today`) && Path(`/favicon.ico`)
+      kind: Rule
+      middlewares:
+        - name: snac-favicon
+      services:
+        - name: snac
+          port: 8001
   tls:
     certResolver: letsencrypt-http
 ---
@@ -47,3 +55,12 @@ spec:
   redirectScheme:
     scheme: https
     permanent: true
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: snac-favicon
+spec:
+  redirectRegex:
+    regex: ^.*$
+    replacement: https://blr.today/img/favicon.ico

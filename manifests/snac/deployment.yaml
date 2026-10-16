@@ -38,6 +38,9 @@ spec:
               fi
               sed -i -E 's/("local_purge_days": *)[0-9]+/\10/' /data/snac/server.json
               grep -q '"local_purge_days": 0' /data/snac/server.json
+              grep -q '"favicon_url"' /data/snac/server.json || sed -i '1s|^{|{ "favicon_url": "",|' /data/snac/server.json
+              sed -i -E 's|("favicon_url": *)"[^"]*"|\1"https://blr.today/img/favicon.ico"|' /data/snac/server.json
+              grep -q '"favicon_url": "https://blr.today/img/favicon.ico"' /data/snac/server.json
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
