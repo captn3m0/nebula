@@ -28,14 +28,26 @@ free|BLR.today Free|Upcoming free events in Bengaluru from blr.today. $all
 budget|BLR.today Budget|Upcoming Bengaluru events under ₹500 from blr.today. $all
 workshops|BLR.today Workshops|Upcoming workshops in Bengaluru from blr.today. $all
 sports|BLR.today Sports|Upcoming sports events in Bengaluru from blr.today. $all
-food|BLR.today Food|Upcoming food events in Bengaluru from blr.today. $all
-music|BLR.today Music|Upcoming music events in Bengaluru from blr.today. $all
+food|BLR.today Food & Drink|Upcoming tastings, food pop-ups, cooking classes and drinks events in Bengaluru from blr.today. $all
+music|BLR.today Live Music|Upcoming gigs and concerts in Bengaluru from blr.today. $all
 film|BLR.today Film|Upcoming film screenings in Bengaluru from blr.today. $all
+boardgames|BLR.today Board Games|Upcoming board game nights and tabletop games in Bengaluru from blr.today. $all
+comedy|BLR.today Comedy & Improv|Upcoming stand-up, improv and comedy open mics in Bengaluru from blr.today. $all
+couples|BLR.today Couples|Upcoming workshops, dinners and outings for couples in Bengaluru from blr.today. $all
+crafts|BLR.today Arts & Crafts|Upcoming hands-on art and craft workshops in Bengaluru from blr.today. $all
+dance|BLR.today Dance|Upcoming dance classes and social dance nights in Bengaluru from blr.today. $all
+kids|BLR.today Kids|Upcoming events for children in Bengaluru from blr.today. $all
+outdoors|BLR.today Walks & Outdoors|Upcoming heritage walks, nature walks, rides and stargazing in Bengaluru from blr.today. $all
+quizzing|BLR.today Quizzing|Upcoming pub quizzes and trivia nights in Bengaluru from blr.today. $all
+stage|BLR.today Theatre & Performance|Upcoming plays, dance performances, storytelling and poetry in Bengaluru from blr.today. $all
 books|BLR.today Books|Upcoming book events in Bengaluru from blr.today. $all
 underline|BLR.today Underline Center|Upcoming events at Underline Center from blr.today. $all
 bic|BLR.today Bangalore International Centre|Upcoming events at Bangalore International Centre from blr.today. $all
 sabha|BLR.today Sabha BLR|Upcoming events at Sabha BLR from blr.today. $all
 scigallery|BLR.today Science Gallery Bengaluru|Upcoming events at Science Gallery Bengaluru from blr.today. $all
+rangashankara|BLR.today Ranga Shankara|Upcoming plays at Ranga Shankara from blr.today. $all
+afbangalore|BLR.today Alliance Française|Upcoming events at Alliance Française de Bangalore from blr.today. $all
+fillum|BLR.today Bangalore Film Forum|Upcoming Bangalore Film Forum screenings from blr.today. $all
 EOF
 )
 
