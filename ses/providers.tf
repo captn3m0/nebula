@@ -32,6 +32,7 @@ variable "aws_profile" {
   default = "nebula"
 }
 
+# Personal token NEBULA_NETLIFY (no expiry) from https://app.netlify.com/user/applications
 data "pass_password" "netlify_token" {
-  path = "Keys/NETLIFY"
+  path = "Nebula/NETLIFY_ACCESS_TOKEN"
 }

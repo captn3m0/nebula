@@ -7,6 +7,8 @@ locals {
     cbd         = "did:plc:kzdb4mxxj5tqqkj26kzegabp"
     lastcall    = "did:plc:iijvidif5qnmtgik6d6q3isb"
     free        = "did:plc:4nfsbt4sxi54gjwb2y2575i2"
+    # blrtoday001.mu.social at signup
+    whitefield  = "did:plc:ujhm7oadknt6spazocqyujlk"
   }
 }
 
