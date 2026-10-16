@@ -23,6 +23,8 @@ locals {
     food = "did:plc:rbca3h53joq54m7d24vy7l2p"
     # N=08, blrtoday008.mu.social at signup
     sports = "did:plc:25h3b5pjoognrq4c3dto2tcq"
+    # N=09, blrtoday009.mu.social at signup
+    afbangalore = "did:plc:htn3q6q5xmyzru2mz3bf3zqk"
     # N=10, blrtoday010.mu.social at signup
     stage = "did:plc:kxsa3xeufsdkh3dbmywrufpy"
     # N=11, blrtoday011.mu.social at signup
